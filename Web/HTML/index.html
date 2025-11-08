@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiriliX | Български език за програмиране</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="../CSS/index.css" rel="stylesheet">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-container">
+            <div class="loader-circle"></div>
+            <div class="loader-letter" id="loaderLetter">К</div>
+        </div>
+        <div class="loader-text">Зареждане на KiriliX</div>
+    </div>
+    
+    <div class="animated-bg">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+    
+    <div class="bulgarian-pattern"></div>
+    
+    <header>
+        <div class="bulgarian-border"></div>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">K</div>
+                KiriliX
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Възможности</a>
+                <a href="#" class="nav-link">Документация</a>
+                <a href="#" class="nav-link">Общност</a>
+                <a href="#" class="nav-link">Блог</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-outline">
+                    Вход
+                </button>
+                <button class="btn btn-primary">
+                    Изтегли
+                </button>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="#" class="mobile-nav-link">Възможности</a>
+                <a href="#" class="mobile-nav-link">Документация</a>
+                <a href="#" class="mobile-nav-link">Общност</a>
+                <a href="#" class="mobile-nav-link">Блог</a>
+            </div>
+            <div class="mobile-nav-actions">
+                <button class="btn btn-outline">
+                    Вход
+                </button>
+                <button class="btn btn-primary">
+                    Изтегли
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-badge fade-in">
+            <i class="fas fa-flag"></i>
+            Първият български език за програмиране
+        </div>
+        <h1 class="hero-title fade-in delay-1">
+            Програмирай на <span>български</span> с KiriliX
+        </h1>
+        <p class="hero-description fade-in delay-2">
+            Създаден от българи за българите. Модерен, интуитивен и мощен език, който уважава родния ни език и култура.
+        </p>
+        <div class="hero-actions fade-in delay-3">
+            <button class="btn btn-primary btn-large">
+                <i class="fas fa-download"></i>
+                Започни сега
+            </button>
+            <button class="btn btn-outline btn-large">
+                <i class="fas fa-book-open"></i>
+                Научи повече
+            </button>
+        </div>
+        <div class="hero-visual fade-in delay-3 code-flag-border">
+            <div class="code-preview">
+                <div class="code-line"><span class="code-comment">// Класически български поздрав</span></div>
+                <div class="code-line"><span class="code-keyword">функция</span> <span class="code-function">българскиПоздрав</span>() {</div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">нека</span> поздрави = [<span class="code-string">"Здравей"</span>, <span class="code-string">"Добър ден"</span>, <span class="code-string">"Привет"</span>];</div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">нека</span> произволенПоздрав = поздрави[<span class="code-function">цялоЧисло</span>(<span class="code-function">случайно</span>() * поздрави.дължина)];</div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-function">изведи</span>(произволенПоздрав + <span class="code-string">", България!"</span>);</div>
+                <div class="code-line">}</div>
+                <div class="code-line"><span class="code-function">българскиПоздрав</span>();</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Защо KiriliX?</h2>
+            <p class="section-description">Създаден с любов към българския език и технологиите</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3 class="feature-title">Напълно на български</h3>
+                <p class="feature-description">Всички ключови думи, функции и съобщения за грешки са на кирилица. Пиши код на родния си език!</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3 class="feature-title">Вдъхновен от България</h3>
+                <p class="feature-description">Създаден с вдъхновение от българската история, култура и иновативен дух.</p>
+            </div>
+            <div class="feature-card fade-in delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">За българската общност</h3>
+                <p class="feature-description">Развива се от и за българските програмисти, с активна местна общност.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Висока производителност</h3>
+                <p class="feature-description">Оптимизиран за бързо изпълнение и ефективно използване на системни ресурси.</p>
+            </div>
+            <div class="feature-card fade-in delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Сигурен по дизайн</h3>
+                <p class="feature-description">Вградени механизми за защита от често срещани уязвимости и грешки.</p>
+            </div>
+            <div class="feature-card fade-in delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="feature-title">Идеален за обучение</h3>
+                <p class="feature-description">Перфектен избор за въвеждане в програмирането в българските училища и университети.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-example">
+        <div class="example-container">
+            <div class="example-content fade-in">
+                <h2 class="example-title">Интуитивен синтаксис с български думи</h2>
+                <p class="example-description">
+                    KiriliX използва български ключови думи, които са лесни за запомняне и правят кода по-четим за българските програмисти.
+                </p>
+                <ul class="example-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Ключови думи като "функция", "ако", "за", "докато"</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Типове данни: "цялоЧисло", "дробночисло", "текст", "булев"</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Функции за вход/изход: "прочети", "изведи", "отвори", "затвори"</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Съобщения за грешки на български език</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="example-code fade-in delay-1 code-flag-border">
+                <div class="code-header">
+                    <div class="code-title">български-пример.krx</div>
+                    <div class="code-actions">
+                        <button class="btn btn-outline btn-small">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="code-body">
+                    <div class="code-line"><span class="code-comment">// Изчисляване на факториел</span></div>
+                    <div class="code-line"><span class="code-keyword">функция</span> <span class="code-function">факториел</span>(число) {</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">ако</span> (число <= 1) {</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">върни</span> 1;</div>
+                    <div class="code-line">&nbsp;&nbsp;}</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">върни</span> число * <span class="code-function">факториел</span>(число - 1);</div>
+                    <div class="code-line">}</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment">// Главна програма</span></div>
+                    <div class="code-line"><span class="code-keyword">функция</span> <span class="code-function">главна</span>() {</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-function">изведи</span>(<span class="code-string">"Добре дошли в KiriliX!"</span>);</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">нека</span> число = 5;</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">нека</span> резултат = <span class="code-function">факториел</span>(число);</div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="code-function">изведи</span>(<span class="code-string">"Факториел от "</span> + число + <span class="code-string">" е "</span> + резултат);</div>
+                    <div class="code-line">}</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-function">главна</span>();</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bulgarian-elements">
+        <div class="elements-container">
+            <h2 class="elements-title fade-in">Горди сме с българските си корени</h2>
+            <div class="elements-grid">
+                <div class="element-card fade-in">
+                    <div class="element-icon">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="element-title">Наследство на Преслав</h3>
+                    <p class="element-description">Вдъхновени от Преславската книжовна школа и кирилицата.</p>
+                </div>
+                <div class="element-card fade-in delay-1">
+                    <div class="element-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="element-title">Съвременни технологии</h3>
+                    <p class="element-description">Съчетаваме богатото ни културно наследство с модерните технологии.</p>
+                </div>
+                <div class="element-card fade-in delay-2">
+                    <div class="element-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="element-title">Подкрепа за общността</h3>
+                    <p class="element-description">Активно подкрепяме българските разработчици и образованието.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-container fade-in">
+            <h2 class="cta-title">Присъединете се към българската технологична революция</h2>
+            <p class="cta-description">
+                Станете част от общността на KiriliX и помогнете за изграждането на бъдещето на българското програмиране.
+            </p>
+            <button class="btn btn-light btn-large">
+                <i class="fas fa-download"></i>
+                Изтегли KiriliX
+            </button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">K</div>
+                        KiriliX
+                    </div>
+                    <p class="footer-description">
+                        Първият български език за програмиране, създаден с любов към родния език и технологиите.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Ресурси</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Документация</a></li>
+                        <li><a href="#">Уроци</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Форум</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Общност</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Събития</a></li>
+                        <li><a href="#">Разработчици</a></li>
+                        <li><a href="#">Партньорства</a></li>
+                        <li><a href="#">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Компания</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">За нас</a></li>
+                        <li><a href="#">Кариери</a></li>
+                        <li><a href="#">Прес</a></li>
+                        <li><a href="#">Правна информация</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2023 KiriliX. Всички права запазени.
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>Създадено с любов в България</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../JS/loader.js"></script>
+</body>
+</html>

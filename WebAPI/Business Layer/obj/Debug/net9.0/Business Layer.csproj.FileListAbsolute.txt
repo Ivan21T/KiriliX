@@ -1,0 +1,13 @@
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\bin\Debug\net9.0\Business Layer.deps.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\bin\Debug\net9.0\Business Layer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\bin\Debug\net9.0\Business Layer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.csproj.AssemblyReference.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.AssemblyInfoInputs.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.AssemblyInfo.cs
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.csproj.CoreCompileInputs.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.sourcelink.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\refint\Business Layer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\Business Layer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\ref\Business Layer.dll

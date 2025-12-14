@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧЗВ | KiriliX - Български език за програмиране</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/faq.css">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-container">
+            <div class="loader-circle"></div>
+            <div class="loader-letter" id="loaderLetter">К</div>
+        </div>
+        <div class="loader-text">Зареждане на ЧЗВ</div>
+    </div>
+    
+    <div class="animated-bg">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+    
+    <div class="bulgarian-pattern"></div>
+    
+    <header>
+        <div class="bulgarian-border"></div>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">K</div>
+                KiriliX
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Начало</a>
+                <a href="#" class="nav-link">Документация</a>
+                <a href="#" class="nav-link">Общност</a>
+                <a href="faq.html" class="nav-link active">ЧЗВ</a>
+                <a href="#" class="nav-link">Блог</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-outline">
+                    Вход
+                </button>
+                <button class="btn btn-primary">
+                    Изтегли
+                </button>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="index.html" class="mobile-nav-link">Начало</a>
+                <a href="#" class="mobile-nav-link">Документация</a>
+                <a href="#" class="mobile-nav-link">Общност</a>
+                <a href="faq.html" class="mobile-nav-link active">ЧЗВ</a>
+                <a href="#" class="mobile-nav-link">Блог</a>
+            </div>
+            <div class="mobile-nav-actions">
+                <button class="btn btn-outline">
+                    Вход
+                </button>
+                <button class="btn btn-primary">
+                    Изтегли
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="faq-hero">
+            <div class="faq-hero-badge fade-in">
+                <i class="fas fa-question-circle"></i>
+                Често задавани въпроси
+            </div>
+            <h1 class="faq-title fade-in delay-1">
+                Имате въпроси за <span>KiriliX</span>?
+            </h1>
+            <p class="faq-description fade-in delay-2">
+                Намерихме отговорите на най-често задаваните въпроси за нашия български език за програмиране.
+            </p>
+        </section>
+
+        <section class="faq-content">
+            <div class="faq-categories fade-in delay-2">
+                <button class="category-btn active" data-category="all">
+                    <div class="category-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="category-name">Всички</div>
+                </button>
+                <button class="category-btn" data-category="general">
+                    <div class="category-icon">
+                        <i class="fas fa-question"></i>
+                    </div>
+                    <div class="category-name">Общи</div>
+                </button>
+                <button class="category-btn" data-category="installation">
+                    <div class="category-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="category-name">Инсталация</div>
+                </button>
+                <button class="category-btn" data-category="programming">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="category-name">Програмиране</div>
+                </button>
+                <button class="category-btn" data-category="technical">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="category-name">Технически</div>
+                </button>
+                <button class="category-btn" data-category="community">
+                    <div class="category-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="category-name">Общност</div>
+                </button>
+            </div>
+            
+            <div class="faq-section fade-in delay-3" id="general">
+                <h2 class="faq-section-title">Общи въпроси</h2>
+                <div class="faq-grid">
+                    <div class="faq-item" data-category="general">
+                        <div class="faq-question">
+                            <span>Какво е KiriliX и защо е създаден?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX е първият български език за програмиране, създаден с цел да направи програмирането по-достъпно за българските разработчици, ученици и ентусиасти. Той използва български ключови думи и синтаксис, което улеснява ученето и използването му от хора, които предпочитат да програмират на родния си език.</p>
+                            <p>Създаден е с вдъхновение от българската история, култура и технологичен прогрес, като целта му е да насърчи повече българи да се занимават с програмиране и технологии.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="general">
+                        <div class="faq-question">
+                            <span>Кой може да използва KiriliX?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX е предназначен за всички, които се интересуват от програмиране:</p>
+                            <ul>
+                                <li><strong>Ученици и студенти</strong> - идеален е за въвеждане в програмирането, тъй като използва роден език</li>
+                                <li><strong>Преподаватели</strong> - за обучение по информатика и програмиране в училища и университети</li>
+                                <li><strong>Начинаещи програмисти</strong> - които искат да научат основите на програмирането</li>
+                                <li><strong>Опитни разработчици</strong> - които искат да експериментират с нов език или да създават проекти на български</li>
+                                <li><strong>Ентусиасти и любители</strong> - които искат да създават собствени проекти на роден език</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="general">
+                        <div class="faq-question">
+                            <span>Колко е популярен KiriliX в момента?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX е сравнително нов проект, но бързо набира популярност сред българската технологична общност. В момента имаме:</p>
+                            <ul>
+                                <li>Над 2,000 активни потребители</li>
+                                <li>Общност от над 500 разработчици, които допринасят за проекта</li>
+                                <li>През последните 6 месеца проекта е изтеглен над 10,000 пъти</li>
+                                <li>Активни форуми и дискорд сървър с над 3,000 членове</li>
+                                <li>Участия в български технологични събития и хакатони</li>
+                            </ul>
+                            <p>Проектът расте бързо благодарение на подкрепата на българската общност и желанието за език за програмиране на роден език.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section fade-in delay-3" id="installation">
+                <h2 class="faq-section-title">Инсталация и настройка</h2>
+                <div class="faq-grid">
+                    <div class="faq-item" data-category="installation">
+                        <div class="faq-question">
+                            <span>Как мога да инсталирам KiriliX?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Инсталацията на KiriliX е лесна и се извършва в няколко стъпки:</p>
+                            <ol>
+                                <li>Отидете на страницата за изтегляне на нашия уебсайт</li>
+                                <li>Изберете версията за вашата операционна система (Windows, macOS или Linux)</li>
+                                <li>Изтеглете инсталационния файл</li>
+                                <li>Следвайте инструкциите в инсталатора</li>
+                                <li>След инсталацията, отворете терминал/команден ред и напишете <code>kirilix --version</code> за да проверите дали инсталацията е успешна</li>
+                            </ol>
+                            <p>За повече подробности, разгледайте нашата <a href="#">пълна документация за инсталация</a>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="installation">
+                        <div class="faq-question">
+                            <span>На кои операционни системи работи KiriliX?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX е кръстосъвместим и работи на всички основни операционни системи:</p>
+                            <ul>
+                                <li><strong>Windows</strong> 10 и по-нови версии (32-битови и 64-битови)</li>
+                                <li><strong>macOS</strong> 11.0 (Big Sur) и по-нови версии</li>
+                                <li><strong>Linux</strong> - всички основни дистрибуции като Ubuntu, Fedora, Debian, Arch Linux (има поддръжка за x86_64 и ARM архитектури)</li>
+                            </ul>
+                            <p>Също така предлагаме онлайн редактор и среда за изпълнение, която работи директно в браузъра, без нужда от инсталация.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="installation">
+                        <div class="faq-question">
+                            <span>Има ли изисквания за хардуер?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX е проектиран да бъде лековесен и да работи дори на по-стари компютри. Минималните изисквания са:</p>
+                            <ul>
+                                <li><strong>Процесор:</strong> 1 GHz или по-бърз (модерните процесори от последните 10 години са подходящи)</li>
+                                <li><strong>Памет (RAM):</strong> 512 MB (препоръчително 1 GB или повече)</li>
+                                <li><strong>Дисково пространство:</strong> 100 MB свободно място</li>
+                                <li><strong>Интернет връзка:</strong> Не е задължителна за основната функционалност, но е необходима за изтегляне на пакети и актуализации</li>
+                            </ul>
+                            <p>За по-сложни проекти и големи кодови бази, препоръчваме по-мощен хардуер, но за учене и основни проекти, дори най-скромните конфигурации са достатъчни.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section fade-in delay-3" id="programming">
+                <h2 class="faq-section-title">Програмиране с KiriliX</h2>
+                <div class="faq-grid">
+                    <div class="faq-item" data-category="programming">
+                        <div class="faq-question">
+                            <span>Какви са основните характеристики на езика?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX има много модерни характеристики, които го правят мощен и лесен за използване:</p>
+                            <ul>
+                                <li><strong>Статично типизиран</strong> с възможност за типова inferência</li>
+                                <li><strong>Български ключови думи и синтаксис</strong> - всичко е на кирилица</li>
+                                <li><strong>Съвременни структури от данни</strong> - списъци, речници, множества</li>
+                                <li><strong>Функционално и обектно-ориентирано програмиране</strong></li>
+                                <li><strong>Управление на грешки</strong> с "опитай-улови" механизми</li>
+                                <li><strong>Модуларност</strong> - поддръжка за пакети и модули</li>
+                                <li><strong>Асинхронно програмиране</strong> за ефективна работа с I/O операции</li>
+                                <li><strong>Система за управление на пакети</strong> - вградена поддръжка за библиотеки</li>
+                            </ul>
+                            <p>Ето примерен код на KiriliX:</p>
+                            <div class="code-example">
+                                <div class="code-line"><span class="code-comment">// Примерна функция за сумиране на числа</span></div>
+                                <div class="code-line"><span class="code-keyword">функция</span> <span class="code-function">сума</span>(числа) {</div>
+                                <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">нека</span> общаСума = 0;</div>
+                                <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">за</span> (<span class="code-keyword">нека</span> i = 0; i < числа.дължина; i++) {</div>
+                                <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;общаСума += числа[i];</div>
+                                <div class="code-line">&nbsp;&nbsp;}</div>
+                                <div class="code-line">&nbsp;&nbsp;<span class="code-keyword">върни</span> общаСума;</div>
+                                <div class="code-line">}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="programming">
+                        <div class="faq-question">
+                            <span>Мога ли да използвам KiriliX за реални проекти?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Абсолютно! KiriliX е пълноценен език за програмиране, подходящ за реални проекти като:</p>
+                            <ul>
+                                <li><strong>Уеб приложения</strong> - с нашия уеб фреймуърк "КирилицаНет"</li>
+                                <li><strong>Десктоп приложения</strong> - с графични библиотеки за потребителски интерфейс</li>
+                                <li><strong>Скриптове за автоматизация</strong> - системни задачи, обработка на данни</li>
+                                <li><strong>Научни изчисления</strong> - математически и статистически анализи</li>
+                                <li><strong>Образователни проекти</strong> - игри, симулации, интерактивни уроци</li>
+                                <li><strong>Микроконтролери и IoT</strong> - ограничена поддръжка за вградени системи</li>
+                            </ul>
+                            <p>Общността вече е създала редица успешни проекти с KiriliX, включително уебсайтове, образователни инструменти, игри и бизнес приложения.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="programming">
+                        <div class="faq-question">
+                            <span>Има ли стандартни библиотеки и фреймуърци?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, KiriliX идва с богат набор от стандартни библиотеки и има активно разработвани фреймуърци:</p>
+                            <ul>
+                                <li><strong>Стандартна библиотека (КирилицаСтандарт)</strong> - основни функции за вход/изход, математика, работа с файлове, регулярни изрази и др.</li>
+                                <li><strong>КирилицаНет</strong> - уеб фреймуърк за създаване на сървърни приложения</li>
+                                <li><strong>КирилицаГУИ</strong> - библиотека за създаване на графични потребителски интерфейси</li>
+                                <li><strong>КирилицаБаза</strong> - инструменти за работа с бази данни</li>
+                                <li><strong>КирилицаТест</strong> - фреймуърк за писане на автоматизирани тестове</li>
+                                <li><strong>КирилицаИгри</strong> - библиотека за разработване на 2D игри</li>
+                            </ul>
+                            <p>Освен това, общността разработва все повече библиотеки, които могат да бъдат инсталирани чрез вградената система за управление на пакети.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section fade-in delay-3" id="technical">
+                <h2 class="faq-section-title">Технически детайли</h2>
+                <div class="faq-grid">
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-question">
+                            <span>На какво е написан KiriliX и как работи?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>KiriliX е създаден с модерни технологии и архитектура:</p>
+                            <ul>
+                                <li><strong>Език за имплементация:</strong> Основният компилатор и интерпретатор са написани на Rust, което гарантира бързодействие и сигурност</li>
+                                <li><strong>Архитектура:</strong> KiriliX използва компилация до междинен байткод, който се изпълнява от виртуална машина (подобно на Java или Python)</li>
+                                <li><strong>Управление на паметта:</strong> Използва автоматично почистване на паметта (garbage collection), което прави писането на код по-лесно и безопасно</li>
+                                <li><strong>Връзка с други езици:</strong> Има възможност за извикване на функции от C/C++ и Rust чрез външни интерфейси</li>
+                                <li><strong>Мултиплатформеност:</strong> Благодарение на Rust, KiriliX работи еднакво добре на различни операционни системи и архитектури</li>
+                            </ul>
+                            <p>Този подход позволява на KiriliX да бъде бърз, сигурен и преносим, докато запазва лекотата на използване.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-question">
+                            <span>Как се сравнява производителността с други езици?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Производителността на KiriliX е балансирана между лекота на използване и бързодействие:</p>
+                            <ul>
+                                <li><strong>Сравнение с Python:</strong> KiriliX е приблизително 2-3 пъти по-бърз в стандартни операции</li>
+                                <li><strong>Сравнение с JavaScript/Node.js:</strong> Приблизително сходна производителност за уеб приложения</li>
+                                <li><strong>Сравнение с Java/C#:</strong> По-бавен при изчислително интензивни задачи, но с по-бързо стартиране</li>
+                                <li><strong>Сравнение с C++/Rust:</strong> Значително по-бавен, но с много по-високо ниво на абстракция и лекота на използване</li>
+                            </ul>
+                            <p>За повечето реални приложения, производителността на KiriliX е напълно достатъчна. Той е оптимизиран за бързо прототипиране и разработка, докато запазва прилична скорост на изпълнение.</p>
+                            <p>В бъдеще планираме да подобрим производителността още повече с оптимизации на компилатора и JIT (Just-In-Time) компилация.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section fade-in delay-3" id="community">
+                <h2 class="faq-section-title">Общност и поддръжка</h2>
+                <div class="faq-grid">
+                    <div class="faq-item" data-category="community">
+                        <div class="faq-question">
+                            <span>Как мога да се включа в общността на KiriliX?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Има няколко начина да се включите в нашата общност:</p>
+                            <ul>
+                                <li><strong>Присъединете се към форумите ни</strong> - обсъждайте въпроси, споделяйте проекти и помагайте на други</li>
+                                <li><strong>Участвайте в Discord сървъра</strong> - имаме активна общност, която комуникира в реално време</li>
+                                <li><strong>Следете GitHub хранилището</strong> - докладвайте проблеми, предложете подобрения или участвайте в разработката</li>
+                                <li><strong>Участвайте в събитията ни</strong> - хакатони, уебинари и работни срещи</li>
+                                <li><strong>Създавайте и споделяйте проекти</strong> - покажете на света какво може да се направи с KiriliX</li>
+                                <li><strong>Пишете урок или документация</strong> - помогнете на другите да научат езика</li>
+                            </ul>
+                            <p>Нашата общност е отворена и приветства всички, които се интересуват от българския език за програмиране.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="community">
+                        <div class="faq-question">
+                            <span>Има ли награди или конкурси за разработчици?</span>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, организираме редица събития и конкурси за подкрепа на общността:</p>
+                            <ul>
+                                <li><strong>Месечен конкурс за проекти</strong> - с награди за най-добрите приложения на KiriliX</li>
+                                <li><strong>Хакатони</strong> - редовни събития за създаване на проекти за 24-48 часа</li>
+                                <li><strong>Програма за стипендии</strong> - за ученици и студенти, които разработват значими проекти</li>
+                                <li><strong>Състезания по програмиране</strong> - за начинаещи и напреднали програмисти</li>
+                                <li><strong>Награди за приноси</strong> - за тези, които допринасят значително за развитието на езика</li>
+                            </ul>
+                            <p>Следете нашите форуми и социални мрежи за актуална информация за предстоящи събития и конкурси.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section fade-in delay-3">
+            <h2 class="contact-title">Не намерихте отговора?</h2>
+            <p class="contact-description">
+                Ако имате допълнителни въпроси или нужда от помощ, не се колебайте да се свържете с нас.
+            </p>
+            
+            <div class="contact-options">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="contact-card-title">Форум на общността</h3>
+                    <p class="contact-card-description">
+                        Задайте въпрос в нашите публични форуми и ще получите отговор от опитни потребители и разработчици.
+                    </p>
+                    <button class="btn btn-outline btn-small">
+                        <i class="fas fa-external-link-alt"></i>
+                        Посетете форума
+                    </button>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="contact-card-title">Пълна документация</h3>
+                    <p class="contact-card-description">
+                        Разгледайте нашата изчерпателна документация с примери, наръчници и API справка.
+                    </p>
+                    <button class="btn btn-outline btn-small">
+                        <i class="fas fa-external-link-alt"></i>
+                        Вижте документацията
+                    </button>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-card-title">Директен контакт</h3>
+                    <p class="contact-card-description">
+                        Изпратете имейл на нашия екип за специфични въпроси или обратна връзка.
+                    </p>
+                    <button class="btn btn-outline btn-small">
+                        <i class="fas fa-paper-plane"></i>
+                        Изпратете имейл
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">K</div>
+                        KiriliX
+                    </div>
+                    <p class="footer-description">
+                        Първият български език за програмиране, създаден с любов към родния език и технологиите.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Ресурси</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Документация</a></li>
+                        <li><a href="#">Уроци</a></li>
+                        <li><a href="faq.html">ЧЗВ</a></li>
+                        <li><a href="#">Форум</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Общност</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Събития</a></li>
+                        <li><a href="#">Разработчици</a></li>
+                        <li><a href="#">Партньорства</a></li>
+                        <li><a href="#">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Компания</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">За нас</a></li>
+                        <li><a href="#">Кариери</a></li>
+                        <li><a href="#">Прес</a></li>
+                        <li><a href="#">Правна информация</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2023 KiriliX. Всички права запазени.
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>Създадено с любов в България</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loader functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            const loaderLetter = document.getElementById('loaderLetter');
+            
+            // Animate loader letter
+            const letters = ['К', 'И', 'Р', 'И', 'Л', 'И', 'X'];
+            let currentIndex = 0;
+            
+            const animateLetter = () => {
+                loaderLetter.textContent = letters[currentIndex];
+                currentIndex = (currentIndex + 1) % letters.length;
+            };
+            
+            const letterInterval = setInterval(animateLetter, 200);
+            
+            // Hide loader after page loads
+            setTimeout(() => {
+                clearInterval(letterInterval);
+                loader.classList.add('hidden');
+                
+                // Trigger animations for elements with fade-in class
+                const fadeElements = document.querySelectorAll('.fade-in');
+                fadeElements.forEach(element => {
+                    element.style.opacity = '1';
+                });
+            }, 1500);
+            
+            // FAQ toggle functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const item = this.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Category filter functionality
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    const faqItems = document.querySelectorAll('.faq-item');
+                    
+                    // Show/hide FAQ items based on category
+                    faqItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide sections based on visible items
+                    const sections = document.querySelectorAll('.faq-section');
+                    sections.forEach(section => {
+                        const itemsInSection = section.querySelectorAll('.faq-item');
+                        let hasVisibleItems = false;
+                        
+                        itemsInSection.forEach(item => {
+                            if (item.style.display !== 'none') {
+                                hasVisibleItems = true;
+                            }
+                        });
+                        
+                        section.style.display = hasVisibleItems ? 'block' : 'none';
+                    });
+                });
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const mobileMenuLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+            
+            // Initialize all sections as visible
+            const faqSections = document.querySelectorAll('.faq-section');
+            faqSections.forEach(section => {
+                section.style.display = 'block';
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

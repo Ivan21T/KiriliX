@@ -1,0 +1,18 @@
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\ServiceLayer.deps.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\ServiceLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\ServiceLayer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\Business Layer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\DataLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\DataLayer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\bin\Debug\net9.0\Business Layer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.csproj.AssemblyReference.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.AssemblyInfoInputs.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.AssemblyInfo.cs
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.csproj.CoreCompileInputs.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.sourcelink.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceL.3037F684.Up2Date
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\refint\ServiceLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ServiceLayer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\ServiceLayer\obj\Debug\net9.0\ref\ServiceLayer.dll

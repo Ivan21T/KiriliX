@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "user",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "DataLayer.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

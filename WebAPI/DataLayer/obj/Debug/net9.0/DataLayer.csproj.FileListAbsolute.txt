@@ -1,0 +1,18 @@
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\bin\Debug\net9.0\DataLayer.deps.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\bin\Debug\net9.0\DataLayer.runtimeconfig.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\bin\Debug\net9.0\DataLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\bin\Debug\net9.0\DataLayer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\bin\Debug\net9.0\Business Layer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\bin\Debug\net9.0\Business Layer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.csproj.AssemblyReference.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.AssemblyInfoInputs.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.AssemblyInfo.cs
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.sourcelink.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.csproj.Up2Date
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\refint\DataLayer.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\DataLayer.genruntimeconfig.cache
+C:\Users\RTT\Pictures\KiriliX\WebAPI\DataLayer\obj\Debug\net9.0\ref\DataLayer.dll

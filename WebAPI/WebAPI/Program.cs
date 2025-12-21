@@ -1,4 +1,3 @@
-
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer;
@@ -12,8 +11,20 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<KirilixDbContext>(options =>
-           options.UseSqlite("Data Source=Kirilix.db"));
+            options.UseSqlite(connectionString));
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
 
         builder.Services.AddScoped<UserContext>();
         builder.Services.AddScoped<UserService>();
@@ -36,6 +47,7 @@ public class Program
 
         app.UseAuthorization();
 
+        app.UseCors();
 
         app.MapControllers();
 

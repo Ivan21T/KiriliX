@@ -10,9 +10,6 @@ namespace DataLayer
         [StringLength(30)]
         public string Username { get; set; }
         [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
         [Required]
@@ -23,7 +20,6 @@ namespace DataLayer
         public User(string username, string name, string email, string password)
         {
             Username = username;
-            Name = name;
             Email = email;
             Password = BCrypt.Net.BCrypt.HashPassword(password);
         }

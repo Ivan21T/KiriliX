@@ -95,17 +95,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const name = this.querySelector('input[type="text"]').value;
+            const username = this.querySelector('input[type="text"]').value;
             const email = this.querySelector('input[type="email"]').value;
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
             const termsAccepted = termsCheckbox.classList.contains('checked');
             
 
-            if (!name || !email || !password || !confirmPassword) {
+            if (!username || !email || !password || !confirmPassword) {
                 notificationSystem.showError('Моля, попълнете всички полета!', 3000);
                 return;
             }
@@ -133,23 +133,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const loadingNotification = notificationSystem.showLoading('Създаване на акаунт...');
             
-            setTimeout(() => {
-                notificationSystem.removeNotification(loadingNotification);
-                
+             try {
+                    const response = await fetch(API_CONFIG.USER, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username,
+                            email,
+                            password
+                        })
+                    });
 
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-                
-                notificationSystem.showSuccess('Акаунтът ви е създаден успешно!', 3000);
+                    const data = await response.json();
 
-                modeBtns[0].click();
-                
-                this.reset();
-                termsCheckbox.classList.remove('checked');
-                
-                console.log('Регистрация на:', { name, email, password });
-                
-            }, 2000);
+                    notificationSystem.removeNotification(loadingNotification);
+
+                    if (!response.ok) {
+                        notificationSystem.showError(data.message || 'Възникна грешка', 3000);
+                    } else {
+                        notificationSystem.showSuccess(data.message, 3000);
+
+                        modeBtns[0].click();
+                        this.reset();
+                        termsCheckbox.classList.remove('checked');
+                    }
+
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+
+                } catch (error) {
+                    notificationSystem.removeNotification(loadingNotification);
+                    notificationSystem.showError('Грешка при връзка със сървъра');
+
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                }
+
         });
 
         document.querySelectorAll('.social-btn').forEach(btn => {

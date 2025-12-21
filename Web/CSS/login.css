@@ -308,7 +308,7 @@
         }
 
         .mode-indicator.register {
-            left: calc(50% + 0.5rem);
+            left: calc(50% + 0.05rem);
         }
 
         .mode-btn {

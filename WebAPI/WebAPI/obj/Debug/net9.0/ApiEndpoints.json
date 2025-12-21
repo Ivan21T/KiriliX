@@ -1,8 +1,18 @@
 [
   {
     "ContainingType": "WebAPI.Controllers.UserController",
-    "Method": "CreateUser",
-    "RelativePath": "user",
+    "Method": "GetUsers",
+    "RelativePath": "users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "SignUp",
+    "RelativePath": "users",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -11,6 +21,27 @@
         "Name": "user",
         "Type": "DataLayer.User",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "Login",
+    "RelativePath": "users/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

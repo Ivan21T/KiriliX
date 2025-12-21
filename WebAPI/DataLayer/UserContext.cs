@@ -28,7 +28,7 @@ namespace DataLayer
             User user = await query.FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
-                throw new Exception("User not found!");
+                throw new Exception("Потребителят не е намерен!");
             }
             return user;
         }
@@ -43,11 +43,33 @@ namespace DataLayer
         }
         public async Task UpdateAsync(User item,bool useNavigationalProperties=false)
         {
-            
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            var existingUser = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == item.Id);
+
+            if (existingUser == null)
+            {
+                throw new Exception("Потребителят не е намерен!");
+            }
+            _context.Entry(existingUser).CurrentValues.SetValues(item);
+
+            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                throw new Exception("Потребителят не е намерен!");
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

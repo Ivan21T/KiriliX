@@ -12,7 +12,21 @@ namespace ServiceLayer
         }
         public async Task CreateUserAsync(User user)
         {
-           await _userContext.CreateAsync(user);
+            if(await GetUserByEmailForSignUp(user.Email)!=null)
+            {
+                throw new Exception("Имейлът вече е регистриран!");
+            }
+            if(await GetUserByUsername(user.Username)!=null)
+            {
+                throw new Exception("потребителското име вече е заето!");
+            }
+            await _userContext.CreateAsync(user);
+        }
+        public async Task<User> GetUserByUsername(string username)
+        {
+            var users = await _userContext.ReadAllAsync();
+            var user = users.FirstOrDefault(u => u.Username == username);
+            return user;
         }
         public async Task<User> GetUserByIdAsync(int id, bool useNavigationalProperties = false,bool isReadOnly = false)
         {
@@ -26,6 +40,12 @@ namespace ServiceLayer
             {
                 throw new Exception("Невалиден имейл или несъществуващ потребител!");
             }
+            return user;
+        }
+        public async Task<User> GetUserByEmailForSignUp(string email)
+        {
+            var users = await _userContext.ReadAllAsync();
+            var user = users.FirstOrDefault(u => u.Email == email);
             return user;
         }
         public async Task<List<User>> GetAllUsersAsync(bool useNavigationalProperties = false, bool isReadOnly = false)
@@ -43,7 +63,8 @@ namespace ServiceLayer
         public async Task<User> SignIn(string email, string password)
         {
             User user = await GetUserByEmail(email);
-            if (user.Password != password)
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            if (!isPasswordValid)
             {
                 throw new Exception("Невалидна парола!");
             }

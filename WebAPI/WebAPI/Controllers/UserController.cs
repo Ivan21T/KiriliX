@@ -12,18 +12,45 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User user )
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
         {
             try
             {
-                await _userService.CreateUserAsync(user);
+                List<User> users = await _userService.GetAllUsersAsync();
+                return Ok(users);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return Created();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SignUp([FromBody] User user )
+        {
+            try
+            {
+                await _userService.CreateUserAsync(user);
+                return Ok(new { message = "Потребителят е създаден успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] string email,string password)
+        {
+            try
+            {
+                User user = await _userService.SignIn(email, password);
+                return Ok(new {message="Успешно влизане!"});
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

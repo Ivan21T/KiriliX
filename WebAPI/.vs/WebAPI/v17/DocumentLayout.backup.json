@@ -19,10 +19,6 @@
       "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -42,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -59,19 +55,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\User.cs",
-              "RelativeDocumentMoniker": "Business Layer\\User.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\User.cs",
-              "RelativeToolTip": "Business Layer\\User.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAkwBsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-20T16:21:54.331Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\appsettings.json",
               "RelativeDocumentMoniker": "WebAPI\\appsettings.json",
@@ -79,12 +62,11 @@
               "RelativeToolTip": "WebAPI\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-20T16:12:51.189Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-20T16:12:51.189Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "WebAPI.http",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\WebAPI.http",
               "RelativeDocumentMoniker": "WebAPI\\WebAPI.http",
@@ -92,8 +74,7 @@
               "RelativeToolTip": "WebAPI\\WebAPI.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-12-20T16:11:47.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-20T16:11:47.008Z"
             },
             {
               "$type": "Document",
@@ -103,14 +84,13 @@
               "RelativeDocumentMoniker": "ServiceLayer\\UserService.cs",
               "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
               "RelativeToolTip": "ServiceLayer\\UserService.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAA3wD0AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwEUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-20T16:04:03.639Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-20T16:04:03.639Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "KirilixDbContext.cs",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\KirilixDbContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\KirilixDbContext.cs",
@@ -118,8 +98,7 @@
               "RelativeToolTip": "DataLayer\\KirilixDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-20T16:03:44.016Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-20T16:03:44.016Z"
             },
             {
               "$type": "Document",
@@ -131,8 +110,7 @@
               "RelativeToolTip": "DataLayer\\UserContext.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAwwEsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-14T15:03:05.754Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-14T15:03:05.754Z"
             },
             {
               "$type": "Document",
@@ -142,7 +120,7 @@
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "WebAPI\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAADgvygAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAEwC8AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-14T13:38:08.438Z",
               "EditorCaption": ""
@@ -157,8 +135,7 @@
               "RelativeToolTip": "WebAPI\\Program.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAswBEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-14T13:38:06.561Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-14T13:38:06.561Z"
             }
           ]
         }

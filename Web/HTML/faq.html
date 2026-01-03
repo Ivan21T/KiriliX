@@ -26,54 +26,8 @@
     </div>
     
     <div class="bulgarian-pattern"></div>
-    
-    <header>
-        <div class="bulgarian-border"></div>
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">K</div>
-                KiriliX
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Начало</a>
-                <a href="#" class="nav-link">Документация</a>
-                <a href="#" class="nav-link">Общност</a>
-                <a href="faq.html" class="nav-link active">ЧЗВ</a>
-                <a href="#" class="nav-link">Блог</a>
-            </div>
-            <div class="nav-actions">
-                <button class="btn btn-outline">
-                    Вход
-                </button>
-                <button class="btn btn-primary">
-                    Изтегли
-                </button>
-            </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-        
-        <div class="mobile-menu" id="mobileMenu">
-            <div class="mobile-nav-links">
-                <a href="index.html" class="mobile-nav-link">Начало</a>
-                <a href="#" class="mobile-nav-link">Документация</a>
-                <a href="#" class="mobile-nav-link">Общност</a>
-                <a href="faq.html" class="mobile-nav-link active">ЧЗВ</a>
-                <a href="#" class="mobile-nav-link">Блог</a>
-            </div>
-            <div class="mobile-nav-actions">
-                <button class="btn btn-outline">
-                    Вход
-                </button>
-                <button class="btn btn-primary">
-                    Изтегли
-                </button>
-            </div>
-        </div>
-    </header>
+
+    <kirilix-header></kirilix-header>
 
     <main>
         <section class="faq-hero">
@@ -472,72 +426,10 @@
         </section>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <div class="logo-icon">K</div>
-                        KiriliX
-                    </div>
-                    <p class="footer-description">
-                        Първият български език за програмиране, създаден с любов към родния език и технологиите.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Ресурси</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Документация</a></li>
-                        <li><a href="#">Уроци</a></li>
-                        <li><a href="faq.html">ЧЗВ</a></li>
-                        <li><a href="#">Форум</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Общност</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Събития</a></li>
-                        <li><a href="#">Разработчици</a></li>
-                        <li><a href="#">Партньорства</a></li>
-                        <li><a href="#">Контакти</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Компания</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">За нас</a></li>
-                        <li><a href="#">Кариери</a></li>
-                        <li><a href="#">Прес</a></li>
-                        <li><a href="#">Правна информация</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    &copy; 2023 KiriliX. Всички права запазени.
-                </div>
-                <div class="footer-badge">
-                    <i class="fas fa-heart"></i>
-                    <span>Създадено с любов в България</span>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <kirilix-footer></kirilix-footer>
 
+    <script type="module" src="../JS/header.js"></script>
+    <script type="module" src="../JS/footer.js"></script>
     <script>
         // Loader functionality
         document.addEventListener('DOMContentLoaded', function() {

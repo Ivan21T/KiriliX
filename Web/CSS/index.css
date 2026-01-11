@@ -617,7 +617,7 @@ body {
 
 .feature-card:hover .feature-icon {
     background: linear-gradient(135deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-    color: var(--white);
+    color: var(--dark);
     transform: scale(1.1);
 }
 

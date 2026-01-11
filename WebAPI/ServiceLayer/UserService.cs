@@ -1,5 +1,7 @@
 ﻿using DataLayer;
 using BCrypt.Net;
+using ServiceLayer.DTOs;
+using Microsoft.EntityFrameworkCore;
 namespace ServiceLayer
 {
     public class UserService
@@ -70,5 +72,25 @@ namespace ServiceLayer
             }
             return user;
         }
+        public async Task ResetPassword(ResetPasswordDTO request)
+        {
+            var user= await GetUserByEmail(request.Email);
+            if (user == null)
+            {
+                throw new Exception("Потребителят не е намерен!");
+            }
+            user.Password = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+            await _userContext.UpdateAsync(user);
+        }
+        public async Task SendOTP(string email)
+        {
+            var user = await GetUserByEmail(email);
+            if (user == null)
+            {
+                throw new Exception("Не съществува потребител с такъв имейл!");
+            }
+            //I have to make CRUD for otpCode
+        }
+
     }
 }

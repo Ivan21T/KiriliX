@@ -1,3 +1,4 @@
+using Business_Layer;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer;
@@ -26,6 +27,7 @@ public class Program
             });
         });
 
+        builder.Services.AddScoped<OTPCodeContext>();
         builder.Services.AddScoped<UserContext>();
         builder.Services.AddScoped<UserService>();
 

@@ -292,6 +292,8 @@
             margin-bottom: 2rem;
             position: relative;
             border: 1px solid rgba(0, 255, 157, 0.1);
+            min-height: 62px;
+            overflow: hidden;
         }
 
         .mode-indicator {
@@ -305,6 +307,7 @@
             transition: var(--transition);
             z-index: 1;
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+            pointer-events: none;
         }
 
         .mode-indicator.register {
@@ -607,16 +610,24 @@
             }
             
             .mode-switcher {
-                flex-direction: column;
-                gap: 0.5rem;
+                flex-direction: row; 
+                gap: 0;
+                min-height: 56px; 
+            }
+    
+            .mode-indicator {
+                display: block;
+                width: calc(50% - 0.5rem);
+                left: 0.5rem;
             }
             
-            .mode-indicator {
-                display: none;
+            .mode-indicator.register {
+                left: calc(50% + 0.05rem);
             }
             
             .mode-btn {
-                width: 100%;
+                width: 50%;
+                padding: 0.8rem;
             }
             
             .notification {

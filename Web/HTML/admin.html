@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiriliX | Администраторски панел</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white: #ffffff;
+            --neon-green: #00ff9d;
+            --neon-red: #ff003c;
+            --green: #00cc7a;
+            --red: #e60033;
+            --dark: #0a0a14;
+            --dark-secondary: #151522;
+            --purple: #8a2be2;
+            --cyan: #00f3ff;
+            --yellow: #ffcc00;
+            --orange: #ff7b00;
+            --shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(138, 43, 226, 0.03) 0%, transparent 50%),
+                linear-gradient(45deg, var(--dark) 0%, #0d0f1a 100%);
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+            filter: blur(40px);
+        }
+
+        .bg-element:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-green);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .bg-element:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-red);
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+            animation-duration: 30s;
+        }
+
+        .bg-element:nth-child(3) {
+            width: 500px;
+            height: 500px;
+            background: var(--neon-green);
+            top: 70%;
+            left: 10%;
+            animation-delay: 10s;
+            animation-duration: 35s;
+        }
+
+        .bg-element:nth-child(4) {
+            width: 200px;
+            height: 200px;
+            background: var(--neon-red);
+            top: 20%;
+            left: 70%;
+            animation-delay: 15s;
+            animation-duration: 20s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(50px, -80px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-30px, 40px) rotate(240deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        .bulgarian-pattern {
+            background-image: 
+                linear-gradient(45deg, var(--neon-green) 25%, transparent 25%), 
+                linear-gradient(-45deg, var(--neon-green) 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, var(--neon-red) 75%), 
+                linear-gradient(-45deg, transparent 75%, var(--neon-red) 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+            opacity: 0.03;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bulgarian-border {
+            height: 4px;
+            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-red);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 20, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            z-index: 1001;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 15px var(--neon-green),
+                0 0 30px var(--neon-red);
+            animation: logoGlow 3s infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% {
+                box-shadow: 
+                    0 0 15px var(--neon-green),
+                    0 0 30px var(--neon-red);
+            }
+            100% {
+                box-shadow: 
+                    0 0 25px var(--neon-green),
+                    0 0 50px var(--neon-red),
+                    0 0 75px var(--purple);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            transition: var(--transition);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .nav-link:hover {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            background: transparent;
+            text-shadow: 0 0 5px var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .btn-outline:hover {
+            color: var(--dark);
+            background: var(--neon-green);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.5);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-green), var(--green));
+            color: var(--dark);
+            border: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.6);
+            background: linear-gradient(135deg, var(--neon-green), #00ff9d);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--neon-red), var(--red));
+            color: var(--white);
+            border: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 0, 60, 0.6);
+            background: linear-gradient(135deg, var(--neon-red), #ff3366);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--orange), var(--yellow));
+            color: var(--dark);
+            border: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 123, 0, 0.6);
+        }
+
+        /* Админ контейнер */
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* Заглавие и статистика */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .admin-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            min-width: 150px;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .admin-stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #b0b0d0;
+            margin-top: 0.5rem;
+        }
+
+        /* Админ навигация */
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .admin-nav-btn {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #b0b0d0;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-nav-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--neon-green);
+        }
+
+        .admin-nav-btn.active {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            border-bottom: 3px solid var(--neon-green);
+        }
+
+        .admin-nav-btn.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), transparent);
+            z-index: -1;
+        }
+
+        /* Админ секции */
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Таблици */
+        .admin-table-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table thead {
+            background: rgba(0, 255, 157, 0.1);
+            border-bottom: 2px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .admin-table th {
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+            font-size: 1rem;
+        }
+
+        .admin-table tbody tr {
+            border-bottom: 1px solid rgba(0, 255, 157, 0.05);
+            transition: var(--transition);
+        }
+
+        .admin-table tbody tr:hover {
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .admin-table td {
+            padding: 1.2rem 1.5rem;
+            color: #e0e0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            color: #b0b0d0;
+        }
+
+        .badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-admin {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            border: 1px solid rgba(0, 255, 157, 0.4);
+        }
+
+        .badge-user {
+            background: rgba(138, 43, 226, 0.2);
+            color: var(--purple);
+            border: 1px solid rgba(138, 43, 226, 0.4);
+        }
+
+        .badge-active {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            border: 1px solid rgba(0, 255, 157, 0.4);
+        }
+
+        .badge-inactive {
+            background: rgba(255, 0, 60, 0.2);
+            color: var(--neon-red);
+            border: 1px solid rgba(255, 0, 60, 0.4);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .action-btn.edit:hover {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+        }
+
+        .action-btn.delete:hover {
+            background: rgba(255, 0, 60, 0.2);
+            color: var(--neon-red);
+            border-color: var(--neon-red);
+        }
+
+        .action-btn.comment:hover {
+            background: rgba(0, 243, 255, 0.2);
+            color: var(--cyan);
+            border-color: var(--cyan);
+        }
+
+        /* Форми */
+        .admin-form {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .admin-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 10px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300ff9d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 16px;
+            padding-right: 3rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        /* Коментари */
+        .comments-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .comment-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: var(--transition);
+        }
+
+        .comment-item:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .comment-content {
+            color: #e0e0f0;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .comment-article {
+            color: var(--neon-green);
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .comment-article:hover {
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #b0b0d0;
+            font-size: 1.1rem;
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: rgba(0, 255, 157, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 20, 0.95);
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .footer-description {
+            color: #b0b0d0;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(0, 255, 157, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-green);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 255, 157, 0.3);
+            border-color: var(--neon-green);
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 1;
+            font-size: 1.3rem;
+        }
+
+        .social-link:hover i {
+            color: var(--dark);
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links a {
+            color: #b0b0d0;
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.3rem 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-green);
+            transform: translateX(10px);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            padding-top: 3rem;
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #b0b0d0;
+            font-size: 0.9rem;
+        }
+
+        .footer-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--neon-green);
+            font-weight: 600;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .footer-badge i {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 35px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--neon-green);
+            border-radius: 3px;
+            transition: var(--transition);
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+            background: var(--neon-red);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+            background: var(--neon-red);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        /* Модал */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 20, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark-secondary);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            color: #b0b0d0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .modal-close:hover {
+            color: var(--neon-red);
+            background: rgba(255, 0, 60, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-text {
+            color: #e0e0f0;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .admin-container {
+                padding: 7rem 1.5rem 3rem;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .admin-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .admin-stat {
+                min-width: calc(50% - 1rem);
+            }
+            
+            .admin-nav {
+                justify-content: center;
+            }
+            
+            .admin-table th, .admin-table td {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 10, 20, 0.98);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                z-index: 999;
+                padding: 2rem;
+                backdrop-filter: blur(20px);
+            }
+            
+            .mobile-menu.active {
+                transform: translateX(0);
+                display: flex;
+            }
+            
+            .mobile-nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 2.5rem;
+                margin-bottom: 4rem;
+                text-align: center;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .mobile-nav-link {
+                color: var(--white);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.8rem;
+                padding: 0.8rem 0;
+                transition: var(--transition);
+                text-shadow: 0 0 10px var(--neon-green);
+                border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            }
+            
+            .mobile-nav-link:hover {
+                color: var(--neon-green);
+                transform: translateX(10px);
+                border-bottom-color: var(--neon-green);
+            }
+            
+            .mobile-nav-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .mobile-nav-actions .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-container {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .admin-stat {
+                min-width: 100%;
+            }
+            
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .footer {
+                padding: 3rem 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+    
+    <div class="bulgarian-pattern"></div>
+    
+    <header>
+        <div class="bulgarian-border"></div>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">K</div>
+                KiriliX
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Начало</a>
+                <a href="forum.html" class="nav-link">Форум</a>
+                <a href="docs.html" class="nav-link">Документация</a>
+                <a href="news.html" class="nav-link">Новини</a>
+                <a href="admin.html" class="nav-link active"><i class="fas fa-user-shield"></i> Админ</a>
+            </div>
+            <div class="nav-actions">
+                <button id="logout-btn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Изход
+                </button>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="index.html" class="mobile-nav-link">Начало</a>
+                <a href="forum.html" class="mobile-nav-link">Форум</a>
+                <a href="docs.html" class="mobile-nav-link">Документация</a>
+                <a href="news.html" class="mobile-nav-link">Новини</a>
+                <a href="admin.html" class="mobile-nav-link active"><i class="fas fa-user-shield"></i> Админ</a>
+            </div>
+            <div class="mobile-nav-actions">
+                <button class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Изход
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-container">
+        <div class="admin-header">
+            <h1 class="admin-title">Администраторски панел</h1>
+            <div class="admin-stats">
+                <div class="admin-stat">
+                    <div class="stat-number" id="totalUsers">128</div>
+                    <div class="stat-label">Потребители</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="stat-number" id="totalArticles">47</div>
+                    <div class="stat-label">Новини</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="stat-number" id="totalComments">312</div>
+                    <div class="stat-label">Коментари</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="stat-number" id="activeUsers">89</div>
+                    <div class="stat-label">Активни</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-nav">
+            <button class="admin-nav-btn active" data-section="users">
+                <i class="fas fa-users"></i> Потребители
+            </button>
+            <button class="admin-nav-btn" data-section="articles">
+                <i class="fas fa-newspaper"></i> Новини
+            </button>
+            <button class="admin-nav-btn" data-section="comments">
+                <i class="fas fa-comments"></i> Коментари
+            </button>
+            <button class="admin-nav-btn" data-section="add-article">
+                <i class="fas fa-plus-circle"></i> Добави новина
+            </button>
+        </div>
+
+        <!-- Секция за потребители -->
+        <section id="users-section" class="admin-section active">
+            <div class="section-header">
+                <h2 class="section-title">Регистрирани потребители</h2>
+                <div class="section-actions">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-user-plus"></i> Добави потребител
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-file-export"></i> Експорт
+                    </button>
+                </div>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Потребител</th>
+                            <th>Роля</th>
+                            <th>Регистрация</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <!-- Данните ще се заредят от JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="no-data" id="no-users" style="display: none;">
+                <i class="fas fa-users-slash"></i>
+                <p>Няма регистрирани потребители</p>
+            </div>
+        </section>
+
+        <!-- Секция за новини -->
+        <section id="articles-section" class="admin-section">
+            <div class="section-header">
+                <h2 class="section-title">Новини и статии</h2>
+                <div class="section-actions">
+                    <button class="btn btn-primary" onclick="showAddArticleForm()">
+                        <i class="fas fa-plus"></i> Нова новина
+                    </button>
+                </div>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Заглавие</th>
+                            <th>Автор</th>
+                            <th>Категория</th>
+                            <th>Дата</th>
+                            <th>Прегледи</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articles-table-body">
+                        <!-- Данните ще се заредят от JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="no-data" id="no-articles" style="display: none;">
+                <i class="fas fa-newspaper"></i>
+                <p>Няма публикувани новини</p>
+            </div>
+        </section>
+
+        <!-- Секция за коментари -->
+        <section id="comments-section" class="admin-section">
+            <div class="section-header">
+                <h2 class="section-title">Коментари</h2>
+                <div class="section-actions">
+                    <button class="btn btn-outline" onclick="filterComments('all')">
+                        <i class="fas fa-list"></i> Всички
+                    </button>
+                    <button class="btn btn-outline" onclick="filterComments('pending')">
+                        <i class="fas fa-clock"></i> Чакащи
+                    </button>
+                </div>
+            </div>
+            
+            <div class="comments-section" id="comments-list">
+                <!-- Коментарите ще се заредят от JavaScript -->
+            </div>
+            
+            <div class="no-data" id="no-comments" style="display: none;">
+                <i class="fas fa-comment-slash"></i>
+                <p>Няма коментари</p>
+            </div>
+        </section>
+
+        <!-- Форма за добавяне/редактиране на новина -->
+        <section id="add-article-section" class="admin-section">
+            <div class="section-header">
+                <h2 class="section-title" id="article-form-title">Добави нова новина</h2>
+                <div class="section-actions">
+                    <button class="btn btn-outline" onclick="clearArticleForm()">
+                        <i class="fas fa-eraser"></i> Изчисти
+                    </button>
+                </div>
+            </div>
+            
+            <form id="article-form" class="admin-form active" onsubmit="saveArticle(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="article-title">Заглавие</label>
+                        <input type="text" id="article-title" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="article-category">Категория</label>
+                        <select id="article-category" class="form-control form-select" required>
+                            <option value="">Избери категория</option>
+                            <option value="update">Обновление</option>
+                            <option value="event">Събитие</option>
+                            <option value="tutorial">Урок</option>
+                            <option value="community">Общност</option>
+                            <option value="announcement">Съобщение</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="article-excerpt">Кратко описание</label>
+                    <textarea id="article-excerpt" class="form-control" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="article-content">Съдържание</label>
+                    <textarea id="article-content" class="form-control form-textarea" rows="10" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="article-author">Автор</label>
+                        <input type="text" id="article-author" class="form-control" value="Администратор" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="article-image">URL на изображение</label>
+                        <input type="url" id="article-image" class="form-control" 
+                               value="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="clearArticleForm()">
+                        Отказ
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Запази новина
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Модал за потвърждение -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="modal-title" id="modalTitle">Потвърждение</h3>
+            <p class="modal-text" id="modalText">Сигурни ли сте, че искате да изпълните това действие?</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeModal()">
+                    Отказ
+                </button>
+                <button class="btn btn-danger" id="confirmActionBtn">
+                    Потвърди
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">K</div>
+                        KiriliX
+                    </div>
+                    <p class="footer-description">
+                        Първият български език за програмиране, създаден с любов към родния език и технологиите.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Новини</h3>
+                    <ul class="footer-links">
+                        <li><a href="news.html">Всички новини</a></li>
+                        <li><a href="news.html#update">Обновления</a></li>
+                        <li><a href="news.html#event">Събития</a></li>
+                        <li><a href="#">Архив</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Общност</h3>
+                    <ul class="footer-links">
+                        <li><a href="forum.html">Форум</a></li>
+                        <li><a href="#">Потребители</a></li>
+                        <li><a href="#">Събития</a></li>
+                        <li><a href="#">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Ресурси</h3>
+                    <ul class="footer-links">
+                        <li><a href="docs.html">Документация</a></li>
+                        <li><a href="#">Уроци</a></li>
+                        <li><a href="#">Библиотеки</a></li>
+                        <li><a href="#">Помощ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2023 KiriliX Админ панел. Всички права запазени.
+                </div>
+                <div class="footer-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>Създадено с любов в България</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Примерни данни за администраторския панел
+        const adminData = {
+            users: [
+                { id: 1, name: "Иван Петров", email: "ivan@example.com", role: "admin", regDate: "2023-01-15", status: "active", initials: "ИП" },
+                { id: 2, name: "Мария Георгиева", email: "maria@example.com", role: "admin", regDate: "2023-02-20", status: "active", initials: "МГ" },
+                { id: 3, name: "Александър Иванов", email: "alex@example.com", role: "user", regDate: "2023-03-10", status: "active", initials: "АИ" },
+                { id: 4, name: "Елена Димитрова", email: "elena@example.com", role: "user", regDate: "2023-04-05", status: "active", initials: "ЕД" },
+                { id: 5, name: "Георги Стоянов", email: "georgi@example.com", role: "user", regDate: "2023-05-12", status: "inactive", initials: "ГС" },
+                { id: 6, name: "София Василева", email: "sofia@example.com", role: "user", regDate: "2023-06-18", status: "active", initials: "СВ" },
+                { id: 7, name: "Димитър Николов", email: "dimitur@example.com", role: "user", regDate: "2023-07-22", status: "active", initials: "ДН" },
+                { id: 8, name: "Анна Попова", email: "anna@example.com", role: "user", regDate: "2023-08-30", status: "inactive", initials: "АП" }
+            ],
+            articles: [
+                { id: 1, title: "Пускане на KiriliX версия 2.0", author: "Екип KiriliX", category: "update", date: "2023-10-20", views: 1247 },
+                { id: 2, title: "Предстоящо събитие: Ден на отворените врати", author: "Мария Георгиева", category: "event", date: "2023-10-28", views: 856 },
+                { id: 3, title: "Нов урок: Създаване на уеб сървър", author: "Иван Петров", category: "tutorial", date: "2023-10-22", views: 743 },
+                { id: 4, title: "Интервю с основателя на KiriliX", author: "Александър Иванов", category: "community", date: "2023-10-15", views: 521 },
+                { id: 5, title: "Нови функции в бъдещата версия 2.1", author: "Екип KiriliX", category: "announcement", date: "2023-10-25", views: 932 }
+            ],
+            comments: [
+                { id: 1, author: "Александър Иванов", article: "Пускане на KiriliX версия 2.0", date: "2023-10-21", content: "Страхотна новина! Очаквах версия 2.0 с нетърпение. Новото IDE изглежда много полезно.", status: "approved" },
+                { id: 2, author: "София Василева", article: "Нов урок: Създаване на уеб сървър", date: "2023-10-23", content: "Урокът е много добре обяснен. Благодаря! Има ли план за урок за REST API?", status: "approved" },
+                { id: 3, author: "Георги Стоянов", article: "Предстоящо събитие: Ден на отворените врати", date: "2023-10-29", content: "Жалко, че няма да мога да присъствам. Ще има ли запис на събитието?", status: "pending" },
+                { id: 4, author: "Димитър Николов", article: "Пускане на KiriliX версия 2.0", date: "2023-10-22", content: "Тествах новата версия и производителността наистина е подобрена значително. Браво на екипа!", status: "approved" },
+                { id: 5, author: "Анна Попова", article: "Интервю с основателя на KiriliX", date: "2023-10-16", content: "Интересно интервю. Харесва ми визията за бъдещето на проекта.", status: "pending" }
+            ]
+        };
+
+        // Променливи за управление на състоянието
+        let currentEditingArticleId = null;
+        let pendingAction = null;
+        let currentCommentFilter = 'all';
+
+        // Инициализация при зареждане на страницата
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация на мобилното меню
+            initMobileMenu();
+            
+            // Зареждане на статистиката
+            loadStatistics();
+            
+            // Зареждане на потребителите
+            loadUsers();
+            
+            // Зареждане на новините
+            loadArticles();
+            
+            // Зареждане на коментарите
+            loadComments();
+            
+            // Инициализация на навигацията
+            initAdminNav();
+            
+            // Инициализация на бутоните
+            initButtons();
+        });
+
+        // Инициализация на мобилното меню
+        function initMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+            
+            // Затваряне на менюто при клик на връзка
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Инициализация на навигацията
+        function initAdminNav() {
+            const navButtons = document.querySelectorAll('.admin-nav-btn');
+            const sections = document.querySelectorAll('.admin-section');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    
+                    // Премахване активния клас от всички бутони и секции
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Добавяне на активния клас на текущия бутон
+                    this.classList.add('active');
+                    
+                    // Показване на съответната секция
+                    document.getElementById(`${sectionId}-section`).classList.add('active');
+                    
+                    // Ако се отваря формата за новина, я показваме
+                    if (sectionId === 'add-article') {
+                        document.getElementById('article-form').classList.add('active');
+                        document.getElementById('article-form-title').textContent = 'Добави нова новина';
+                        clearArticleForm();
+                    }
+                });
+            });
+        }
+
+        // Инициализация на бутоните
+        function initButtons() {
+            // Бутон за изход
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                if (confirm('Сигурни ли сте, че искате да излезете от администраторския панел?')) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        // Зареждане на статистиката
+        function loadStatistics() {
+            document.getElementById('totalUsers').textContent = adminData.users.length;
+            document.getElementById('totalArticles').textContent = adminData.articles.length;
+            document.getElementById('totalComments').textContent = adminData.comments.length;
+            
+            const activeUsers = adminData.users.filter(user => user.status === 'active').length;
+            document.getElementById('activeUsers').textContent = activeUsers;
+        }
+
+        // Зареждане на потребителите
+        function loadUsers() {
+            const tbody = document.getElementById('users-table-body');
+            const noUsers = document.getElementById('no-users');
+            
+            if (adminData.users.length === 0) {
+                tbody.style.display = 'none';
+                noUsers.style.display = 'block';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            noUsers.style.display = 'none';
+            
+            adminData.users.forEach(user => {
+                const roleBadge = user.role === 'admin' 
+                    ? '<span class="badge badge-admin"><i class="fas fa-user-shield"></i> Админ</span>'
+                    : '<span class="badge badge-user"><i class="fas fa-user"></i> Потребител</span>';
+                
+                const statusBadge = user.status === 'active'
+                    ? '<span class="badge badge-active"><i class="fas fa-check-circle"></i> Активен</span>'
+                    : '<span class="badge badge-inactive"><i class="fas fa-times-circle"></i> Неактивен</span>';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="user-info">
+                            <div class="user-avatar">${user.initials}</div>
+                            <div>
+                                <div class="user-name">${user.name}</div>
+                                <div class="user-email">${user.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${roleBadge}</td>
+                    <td>${formatDate(user.regDate)}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn edit" title="Редактирай" onclick="editUser(${user.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete" title="Изтрий" onclick="confirmDelete('user', ${user.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Зареждане на новините
+        function loadArticles() {
+            const tbody = document.getElementById('articles-table-body');
+            const noArticles = document.getElementById('no-articles');
+            
+            if (adminData.articles.length === 0) {
+                tbody.style.display = 'none';
+                noArticles.style.display = 'block';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            noArticles.style.display = 'none';
+            
+            adminData.articles.forEach(article => {
+                const categoryText = getCategoryText(article.category);
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <strong>${article.title}</strong>
+                    </td>
+                    <td>${article.author}</td>
+                    <td>${categoryText}</td>
+                    <td>${formatDate(article.date)}</td>
+                    <td>${article.views.toLocaleString()}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn edit" title="Редактирай" onclick="editArticle(${article.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete" title="Изтрий" onclick="confirmDelete('article', ${article.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <a href="news-detail.html?id=${article.id}" class="action-btn" title="Преглед" target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Зареждане на коментарите
+        function loadComments(filter = 'all') {
+            const commentsList = document.getElementById('comments-list');
+            const noComments = document.getElementById('no-comments');
+            
+            let filteredComments = adminData.comments;
+            
+            if (filter === 'pending') {
+                filteredComments = adminData.comments.filter(comment => comment.status === 'pending');
+            } else if (filter === 'approved') {
+                filteredComments = adminData.comments.filter(comment => comment.status === 'approved');
+            }
+            
+            if (filteredComments.length === 0) {
+                commentsList.style.display = 'none';
+                noComments.style.display = 'block';
+                return;
+            }
+            
+            commentsList.innerHTML = '';
+            noComments.style.display = 'none';
+            
+            filteredComments.forEach(comment => {
+                const statusBadge = comment.status === 'approved'
+                    ? '<span class="badge badge-active"><i class="fas fa-check"></i> Одобрен</span>'
+                    : '<span class="badge badge-inactive"><i class="fas fa-clock"></i> Чакащ</span>';
+                
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment-item';
+                commentElement.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-author">
+                            <div class="user-avatar">${comment.author.charAt(0)}</div>
+                            <div>
+                                <div class="user-name">${comment.author}</div>
+                                <div class="user-email">${formatDate(comment.date)}</div>
+                            </div>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div class="comment-content">
+                        ${comment.content}
+                    </div>
+                    <a href="#" class="comment-article">
+                        <i class="fas fa-newspaper"></i> ${comment.article}
+                    </a>
+                    <div class="action-buttons" style="margin-top: 1rem; justify-content: flex-end;">
+                        ${comment.status === 'pending' 
+                            ? `<button class="btn btn-primary btn-sm" onclick="approveComment(${comment.id})">
+                                    <i class="fas fa-check"></i> Одобри
+                               </button>` 
+                            : ''}
+                        <button class="btn btn-outline btn-sm" onclick="editComment(${comment.id})">
+                            <i class="fas fa-edit"></i> Редактирай
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('comment', ${comment.id})">
+                            <i class="fas fa-trash"></i> Изтрий
+                        </button>
+                    </div>
+                `;
+                commentsList.appendChild(commentElement);
+            });
+        }
+
+        // Филтриране на коментари
+        function filterComments(filter) {
+            currentCommentFilter = filter;
+            loadComments(filter);
+            
+            // Актуализиране на активния бутон
+            const buttons = document.querySelectorAll('#comments-section .section-actions button');
+            buttons.forEach(btn => {
+                if (btn.textContent.includes(filter === 'all' ? 'Всички' : 'Чакащи')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Показване на форма за добавяне на новина
+        function showAddArticleForm() {
+            // Активиране на раздела за добавяне на новина
+            document.querySelector('[data-section="add-article"]').click();
+            clearArticleForm();
+        }
+
+        // Изчистване на формата за новина
+        function clearArticleForm() {
+            document.getElementById('article-title').value = '';
+            document.getElementById('article-excerpt').value = '';
+            document.getElementById('article-content').value = '';
+            document.getElementById('article-category').value = '';
+            document.getElementById('article-author').value = 'Администратор';
+            document.getElementById('article-image').value = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
+            
+            currentEditingArticleId = null;
+            document.getElementById('article-form-title').textContent = 'Добави нова новина';
+        }
+
+        // Запазване на новина
+        function saveArticle(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('article-title').value;
+            const excerpt = document.getElementById('article-excerpt').value;
+            const content = document.getElementById('article-content').value;
+            const category = document.getElementById('article-category').value;
+            const author = document.getElementById('article-author').value;
+            const image = document.getElementById('article-image').value;
+            
+            if (currentEditingArticleId) {
+                // Редактиране на съществуваща новина
+                const articleIndex = adminData.articles.findIndex(a => a.id === currentEditingArticleId);
+                if (articleIndex !== -1) {
+                    adminData.articles[articleIndex] = {
+                        ...adminData.articles[articleIndex],
+                        title,
+                        author,
+                        category,
+                        date: new Date().toISOString().split('T')[0]
+                    };
+                    
+                    showNotification('Новината е обновена успешно!', 'success');
+                }
+            } else {
+                // Добавяне на нова новина
+                const newArticle = {
+                    id: adminData.articles.length + 1,
+                    title,
+                    author,
+                    category,
+                    date: new Date().toISOString().split('T')[0],
+                    views: 0
+                };
+                
+                adminData.articles.unshift(newArticle);
+                showNotification('Новината е добавена успешно!', 'success');
+            }
+            
+            // Презареждане на списъка с новини
+            loadArticles();
+            loadStatistics();
+            
+            // Изчистване на формата
+            clearArticleForm();
+            
+            // Връщане към раздела с новини
+            document.querySelector('[data-section="articles"]').click();
+        }
+
+        // Редактиране на новина
+        function editArticle(id) {
+            const article = adminData.articles.find(a => a.id === id);
+            if (!article) return;
+            
+            // Зареждане на данните във формата
+            document.getElementById('article-title').value = article.title;
+            document.getElementById('article-excerpt').value = `Примерно кратко описание за "${article.title}"`;
+            document.getElementById('article-content').value = `<p>Това е примерен текст за новината "${article.title}". Тук може да добавите пълното съдържание на новината.</p><p>Можете да използвате HTML за форматиране на текста.</p>`;
+            document.getElementById('article-category').value = article.category;
+            document.getElementById('article-author').value = article.author;
+            
+            currentEditingArticleId = id;
+            document.getElementById('article-form-title').textContent = 'Редактирай новина';
+            
+            // Активиране на формата
+            document.querySelector('[data-section="add-article"]').click();
+        }
+
+        // Редактиране на потребител
+        function editUser(id) {
+            const user = adminData.users.find(u => u.id === id);
+            if (!user) return;
+            
+            showNotification(`Редактиране на потребител: ${user.name}`, 'info');
+            // Тук може да се добави логика за отваряне на форма за редактиране
+        }
+
+        // Редактиране на коментар
+        function editComment(id) {
+            const comment = adminData.comments.find(c => c.id === id);
+            if (!comment) return;
+            
+            const newContent = prompt('Редактирайте коментара:', comment.content);
+            if (newContent !== null && newContent.trim() !== '') {
+                comment.content = newContent.trim();
+                loadComments(currentCommentFilter);
+                showNotification('Коментарът е редактиран успешно!', 'success');
+            }
+        }
+
+        // Одобряване на коментар
+        function approveComment(id) {
+            const comment = adminData.comments.find(c => c.id === id);
+            if (!comment) return;
+            
+            comment.status = 'approved';
+            loadComments(currentCommentFilter);
+            showNotification('Коментарът е одобрен успешно!', 'success');
+        }
+
+        // Потвърждение за изтриване
+        function confirmDelete(type, id) {
+            let message = '';
+            let title = '';
+            
+            if (type === 'user') {
+                const user = adminData.users.find(u => u.id === id);
+                title = 'Изтриване на потребител';
+                message = `Сигурни ли сте, че искате да изтриете потребителя ${user?.name}? Това действие не може да бъде отменено.`;
+            } else if (type === 'article') {
+                const article = adminData.articles.find(a => a.id === id);
+                title = 'Изтриване на новина';
+                message = `Сигурни ли сте, че искате да изтриете новината "${article?.title}"? Това действие не може да бъде отменено.`;
+            } else if (type === 'comment') {
+                const comment = adminData.comments.find(c => c.id === id);
+                title = 'Изтриване на коментар';
+                message = `Сигурни ли сте, че искате да изтриете коментара от ${comment?.author}? Това действие не може да бъде отменено.`;
+            }
+            
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = message;
+            
+            const confirmBtn = document.getElementById('confirmActionBtn');
+            confirmBtn.onclick = () => {
+                deleteItem(type, id);
+                closeModal();
+            };
+            
+            openModal();
+        }
+
+        // Изтриване на елемент
+        function deleteItem(type, id) {
+            if (type === 'user') {
+                adminData.users = adminData.users.filter(u => u.id !== id);
+                loadUsers();
+                showNotification('Потребителят е изтрит успешно!', 'success');
+            } else if (type === 'article') {
+                adminData.articles = adminData.articles.filter(a => a.id !== id);
+                loadArticles();
+                showNotification('Новината е изтрита успешно!', 'success');
+            } else if (type === 'comment') {
+                adminData.comments = adminData.comments.filter(c => c.id !== id);
+                loadComments(currentCommentFilter);
+                showNotification('Коментарът е изтрит успешно!', 'success');
+            }
+            
+            loadStatistics();
+        }
+
+        // Отваряне на модал
+        function openModal() {
+            document.getElementById('confirmationModal').classList.add('active');
+        }
+
+        // Затваряне на модал
+        function closeModal() {
+            document.getElementById('confirmationModal').classList.remove('active');
+        }
+
+        // Показване на известие
+        function showNotification(message, type) {
+            // Създаване на известието
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                background: ${type === 'success' ? 'rgba(0, 255, 157, 0.9)' : type === 'error' ? 'rgba(255, 0, 60, 0.9)' : 'rgba(0, 243, 255, 0.9)'};
+                color: var(--dark);
+                border-radius: 10px;
+                font-weight: 600;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                z-index: 3000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            // Добавяне на текст
+            notification.textContent = message;
+            
+            // Добавяне на страницата
+            document.body.appendChild(notification);
+            
+            // Премахване след 3 секунди
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Помощни функции
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('bg-BG', options);
+        }
+
+        function getCategoryText(category) {
+            const categoryMap = {
+                "update": "Обновление",
+                "event": "Събитие",
+                "tutorial": "Урок",
+                "community": "Общност",
+                "announcement": "Съобщение"
+            };
+            
+            return categoryMap[category] || "Новина";
+        }
+
+        // Добавяне на CSS анимации за известията
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            .btn-sm {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

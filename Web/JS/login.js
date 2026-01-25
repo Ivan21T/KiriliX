@@ -173,24 +173,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         });
 
-        document.querySelectorAll('.social-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const isGitHub = this.querySelector('.fa-github');
-                const platform = isGitHub ? 'GitHub' : 'Google';
-                
-                notificationSystem.showLoading(`Влизане с ${platform}...`);
-                
-                setTimeout(() => {
-                    notificationSystem.showSuccess(`Успешно влязохте с ${platform}!`, 3000);
-                }, 1500);
-            });
-        });
-
         document.querySelector('.forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
             notificationSystem.showWarning('Пренасочване към страница за възстановяване на парола...', 3000);
             setTimeout(() => {
-                console.log('Навигиране към страница за забравена парола');
-            }, 1000);
+                window.location.href = "../HTML/forgot_password.html";
+            }, 3000);
         });
 });

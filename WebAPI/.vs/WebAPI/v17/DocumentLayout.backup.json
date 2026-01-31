@@ -3,56 +3,52 @@
   "WorkspaceRootPath": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\commentcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\commentcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\kirilixdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\kirilixdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\otpcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\otpcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\postcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\postcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\otpcodeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\otpcodeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\otpcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\otpcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\otpcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\otpcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\business layer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|Business Layer\\Business Layer.csproj|solutionrelative:business layer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\dtos\\checkotpdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\dtos\\checkotpdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\dtos\\resetpassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\dtos\\resetpassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\datalayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\datalayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\datalayer\\otpcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\otpcodecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,158 +74,146 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CommentContext.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\CommentContext.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
-              "RelativeToolTip": "DataLayer\\CommentContext.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAkwAkAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:53:17.434Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PostContext.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\PostContext.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
-              "RelativeToolTip": "DataLayer\\PostContext.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAmwCcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:35:07.619Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "OTPCode.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\OTPCode.cs",
-              "RelativeDocumentMoniker": "Business Layer\\OTPCode.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\OTPCode.cs",
-              "RelativeToolTip": "Business Layer\\OTPCode.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA+wAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:32:54.387Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Post.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\Post.cs",
-              "RelativeDocumentMoniker": "Business Layer\\Post.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\Post.cs",
-              "RelativeToolTip": "Business Layer\\Post.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAADwvxcAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:32:06.96Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Comment.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\Comment.cs",
-              "RelativeDocumentMoniker": "Business Layer\\Comment.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\Comment.cs",
-              "RelativeToolTip": "Business Layer\\Comment.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAcwAwAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:30:36.013Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "OTPCodeService.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\OTPCodeService.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\OTPCodeService.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\OTPCodeService.cs",
-              "RelativeToolTip": "ServiceLayer\\OTPCodeService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:28:11.826Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "OTPCodeContext.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\OTPCodeContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\OTPCodeContext.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\OTPCodeContext.cs",
-              "RelativeToolTip": "DataLayer\\OTPCodeContext.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAkwDsAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T18:27:22.012Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\User.cs",
               "RelativeDocumentMoniker": "Business Layer\\User.cs",
               "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\User.cs",
               "RelativeToolTip": "Business Layer\\User.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA0wBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T06:38:29.881Z",
+              "WhenOpened": "2026-01-29T10:55:52.763Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
+              "Title": "OTPCodeService.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\OTPCodeService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\OTPCodeService.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\OTPCodeService.cs",
+              "RelativeToolTip": "ServiceLayer\\OTPCodeService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwDYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T10:26:18.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\UserService.cs",
               "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
               "RelativeToolTip": "ServiceLayer\\UserService.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAkwFkAAABPAAAAAAAAAA==",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAiwGcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-20T16:04:03.639Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ResetPasswordDTO.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\ResetPasswordDTO.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\ResetPasswordDTO.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\ResetPasswordDTO.cs",
+              "RelativeToolTip": "ServiceLayer\\DTOs\\ResetPasswordDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T10:55:32.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CheckOtpDto.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CheckOtpDto.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\CheckOtpDto.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CheckOtpDto.cs",
+              "RelativeToolTip": "ServiceLayer\\DTOs\\CheckOtpDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAIwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T10:43:17.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OTPCode.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\OTPCode.cs",
+              "RelativeDocumentMoniker": "Business Layer\\OTPCode.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\Business Layer\\OTPCode.cs",
+              "RelativeToolTip": "Business Layer\\OTPCode.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAUwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-10T18:32:54.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "KirilixDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\KirilixDbContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\KirilixDbContext.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\KirilixDbContext.cs",
-              "RelativeToolTip": "DataLayer\\KirilixDbContext.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-20T16:03:44.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserContext.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\UserContext.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
-              "RelativeToolTip": "DataLayer\\UserContext.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAowC0AAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-14T15:03:05.754Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "WebAPI\\Controllers\\UserController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAQwDwAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAcwGkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-14T13:38:08.438Z"
+              "WhenOpened": "2025-12-14T13:38:08.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PostService.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\PostService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\PostService.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\PostService.cs",
+              "RelativeToolTip": "ServiceLayer\\PostService.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T10:47:35.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DataLayer",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
+              "RelativeDocumentMoniker": "DataLayer\\DataLayer.csproj",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
+              "RelativeToolTip": "DataLayer\\DataLayer.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-29T10:55:52.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CommentService.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\CommentService.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
+              "RelativeToolTip": "ServiceLayer\\CommentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T10:47:37.871Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "OTPCodeContext.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\OTPCodeContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\OTPCodeContext.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\DataLayer\\OTPCodeContext.cs",
+              "RelativeToolTip": "DataLayer\\OTPCodeContext.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T10:30:12.967Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -239,7 +223,7 @@
               "RelativeDocumentMoniker": "WebAPI\\Program.cs",
               "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Program.cs",
               "RelativeToolTip": "WebAPI\\Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAADwvx8AAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvyAAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-14T13:38:06.561Z",
               "EditorCaption": ""

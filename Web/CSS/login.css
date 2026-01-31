@@ -417,43 +417,9 @@
 
         .form-options {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: 2rem;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .remember-checkbox {
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--neon-green);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .remember-checkbox.checked {
-            background: var(--neon-green);
-        }
-
-        .remember-checkbox.checked::after {
-            content: '✓';
-            color: var(--dark);
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-
-        .remember-text {
-            color: #b0b0d0;
-            font-size: 0.9rem;
         }
 
         .forgot-password {

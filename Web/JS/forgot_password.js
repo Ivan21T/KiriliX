@@ -1,5 +1,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const notifications = new NotificationSystem();
+            emailjs.init('zmbWVx3i_C-gZPbpL');
             
             const forgotPasswordForm = document.getElementById('forgotPasswordForm');
             const forgotPasswordSubmit = document.getElementById('forgotPasswordSubmit');
@@ -39,38 +40,6 @@
                     }, 1000);
                 });
             }
-            
-            const socialButtons = document.querySelectorAll('.social-btn');
-            socialButtons.forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const platform = this.textContent.trim();
-                    
-                    this.disabled = true;
-                    const originalText = this.innerHTML;
-                    this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${platform}`;
-                    
-                    const loadingNotification = notifications.showLoading(`Връзване с ${platform}...`);
-                    
-                    await new Promise(resolve => setTimeout(resolve, 1800));
-                    
-                    notifications.removeNotification(loadingNotification);
-                    
-                    if (Math.random() > 0.3) {
-                        notifications.showSuccess(`Успешно свързани с ${platform}!`, 3000);
-                    } else {
-                        notifications.showError(`Грешка при връзване с ${platform}. Опитайте отново.`, 4000);
-                    }
-                    
-                    setTimeout(() => {
-                        this.disabled = false;
-                        this.innerHTML = originalText;
-                    }, 500);
-                });
-            });
-            
-            setTimeout(() => {
-                notifications.showWarning('Въведете имейл адрес за възстановяване на парола.', 3000);
-            }, 1000);
             
             window.addEventListener('resize', function() {
                 const container = document.querySelector('.notification-container');

@@ -43,27 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 
-        const rememberMe = document.getElementById('rememberMe');
-        const rememberCheckbox = rememberMe.querySelector('.remember-checkbox');
-        
-        rememberMe.addEventListener('click', () => {
-            rememberCheckbox.classList.toggle('checked');
-        });
-
-
-        const termsCheckbox = document.getElementById('termsCheckbox');
-        
-        termsCheckbox.addEventListener('click', () => {
-            termsCheckbox.classList.toggle('checked');
-        });
-
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = this.querySelector('input[type="email"]').value;
             const password = document.getElementById('login-password').value;
-            const remember = rememberCheckbox.classList.contains('checked');
             
             if (!email || !password) {
                 notificationSystem.showError('Моля, попълнете всички полета!', 3000);
@@ -89,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 notificationSystem.showSuccess('Успешно влязохте в акаунта си!', 3000);
                 
-                console.log('Вход с:', { email, password, remember });
                 
             }, 1500);
         });
@@ -102,16 +86,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = this.querySelector('input[type="email"]').value;
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
-            const termsAccepted = termsCheckbox.classList.contains('checked');
             
 
             if (!username || !email || !password || !confirmPassword) {
                 notificationSystem.showError('Моля, попълнете всички полета!', 3000);
-                return;
-            }
-            
-            if (!termsAccepted) {
-                notificationSystem.showError('Моля, приемете условията и политиката!', 3000);
                 return;
             }
             
@@ -157,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         modeBtns[0].click();
                         this.reset();
-                        termsCheckbox.classList.remove('checked');
                     }
 
                     submitBtn.classList.remove('loading');
@@ -175,9 +152,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelector('.forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
-            notificationSystem.showWarning('Пренасочване към страница за възстановяване на парола...', 3000);
-            setTimeout(() => {
-                window.location.href = "../HTML/forgot_password.html";
-            }, 3000);
+            window.location.href = "../HTML/forgot_password.html";
         });
 });

@@ -30,6 +30,7 @@ public class Program
         builder.Services.AddScoped<OTPCodeContext>();
         builder.Services.AddScoped<UserContext>();
         builder.Services.AddScoped<UserService>();
+        builder.Services.AddScoped<OTPCodeService>();
 
         builder.Services.AddControllers();
 

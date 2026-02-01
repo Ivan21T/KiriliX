@@ -20,5 +20,15 @@ namespace Business_Layer
 
         [Required]
         public DateTime ExpiryTime { get; set; }
+
+        public OTPCode()
+        {
+        }
+        public OTPCode(string email, string code, DateTime expiryTime)
+        {
+            Email = email;
+            Code = code;
+            ExpiryTime = expiryTime;
+        }
     }
 }

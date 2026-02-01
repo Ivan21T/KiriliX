@@ -2,6 +2,8 @@
 using BCrypt.Net;
 using ServiceLayer.DTOs;
 using Microsoft.EntityFrameworkCore;
+using Business_Layer;
+using System.Security.Cryptography;
 namespace ServiceLayer
 {
     public class UserService
@@ -82,14 +84,19 @@ namespace ServiceLayer
             user.Password = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
             await _userContext.UpdateAsync(user);
         }
-        public async Task SendOTP(string email)
+        public async Task<OTPCode> SendOTP(string email)
         {
             var user = await GetUserByEmail(email);
             if (user == null)
             {
                 throw new Exception("Не съществува потребител с такъв имейл!");
             }
-            //I have to make CRUD for otpCode
+            var code = RandomNumberGenerator
+                .GetInt32(0, 1_000_000)
+                .ToString("D6");
+            var expiryTime =DateTime.UtcNow.AddMinutes(15);
+            OTPCode otpCode=new OTPCode(email,code,expiryTime);
+            return otpCode;
         }
 
     }

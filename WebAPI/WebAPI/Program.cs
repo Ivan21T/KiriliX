@@ -26,11 +26,12 @@ public class Program
                     .AllowAnyMethod();
             });
         });
-
-        builder.Services.AddScoped<OTPCodeContext>();
         builder.Services.AddScoped<UserContext>();
+        builder.Services.AddScoped<OTPCodeContext>();
+
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<OTPCodeService>();
+        builder.Services.AddScoped<EmailService>();
 
         builder.Services.AddControllers();
 

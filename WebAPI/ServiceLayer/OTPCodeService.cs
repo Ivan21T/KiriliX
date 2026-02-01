@@ -1,27 +1,46 @@
-﻿using System;
+﻿using Business_Layer;
+using DataLayer;
+using ServiceLayer.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using DataLayer;
-using Business_Layer;
-using ServiceLayer.DTOs;
 
 namespace ServiceLayer
 {
     public class OTPCodeService
     {
         private readonly OTPCodeContext _otpCodeContext;
-        public OTPCodeService(OTPCodeContext otpCodeContext)
+        private readonly EmailService _emailService;
+        public OTPCodeService(OTPCodeContext otpCodeContext, EmailService emailService)
         {
             _otpCodeContext = otpCodeContext;
+            _emailService = emailService;
         }
         public async Task CreateOTPCodeAsync(OTPCode otpCode)
         {
             await _otpCodeContext.CreateAsync(otpCode);
         }
+        public async Task<OTPCode> GenerateAndSendOTPAsync(string email,int offsetTime)
+        {
+            var code = RandomNumberGenerator
+                .GetInt32(0, 1_000_000)
+                .ToString("D6");
+            var expiryTime = DateTime.UtcNow.AddMinutes(15).AddMinutes(offsetTime);
+
+            OTPCode otpCode = new OTPCode(email, code, expiryTime);
+
+            await _otpCodeContext.CreateAsync(otpCode);
+
+            await _emailService.SendOtpEmail(email, code,expiryTime);
+
+            return otpCode;
+        }
         public async Task<bool> Verify(CheckOtpDTO checkOTP)
         {
+            await CleanupExpiredOTPCodesAsync();
             var otpCodes = await _otpCodeContext.ReadAllAsync();
             var otpCode = otpCodes.FirstOrDefault(o => o.Email == checkOTP.Email && o.Code == checkOTP.Code);
 

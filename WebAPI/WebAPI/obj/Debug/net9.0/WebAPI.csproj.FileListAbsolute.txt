@@ -20,12 +20,6 @@ C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\scopedcss\bundle\We
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets\msbuild.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets\msbuild.WebAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets\msbuild.build.WebAPI.props
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.WebAPI.props
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.WebAPI.props
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.pack.json
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.csproj.Up2Date
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.dll
@@ -52,7 +46,6 @@ C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.Extension
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\SQLitePCLRaw.core.dll
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\SQLitePCLRaw.provider.e_sqlite3.dll
-C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\System.Text.Json.dll
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\runtimes\browser-wasm\nativeassets\net9.0\e_sqlite3.a
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\runtimes\linux-arm\native\libe_sqlite3.so
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -80,3 +73,11 @@ C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\ServiceLayer.dll
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\ServiceLayer.pdb
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Business Layer.pdb
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\DataLayer.pdb
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\MailKit.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\MimeKit.dll
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\rjimswa.dswa.cache.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.build.json.cache

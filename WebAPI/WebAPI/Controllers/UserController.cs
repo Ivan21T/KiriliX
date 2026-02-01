@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly OTPCodeService _otpCodeService;
+        private readonly OTPCodeService _otpCodeService;    
         public UserController(UserService userService,OTPCodeService otpCodeService)
         {
             _userService = userService;
@@ -56,13 +56,16 @@ namespace WebAPI.Controllers
             }
         }
         [HttpGet("otp-code")]
-        public async Task<IActionResult> GetOTPCode([FromQuery] string email)
+        public async Task<IActionResult> GetOTPCode([FromQuery] string email,int offsetTime)
         {
             try
             {
-                var otpCode = await _userService.SendOTP(email); 
-                await _otpCodeService.CreateOTPCodeAsync(otpCode); 
-                return Ok(new {otpCode=otpCode });
+                var otpCode = await _otpCodeService.GenerateAndSendOTPAsync(email,offsetTime);
+
+                return Ok(new
+                {
+                    message = "OTP кодът е изпратен успешно!"
+                });
             }
             catch (Exception ex)
             {

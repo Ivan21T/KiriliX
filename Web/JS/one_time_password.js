@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded",function(){
-    const notificationSystem = new NotificationSystem();
 
-        const simulatedEmail = localStorage.getItem('forgotPasswordEmail') || 'example@email.com';
-        document.getElementById('emailDisplay').textContent = `Кодът е изпратен на: ${simulatedEmail}`;
+        const email = sessionStorage.getItem('resetEmail');
+        document.getElementById('emailDisplay').textContent = `Кодът е изпратен на: ${email}`;
 
         const codeInputs = [
             document.getElementById('code1'),
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded",function(){
             });
         });
 
-        let countdownTime = 180; 
+        let countdownTime = 60; 
         const countdownElement = document.getElementById('countdown');
         const resendBtn = document.getElementById('resendCodeBtn');
         const timerElement = document.getElementById('timer');
@@ -104,7 +103,8 @@ document.addEventListener("DOMContentLoaded",function(){
                 
                 codeInputs[0].focus();
                 
-                countdownTime = 180;
+                // Променете и тук на 60 секунди
+                countdownTime = 60;
                 timerElement.textContent = 'Можете да изпратите нов код след: ';
                 timerElement.classList.remove('highlight');
                 resendBtn.disabled = true;
@@ -141,8 +141,8 @@ document.addEventListener("DOMContentLoaded",function(){
                 if (enteredCode === '123456') {
                     notificationSystem.showSuccess('Кодът е валиден! Пренасочваме към страницата за нова парола...', 3000);
                     
-
-                    localStorage.setItem('verifiedEmail', simulatedEmail);
+                    const verifiedEmail = sessionStorage.getItem('resetEmail');
+                    localStorage.setItem('verifiedEmail', verifiedEmail);
                     
                     setTimeout(() => {
                         window.location.href = 'reset_password.html';
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded",function(){
             window.location.href = 'forgot_password.html';
         });
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('load', () => {
             codeInputs[0].focus();
             
             setTimeout(() => {
@@ -178,7 +178,4 @@ document.addEventListener("DOMContentLoaded",function(){
         
         const demoCode = generateRandomCode();
         localStorage.setItem('demoActivationCode', demoCode);
-        
-        console.log(`Демо код за тестване: ${demoCode}`);
-        console.log('За да тествате успешно, въведете: 123456');
-})
+});

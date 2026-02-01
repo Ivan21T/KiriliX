@@ -48,6 +48,27 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "GetOTPCode",
+    "RelativePath": "users/otp-code",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "offsetTime",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "ResetPassword",
     "RelativePath": "users/reset-password",
     "HttpMethod": "POST",
@@ -55,8 +76,24 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
+        "Name": "resetPasswordDTO",
         "Type": "ServiceLayer.DTOs.ResetPasswordDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "VerifyOTPCode",
+    "RelativePath": "users/verify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "checkOtp",
+        "Type": "ServiceLayer.DTOs.CheckOtpDTO",
         "IsRequired": true
       }
     ],

@@ -72,6 +72,22 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet("resend")]
+        public async Task<IActionResult> ResendOTPCode([FromQuery] string email, int offsetTime)
+        {
+            try
+            {
+                var otpCode = await _otpCodeService.ResendAsync(email, offsetTime);
+                return Ok(new
+                {
+                    message = "OTP кодът е препратен успешно!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyOTPCode([FromBody] CheckOtpDTO checkOtp)
         {

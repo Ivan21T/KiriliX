@@ -1,9 +1,11 @@
 ﻿using Business_Layer;
 using DataLayer;
+using Org.BouncyCastle.Asn1.Mozilla;
 using ServiceLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +25,21 @@ namespace ServiceLayer
         {
             await _otpCodeContext.CreateAsync(otpCode);
         }
+
+        public async Task DeleteByEmail(string email)
+        {
+            await CleanupExpiredOTPCodesAsync();
+            var otpCode = (await _otpCodeContext.ReadAllAsync())
+                .FirstOrDefault(o => o.Email == email);
+            if (otpCode == null)
+            {
+                throw new Exception("OTP код за този имейл не съществува!");
+            }
+            await _otpCodeContext.DeleteAsync(otpCode.Id);
+        }
         public async Task<OTPCode> GenerateAndSendOTPAsync(string email,int offsetTime)
         {
+            await CleanupExpiredOTPCodesAsync();
             var code = RandomNumberGenerator
                 .GetInt32(0, 1_000_000)
                 .ToString("D6");
@@ -37,6 +52,11 @@ namespace ServiceLayer
             await _emailService.SendOtpEmail(email, code,expiryTime);
 
             return otpCode;
+        }
+        public async Task <OTPCode> ResendAsync(string email, int offsetTime)
+        {
+            await DeleteByEmail(email);
+            return await GenerateAndSendOTPAsync(email, offsetTime);
         }
         public async Task<bool> Verify(CheckOtpDTO checkOTP)
         {

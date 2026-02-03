@@ -34,14 +34,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "email",
-        "Type": "System.String",
+        "Name": "request",
+        "Type": "ServiceLayer.DTOs.LoginRequest",
         "IsRequired": true
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -50,6 +45,27 @@
     "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "GetOTPCode",
     "RelativePath": "users/otp-code",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "offsetTime",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "ResendOTPCode",
+    "RelativePath": "users/resend",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = this.querySelector('input[type="email"]').value;
@@ -55,11 +55,37 @@ document.addEventListener('DOMContentLoaded', function() {
         
         showAlert('Влизане в акаунта...', 'pending');
         
-        setTimeout(() => {
+        try {
+            const response = await fetch(`${API_CONFIG.USER}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                showAlert(data.message || 'Възникна грешка', 'error');
+            } else {
+                showAlert(data.message, 'success');
+                modeBtns[0].click();
+                sessionStorage.setItem("user",data.user)
+                this.reset();
+            }
+
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
-            showAlert('Успешно влязохте в акаунта си!', 'success');
-        }, 1500);
+            }
+        catch(error) {
+            showAlert('Грешка при връзка със сървъра', 'error');
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+        }
     });
 
     document.getElementById('registerForm').addEventListener('submit', async function(e) {

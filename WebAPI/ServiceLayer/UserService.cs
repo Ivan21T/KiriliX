@@ -24,6 +24,7 @@ namespace ServiceLayer
             {
                 throw new Exception("потребителското име вече е заето!");
             }
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             await _userContext.CreateAsync(user);
         }
         public async Task<User> GetUserByUsername(string username)

@@ -45,6 +45,35 @@ namespace DataLayer.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Business_Layer.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte>("TimeToRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("Business_Layer.OTPCode", b =>
                 {
                     b.Property<int>("Id")
@@ -138,6 +167,17 @@ namespace DataLayer.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Business_Layer.News", b =>
+                {
+                    b.HasOne("DataLayer.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Business_Layer.Post", b =>

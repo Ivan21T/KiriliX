@@ -21,7 +21,7 @@ namespace DataLayer
         {
             Username = username;
             Email = email;
-            Password = BCrypt.Net.BCrypt.HashPassword(password);
+            Password = password;
         }
     }
 }

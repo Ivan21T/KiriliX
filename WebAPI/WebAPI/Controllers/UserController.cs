@@ -43,12 +43,17 @@ namespace WebAPI.Controllers
 
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] string email,string password)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             try
             {
-                User user = await _userService.SignIn(email, password);
-                return Ok(new {message="Успешно влизане!",user=user});
+                if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+                {
+                    return BadRequest(new { message = "Имейл и парола са задължителни!" });
+                }
+
+                User user = await _userService.SignIn(request.Email, request.Password);
+                return Ok(new { message = "Успешно влизане!", user = user });
             }
             catch (Exception ex)
             {

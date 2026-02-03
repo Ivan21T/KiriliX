@@ -13,6 +13,7 @@ namespace DataLayer
         public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<OTPCode> OTPCodes { get; set; }
+        public DbSet<News> News { get; set; }
         public KirilixDbContext(): base()
         {
         }

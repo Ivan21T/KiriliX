@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded",function(){
                 
                 codeInputs[0].focus();
                 
-                // Променете и тук на 60 секунди
                 countdownTime = 60;
                 timerElement.textContent = 'Можете да изпратите нов код след: ';
                 timerElement.classList.remove('highlight');

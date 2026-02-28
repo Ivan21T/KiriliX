@@ -126,7 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({
                     username,
                     email,
-                    password
+                    password,
+                    role:1
                 })
             });
 

@@ -22,7 +22,7 @@ namespace ServiceLayer
             }
             if(await GetUserByUsername(user.Username)!=null)
             {
-                throw new Exception("потребителското име вече е заето!");
+                throw new Exception("Потребителското име вече е заето!");
             }
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             await _userContext.CreateAsync(user);
@@ -61,10 +61,6 @@ namespace ServiceLayer
         {
             await _userContext.UpdateAsync(user, useNavigationalProperties);
         }
-        public async Task DeleteUserAsync(int id)
-        {
-            await _userContext.DeleteAsync(id);
-        }
         public async Task<User> SignIn(string email, string password)
         {
             User user = await GetUserByEmail(email);
@@ -102,6 +98,9 @@ namespace ServiceLayer
 
             return otpCode;
         }
-
+        public async Task DeleteAsync(int id)
+        {
+            await _userContext.DeleteAsync(id);
+        }
     }
 }

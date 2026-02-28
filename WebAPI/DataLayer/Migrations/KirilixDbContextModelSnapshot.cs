@@ -140,6 +140,9 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(30)

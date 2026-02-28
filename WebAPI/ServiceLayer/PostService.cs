@@ -18,6 +18,9 @@ namespace ServiceLayer
         {
             await _postContext.CreateAsync(post);
         }
-
+        public async Task<List<Post>> GetPostsAsync()
+        {
+            return await _postContext.ReadAllAsync(useNavigationProperties: true, isReadOnly: true);
+        }
     }
 }

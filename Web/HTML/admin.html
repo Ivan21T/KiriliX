@@ -2,12 +2,17 @@
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>KiriliX | Администраторски панел</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --white: #ffffff;
             --neon-green: #00ff9d;
@@ -19,15 +24,7 @@
             --purple: #8a2be2;
             --cyan: #00f3ff;
             --yellow: #ffcc00;
-            --orange: #ff7b00;
-            --shadow: 0 0 20px rgba(0, 255, 157, 0.3);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --transition: all 0.3s ease;
         }
 
         body {
@@ -36,9 +33,9 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
+        /* Декоративни елементи */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -46,116 +43,31 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            overflow: hidden;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(138, 43, 226, 0.03) 0%, transparent 50%),
-                linear-gradient(45deg, var(--dark) 0%, #0d0f1a 100%);
-        }
-
-        .bg-element {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.1;
-            animation: float 15s infinite linear;
-            filter: blur(40px);
-        }
-
-        .bg-element:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            background: var(--neon-green);
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-            animation-duration: 25s;
-        }
-
-        .bg-element:nth-child(2) {
-            width: 300px;
-            height: 300px;
-            background: var(--neon-red);
-            top: 60%;
-            left: 80%;
-            animation-delay: 5s;
-            animation-duration: 30s;
-        }
-
-        .bg-element:nth-child(3) {
-            width: 500px;
-            height: 500px;
-            background: var(--neon-green);
-            top: 70%;
-            left: 10%;
-            animation-delay: 10s;
-            animation-duration: 35s;
-        }
-
-        .bg-element:nth-child(4) {
-            width: 200px;
-            height: 200px;
-            background: var(--neon-red);
-            top: 20%;
-            left: 70%;
-            animation-delay: 15s;
-            animation-duration: 20s;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            33% {
-                transform: translate(50px, -80px) rotate(120deg);
-            }
-            66% {
-                transform: translate(-30px, 40px) rotate(240deg);
-            }
-            100% {
-                transform: translate(0, 0) rotate(360deg);
-            }
-        }
-
-        .bulgarian-pattern {
-            background-image: 
-                linear-gradient(45deg, var(--neon-green) 25%, transparent 25%), 
-                linear-gradient(-45deg, var(--neon-green) 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, var(--neon-red) 75%), 
-                linear-gradient(-45deg, transparent 75%, var(--neon-red) 75%);
-            background-size: 30px 30px;
-            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
-            opacity: 0.03;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.05) 0%, transparent 50%);
         }
 
         .bulgarian-border {
             height: 4px;
             background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-            box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-red);
         }
 
+        /* Header */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(10, 10, 20, 0.9);
-            backdrop-filter: blur(15px);
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 255, 157, 0.1);
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -164,12 +76,11 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--white);
             text-decoration: none;
-            z-index: 1001;
             text-shadow: 0 0 10px var(--neon-green);
         }
 
@@ -183,207 +94,129 @@
             justify-content: center;
             color: var(--dark);
             font-weight: 700;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 0 15px var(--neon-green),
-                0 0 30px var(--neon-red);
-            animation: logoGlow 3s infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            0% {
-                box-shadow: 
-                    0 0 15px var(--neon-green),
-                    0 0 30px var(--neon-red);
-            }
-            100% {
-                box-shadow: 
-                    0 0 25px var(--neon-green),
-                    0 0 50px var(--neon-red),
-                    0 0 75px var(--purple);
-            }
+            box-shadow: 0 0 15px var(--neon-green);
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
         .nav-link {
             color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            position: relative;
             transition: var(--transition);
             padding: 0.5rem 0;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-            transition: var(--transition);
-            box-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .nav-link:hover {
+        .nav-link:hover,
+        .nav-link.active {
             color: var(--neon-green);
             text-shadow: 0 0 10px var(--neon-green);
         }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
         .btn {
-            padding: 0.8rem 1.8rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            text-decoration: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.5px;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: var(--transition);
-        }
-
-        .btn:hover::before {
-            left: 100%;
         }
 
         .btn-outline {
             border: 2px solid var(--neon-green);
             color: var(--neon-green);
             background: transparent;
-            text-shadow: 0 0 5px var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
         }
 
         .btn-outline:hover {
-            color: var(--dark);
             background: var(--neon-green);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.5);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.4);
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--neon-green), var(--green));
             color: var(--dark);
-            border: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.6);
-            background: linear-gradient(135deg, var(--neon-green), #00ff9d);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.4);
         }
 
         .btn-danger {
             background: linear-gradient(135deg, var(--neon-red), var(--red));
             color: var(--white);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: transparent;
             border: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        .btn-danger:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(255, 0, 60, 0.6);
-            background: linear-gradient(135deg, var(--neon-red), #ff3366);
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--neon-green);
+            border-radius: 3px;
+            transition: var(--transition);
         }
 
-        .btn-warning {
-            background: linear-gradient(135deg, var(--orange), var(--yellow));
-            color: var(--dark);
-            border: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
+        .mobile-menu {
+            display: none;
         }
 
-        .btn-warning:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(255, 123, 0, 0.6);
-        }
-
-        /* Админ контейнер */
+        /* Главен контейнер */
         .admin-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 8rem 2rem 5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
+            padding: 7rem 2rem 3rem;
         }
 
-        /* Заглавие и статистика */
+        /* Заглавие и статистики */
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .admin-title {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--white);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, var(--white), var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .admin-stats {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
         }
 
         .admin-stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1.5rem;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            min-width: 150px;
+            padding: 1.2rem 2rem;
+            text-align: center;
             border: 1px solid rgba(0, 255, 157, 0.1);
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-
-        .admin-stat:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-green);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+            min-width: 130px;
         }
 
         .stat-number {
@@ -394,60 +227,50 @@
         }
 
         .stat-label {
-            font-size: 0.9rem;
             color: #b0b0d0;
-            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
         }
 
-        /* Админ навигация */
+        /* Навигация в админ панела */
         .admin-nav {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
-            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
-            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .admin-nav-btn {
             padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: transparent;
             border: none;
             color: #b0b0d0;
-            border-radius: 10px 10px 0 0;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            position: relative;
-            overflow: hidden;
+            border-radius: 10px 10px 0 0;
+            white-space: nowrap;
         }
 
         .admin-nav-btn:hover {
-            background: rgba(0, 255, 157, 0.1);
             color: var(--neon-green);
+            background: rgba(0, 255, 157, 0.1);
         }
 
         .admin-nav-btn.active {
-            background: rgba(0, 255, 157, 0.2);
             color: var(--neon-green);
             border-bottom: 3px solid var(--neon-green);
+            background: rgba(0, 255, 157, 0.05);
         }
 
-        .admin-nav-btn.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), transparent);
-            z-index: -1;
-        }
-
-        /* Админ секции */
+        /* Секции */
         .admin-section {
             display: none;
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.3s ease;
         }
 
         .admin-section.active {
@@ -455,7 +278,7 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -463,99 +286,60 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
         .section-title {
             font-size: 1.8rem;
             font-weight: 600;
             color: var(--white);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
-        .section-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* Таблици - НАПЪЛНО РЕСПОНСИВНИ */
+        /* Таблици */
         .admin-table-container {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             border: 1px solid rgba(0, 255, 157, 0.1);
-            backdrop-filter: blur(10px);
-            margin-bottom: 2rem;
             overflow: hidden;
-            position: relative;
+            margin-bottom: 2rem;
         }
 
-        .table-scroll-wrapper {
+        .table-responsive {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: var(--neon-green) rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-        }
-
-        .table-scroll-wrapper::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        .table-scroll-wrapper::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-        }
-
-        .table-scroll-wrapper::-webkit-scrollbar-thumb {
-            background: var(--neon-green);
-            border-radius: 5px;
-            box-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
-            background: var(--green);
         }
 
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 900px;
-        }
-
-        .admin-table thead {
-            background: rgba(0, 255, 157, 0.1);
-            border-bottom: 2px solid rgba(0, 255, 157, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            min-width: 700px;
         }
 
         .admin-table th {
-            padding: 1.5rem;
+            background: rgba(0, 255, 157, 0.1);
+            padding: 1.2rem 1rem;
             text-align: left;
-            font-weight: 600;
             color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green);
-            font-size: 1rem;
+            font-weight: 600;
             white-space: nowrap;
         }
 
-        .admin-table tbody tr {
+        .admin-table td {
+            padding: 1rem;
             border-bottom: 1px solid rgba(0, 255, 157, 0.05);
-            transition: var(--transition);
+            color: #e0e0f0;
         }
 
         .admin-table tbody tr:hover {
             background: rgba(0, 255, 157, 0.05);
         }
 
-        .admin-table td {
-            padding: 1.2rem 1.5rem;
-            color: #e0e0f0;
-            vertical-align: middle;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .user-avatar {
@@ -568,35 +352,11 @@
             justify-content: center;
             color: var(--dark);
             font-weight: 700;
-            margin-right: 10px;
             flex-shrink: 0;
         }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 200px;
-        }
-
-        .user-name {
-            font-weight: 500;
-            color: var(--white);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .user-email {
-            font-size: 0.9rem;
-            color: #b0b0d0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
         .badge {
-            padding: 0.4rem 1rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -621,38 +381,28 @@
         .badge-active {
             background: rgba(0, 255, 157, 0.2);
             color: var(--neon-green);
-            border: 1px solid rgba(0, 255, 157, 0.4);
         }
 
         .badge-inactive {
             background: rgba(255, 0, 60, 0.2);
             color: var(--neon-red);
-            border: 1px solid rgba(255, 0, 60, 0.4);
         }
 
         .badge-premium {
             background: rgba(255, 204, 0, 0.2);
             color: var(--yellow);
-            border: 1px solid rgba(255, 204, 0, 0.4);
-        }
-
-        .badge-contributor {
-            background: rgba(0, 243, 255, 0.2);
-            color: var(--cyan);
-            border: 1px solid rgba(0, 243, 255, 0.4);
         }
 
         .action-buttons {
             display: flex;
             gap: 0.5rem;
-            flex-wrap: nowrap;
-            min-width: 140px;
+            flex-wrap: wrap;
         }
 
         .action-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -661,11 +411,10 @@
             color: var(--white);
             cursor: pointer;
             transition: var(--transition);
-            flex-shrink: 0;
         }
 
         .action-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .action-btn.edit:hover {
@@ -686,43 +435,116 @@
             border-color: var(--purple);
         }
 
-        /* Форми */
+        /* ПАГИНАЦИЯ - ПРАВИЛНА */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .pagination-info {
+            color: #b0b0d0;
+            font-size: 0.9rem;
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            min-width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            padding: 0 0.5rem;
+        }
+
+        .page-btn:hover:not(.active):not(:disabled) {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+        }
+
+        .page-btn.active {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-size-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #b0b0d0;
+        }
+
+        .page-size-selector select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 6px;
+            color: var(--white);
+            padding: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Форма за новини */
         .admin-form {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            padding: 2.5rem;
+            padding: 2rem;
             border: 1px solid rgba(0, 255, 157, 0.1);
-            backdrop-filter: blur(10px);
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .admin-form.active {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.5rem;
             color: var(--white);
             font-weight: 500;
         }
 
         .form-control {
             width: 100%;
-            padding: 1rem 1.2rem;
+            padding: 1rem;
             background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(0, 255, 157, 0.2);
             border-radius: 10px;
@@ -739,7 +561,7 @@
         }
 
         .form-textarea {
-            min-height: 200px;
+            min-height: 150px;
             resize: vertical;
         }
 
@@ -747,24 +569,118 @@
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300ff9d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 1.2rem center;
-            background-size: 16px;
-            padding-right: 3rem;
+            background-position: right 1rem center;
+            background-size: 12px;
+            padding-right: 2.5rem;
         }
 
-        .form-actions {
+        /* File upload */
+        .file-upload {
             display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(0, 255, 157, 0.1);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: rgba(0, 255, 157, 0.03);
+            border: 2px dashed rgba(0, 255, 157, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 1rem;
         }
 
-        /* Стилове за детайли на потребителите */
+        .file-upload:hover {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .file-upload i {
+            font-size: 3rem;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload p {
+            color: #b0b0d0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        /* Autocomplete */
+        .autocomplete-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--dark-secondary);
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .autocomplete-suggestions div {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .autocomplete-suggestions div:hover {
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        /* PREVIEW НА ИЗОБРАЖЕНИЕ */
+        .image-preview-container {
+            margin-top: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            position: relative;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            display: none;
+        }
+
+        .image-preview.active {
+            display: block;
+        }
+
+        .image-preview-placeholder {
+            color: #b0b0d0;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .image-preview-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(0, 255, 157, 0.3);
+        }
+
+        /* Статистики */
         .user-stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
@@ -774,206 +690,29 @@
             border-radius: 15px;
             padding: 1.5rem;
             border: 1px solid rgba(0, 255, 157, 0.1);
-            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-green);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+            gap: 1rem;
         }
 
         .stat-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 12px;
-            background: linear-gradient(135deg, rgba(0, 255, 157, 0.2), rgba(138, 43, 226, 0.2));
+            background: rgba(0, 255, 157, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             color: var(--neon-green);
-            flex-shrink: 0;
-        }
-
-        .stat-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .stat-content .stat-number {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .stat-content .stat-label {
-            font-size: 0.9rem;
-            color: #b0b0d0;
-            margin-top: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #b0b0d0;
-            font-size: 1.1rem;
-        }
-
-        .no-data i {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: rgba(0, 255, 157, 0.3);
-        }
-
-        /* Индикатор за превъртане (само за мобилни) */
-        .scroll-indicator {
-            display: none;
-            text-align: center;
-            padding: 1rem;
-            background: rgba(0, 255, 157, 0.1);
-            border-top: 1px solid rgba(0, 255, 157, 0.2);
-            color: var(--neon-green);
-            font-size: 0.9rem;
-        }
-
-        .scroll-indicator i {
-            animation: bounce 2s infinite;
-            margin-left: 0.5rem;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(0);
-            }
-            40% {
-                transform: translateX(-10px);
-            }
-            60% {
-                transform: translateX(-5px);
-            }
-        }
-
-        /* ПАГИНАЦИЯ */
-        .pagination-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-            border-top: 1px solid rgba(0, 255, 157, 0.1);
-            background: rgba(255, 255, 255, 0.02);
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .pagination-info {
-            color: #b0b0d0;
-            font-size: 0.9rem;
-            margin-right: 1rem;
-            white-space: nowrap;
-        }
-
-        .pagination {
-            display: flex;
-            gap: 0.3rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .page-btn {
-            min-width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 157, 0.1);
-            color: var(--white);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .page-btn:hover:not(.active):not(.disabled) {
-            background: rgba(0, 255, 157, 0.1);
-            color: var(--neon-green);
-            border-color: var(--neon-green);
-            transform: translateY(-2px);
-        }
-
-        .page-btn.active {
-            background: rgba(0, 255, 157, 0.2);
-            color: var(--neon-green);
-            border-color: var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
-        }
-
-        .page-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .page-btn.dots {
-            background: transparent;
-            border: none;
-            cursor: default;
-            min-width: 20px;
-        }
-
-        .page-btn.dots:hover {
-            background: transparent;
-            transform: none;
-        }
-
-        .pagination-controls {
-            display: flex;
-            gap: 0.5rem;
-            margin-left: 1rem;
-        }
-
-        .page-size-selector {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-left: 1rem;
-        }
-
-        .page-size-selector select {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 8px;
-            color: var(--white);
-            padding: 0.5rem;
-            font-family: 'Inter', sans-serif;
         }
 
         /* Footer */
         .footer {
             background: rgba(10, 10, 20, 0.95);
             border-top: 1px solid rgba(0, 255, 157, 0.1);
-            padding: 4rem 2rem 2rem;
-            margin-top: 4rem;
-            position: relative;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-            box-shadow: 0 0 15px var(--neon-green);
+            padding: 3rem 2rem 2rem;
+            margin-top: 3rem;
         }
 
         .footer-container {
@@ -984,36 +723,33 @@
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 2rem;
+            gap: 10px;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--white);
-            text-shadow: 0 0 10px var(--neon-green);
+            margin-bottom: 1rem;
         }
 
         .footer-description {
             color: #b0b0d0;
-            margin-bottom: 2rem;
-            line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
 
         .social-links {
             display: flex;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             background: rgba(0, 255, 157, 0.1);
             display: flex;
             align-items: center;
@@ -1021,62 +757,18 @@
             color: var(--neon-green);
             text-decoration: none;
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 255, 157, 0.2);
-        }
-
-        .social-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .social-link:hover::before {
-            opacity: 1;
         }
 
         .social-link:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 255, 157, 0.3);
-            border-color: var(--neon-green);
-        }
-
-        .social-link i {
-            position: relative;
-            z-index: 1;
-            font-size: 1.3rem;
-        }
-
-        .social-link:hover i {
+            transform: translateY(-3px);
+            background: var(--neon-green);
             color: var(--dark);
         }
 
         .footer-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1.8rem;
             color: var(--white);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-            border-radius: 2px;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
         }
 
         .footer-links {
@@ -1084,109 +776,37 @@
         }
 
         .footer-links li {
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
             color: #b0b0d0;
             text-decoration: none;
             transition: var(--transition);
-            padding: 0.3rem 0;
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-            transition: var(--transition);
         }
 
         .footer-links a:hover {
             color: var(--neon-green);
-            transform: translateX(10px);
-        }
-
-        .footer-links a:hover::after {
-            width: 100%;
+            padding-left: 5px;
         }
 
         .footer-bottom {
-            padding-top: 3rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(0, 255, 157, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: #b0b0d0;
             font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .footer-badge {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--neon-green);
-            font-weight: 600;
-            text-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .footer-badge i {
-            animation: heartbeat 1.5s infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 35px;
-            height: 25px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1001;
-        }
-
-        .mobile-menu-toggle span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: var(--neon-green);
-            border-radius: 3px;
-            transition: var(--transition);
-            box-shadow: 0 0 5px var(--neon-green);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: translateY(11px) rotate(45deg);
-            background: var(--neon-red);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: translateY(-11px) rotate(-45deg);
-            background: var(--neon-red);
-        }
-
-        .mobile-menu {
-            display: none;
         }
 
         /* Модал */
@@ -1201,9 +821,8 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1rem;
             backdrop-filter: blur(10px);
-            animation: fadeIn 0.3s ease-out;
         }
 
         .modal.active {
@@ -1212,58 +831,22 @@
 
         .modal-content {
             background: var(--dark-secondary);
-            border-radius: 20px;
-            padding: 2.5rem;
-            max-width: 600px;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
             width: 100%;
             border: 1px solid rgba(0, 255, 157, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            animation: modalSlideIn 0.4s ease-out;
-            max-height: 90vh;
-            overflow-y: auto;
+            animation: modalSlide 0.3s ease;
         }
 
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: transparent;
-            border: none;
-            color: #b0b0d0;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-        }
-
-        .modal-close:hover {
-            color: var(--neon-red);
-            background: rgba(255, 0, 60, 0.1);
+        @keyframes modalSlide {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-text {
-            color: #e0e0f0;
-            line-height: 1.7;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .modal-actions {
@@ -1273,85 +856,14 @@
             margin-top: 2rem;
         }
 
-        @media (max-width: 1200px) {
-            .admin-container {
-                padding: 8rem 1.5rem 5rem;
-            }
-            
-            .admin-table th, .admin-table td {
-                padding: 1rem;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                gap: 0.3rem;
-                min-width: 60px;
-            }
-            
-            .action-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-        }
-
+        /* Медия заявки - РЕСПОНСИВ */
         @media (max-width: 1024px) {
             .footer-content {
                 grid-template-columns: 1fr 1fr;
-                gap: 3rem;
             }
             
             .form-row {
                 grid-template-columns: 1fr;
-            }
-            
-            .admin-title {
-                font-size: 2rem;
-            }
-            
-            .user-stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .scroll-indicator {
-                display: block;
-            }
-            
-            /* По-компактна таблица за таблети */
-            .admin-table th, .admin-table td {
-                padding: 0.8rem;
-                font-size: 0.9rem;
-            }
-            
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-            
-            .badge {
-                padding: 0.3rem 0.8rem;
-                font-size: 0.8rem;
-            }
-            
-            /* Пагинация за таблети */
-            .pagination-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            .pagination-info {
-                margin-right: 0;
-                text-align: center;
-            }
-            
-            .pagination-controls {
-                margin-left: 0;
-            }
-            
-            .page-size-selector {
-                margin-left: 0;
             }
         }
 
@@ -1362,102 +874,6 @@
             
             .mobile-menu-toggle {
                 display: flex;
-            }
-            
-            .admin-container {
-                padding: 7rem 1rem 3rem;
-            }
-            
-            .admin-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .admin-stats {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .admin-stat {
-                min-width: calc(50% - 0.5rem);
-                padding: 1rem;
-            }
-            
-            .stat-number {
-                font-size: 1.5rem;
-            }
-            
-            .admin-nav {
-                justify-content: center;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 0.5rem;
-            }
-            
-            .admin-nav-btn {
-                padding: 0.8rem 1.2rem;
-                font-size: 0.9rem;
-                white-space: nowrap;
-            }
-            
-            .admin-table th, .admin-table td {
-                padding: 0.6rem;
-                font-size: 0.85rem;
-            }
-            
-            .admin-table {
-                min-width: 1000px;
-            }
-            
-            .action-buttons {
-                min-width: 50px;
-            }
-            
-            .action-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .user-stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .stat-card {
-                padding: 1rem;
-                gap: 1rem;
-            }
-            
-            .stat-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            
-            .stat-content .stat-number {
-                font-size: 1.5rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-            
-            .footer-title::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
             }
             
             .mobile-menu {
@@ -1472,252 +888,160 @@
                 justify-content: center;
                 align-items: center;
                 transform: translateX(-100%);
-                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transition: transform 0.3s ease;
                 z-index: 999;
-                padding: 2rem;
-                backdrop-filter: blur(20px);
+                backdrop-filter: blur(10px);
             }
             
             .mobile-menu.active {
                 transform: translateX(0);
-                display: flex;
             }
             
             .mobile-nav-links {
                 display: flex;
                 flex-direction: column;
                 gap: 2rem;
-                margin-bottom: 3rem;
                 text-align: center;
-                width: 100%;
-                max-width: 300px;
+                margin-bottom: 2rem;
             }
             
             .mobile-nav-link {
                 color: var(--white);
                 text-decoration: none;
-                font-weight: 600;
                 font-size: 1.5rem;
-                padding: 0.8rem 0;
+                font-weight: 600;
                 transition: var(--transition);
-                text-shadow: 0 0 10px var(--neon-green);
-                border-bottom: 1px solid rgba(0, 255, 157, 0.1);
             }
             
-            .mobile-nav-link:hover {
+            .mobile-nav-link:hover,
+            .mobile-nav-link.active {
                 color: var(--neon-green);
-                transform: translateX(10px);
-                border-bottom-color: var(--neon-green);
             }
             
-            .mobile-nav-actions {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                width: 100%;
-                max-width: 250px;
-            }
-            
-            .mobile-nav-actions .btn {
-                width: 100%;
-                justify-content: center;
-                padding: 1rem;
-                font-size: 1rem;
-            }
-            
-            /* Адаптивни форми за малки екрани */
-            .admin-form {
-                padding: 1.5rem;
-            }
-            
-            .section-header {
+            .admin-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
             }
             
-            .section-actions {
+            .admin-stats {
+                width: 100%;
+            }
+            
+            .admin-stat {
+                flex: 1;
+                min-width: auto;
+                padding: 1rem;
+            }
+            
+            .pagination-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .pagination-controls {
                 width: 100%;
                 justify-content: space-between;
             }
             
-            .section-actions .btn {
-                flex: 1;
+            .page-size-selector {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .social-links {
                 justify-content: center;
-                padding: 0.8rem;
-                font-size: 0.9rem;
             }
             
-            /* Пагинация за мобилни */
-            .pagination {
-                gap: 0.2rem;
-            }
-            
-            .page-btn {
-                min-width: 35px;
-                height: 35px;
-                font-size: 0.8rem;
-            }
-            
-            .pagination-info {
-                font-size: 0.8rem;
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
             .admin-container {
-                padding: 6rem 0.5rem 2rem;
-            }
-            
-            .admin-stat {
-                min-width: 100%;
-            }
-            
-            .modal-content {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-            
-            .footer {
-                padding: 2rem 1rem 1.5rem;
-            }
-            
-            .admin-table-container {
-                border-radius: 10px;
-                margin-left: 0.5rem;
-                margin-right: 0.5rem;
-            }
-            
-            .table-scroll-wrapper {
-                border-radius: 10px;
-            }
-            
-            .admin-table th, .admin-table td {
-                padding: 0.5rem;
-            }
-            
-            .user-info {
-                min-width: 150px;
-                gap: 8px;
-            }
-            
-            .user-avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-            
-            .user-name {
-                font-size: 0.9rem;
-            }
-            
-            .user-email {
-                font-size: 0.8rem;
-            }
-            
-            .badge {
-                padding: 0.2rem 0.6rem;
-                font-size: 0.75rem;
-            }
-            
-            .action-buttons {
-                min-width: 45px;
-                gap: 0.2rem;
-            }
-            
-            .action-btn {
-                width: 28px;
-                height: 28px;
-                font-size: 0.75rem;
-            }
-            
-            .scroll-indicator {
-                font-size: 0.8rem;
-                padding: 0.8rem;
+                padding: 6rem 1rem 2rem;
             }
             
             .admin-title {
-                font-size: 1.8rem;
-                padding-left: 0.5rem;
+                font-size: 2rem;
+            }
+            
+            .admin-stat {
+                padding: 0.8rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
             }
             
             .section-title {
                 font-size: 1.5rem;
-                padding-left: 0.5rem;
             }
             
-            /* Пагинация за много малки екрани */
-            .pagination {
-                gap: 0.1rem;
+            .admin-form {
+                padding: 1.5rem;
             }
             
-            .page-btn {
-                min-width: 30px;
-                height: 30px;
-                font-size: 0.75rem;
+            .form-actions {
+                flex-direction: column;
             }
             
-            .pagination-info {
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .admin-table {
-                min-width: 1100px;
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
             }
             
-            .admin-table th, .admin-table td {
-                padding: 0.4rem;
-                font-size: 0.8rem;
+            .user-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                gap: 0.3rem;
             }
             
             .action-btn {
-                width: 26px;
-                height: 26px;
+                width: 32px;
+                height: 32px;
             }
             
-            .user-avatar {
-                width: 28px;
-                height: 28px;
+            .pagination-buttons {
+                gap: 0.2rem;
             }
             
-            .pagination {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 0.5rem;
+            .page-btn {
+                min-width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg">
-        <div class="bg-element"></div>
-        <div class="bg-element"></div>
-        <div class="bg-element"></div>
-        <div class="bg-element"></div>
-    </div>
-    
-    <div class="bulgarian-pattern"></div>
+    <div class="animated-bg"></div>
     
     <header>
         <div class="bulgarian-border"></div>
         <div class="nav-container">
-            <a href="index.html" class="logo">
+            <a href="#" class="logo">
                 <div class="logo-icon">K</div>
                 KiriliX
             </a>
             <div class="nav-links">
-                <a href="index.html" class="nav-link">Начало</a>
-                <a href="forum.html" class="nav-link">Форум</a>
-                <a href="docs.html" class="nav-link">Документация</a>
-                <a href="news.html" class="nav-link">Новини</a>
-                <a href="admin.html" class="nav-link active"><i class="fas fa-user-shield"></i> Админ</a>
+                <a href="#" class="nav-link">Начало</a>
+                <a href="#" class="nav-link">Форум</a>
+                <a href="#" class="nav-link">Документация</a>
+                <a href="#" class="nav-link">Новини</a>
+                <a href="#" class="nav-link active"><i class="fas fa-user-shield"></i> Админ</a>
             </div>
             <div class="nav-actions">
-                <button id="logout-btn" class="btn btn-outline">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Изход
+                <button class="btn btn-outline" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Изход
                 </button>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -1729,44 +1053,45 @@
         
         <div class="mobile-menu" id="mobileMenu">
             <div class="mobile-nav-links">
-                <a href="index.html" class="mobile-nav-link">Начало</a>
-                <a href="forum.html" class="mobile-nav-link">Форум</a>
-                <a href="docs.html" class="mobile-nav-link">Документация</a>
-                <a href="news.html" class="mobile-nav-link">Новини</a>
-                <a href="admin.html" class="mobile-nav-link active"><i class="fas fa-user-shield"></i> Админ</a>
+                <a href="#" class="mobile-nav-link">Начало</a>
+                <a href="#" class="mobile-nav-link">Форум</a>
+                <a href="#" class="mobile-nav-link">Документация</a>
+                <a href="#" class="mobile-nav-link">Новини</a>
+                <a href="#" class="mobile-nav-link active">Админ</a>
             </div>
             <div class="mobile-nav-actions">
                 <button class="btn btn-outline">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Изход
+                    <i class="fas fa-sign-out-alt"></i> Изход
                 </button>
             </div>
         </div>
     </header>
 
     <main class="admin-container">
+        <!-- Статистики -->
         <div class="admin-header">
             <h1 class="admin-title">Администраторски панел</h1>
             <div class="admin-stats">
                 <div class="admin-stat">
-                    <div class="stat-number" id="totalUsers">128</div>
+                    <div class="stat-number" id="totalUsers">0</div>
                     <div class="stat-label">Потребители</div>
                 </div>
                 <div class="admin-stat">
-                    <div class="stat-number" id="totalArticles">47</div>
+                    <div class="stat-number" id="totalArticles">0</div>
                     <div class="stat-label">Новини</div>
                 </div>
                 <div class="admin-stat">
-                    <div class="stat-number" id="totalComments">312</div>
+                    <div class="stat-number" id="totalComments">0</div>
                     <div class="stat-label">Коментари</div>
                 </div>
                 <div class="admin-stat">
-                    <div class="stat-number" id="activeUsers">89</div>
+                    <div class="stat-number" id="activeUsers">0</div>
                     <div class="stat-label">Активни</div>
                 </div>
             </div>
         </div>
 
+        <!-- Навигация -->
         <div class="admin-nav">
             <button class="admin-nav-btn active" data-section="users">
                 <i class="fas fa-users"></i> Потребители
@@ -1775,84 +1100,58 @@
                 <i class="fas fa-newspaper"></i> Новини
             </button>
             <button class="admin-nav-btn" data-section="user-details">
-                <i class="fas fa-user-circle"></i> Детайли за потребителите
+                <i class="fas fa-user-circle"></i> Детайли
             </button>
             <button class="admin-nav-btn" data-section="add-article">
                 <i class="fas fa-plus-circle"></i> Добави новина
             </button>
         </div>
 
-        <!-- Секция за потребители -->
+        <!-- Секция Потребители -->
         <section id="users-section" class="admin-section active">
             <div class="section-header">
                 <h2 class="section-title">Регистрирани потребители</h2>
                 <div class="section-actions">
                     <button class="btn btn-outline">
-                        <i class="fas fa-user-plus"></i> Добави потребител
-                    </button>
-                    <button class="btn btn-primary">
-                        <i class="fas fa-file-export"></i> Експорт
+                        <i class="fas fa-user-plus"></i> Добави
                     </button>
                 </div>
             </div>
             
             <div class="admin-table-container">
-                <div class="table-scroll-wrapper">
+                <div class="table-responsive">
                     <table class="admin-table">
                         <thead>
                             <tr>
                                 <th>Потребител</th>
                                 <th>Роля</th>
-                                <th>Регистрация</th>
-                                <th>Статус</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
-                        <tbody id="users-table-body">
-                            <!-- Данните ще се заредят от JavaScript -->
-                        </tbody>
+                        <tbody id="usersTableBody"></tbody>
                     </table>
-                </div>
-                <div class="scroll-indicator" id="users-scroll-indicator">
-                    <span>Плъзнете за превъртане на таблицата</span>
-                    <i class="fas fa-arrow-right"></i>
                 </div>
                 
                 <!-- Пагинация за потребители -->
-                <div class="pagination-container" id="users-pagination">
-                    <div class="pagination-info" id="users-pagination-info">
-                        Показване на 1-10 от 128 потребители
-                    </div>
-                    <div class="pagination" id="users-pagination-buttons">
-                        <!-- Пагинацията ще се генерира от JavaScript -->
-                    </div>
+                <div class="pagination-wrapper" id="usersPagination">
+                    <div class="pagination-info" id="usersPaginationInfo"></div>
                     <div class="pagination-controls">
-                        <button class="page-btn prev" id="users-prev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="page-btn next" id="users-next">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    <div class="page-size-selector">
-                        <span>Брой на страница:</span>
-                        <select id="users-page-size">
-                            <option value="5">5</option>
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                        </select>
+                        <div class="pagination-buttons" id="usersPaginationButtons"></div>
+                        <div class="page-size-selector">
+                            <span>На страница:</span>
+                            <select id="usersPageSize">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="no-data" id="no-users" style="display: none;">
-                <i class="fas fa-users-slash"></i>
-                <p>Няма регистрирани потребители</p>
-            </div>
         </section>
 
-        <!-- Секция за новини -->
+        <!-- Секция Новини -->
         <section id="articles-section" class="admin-section">
             <div class="section-header">
                 <h2 class="section-title">Новини и статии</h2>
@@ -1864,70 +1163,45 @@
             </div>
             
             <div class="admin-table-container">
-                <div class="table-scroll-wrapper">
+                <div class="table-responsive">
                     <table class="admin-table">
                         <thead>
                             <tr>
                                 <th>Заглавие</th>
                                 <th>Автор</th>
-                                <th>Категория</th>
                                 <th>Дата</th>
                                 <th>Прегледи</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
-                        <tbody id="articles-table-body">
-                            <!-- Данните ще се заредят от JavaScript -->
-                        </tbody>
+                        <tbody id="articlesTableBody"></tbody>
                     </table>
-                </div>
-                <div class="scroll-indicator" id="articles-scroll-indicator">
-                    <span>Плъзнете за превъртане на таблицата</span>
-                    <i class="fas fa-arrow-right"></i>
                 </div>
                 
                 <!-- Пагинация за новини -->
-                <div class="pagination-container" id="articles-pagination">
-                    <div class="pagination-info" id="articles-pagination-info">
-                        Показване на 1-10 от 47 новини
-                    </div>
-                    <div class="pagination" id="articles-pagination-buttons">
-                        <!-- Пагинацията ще се генерира от JavaScript -->
-                    </div>
+                <div class="pagination-wrapper" id="articlesPagination">
+                    <div class="pagination-info" id="articlesPaginationInfo"></div>
                     <div class="pagination-controls">
-                        <button class="page-btn prev" id="articles-prev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="page-btn next" id="articles-next">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    <div class="page-size-selector">
-                        <span>Брой на страница:</span>
-                        <select id="articles-page-size">
-                            <option value="5">5</option>
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                        </select>
+                        <div class="pagination-buttons" id="articlesPaginationButtons"></div>
+                        <div class="page-size-selector">
+                            <span>На страница:</span>
+                            <select id="articlesPageSize">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="no-data" id="no-articles" style="display: none;">
-                <i class="fas fa-newspaper"></i>
-                <p>Няма публикувани новини</p>
-            </div>
         </section>
 
-        <!-- Секция за детайли на потребителите -->
+        <!-- Секция Детайли за потребители -->
         <section id="user-details-section" class="admin-section">
             <div class="section-header">
                 <h2 class="section-title">Детайли за потребителите</h2>
                 <div class="section-actions">
-                    <button class="btn btn-outline" onclick="exportUsersData()">
-                        <i class="fas fa-file-export"></i> Експорт данни
-                    </button>
                     <button class="btn btn-primary" onclick="refreshUserStats()">
                         <i class="fas fa-sync-alt"></i> Обнови
                     </button>
@@ -1935,7 +1209,7 @@
             </div>
             
             <div class="admin-table-container">
-                <div class="table-scroll-wrapper">
+                <div class="table-responsive">
                     <table class="admin-table">
                         <thead>
                             <tr>
@@ -1948,146 +1222,112 @@
                                 <th>Действия</th>
                             </tr>
                         </thead>
-                        <tbody id="user-details-body">
-                            <!-- Данните ще се заредят от JavaScript -->
-                        </tbody>
+                        <tbody id="userDetailsTableBody"></tbody>
                     </table>
                 </div>
-                <div class="scroll-indicator" id="user-details-scroll-indicator">
-                    <span>Плъзнете за превъртане на таблицата</span>
-                    <i class="fas fa-arrow-right"></i>
-                </div>
                 
-                <!-- Пагинация за детайли на потребители -->
-                <div class="pagination-container" id="user-details-pagination">
-                    <div class="pagination-info" id="user-details-pagination-info">
-                        Показване на 1-10 от 128 детайла
-                    </div>
-                    <div class="pagination" id="user-details-pagination-buttons">
-                        <!-- Пагинацията ще се генерира от JavaScript -->
-                    </div>
+                <!-- Пагинация за детайли -->
+                <div class="pagination-wrapper" id="userDetailsPagination">
+                    <div class="pagination-info" id="userDetailsPaginationInfo"></div>
                     <div class="pagination-controls">
-                        <button class="page-btn prev" id="user-details-prev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="page-btn next" id="user-details-next">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    <div class="page-size-selector">
-                        <span>Брой на страница:</span>
-                        <select id="user-details-page-size">
-                            <option value="5">5</option>
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                        </select>
+                        <div class="pagination-buttons" id="userDetailsPaginationButtons"></div>
+                        <div class="page-size-selector">
+                            <span>На страница:</span>
+                            <select id="userDetailsPageSize">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="no-data" id="no-user-details" style="display: none;">
-                <i class="fas fa-user-slash"></i>
-                <p>Няма данни за потребителите</p>
-            </div>
-            
-            <!-- Статистика за потребителите -->
+            <!-- Статистики -->
             <div class="user-stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="active-users-count">0</div>
+                    <div class="stat-icon"><i class="fas fa-user-check"></i></div>
+                    <div>
+                        <div class="stat-number" id="activeUsersCount">0</div>
                         <div class="stat-label">Активни потребители</div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-clock"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="new-users-count">0</div>
+                    <div class="stat-icon"><i class="fas fa-user-plus"></i></div>
+                    <div>
+                        <div class="stat-number" id="newUsersCount">0</div>
                         <div class="stat-label">Нови този месец</div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="top-contributors">0</div>
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div>
+                        <div class="stat-number" id="topContributors">0</div>
                         <div class="stat-label">Топ сътрудници</div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="activity-growth">0%</div>
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <div class="stat-number" id="activityGrowth">0%</div>
                         <div class="stat-label">Ръст на активност</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Форма за добавяне/редактиране на новина -->
+        <!-- Секция Добави новина - С PREVIEW НА СНИМКА -->
         <section id="add-article-section" class="admin-section">
             <div class="section-header">
-                <h2 class="section-title" id="article-form-title">Добави нова новина</h2>
-                <div class="section-actions">
-                    <button class="btn btn-outline" onclick="clearArticleForm()">
-                        <i class="fas fa-eraser"></i> Изчисти
-                    </button>
-                </div>
+                <h2 class="section-title" id="articleFormTitle">Добави нова новина</h2>
             </div>
             
-            <form id="article-form" class="admin-form active" onsubmit="saveArticle(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="article-title">Заглавие</label>
-                        <input type="text" id="article-title" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="article-category">Категория</label>
-                        <select id="article-category" class="form-control form-select" required>
-                            <option value="">Избери категория</option>
-                            <option value="update">Обновление</option>
-                            <option value="event">Събитие</option>
-                            <option value="tutorial">Урок</option>
-                            <option value="community">Общност</option>
-                            <option value="announcement">Съобщение</option>
-                        </select>
-                    </div>
+            <form id="articleForm" class="admin-form" onsubmit="saveArticle(event)">
+                <div class="form-group">
+                    <label class="form-label" for="articleTitle">Заглавие</label>
+                    <input type="text" id="articleTitle" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="article-excerpt">Кратко описание</label>
-                    <textarea id="article-excerpt" class="form-control" rows="3" required></textarea>
+                    <label class="form-label" for="articleExcerpt">Кратко описание</label>
+                    <textarea id="articleExcerpt" class="form-control" rows="3" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="article-content">Съдържание</label>
-                    <textarea id="article-content" class="form-control form-textarea" rows="10" required></textarea>
+                    <label class="form-label" for="articleContent">Съдържание</label>
+                    <textarea id="articleContent" class="form-control form-textarea" rows="8" required></textarea>
                 </div>
                 
                 <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="article-author">Автор</label>
-                        <input type="text" id="article-author" class="form-control" value="Администратор" required>
+                    <div class="form-group" style="position: relative;">
+                        <label class="form-label" for="articleAuthor">Автор</label>
+                        <input type="text" id="articleAuthor" class="form-control" value="Администратор" required autocomplete="off">
+                        <div id="authorSuggestions" class="autocomplete-suggestions"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="article-image">URL на изображение</label>
-                        <input type="url" id="article-image" class="form-control" 
-                               value="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80">
+                    
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Изображение</label>
+                    <div class="file-upload" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Кликнете или плъзнете снимка тук</p>
+                        <p style="font-size: 0.8rem;">Поддържани формати: JPG, PNG, GIF (макс. 5MB)</p>
+                        <input type="file" id="articleImage" accept="image/*">
+                    </div>
+                    
+                    <!-- PREVIEW КОНТЕЙНЕР -->
+                    <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
+                        <img id="imagePreview" class="image-preview" src="" alt="Preview">
+                        <button type="button" class="action-btn delete" onclick="removeImage()" style="position: absolute; top: 10px; right: 10px;">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                 </div>
                 
                 <div class="form-actions">
-                    <button type="button" class="btn btn-outline" onclick="clearArticleForm()">
-                        Отказ
-                    </button>
+                    <button type="button" class="btn btn-outline" onclick="clearArticleForm()">Отказ</button>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Запази новина
                     </button>
@@ -2097,20 +1337,13 @@
     </main>
 
     <!-- Модал за потвърждение -->
-    <div class="modal" id="confirmationModal">
+    <div class="modal" id="confirmModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </button>
             <h3 class="modal-title" id="modalTitle">Потвърждение</h3>
-            <p class="modal-text" id="modalText">Сигурни ли сте, че искате да изпълните това действие?</p>
+            <p id="modalMessage">Сигурни ли сте?</p>
             <div class="modal-actions">
-                <button class="btn btn-outline" onclick="closeModal()">
-                    Отказ
-                </button>
-                <button class="btn btn-danger" id="confirmActionBtn">
-                    Потвърди
-                </button>
+                <button class="btn btn-outline" onclick="closeModal()">Отказ</button>
+                <button class="btn btn-danger" id="confirmActionBtn">Потвърди</button>
             </div>
         </div>
     </div>
@@ -2118,1196 +1351,843 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div>
                     <div class="footer-logo">
                         <div class="logo-icon">K</div>
                         KiriliX
                     </div>
                     <p class="footer-description">
-                        Първият български език за програмиране, създаден с любов към родния език и технологиите.
+                        Първият български език за програмиране.
                     </p>
                     <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-youtube"></i>
-                        </a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
+                <div>
                     <h3 class="footer-title">Новини</h3>
                     <ul class="footer-links">
-                        <li><a href="news.html">Всички новини</a></li>
-                        <li><a href="news.html#update">Обновления</a></li>
-                        <li><a href="news.html#event">Събития</a></li>
-                        <li><a href="#">Архив</a></li>
+                        <li><a href="#">Всички новини</a></li>
+                        <li><a href="#">Обновления</a></li>
+                        <li><a href="#">Събития</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
+                <div>
                     <h3 class="footer-title">Общност</h3>
                     <ul class="footer-links">
-                        <li><a href="forum.html">Форум</a></li>
+                        <li><a href="#">Форум</a></li>
                         <li><a href="#">Потребители</a></li>
-                        <li><a href="#">Събития</a></li>
                         <li><a href="#">Контакти</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
+                <div>
                     <h3 class="footer-title">Ресурси</h3>
                     <ul class="footer-links">
-                        <li><a href="docs.html">Документация</a></li>
+                        <li><a href="#">Документация</a></li>
                         <li><a href="#">Уроци</a></li>
-                        <li><a href="#">Библиотеки</a></li>
                         <li><a href="#">Помощ</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div class="footer-copyright">
-                    &copy; 2023 KiriliX Админ панел. Всички права запазени.
-                </div>
+                <div>© 2024 KiriliX. Всички права запазени.</div>
                 <div class="footer-badge">
                     <i class="fas fa-heart"></i>
-                    <span>Създадено с любов в България</span>
+                    <span>Създадено в България</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Разширени данни за администраторския панел
+        // ================ ДАННИ ================
         const adminData = {
             users: [
-                { id: 1, name: "Иван Петров", email: "ivan@example.com", role: "admin", regDate: "2023-01-15", status: "active", initials: "ИП" },
-                { id: 2, name: "Мария Георгиева", email: "maria@example.com", role: "admin", regDate: "2023-02-20", status: "active", initials: "МГ" },
-                { id: 3, name: "Александър Иванов", email: "alex@example.com", role: "user", regDate: "2023-03-10", status: "active", initials: "АИ" },
-                { id: 4, name: "Елена Димитрова", email: "elena@example.com", role: "user", regDate: "2023-04-05", status: "active", initials: "ЕД" },
-                { id: 5, name: "Георги Стоянов", email: "georgi@example.com", role: "user", regDate: "2023-05-12", status: "inactive", initials: "ГС" },
-                { id: 6, name: "София Василева", email: "sofia@example.com", role: "user", regDate: "2023-06-18", status: "active", initials: "СВ" },
-                { id: 7, name: "Димитър Николов", email: "dimitur@example.com", role: "user", regDate: "2023-07-22", status: "active", initials: "ДН" },
-                { id: 8, name: "Анна Попова", email: "anna@example.com", role: "user", regDate: "2023-08-30", status: "inactive", initials: "АП" },
-                { id: 9, name: "Петър Стоянов", email: "petar@example.com", role: "user", regDate: "2023-09-05", status: "active", initials: "ПС" },
-                { id: 10, name: "Калина Иванова", email: "kalina@example.com", role: "user", regDate: "2023-09-10", status: "active", initials: "КИ" },
-                { id: 11, name: "Николай Георгиев", email: "nikolay@example.com", role: "user", regDate: "2023-09-15", status: "active", initials: "НГ" },
-                { id: 12, name: "Радослав Димитров", email: "radoslav@example.com", role: "user", regDate: "2023-09-20", status: "inactive", initials: "РД" },
-                { id: 13, name: "Цветелина Петрова", email: "tsvetelina@example.com", role: "user", regDate: "2023-09-25", status: "active", initials: "ЦП" },
-                { id: 14, name: "Васил Николов", email: "vasil@example.com", role: "user", regDate: "2023-09-30", status: "active", initials: "ВН" },
-                { id: 15, name: "Емилия Стоянова", email: "emilia@example.com", role: "user", regDate: "2023-10-05", status: "active", initials: "ЕС" },
-                { id: 16, name: "Борислав Иванов", email: "borislav@example.com", role: "user", regDate: "2023-10-10", status: "inactive", initials: "БИ" },
-                { id: 17, name: "Десислава Георгиева", email: "desislava@example.com", role: "user", regDate: "2023-10-15", status: "active", initials: "ДГ" },
-                { id: 18, name: "Христо Димитров", email: "hristo@example.com", role: "user", regDate: "2023-10-20", status: "active", initials: "ХД" },
-                { id: 19, name: "Йорданка Петрова", email: "yordanka@example.com", role: "user", regDate: "2023-10-25", status: "active", initials: "ЙП" },
-                { id: 20, name: "Стефан Николов", email: "stefan@example.com", role: "user", regDate: "2023-10-30", status: "active", initials: "СН" }
+                { id: 1, name: "Иван Петров", email: "ivan@example.com", role: "admin", initials: "ИП" },
+                { id: 2, name: "Мария Георгиева", email: "maria@example.com", role: "admin", initials: "МГ" },
+                { id: 3, name: "Александър Иванов", email: "alex@example.com", role: "user", initials: "АИ" },
+                { id: 4, name: "Елена Димитрова", email: "elena@example.com", role: "user", initials: "ЕД" },
+                { id: 5, name: "Георги Стоянов", email: "georgi@example.com", role: "user", initials: "ГС" },
+                { id: 6, name: "София Василева", email: "sofia@example.com", role: "user", initials: "СВ" },
+                { id: 7, name: "Димитър Николов", email: "dimitur@example.com", role: "user", initials: "ДН" },
+                { id: 8, name: "Анна Попова", email: "anna@example.com", role: "user", initials: "АП" },
+                { id: 9, name: "Петър Стоянов", email: "petar@example.com", role: "user", initials: "ПС" },
+                { id: 10, name: "Калина Иванова", email: "kalina@example.com", role: "user", initials: "КИ" },
+                { id: 11, name: "Николай Георгиев", email: "nikolay@example.com", role: "user", initials: "НГ" },
+                { id: 12, name: "Радослав Димитров", email: "radoslav@example.com", role: "user", initials: "РД" }
             ],
             articles: [
-                { id: 1, title: "Пускане на KiriliX версия 2.0", author: "Екип KiriliX", category: "update", date: "2023-10-20", views: 1247 },
-                { id: 2, title: "Предстоящо събитие: Ден на отворените врати", author: "Мария Георгиева", category: "event", date: "2023-10-28", views: 856 },
-                { id: 3, title: "Нов урок: Създаване на уеб сървър", author: "Иван Петров", category: "tutorial", date: "2023-10-22", views: 743 },
-                { id: 4, title: "Интервю с основателя на KiriliX", author: "Александър Иванов", category: "community", date: "2023-10-15", views: 521 },
-                { id: 5, title: "Нови функции в бъдещата версия 2.1", author: "Екип KiriliX", category: "announcement", date: "2023-10-25", views: 932 },
-                { id: 6, title: "Как да започнете с KiriliX", author: "Александър Иванов", category: "tutorial", date: "2023-10-18", views: 642 },
-                { id: 7, title: "Събитие: Хакатон за начинаещи", author: "Мария Георгиева", category: "event", date: "2023-11-05", views: 325 },
-                { id: 8, title: "Нови библиотеки за разработчици", author: "Иван Петров", category: "update", date: "2023-10-30", views: 487 },
-                { id: 9, title: "Как KiriliX променя образованието", author: "Екип KiriliX", category: "community", date: "2023-11-01", views: 598 },
-                { id: 10, title: "Бъдещи разширения на езика", author: "Екип KiriliX", category: "announcement", date: "2023-11-10", views: 712 },
-                { id: 11, title: "Първи стъпки в програмирането", author: "Александър Иванов", category: "tutorial", date: "2023-11-15", views: 234 },
-                { id: 12, title: "Общността нараства", author: "Мария Георгиева", category: "community", date: "2023-11-20", views: 189 },
-                { id: 13, title: "Нови възможности за интеграция", author: "Иван Петров", category: "update", date: "2023-11-25", views: 456 },
-                { id: 14, title: "Събитие: Конференция за разработчици", author: "Екип KiriliX", category: "event", date: "2023-12-01", views: 321 },
-                { id: 15, title: "Напреднали техники в KiriliX", author: "Александър Иванов", category: "tutorial", date: "2023-12-05", views: 278 }
+                { id: 1, title: "Пускане на KiriliX версия 2.0", author: "Иван Петров", category: "update", date: "2024-03-20", views: 1247, image: null },
+                { id: 2, title: "Предстоящо събитие: Ден на отворените врати", author: "Мария Георгиева", category: "event", date: "2024-03-22", views: 856, image: null },
+                { id: 3, title: "Нов урок: Създаване на уеб сървър", author: "Александър Иванов", category: "tutorial", date: "2024-03-25", views: 743, image: null },
+                { id: 4, title: "Интервю с основателя на KiriliX", author: "Екип KiriliX", category: "community", date: "2024-03-28", views: 521, image: null },
+                { id: 5, title: "Нови функции в бъдещата версия 2.1", author: "Екип KiriliX", category: "announcement", date: "2024-04-01", views: 932, image: null },
+                { id: 6, title: "Как да започнете с KiriliX", author: "Александър Иванов", category: "tutorial", date: "2024-04-03", views: 642, image: null },
+                { id: 7, title: "Събитие: Хакатон за начинаещи", author: "Мария Георгиева", category: "event", date: "2024-04-05", views: 325, image: null }
             ],
             userDetails: [
-                { userId: 1, lastActivity: "2023-10-30", articles: 12, comments: 45, reputation: 120, status: "premium" },
-                { userId: 2, lastActivity: "2023-10-29", articles: 8, comments: 32, reputation: 85, status: "premium" },
-                { userId: 3, lastActivity: "2023-10-28", articles: 5, comments: 28, reputation: 65, status: "contributor" },
-                { userId: 4, lastActivity: "2023-10-25", articles: 3, comments: 15, reputation: 42, status: "active" },
-                { userId: 5, lastActivity: "2023-09-15", articles: 0, comments: 5, reputation: 10, status: "inactive" },
-                { userId: 6, lastActivity: "2023-10-30", articles: 2, comments: 22, reputation: 55, status: "active" },
-                { userId: 7, lastActivity: "2023-10-27", articles: 1, comments: 18, reputation: 38, status: "active" },
-                { userId: 8, lastActivity: "2023-08-30", articles: 0, comments: 2, reputation: 5, status: "inactive" },
-                { userId: 9, lastActivity: "2023-10-29", articles: 4, comments: 12, reputation: 48, status: "active" },
-                { userId: 10, lastActivity: "2023-10-28", articles: 2, comments: 8, reputation: 32, status: "active" },
-                { userId: 11, lastActivity: "2023-10-27", articles: 1, comments: 6, reputation: 25, status: "active" },
-                { userId: 12, lastActivity: "2023-09-20", articles: 0, comments: 3, reputation: 8, status: "inactive" },
-                { userId: 13, lastActivity: "2023-10-26", articles: 3, comments: 14, reputation: 40, status: "active" },
-                { userId: 14, lastActivity: "2023-10-25", articles: 2, comments: 10, reputation: 35, status: "active" },
-                { userId: 15, lastActivity: "2023-10-24", articles: 1, comments: 7, reputation: 28, status: "active" },
-                { userId: 16, lastActivity: "2023-09-10", articles: 0, comments: 1, reputation: 3, status: "inactive" },
-                { userId: 17, lastActivity: "2023-10-23", articles: 4, comments: 16, reputation: 45, status: "active" },
-                { userId: 18, lastActivity: "2023-10-22", articles: 3, comments: 11, reputation: 38, status: "active" },
-                { userId: 19, lastActivity: "2023-10-21", articles: 2, comments: 9, reputation: 30, status: "active" },
-                { userId: 20, lastActivity: "2023-10-20", articles: 1, comments: 5, reputation: 22, status: "active" }
+                { userId: 1, lastActivity: "2024-04-10", articles: 12, comments: 45, reputation: 120, status: "premium" },
+                { userId: 2, lastActivity: "2024-04-09", articles: 8, comments: 32, reputation: 85, status: "premium" },
+                { userId: 3, lastActivity: "2024-04-08", articles: 5, comments: 28, reputation: 65, status: "contributor" },
+                { userId: 4, lastActivity: "2024-04-07", articles: 3, comments: 15, reputation: 42, status: "active" },
+                { userId: 5, lastActivity: "2024-03-15", articles: 0, comments: 5, reputation: 10, status: "inactive" },
+                { userId: 6, lastActivity: "2024-04-10", articles: 2, comments: 22, reputation: 55, status: "active" },
+                { userId: 7, lastActivity: "2024-04-09", articles: 1, comments: 18, reputation: 38, status: "active" },
+                { userId: 8, lastActivity: "2024-03-20", articles: 0, comments: 2, reputation: 5, status: "inactive" },
+                { userId: 9, lastActivity: "2024-04-08", articles: 4, comments: 12, reputation: 48, status: "active" },
+                { userId: 10, lastActivity: "2024-04-07", articles: 2, comments: 8, reputation: 32, status: "active" },
+                { userId: 11, lastActivity: "2024-04-06", articles: 1, comments: 6, reputation: 25, status: "active" },
+                { userId: 12, lastActivity: "2024-03-25", articles: 0, comments: 3, reputation: 8, status: "inactive" }
             ]
         };
 
-        // Променливи за управление на състоянието и пагинацията
+        // ================ СЪСТОЯНИЕ ================
         let currentEditingArticleId = null;
-        let pendingAction = null;
+        let currentAction = null;
+        let currentImageFile = null;
         
-        // Пагинационни настройки за всяка таблица
-        const paginationState = {
-            users: {
-                currentPage: 1,
-                pageSize: 10,
-                totalPages: 1
-            },
-            articles: {
-                currentPage: 1,
-                pageSize: 10,
-                totalPages: 1
-            },
-            userDetails: {
-                currentPage: 1,
-                pageSize: 10,
-                totalPages: 1
-            }
+        // Пагинация
+        const pagination = {
+            users: { page: 1, pageSize: 10, total: adminData.users.length },
+            articles: { page: 1, pageSize: 10, total: adminData.articles.length },
+            userDetails: { page: 1, pageSize: 10, total: adminData.userDetails.length }
         };
 
-        // Инициализация при зареждане на страницата
+        // ================ ИНИЦИАЛИЗАЦИЯ ================
         document.addEventListener('DOMContentLoaded', function() {
-            // Инициализация на мобилното меню
             initMobileMenu();
-            
-            // Зареждане на статистиката
+            initNavigation();
+            initAutocomplete();
+            initFileUpload();
+            initPaginationControls();
             loadStatistics();
-            
-            // Инициализация на навигацията
-            initAdminNav();
-            
-            // Инициализация на бутоните
-            initButtons();
-            
-            // Инициализация на индикаторите за превъртане
-            initScrollIndicators();
-            
-            // Проверка за мобилни устройства
-            checkMobileView();
-            
-            // Инициализация на пагинацията
-            initPagination();
-            
-            // Зареждане на първата страница от всяка таблица
             loadUsers();
             loadArticles();
             loadUserDetails();
+            
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Сигурни ли сте?')) {
+                    window.location.href = '#';
+                }
+            });
         });
 
-        // Инициализация на пагинацията
-        function initPagination() {
-            // Размер на страница за потребители
-            const usersPageSize = document.getElementById('users-page-size');
-            if (usersPageSize) {
-                usersPageSize.addEventListener('change', function() {
-                    paginationState.users.pageSize = parseInt(this.value);
-                    paginationState.users.currentPage = 1;
-                    loadUsers();
-                });
-            }
-            
-            // Размер на страница за новини
-            const articlesPageSize = document.getElementById('articles-page-size');
-            if (articlesPageSize) {
-                articlesPageSize.addEventListener('change', function() {
-                    paginationState.articles.pageSize = parseInt(this.value);
-                    paginationState.articles.currentPage = 1;
-                    loadArticles();
-                });
-            }
-            
-            // Размер на страница за детайли на потребители
-            const userDetailsPageSize = document.getElementById('user-details-page-size');
-            if (userDetailsPageSize) {
-                userDetailsPageSize.addEventListener('change', function() {
-                    paginationState.userDetails.pageSize = parseInt(this.value);
-                    paginationState.userDetails.currentPage = 1;
-                    loadUserDetails();
-                });
-            }
-            
-            // Бутони за предишна/следваща страница
-            document.getElementById('users-prev').addEventListener('click', function() {
-                if (paginationState.users.currentPage > 1) {
-                    paginationState.users.currentPage--;
-                    loadUsers();
-                }
-            });
-            
-            document.getElementById('users-next').addEventListener('click', function() {
-                if (paginationState.users.currentPage < paginationState.users.totalPages) {
-                    paginationState.users.currentPage++;
-                    loadUsers();
-                }
-            });
-            
-            document.getElementById('articles-prev').addEventListener('click', function() {
-                if (paginationState.articles.currentPage > 1) {
-                    paginationState.articles.currentPage--;
-                    loadArticles();
-                }
-            });
-            
-            document.getElementById('articles-next').addEventListener('click', function() {
-                if (paginationState.articles.currentPage < paginationState.articles.totalPages) {
-                    paginationState.articles.currentPage++;
-                    loadArticles();
-                }
-            });
-            
-            document.getElementById('user-details-prev').addEventListener('click', function() {
-                if (paginationState.userDetails.currentPage > 1) {
-                    paginationState.userDetails.currentPage--;
-                    loadUserDetails();
-                }
-            });
-            
-            document.getElementById('user-details-next').addEventListener('click', function() {
-                if (paginationState.userDetails.currentPage < paginationState.userDetails.totalPages) {
-                    paginationState.userDetails.currentPage++;
-                    loadUserDetails();
-                }
-            });
-        }
-
-        // Проверка дали устройството е мобилно
-        function checkMobileView() {
-            const isMobile = window.innerWidth <= 768;
-            if (isMobile) {
-                // Показване на съобщение за превъртане
-                console.log("Мобилно устройство - активирани индикатори за превъртане");
-            }
-        }
-
-        // Инициализация на индикаторите за превъртане
-        function initScrollIndicators() {
-            // Скриване на индикаторите след 5 секунди
-            setTimeout(() => {
-                const indicators = document.querySelectorAll('.scroll-indicator');
-                indicators.forEach(indicator => {
-                    indicator.style.opacity = '0.5';
-                    setTimeout(() => {
-                        indicator.style.display = 'none';
-                    }, 1000);
-                });
-            }, 5000);
-        }
-
-        // Инициализация на мобилното меню
+        // Мобилно меню
         function initMobileMenu() {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('mobileMenuToggle');
+            const menu = document.getElementById('mobileMenu');
             
-            if (mobileMenuToggle) {
-                mobileMenuToggle.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    mobileMenu.classList.toggle('active');
-                });
-            }
-            
-            // Затваряне на менюто при клик на връзка
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenuToggle.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                });
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                menu.classList.toggle('active');
             });
         }
 
-        // Инициализация на навигацията
-        function initAdminNav() {
-            const navButtons = document.querySelectorAll('.admin-nav-btn');
+        // Навигация
+        function initNavigation() {
+            const navBtns = document.querySelectorAll('.admin-nav-btn');
             const sections = document.querySelectorAll('.admin-section');
             
-            navButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const sectionId = this.getAttribute('data-section');
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const sectionId = this.dataset.section;
                     
-                    // Премахване активния клас от всички бутони и секции
-                    navButtons.forEach(btn => btn.classList.remove('active'));
-                    sections.forEach(section => section.classList.remove('active'));
+                    navBtns.forEach(b => b.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
                     
-                    // Добавяне на активния клас на текущия бутон
                     this.classList.add('active');
+                    document.getElementById(sectionId + '-section').classList.add('active');
                     
-                    // Показване на съответната секция
-                    document.getElementById(`${sectionId}-section`).classList.add('active');
-                    
-                    // Ако се отваря формата за новина, я показваме
                     if (sectionId === 'add-article') {
-                        document.getElementById('article-form').classList.add('active');
-                        document.getElementById('article-form-title').textContent = 'Добави нова новина';
+                        document.getElementById('articleFormTitle').textContent = 'Добави нова новина';
                         clearArticleForm();
                     }
                 });
             });
         }
 
-        // Инициализация на бутоните
-        function initButtons() {
-            // Бутон за изход
-            document.getElementById('logout-btn').addEventListener('click', function() {
-                if (confirm('Сигурни ли сте, че искате да излезете от администраторския панел?')) {
-                    window.location.href = 'index.html';
+        // ================ FILE UPLOAD ================
+        function initFileUpload() {
+            const fileInput = document.getElementById('articleImage');
+            const uploadArea = document.getElementById('fileUploadArea');
+            const previewContainer = document.getElementById('imagePreviewContainer');
+            const preview = document.getElementById('imagePreview');
+            
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--neon-green)';
+                uploadArea.style.background = 'rgba(0, 255, 157, 0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'rgba(0, 255, 157, 0.3)';
+                uploadArea.style.background = 'rgba(0, 255, 157, 0.03)';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'rgba(0, 255, 157, 0.3)';
+                uploadArea.style.background = 'rgba(0, 255, 157, 0.03)';
+                
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleImageFile(file);
+                } else {
+                    showNotification('Моля, качете само изображения!', 'error');
+                }
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImageFile(file);
+                }
+            });
+        }
+        
+        function handleImageFile(file) {
+            if (file.size > 5 * 1024 * 1024) {
+                showNotification('Файлът е твърде голям! Максимален размер: 5MB', 'error');
+                return;
+            }
+            
+            currentImageFile = file;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('imagePreview');
+                const previewContainer = document.getElementById('imagePreviewContainer');
+                const uploadArea = document.getElementById('fileUploadArea');
+                
+                preview.src = e.target.result;
+                preview.classList.add('active');
+                previewContainer.style.display = 'block';
+                uploadArea.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function removeImage() {
+            currentImageFile = null;
+            document.getElementById('articleImage').value = '';
+            document.getElementById('imagePreview').classList.remove('active');
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+            document.getElementById('fileUploadArea').style.display = 'flex';
+        }
+
+        // ================ AUTOCOMPLETE ================
+        function initAutocomplete() {
+            const input = document.getElementById('articleAuthor');
+            const suggestions = document.getElementById('authorSuggestions');
+            
+            input.addEventListener('input', function() {
+                const term = this.value.toLowerCase();
+                
+                if (term.length < 2) {
+                    suggestions.style.display = 'none';
+                    return;
+                }
+                
+                const matches = adminData.users.filter(u => 
+                    u.name.toLowerCase().includes(term) || 
+                    u.email.toLowerCase().includes(term)
+                );
+                
+                if (matches.length === 0) {
+                    suggestions.style.display = 'none';
+                    return;
+                }
+                
+                suggestions.innerHTML = '';
+                matches.slice(0, 8).forEach(user => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <div class="user-avatar" style="width: 32px; height: 32px;">${user.initials}</div>
+                        <div>
+                            <div style="font-weight: 600;">${user.name}</div>
+                            <div style="font-size: 12px; color: #b0b0d0;">${user.email}</div>
+                        </div>
+                        ${user.role === 'admin' ? '<i class="fas fa-shield-alt" style="color: var(--neon-green);"></i>' : ''}
+                    `;
+                    
+                    div.addEventListener('click', () => {
+                        input.value = user.name;
+                        suggestions.style.display = 'none';
+                        showNotification(`Избран автор: ${user.name}`, 'success');
+                    });
+                    
+                    suggestions.appendChild(div);
+                });
+                
+                suggestions.style.display = 'block';
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (e.target !== input && !suggestions.contains(e.target)) {
+                    suggestions.style.display = 'none';
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    suggestions.style.display = 'none';
                 }
             });
         }
 
-        // Зареждане на статистиката
-        function loadStatistics() {
-            document.getElementById('totalUsers').textContent = adminData.users.length;
-            document.getElementById('totalArticles').textContent = adminData.articles.length;
-            
-            // Изчисляване на общия брой коментари
-            const totalComments = adminData.userDetails.reduce((sum, user) => sum + user.comments, 0);
-            document.getElementById('totalComments').textContent = totalComments;
-            
-            const activeUsers = adminData.users.filter(user => user.status === 'active').length;
-            document.getElementById('activeUsers').textContent = activeUsers;
-        }
-
-        // Зареждане на потребителите с пагинация
-        function loadUsers() {
-            const tbody = document.getElementById('users-table-body');
-            const noUsers = document.getElementById('no-users');
-            
-            if (adminData.users.length === 0) {
-                tbody.style.display = 'none';
-                noUsers.style.display = 'block';
-                document.getElementById('users-pagination').style.display = 'none';
-                return;
-            }
-            
-            tbody.innerHTML = '';
-            noUsers.style.display = 'none';
-            document.getElementById('users-pagination').style.display = 'flex';
-            
-            // Изчисляване на пагинацията
-            const { currentPage, pageSize } = paginationState.users;
-            const totalItems = adminData.users.length;
-            const totalPages = Math.ceil(totalItems / pageSize);
-            paginationState.users.totalPages = totalPages;
-            
-            // Изчисляване на начален и краен индекс
-            const startIndex = (currentPage - 1) * pageSize;
-            const endIndex = Math.min(startIndex + pageSize, totalItems);
-            
-            // Вземане на потребителите за текущата страница
-            const usersToDisplay = adminData.users.slice(startIndex, endIndex);
-            
-            usersToDisplay.forEach(user => {
-                const roleBadge = user.role === 'admin' 
-                    ? '<span class="badge badge-admin"><i class="fas fa-user-shield"></i> Админ</span>'
-                    : '<span class="badge badge-user"><i class="fas fa-user"></i> Потребител</span>';
-                
-                const statusBadge = user.status === 'active'
-                    ? '<span class="badge badge-active"><i class="fas fa-check-circle"></i> Активен</span>'
-                    : '<span class="badge badge-inactive"><i class="fas fa-times-circle"></i> Неактивен</span>';
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="user-info">
-                            <div class="user-avatar">${user.initials}</div>
-                            <div>
-                                <div class="user-name">${user.name}</div>
-                                <div class="user-email">${user.email}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${roleBadge}</td>
-                    <td>${formatDate(user.regDate)}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="action-btn edit" title="Редактирай" onclick="editUser(${user.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete" title="Изтрий" onclick="confirmDelete('user', ${user.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
+        // ================ ПАГИНАЦИЯ ================
+        function initPaginationControls() {
+            // Потребители
+            document.getElementById('usersPageSize').addEventListener('change', function() {
+                pagination.users.pageSize = parseInt(this.value);
+                pagination.users.page = 1;
+                loadUsers();
             });
             
-            // Актуализиране на информацията за пагинацията
-            document.getElementById('users-pagination-info').textContent = 
-                `Показване на ${startIndex + 1}-${endIndex} от ${totalItems} потребители`;
-            
-            // Актуализиране на бутоните за пагинация
-            updatePaginationButtons('users', currentPage, totalPages);
-            
-            // Актуализиране на бутоните за предишна/следваща страница
-            document.getElementById('users-prev').disabled = currentPage === 1;
-            document.getElementById('users-next').disabled = currentPage === totalPages;
-        }
-
-        // Зареждане на новините с пагинация
-        function loadArticles() {
-            const tbody = document.getElementById('articles-table-body');
-            const noArticles = document.getElementById('no-articles');
-            
-            if (adminData.articles.length === 0) {
-                tbody.style.display = 'none';
-                noArticles.style.display = 'block';
-                document.getElementById('articles-pagination').style.display = 'none';
-                return;
-            }
-            
-            tbody.innerHTML = '';
-            noArticles.style.display = 'none';
-            document.getElementById('articles-pagination').style.display = 'flex';
-            
-            // Изчисляване на пагинацията
-            const { currentPage, pageSize } = paginationState.articles;
-            const totalItems = adminData.articles.length;
-            const totalPages = Math.ceil(totalItems / pageSize);
-            paginationState.articles.totalPages = totalPages;
-            
-            // Изчисляване на начален и краен индекс
-            const startIndex = (currentPage - 1) * pageSize;
-            const endIndex = Math.min(startIndex + pageSize, totalItems);
-            
-            // Вземане на новините за текущата страница
-            const articlesToDisplay = adminData.articles.slice(startIndex, endIndex);
-            
-            articlesToDisplay.forEach(article => {
-                const categoryText = getCategoryText(article.category);
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <strong>${article.title}</strong>
-                    </td>
-                    <td>${article.author}</td>
-                    <td>${categoryText}</td>
-                    <td>${formatDate(article.date)}</td>
-                    <td>${article.views.toLocaleString()}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="action-btn edit" title="Редактирай" onclick="editArticle(${article.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete" title="Изтрий" onclick="confirmDelete('article', ${article.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <a href="news-detail.html?id=${article.id}" class="action-btn view" title="Преглед" target="_blank">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
+            // Новини
+            document.getElementById('articlesPageSize').addEventListener('change', function() {
+                pagination.articles.pageSize = parseInt(this.value);
+                pagination.articles.page = 1;
+                loadArticles();
             });
             
-            // Актуализиране на информацията за пагинацията
-            document.getElementById('articles-pagination-info').textContent = 
-                `Показване на ${startIndex + 1}-${endIndex} от ${totalItems} новини`;
-            
-            // Актуализиране на бутоните за пагинация
-            updatePaginationButtons('articles', currentPage, totalPages);
-            
-            // Актуализиране на бутоните за предишна/следваща страница
-            document.getElementById('articles-prev').disabled = currentPage === 1;
-            document.getElementById('articles-next').disabled = currentPage === totalPages;
-        }
-
-        // Зареждане на детайлите за потребителите с пагинация
-        function loadUserDetails() {
-            const tbody = document.getElementById('user-details-body');
-            const noDetails = document.getElementById('no-user-details');
-            
-            if (adminData.userDetails.length === 0) {
-                tbody.style.display = 'none';
-                noDetails.style.display = 'block';
-                document.getElementById('user-details-pagination').style.display = 'none';
-                updateUserStats();
-                return;
-            }
-            
-            tbody.innerHTML = '';
-            noDetails.style.display = 'none';
-            document.getElementById('user-details-pagination').style.display = 'flex';
-            
-            // Изчисляване на пагинацията
-            const { currentPage, pageSize } = paginationState.userDetails;
-            const totalItems = adminData.userDetails.length;
-            const totalPages = Math.ceil(totalItems / pageSize);
-            paginationState.userDetails.totalPages = totalPages;
-            
-            // Изчисляване на начален и краен индекс
-            const startIndex = (currentPage - 1) * pageSize;
-            const endIndex = Math.min(startIndex + pageSize, totalItems);
-            
-            // Вземане на детайлите за текущата страница
-            const detailsToDisplay = adminData.userDetails.slice(startIndex, endIndex);
-            
-            // Свързване на данните за потребителите с техните детайли
-            detailsToDisplay.forEach(userDetail => {
-                const user = adminData.users.find(u => u.id === userDetail.userId);
-                if (!user) return;
-                
-                const statusBadge = getStatusBadge(userDetail.status);
-                const userDetailRow = document.createElement('tr');
-                userDetailRow.innerHTML = `
-                    <td>
-                        <div class="user-info">
-                            <div class="user-avatar">${user.initials}</div>
-                            <div>
-                                <div class="user-name">${user.name}</div>
-                                <div class="user-email">${user.email}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${formatDate(userDetail.lastActivity)}</td>
-                    <td>${userDetail.articles}</td>
-                    <td>${userDetail.comments}</td>
-                    <td>
-                        <span class="badge" style="background: rgba(0, 255, 157, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 255, 157, 0.3);">
-                            <i class="fas fa-star"></i> ${userDetail.reputation}
-                        </span>
-                    </td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="action-btn edit" title="Редактирай" onclick="editUserDetails(${user.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete" title="Изтрий" onclick="confirmDeleteUserDetails(${user.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <button class="action-btn view" title="Преглед на профил" onclick="viewUserProfile(${user.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(userDetailRow);
+            // Детайли
+            document.getElementById('userDetailsPageSize').addEventListener('change', function() {
+                pagination.userDetails.pageSize = parseInt(this.value);
+                pagination.userDetails.page = 1;
+                loadUserDetails();
             });
-            
-            // Актуализиране на информацията за пагинацията
-            document.getElementById('user-details-pagination-info').textContent = 
-                `Показване на ${startIndex + 1}-${endIndex} от ${totalItems} детайла`;
-            
-            // Актуализиране на бутоните за пагинация
-            updatePaginationButtons('userDetails', currentPage, totalPages);
-            
-            // Актуализиране на бутоните за предишна/следваща страница
-            document.getElementById('user-details-prev').disabled = currentPage === 1;
-            document.getElementById('user-details-next').disabled = currentPage === totalPages;
-            
-            // Актуализиране на статистиката
-            updateUserStats();
         }
 
-        // Актуализиране на бутоните за пагинация
-        function updatePaginationButtons(type, currentPage, totalPages) {
-            const container = document.getElementById(`${type}-pagination-buttons`);
+        function updatePagination(type, totalItems) {
+            const state = pagination[type];
+            state.total = totalItems;
+            const totalPages = Math.ceil(totalItems / state.pageSize);
+            
+            const container = document.getElementById(type + 'PaginationButtons');
+            const info = document.getElementById(type + 'PaginationInfo');
+            
             if (!container) return;
             
+            // Информация
+            const start = (state.page - 1) * state.pageSize + 1;
+            const end = Math.min(state.page * state.pageSize, totalItems);
+            info.textContent = `Показване на ${start}-${end} от ${totalItems}`;
+            
+            // Бутони
             container.innerHTML = '';
             
-            // Максимален брой страници за показване
-            const maxVisiblePages = window.innerWidth <= 768 ? 5 : 7;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            // Бутон Предишна
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.disabled = state.page === 1;
+            prevBtn.onclick = () => {
+                state.page--;
+                if (type === 'users') loadUsers();
+                else if (type === 'articles') loadArticles();
+                else loadUserDetails();
+            };
+            container.appendChild(prevBtn);
             
-            // Корекция ако сме в началото
-            if (endPage - startPage + 1 < maxVisiblePages) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
+            // Номера на страници
+            let startPage = Math.max(1, state.page - 2);
+            let endPage = Math.min(totalPages, state.page + 2);
             
-            // Бутон за първа страница
             if (startPage > 1) {
                 const firstBtn = document.createElement('button');
                 firstBtn.className = 'page-btn';
                 firstBtn.textContent = '1';
                 firstBtn.onclick = () => {
-                    paginationState[type].currentPage = 1;
+                    state.page = 1;
                     if (type === 'users') loadUsers();
                     else if (type === 'articles') loadArticles();
-                    else if (type === 'userDetails') loadUserDetails();
+                    else loadUserDetails();
                 };
                 container.appendChild(firstBtn);
                 
-                // Добавяне на точки ако има много страници
                 if (startPage > 2) {
-                    const dotsBtn = document.createElement('button');
-                    dotsBtn.className = 'page-btn dots';
-                    dotsBtn.textContent = '...';
-                    dotsBtn.disabled = true;
-                    container.appendChild(dotsBtn);
+                    const dots = document.createElement('button');
+                    dots.className = 'page-btn';
+                    dots.textContent = '...';
+                    dots.disabled = true;
+                    container.appendChild(dots);
                 }
             }
             
-            // Бутони за видимите страници
             for (let i = startPage; i <= endPage; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.className = i === currentPage ? 'page-btn active' : 'page-btn';
-                pageBtn.textContent = i;
-                pageBtn.onclick = () => {
-                    paginationState[type].currentPage = i;
+                const btn = document.createElement('button');
+                btn.className = `page-btn ${i === state.page ? 'active' : ''}`;
+                btn.textContent = i;
+                btn.onclick = () => {
+                    state.page = i;
                     if (type === 'users') loadUsers();
                     else if (type === 'articles') loadArticles();
-                    else if (type === 'userDetails') loadUserDetails();
+                    else loadUserDetails();
                 };
-                container.appendChild(pageBtn);
+                container.appendChild(btn);
             }
             
-            // Бутон за последна страница
             if (endPage < totalPages) {
-                // Добавяне на точки ако има много страници
                 if (endPage < totalPages - 1) {
-                    const dotsBtn = document.createElement('button');
-                    dotsBtn.className = 'page-btn dots';
-                    dotsBtn.textContent = '...';
-                    dotsBtn.disabled = true;
-                    container.appendChild(dotsBtn);
+                    const dots = document.createElement('button');
+                    dots.className = 'page-btn';
+                    dots.textContent = '...';
+                    dots.disabled = true;
+                    container.appendChild(dots);
                 }
                 
                 const lastBtn = document.createElement('button');
                 lastBtn.className = 'page-btn';
                 lastBtn.textContent = totalPages;
                 lastBtn.onclick = () => {
-                    paginationState[type].currentPage = totalPages;
+                    state.page = totalPages;
                     if (type === 'users') loadUsers();
                     else if (type === 'articles') loadArticles();
-                    else if (type === 'userDetails') loadUserDetails();
+                    else loadUserDetails();
                 };
                 container.appendChild(lastBtn);
             }
-        }
-
-        // Редактиране на детайли за потребител
-        function editUserDetails(userId) {
-            const user = adminData.users.find(u => u.id === userId);
-            const userDetail = adminData.userDetails.find(d => d.userId === userId);
             
-            if (!user || !userDetail) return;
-            
-            // Създаване на модал за редактиране
-            const editModal = document.createElement('div');
-            editModal.className = 'modal active';
-            editModal.style.display = 'flex';
-            editModal.innerHTML = `
-                <div class="modal-content">
-                    <button class="modal-close" onclick="this.parentElement.parentElement.remove()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <h3 class="modal-title">Редактиране на детайли за потребител</h3>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Име на потребител</label>
-                        <input type="text" id="edit-user-name" class="form-control" value="${user.name}" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Статии</label>
-                            <input type="number" id="edit-user-articles" class="form-control" value="${userDetail.articles}" min="0" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Коментари</label>
-                            <input type="number" id="edit-user-comments" class="form-control" value="${userDetail.comments}" min="0" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Репутация</label>
-                        <input type="number" id="edit-user-reputation" class="form-control" value="${userDetail.reputation}" min="0" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Статус</label>
-                        <select id="edit-user-status" class="form-control form-select" required>
-                            <option value="active" ${userDetail.status === 'active' ? 'selected' : ''}>Активен</option>
-                            <option value="premium" ${userDetail.status === 'premium' ? 'selected' : ''}>Премиум</option>
-                            <option value="contributor" ${userDetail.status === 'contributor' ? 'selected' : ''}>Сътрудник</option>
-                            <option value="inactive" ${userDetail.status === 'inactive' ? 'selected' : ''}>Неактивен</option>
-                        </select>
-                    </div>
-                    
-                    <div class="modal-actions">
-                        <button class="btn btn-outline" onclick="this.parentElement.parentElement.parentElement.remove()">
-                            Отказ
-                        </button>
-                        <button class="btn btn-primary" onclick="saveUserDetails(${userId})">
-                            <i class="fas fa-save"></i> Запази промени
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(editModal);
-        }
-
-        // Запазване на промените в детайлите за потребител
-        function saveUserDetails(userId) {
-            const userName = document.getElementById('edit-user-name').value;
-            const articles = parseInt(document.getElementById('edit-user-articles').value);
-            const comments = parseInt(document.getElementById('edit-user-comments').value);
-            const reputation = parseInt(document.getElementById('edit-user-reputation').value);
-            const status = document.getElementById('edit-user-status').value;
-            
-            // Актуализиране на данните
-            const userIndex = adminData.users.findIndex(u => u.id === userId);
-            if (userIndex !== -1) {
-                adminData.users[userIndex].name = userName;
-            }
-            
-            const detailIndex = adminData.userDetails.findIndex(d => d.userId === userId);
-            if (detailIndex !== -1) {
-                adminData.userDetails[detailIndex] = {
-                    ...adminData.userDetails[detailIndex],
-                    articles,
-                    comments,
-                    reputation,
-                    status,
-                    lastActivity: new Date().toISOString().split('T')[0]
-                };
-            }
-            
-            // Затваряне на модала
-            const modal = document.querySelector('.modal.active');
-            if (modal) {
-                modal.remove();
-            }
-            
-            // Презареждане на данните
-            loadUserDetails();
-            loadUsers();
-            loadStatistics();
-            
-            showNotification('Детайлите за потребителя са обновени успешно!', 'success');
-        }
-
-        // Изтриване на детайли за потребител
-        function confirmDeleteUserDetails(userId) {
-            const user = adminData.users.find(u => u.id === userId);
-            if (!user) return;
-            
-            document.getElementById('modalTitle').textContent = 'Изтриване на детайли за потребител';
-            document.getElementById('modalText').textContent = `Сигурни ли сте, че искате да изтриете детайлите за потребителя ${user.name}? Това действие ще премахне статистиката за потребителя.`;
-            
-            const confirmBtn = document.getElementById('confirmActionBtn');
-            confirmBtn.onclick = () => {
-                deleteUserDetails(userId);
-                closeModal();
+            // Бутон Следваща
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.disabled = state.page === totalPages;
+            nextBtn.onclick = () => {
+                state.page++;
+                if (type === 'users') loadUsers();
+                else if (type === 'articles') loadArticles();
+                else loadUserDetails();
             };
-            
-            openModal();
+            container.appendChild(nextBtn);
         }
 
-        // Изтриване на детайли за потребител
-        function deleteUserDetails(userId) {
-            // Премахване на детайлите
-            adminData.userDetails = adminData.userDetails.filter(d => d.userId !== userId);
+        // ================ СТАТИСТИКИ ================
+        function loadStatistics() {
+            document.getElementById('totalUsers').textContent = adminData.users.length;
+            document.getElementById('totalArticles').textContent = adminData.articles.length;
             
-            // Също премахваме потребителя от основния списък (по желание)
-            // adminData.users = adminData.users.filter(u => u.id !== userId);
+            const totalComments = adminData.userDetails.reduce((sum, u) => sum + u.comments, 0);
+            document.getElementById('totalComments').textContent = totalComments;
             
-            // Презареждане на данните
-            loadUserDetails();
-            loadStatistics();
-            
-            showNotification('Детайлите за потребителя са изтрити успешно!', 'success');
+            const activeUsers = adminData.users.filter(u => u.status === 'active').length;
+            document.getElementById('activeUsers').textContent = activeUsers;
         }
 
-        // Преглед на профил на потребител
-        function viewUserProfile(userId) {
-            const user = adminData.users.find(u => u.id === userId);
-            const userDetail = adminData.userDetails.find(d => d.userId === userId);
+        // ================ ЗАРЕЖДАНЕ НА ПОТРЕБИТЕЛИ ================
+        function loadUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            const state = pagination.users;
             
-            if (!user || !userDetail) return;
+            const start = (state.page - 1) * state.pageSize;
+            const end = start + state.pageSize;
+            const usersToShow = adminData.users.slice(start, end);
             
-            // Създаване на модал за преглед на профил
-            const profileModal = document.createElement('div');
-            profileModal.className = 'modal active';
-            profileModal.style.display = 'flex';
-            profileModal.innerHTML = `
-                <div class="modal-content">
-                    <button class="modal-close" onclick="this.parentElement.parentElement.remove()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <h3 class="modal-title">Профил на потребител</h3>
-                    
-                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
-                        <div class="user-avatar" style="width: 80px; height: 80px; font-size: 1.5rem;">${user.initials}</div>
-                        <div>
-                            <h4 style="color: var(--white); margin-bottom: 0.5rem;">${user.name}</h4>
-                            <p style="color: #b0b0d0;">${user.email}</p>
-                            <p style="color: #b0b0d0; font-size: 0.9rem;">Регистриран: ${formatDate(user.regDate)}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Статус</label>
-                            <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
-                                ${getStatusBadge(userDetail.status)}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Роля</label>
-                            <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
-                                ${user.role === 'admin' ? '<span class="badge badge-admin"><i class="fas fa-user-shield"></i> Админ</span>' : '<span class="badge badge-user"><i class="fas fa-user"></i> Потребител</span>'}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Общо статии</label>
-                            <div style="padding: 1rem; background: rgba(0, 255, 157, 0.05); border-radius: 10px; text-align: center;">
-                                <div style="font-size: 2rem; color: var(--neon-green); font-weight: 700;">${userDetail.articles}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Общо коментари</label>
-                            <div style="padding: 1rem; background: rgba(138, 43, 226, 0.05); border-radius: 10px; text-align: center;">
-                                <div style="font-size: 2rem; color: var(--purple); font-weight: 700;">${userDetail.comments}</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Репутация</label>
-                        <div style="padding: 1rem; background: rgba(255, 204, 0, 0.05); border-radius: 10px; text-align: center;">
-                            <div style="font-size: 2rem; color: var(--yellow); font-weight: 700;">${userDetail.reputation}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Последна активност</label>
-                        <div style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px; text-align: center;">
-                            <div style="font-size: 1.2rem; color: var(--white); font-weight: 600;">${formatDate(userDetail.lastActivity)}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-actions">
-                        <button class="btn btn-primary" onclick="editUserDetails(${userId})">
-                            <i class="fas fa-edit"></i> Редактирай
-                        </button>
-                        <button class="btn btn-outline" onclick="this.parentElement.parentElement.parentElement.remove()">
-                            Затвори
-                        </button>
-                    </div>
-                </div>
-            `;
+            tbody.innerHTML = '';
             
-            document.body.appendChild(profileModal);
+            usersToShow.forEach(user => {
+                const roleBadge = user.role === 'admin' 
+                    ? '<span class="badge badge-admin"><i class="fas fa-shield-alt"></i> Админ</span>'
+                    : '<span class="badge badge-user"><i class="fas fa-user"></i> Потребител</span>';
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar">${user.initials}</div>
+                                <div>
+                                    <div class="user-name">${user.name}</div>
+                                    <div class="user-email">${user.email}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${roleBadge}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn edit" onclick="editUser(${user.id})"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete" onclick="confirmDelete('user', ${user.id})"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            updatePagination('users', adminData.users.length);
         }
 
-        // Актуализиране на статистиката за потребителите
-        function updateUserStats() {
-            const activeUsers = adminData.users.filter(user => user.status === 'active').length;
-            document.getElementById('active-users-count').textContent = activeUsers;
+        // ================ ЗАРЕЖДАНЕ НА НОВИНИ ================
+        function loadArticles() {
+            const tbody = document.getElementById('articlesTableBody');
+            const state = pagination.articles;
             
-            // Потребители регистрирани този месец
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            const newUsers = adminData.users.filter(user => {
-                const regDate = new Date(user.regDate);
-                return regDate.getMonth() === currentMonth && regDate.getFullYear() === currentYear;
-            }).length;
-            document.getElementById('new-users-count').textContent = newUsers;
+            const start = (state.page - 1) * state.pageSize;
+            const end = start + state.pageSize;
+            const articlesToShow = adminData.articles.slice(start, end);
             
-            // Топ сътрудници (потребители с най-много статии)
-            const topContributors = adminData.userDetails.filter(detail => detail.articles > 5).length;
-            document.getElementById('top-contributors').textContent = topContributors;
+            tbody.innerHTML = '';
             
-            // Ръст на активност (симулиране)
-            const growth = Math.floor(Math.random() * 20) + 5;
-            document.getElementById('activity-growth').textContent = `${growth}%`;
+            articlesToShow.forEach(article => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${article.title}</strong></td>
+                        <td>${article.author}</td>
+                        <td>${formatDate(article.date)}</td>
+                        <td>${article.views}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn edit" onclick="editArticle(${article.id})"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete" onclick="confirmDelete('article', ${article.id})"><i class="fas fa-trash"></i></button>
+                                <button class="action-btn view" onclick="viewArticle(${article.id})"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            updatePagination('articles', adminData.articles.length);
         }
 
-        // Показване на форма за добавяне на новина
+        function loadUserDetails() {
+            const tbody = document.getElementById('userDetailsTableBody');
+            const state = pagination.userDetails;
+            
+            const start = (state.page - 1) * state.pageSize;
+            const end = start + state.pageSize;
+            const detailsToShow = adminData.userDetails.slice(start, end);
+            
+            tbody.innerHTML = '';
+            
+            detailsToShow.forEach(detail => {
+                const user = adminData.users.find(u => u.id === detail.userId);
+                if (!user) return;
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar">${user.initials}</div>
+                                <div>
+                                    <div class="user-name">${user.name}</div>
+                                    <div class="user-email">${user.email}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${formatDate(detail.lastActivity)}</td>
+                        <td>${detail.articles}</td>
+                        <td>${detail.comments}</td>
+                        <td><span class="badge" style="background: rgba(0,255,157,0.1); color: var(--neon-green);">${detail.reputation}</span></td>
+                        <td>${getStatusBadge(detail.status)}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn edit" onclick="editUserDetails(${user.id})"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete" onclick="confirmDeleteUserDetails(${user.id})"><i class="fas fa-trash"></i></button>
+                                <button class="action-btn view" onclick="viewUserProfile(${user.id})"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            updatePagination('userDetails', adminData.userDetails.length);
+            updateUserStats();
+        }
+
+        // ================ ФУНКЦИИ ЗА НОВИНИ ================
         function showAddArticleForm() {
-            // Активиране на раздела за добавяне на новина
             document.querySelector('[data-section="add-article"]').click();
-            clearArticleForm();
         }
 
-        // Изчистване на формата за новина
         function clearArticleForm() {
-            document.getElementById('article-title').value = '';
-            document.getElementById('article-excerpt').value = '';
-            document.getElementById('article-content').value = '';
-            document.getElementById('article-category').value = '';
-            document.getElementById('article-author').value = 'Администратор';
-            document.getElementById('article-image').value = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
-            
+            document.getElementById('articleTitle').value = '';
+            document.getElementById('articleExcerpt').value = '';
+            document.getElementById('articleContent').value = '';
+            document.getElementById('articleCategory').value = 'update';
+            document.getElementById('articleAuthor').value = 'Администратор';
+            document.getElementById('authorSuggestions').style.display = 'none';
+            removeImage();
             currentEditingArticleId = null;
-            document.getElementById('article-form-title').textContent = 'Добави нова новина';
+            document.getElementById('articleFormTitle').textContent = 'Добави нова новина';
         }
 
-        // Запазване на новина
         function saveArticle(event) {
             event.preventDefault();
             
-            const title = document.getElementById('article-title').value;
-            const excerpt = document.getElementById('article-excerpt').value;
-            const content = document.getElementById('article-content').value;
-            const category = document.getElementById('article-category').value;
-            const author = document.getElementById('article-author').value;
-            const image = document.getElementById('article-image').value;
+            const title = document.getElementById('articleTitle').value;
+            const excerpt = document.getElementById('articleExcerpt').value;
+            const content = document.getElementById('articleContent').value;
+            const author = document.getElementById('articleAuthor').value;
             
+            // Проверка за автор
+            const existingUser = adminData.users.find(u => u.name.toLowerCase() === author.toLowerCase());
+            
+            if (!existingUser && author !== 'Администратор' && author !== 'Екип KiriliX') {
+                if (confirm(`Потребител "${author}" не съществува. Желаете ли да го добавите?`)) {
+                    const newUser = {
+                        id: adminData.users.length + 1,
+                        name: author,
+                        email: `${author.toLowerCase().replace(/\s+/g, '.')}@example.com`,
+                        role: 'user',
+                        initials: author.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+                    };
+                    adminData.users.push(newUser);
+                    adminData.userDetails.push({
+                        userId: newUser.id,
+                        lastActivity: new Date().toISOString().split('T')[0],
+                        articles: 0,
+                        comments: 0,
+                        reputation: 0,
+                        status: 'active'
+                    });
+                    showNotification(`Нов потребител "${author}" е добавен!`, 'success');
+                } else {
+                    return;
+                }
+            }
+            
+            // Обработка на изображението
+            let imageData = null;
+            if (currentImageFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imageData = e.target.result;
+                    saveArticleWithImage(imageData, title, excerpt, content, author);
+                };
+                reader.readAsDataURL(currentImageFile);
+            } else {
+                saveArticleWithImage(null, title, excerpt, content, author);
+            }
+        }
+        
+        function saveArticleWithImage(imageData, title, excerpt, content, author) {
             if (currentEditingArticleId) {
-                // Редактиране на съществуваща новина
-                const articleIndex = adminData.articles.findIndex(a => a.id === currentEditingArticleId);
-                if (articleIndex !== -1) {
-                    adminData.articles[articleIndex] = {
-                        ...adminData.articles[articleIndex],
+                // Редактиране
+                const index = adminData.articles.findIndex(a => a.id === currentEditingArticleId);
+                if (index !== -1) {
+                    adminData.articles[index] = {
+                        ...adminData.articles[index],
                         title,
                         author,
-                        category,
-                        date: new Date().toISOString().split('T')[0]
+                        excerpt,
+                        content,
+                        image: imageData || adminData.articles[index].image
                     };
-                    
-                    showNotification('Новината е обновена успешно!', 'success');
+                    showNotification('Новината е обновена!', 'success');
                 }
             } else {
-                // Добавяне на нова новина
+                // Добавяне
                 const newArticle = {
                     id: adminData.articles.length + 1,
                     title,
                     author,
-                    category,
+                    excerpt,
+                    content,
+                    image: imageData,
                     date: new Date().toISOString().split('T')[0],
                     views: 0
                 };
-                
                 adminData.articles.unshift(newArticle);
-                showNotification('Новината е добавена успешно!', 'success');
+                
+                const existingUser = adminData.users.find(u => u.name.toLowerCase() === author.toLowerCase());
+                if (existingUser) {
+                    const detail = adminData.userDetails.find(d => d.userId === existingUser.id);
+                    if (detail) detail.articles++;
+                }
+                
+                showNotification('Новината е добавена!', 'success');
             }
             
-            // Презареждане на списъка с новини
+            pagination.articles.page = 1;
             loadArticles();
             loadStatistics();
-            
-            // Изчистване на формата
+            loadUserDetails();
             clearArticleForm();
-            
-            // Връщане към раздела с новини
             document.querySelector('[data-section="articles"]').click();
         }
 
-        // Редактиране на новина
         function editArticle(id) {
             const article = adminData.articles.find(a => a.id === id);
-            if (!article) return;
-            
-            // Зареждане на данните във формата
-            document.getElementById('article-title').value = article.title;
-            document.getElementById('article-excerpt').value = `Примерно кратко описание за "${article.title}"`;
-            document.getElementById('article-content').value = `<p>Това е примерен текст за новината "${article.title}". Тук може да добавите пълното съдържание на новината.</p><p>Можете да използвате HTML за форматиране на текста.</p>`;
-            document.getElementById('article-category').value = article.category;
-            document.getElementById('article-author').value = article.author;
-            
-            currentEditingArticleId = id;
-            document.getElementById('article-form-title').textContent = 'Редактирай новина';
-            
-            // Активиране на формата
-            document.querySelector('[data-section="add-article"]').click();
+            if (article) {
+                document.getElementById('articleTitle').value = article.title;
+                document.getElementById('articleExcerpt').value = article.excerpt || '';
+                document.getElementById('articleContent').value = article.content || '';
+                document.getElementById('articleAuthor').value = article.author;
+                currentEditingArticleId = id;
+                
+                // Ако има изображение, покажи го
+                if (article.image) {
+                    const preview = document.getElementById('imagePreview');
+                    const previewContainer = document.getElementById('imagePreviewContainer');
+                    const uploadArea = document.getElementById('fileUploadArea');
+                    
+                    preview.src = article.image;
+                    preview.classList.add('active');
+                    previewContainer.style.display = 'block';
+                    uploadArea.style.display = 'none';
+                }
+                
+                document.getElementById('articleFormTitle').textContent = 'Редактирай новина';
+                document.querySelector('[data-section="add-article"]').click();
+                showNotification('Редактиране на новина', 'info');
+            }
         }
 
-        // Редактиране на потребител
+        function viewArticle(id) {
+            showNotification(`Преглед на новина ID: ${id}`, 'info');
+        }
+
+        // ================ ФУНКЦИИ ЗА ПОТРЕБИТЕЛИ ================
         function editUser(id) {
-            const user = adminData.users.find(u => u.id === id);
-            if (!user) return;
-            
-            // Тук може да се отвори модал за редактиране на основната информация за потребителя
-            showNotification(`Редактиране на потребител: ${user.name}`, 'info');
+            showNotification(`Редактиране на потребител ID: ${id}`, 'info');
         }
 
-        // Потвърждение за изтриване
+        function editUserDetails(userId) {
+            showNotification(`Редактиране на детайли за потребител ID: ${userId}`, 'info');
+        }
+
+        function viewUserProfile(userId) {
+            const user = adminData.users.find(u => u.id === userId);
+            if (user) {
+                showNotification(`Преглед на профил: ${user.name}`, 'info');
+            }
+        }
+
+        function confirmDeleteUserDetails(userId) {
+            const user = adminData.users.find(u => u.id === userId);
+            if (user) {
+                if (confirm(`Сигурни ли сте, че искате да изтриете детайлите за ${user.name}?`)) {
+                    adminData.userDetails = adminData.userDetails.filter(d => d.userId !== userId);
+                    pagination.userDetails.page = 1;
+                    loadUserDetails();
+                    showNotification('Детайлите са изтрити!', 'success');
+                }
+            }
+        }
+
+        function refreshUserStats() {
+            adminData.userDetails.forEach(d => {
+                if (d.status !== 'inactive') {
+                    d.lastActivity = new Date().toISOString().split('T')[0];
+                    d.comments += Math.floor(Math.random() * 3);
+                }
+            });
+            loadUserDetails();
+            showNotification('Статистиката е обновена!', 'success');
+        }
+
+        function updateUserStats() {
+            document.getElementById('activeUsersCount').textContent = 
+                adminData.users.filter(u => u.status === 'active').length;
+            
+            const thisMonth = new Date().getMonth();
+            document.getElementById('newUsersCount').textContent = 
+                adminData.users.filter(u => new Date(u.regDate).getMonth() === thisMonth).length;
+            
+            document.getElementById('topContributors').textContent = 
+                adminData.userDetails.filter(d => d.articles > 5).length;
+            
+            document.getElementById('activityGrowth').textContent = 
+                Math.floor(Math.random() * 30 + 10) + '%';
+        }
+
+        // ================ ПОТВЪРЖДЕНИЕ ЗА ИЗТРИВАНЕ ================
         function confirmDelete(type, id) {
             let message = '';
-            let title = '';
-            
             if (type === 'user') {
                 const user = adminData.users.find(u => u.id === id);
-                title = 'Изтриване на потребител';
-                message = `Сигурни ли сте, че искате да изтриете потребителя ${user?.name}? Това действие не може да бъде отменено.`;
-            } else if (type === 'article') {
+                message = `Сигурни ли сте, че искате да изтриете потребителя ${user?.name}?`;
+            } else {
                 const article = adminData.articles.find(a => a.id === id);
-                title = 'Изтриване на новина';
-                message = `Сигурни ли сте, че искате да изтриете новината "${article?.title}"? Това действие не може да бъде отменено.`;
+                message = `Сигурни ли сте, че искате да изтриете новината "${article?.title}"?`;
             }
             
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalText').textContent = message;
+            document.getElementById('modalMessage').textContent = message;
             
-            const confirmBtn = document.getElementById('confirmActionBtn');
-            confirmBtn.onclick = () => {
-                deleteItem(type, id);
+            document.getElementById('confirmActionBtn').onclick = () => {
+                if (type === 'user') {
+                    adminData.users = adminData.users.filter(u => u.id !== id);
+                    adminData.userDetails = adminData.userDetails.filter(d => d.userId !== id);
+                    pagination.users.page = 1;
+                    pagination.userDetails.page = 1;
+                    loadUsers();
+                    loadUserDetails();
+                } else {
+                    adminData.articles = adminData.articles.filter(a => a.id !== id);
+                    pagination.articles.page = 1;
+                    loadArticles();
+                }
+                loadStatistics();
                 closeModal();
+                showNotification('Елементът е изтрит!', 'success');
             };
             
             openModal();
         }
 
-        // Изтриване на елемент
-        function deleteItem(type, id) {
-            if (type === 'user') {
-                adminData.users = adminData.users.filter(u => u.id !== id);
-                adminData.userDetails = adminData.userDetails.filter(d => d.userId !== id);
-                loadUsers();
-                loadUserDetails();
-                showNotification('Потребителят е изтрит успешно!', 'success');
-            } else if (type === 'article') {
-                adminData.articles = adminData.articles.filter(a => a.id !== id);
-                loadArticles();
-                showNotification('Новината е изтрита успешно!', 'success');
-            }
-            
-            loadStatistics();
-        }
-
-        // Експорт на данни за потребителите
-        function exportUsersData() {
-            const dataStr = JSON.stringify(adminData.userDetails, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = 'kirilix-users-data.json';
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showNotification('Данните за потребителите са експортирани успешно!', 'success');
-        }
-
-        // Обновяване на статистиката
-        function refreshUserStats() {
-            // Симулиране на обновяване на данни
-            adminData.userDetails.forEach(detail => {
-                // Добавяме малко случайна активност
-                if (detail.status !== 'inactive') {
-                    detail.lastActivity = new Date().toISOString().split('T')[0];
-                    detail.comments += Math.floor(Math.random() * 3);
-                    detail.reputation += Math.floor(Math.random() * 5);
-                }
-            });
-            
-            loadUserDetails();
-            showNotification('Статистиката е обновена успешно!', 'success');
-        }
-
-        // Отваряне на модал
+        // ================ МОДАЛ ================
         function openModal() {
-            document.getElementById('confirmationModal').classList.add('active');
+            document.getElementById('confirmModal').classList.add('active');
         }
 
-        // Затваряне на модал
         function closeModal() {
-            document.getElementById('confirmationModal').classList.remove('active');
+            document.getElementById('confirmModal').classList.remove('active');
         }
 
-        // Показване на известие
+        // ================ ПОМОЩНИ ФУНКЦИИ ================
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('bg-BG');
+        }
+
+        function getCategoryText(cat) {
+            const map = {
+                update: 'Обновление',
+                event: 'Събитие',
+                tutorial: 'Урок',
+                community: 'Общност',
+                announcement: 'Съобщение'
+            };
+            return map[cat] || cat;
+        }
+
+        function getStatusBadge(status) {
+            const map = {
+                premium: '<span class="badge badge-premium"><i class="fas fa-crown"></i> Премиум</span>',
+                contributor: '<span class="badge badge-contributor"><i class="fas fa-code"></i> Сътрудник</span>',
+                active: '<span class="badge badge-active"><i class="fas fa-circle"></i> Активен</span>',
+                inactive: '<span class="badge badge-inactive"><i class="fas fa-circle"></i> Неактивен</span>'
+            };
+            return map[status] || '<span class="badge">Неизвестен</span>';
+        }
+
         function showNotification(message, type) {
-            // Създаване на известието
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
             notification.style.cssText = `
                 position: fixed;
                 top: 100px;
                 right: 20px;
                 padding: 1rem 1.5rem;
-                background: ${type === 'success' ? 'rgba(0, 255, 157, 0.9)' : type === 'error' ? 'rgba(255, 0, 60, 0.9)' : 'rgba(0, 243, 255, 0.9)'};
+                background: ${type === 'success' ? 'rgba(0,255,157,0.9)' : type === 'error' ? 'rgba(255,0,60,0.9)' : 'rgba(255,204,0,0.9)'};
                 color: var(--dark);
                 border-radius: 10px;
                 font-weight: 600;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
                 z-index: 3000;
-                animation: slideIn 0.3s ease-out;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
             `;
-            
-            // Добавяне на текст
             notification.textContent = message;
-            
-            // Добавяне на страницата
             document.body.appendChild(notification);
             
-            // Премахване след 3 секунди
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-out';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
+                notification.remove();
             }, 3000);
         }
-
-        // Помощни функции
-        function formatDate(dateString) {
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            return new Date(dateString).toLocaleDateString('bg-BG', options);
-        }
-
-        function getCategoryText(category) {
-            const categoryMap = {
-                "update": "Обновление",
-                "event": "Събитие",
-                "tutorial": "Урок",
-                "community": "Общност",
-                "announcement": "Съобщение"
-            };
-            
-            return categoryMap[category] || "Новина";
-        }
-
-        function getStatusBadge(status) {
-            switch(status) {
-                case 'premium':
-                    return '<span class="badge badge-premium"><i class="fas fa-crown"></i> Премиум</span>';
-                case 'contributor':
-                    return '<span class="badge badge-contributor"><i class="fas fa-code"></i> Сътрудник</span>';
-                case 'active':
-                    return '<span class="badge badge-active"><i class="fas fa-check-circle"></i> Активен</span>';
-                case 'inactive':
-                    return '<span class="badge badge-inactive"><i class="fas fa-times-circle"></i> Неактивен</span>';
-                default:
-                    return '<span class="badge">Неизвестен</span>';
-            }
-        }
-
-        // Добавяне на CSS анимации за известията
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            
-            .btn-sm {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Обновяване на дизайна при промяна на размера на екрана
-        window.addEventListener('resize', function() {
-            checkMobileView();
-            // Презареждане на таблиците за да се актуализира пагинацията
-            loadUsers();
-            loadArticles();
-            loadUserDetails();
-        });
     </script>
 </body>
 </html>

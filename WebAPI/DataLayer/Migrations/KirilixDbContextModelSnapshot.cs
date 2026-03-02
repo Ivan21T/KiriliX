@@ -132,6 +132,9 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -156,7 +159,7 @@ namespace DataLayer.Migrations
             modelBuilder.Entity("Business_Layer.Comment", b =>
                 {
                     b.HasOne("DataLayer.User", "Author")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -186,7 +189,7 @@ namespace DataLayer.Migrations
             modelBuilder.Entity("Business_Layer.Post", b =>
                 {
                     b.HasOne("DataLayer.User", "Author")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -197,6 +200,13 @@ namespace DataLayer.Migrations
             modelBuilder.Entity("Business_Layer.Post", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("DataLayer.User", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

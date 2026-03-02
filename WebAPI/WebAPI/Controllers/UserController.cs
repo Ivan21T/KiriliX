@@ -53,7 +53,17 @@ namespace WebAPI.Controllers
                 }
 
                 User user = await _userService.SignIn(request.Email, request.Password);
-                return Ok(new { message = "Успешно влизане!", user = user });
+                return Ok(new
+                {
+                    message = "Успешно влизане!",
+                    user = new
+                    {
+                        user.Id,
+                        user.Username,
+                        user.Email,
+                        user.Role
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -65,6 +75,10 @@ namespace WebAPI.Controllers
         {
             try
             {
+                if (await _userService.GetUserByEmail(email)==null)
+                {
+                    return BadRequest();
+                }
                 var otpCode = await _otpCodeService.GenerateAndSendOTPAsync(email,offsetTime);
 
                 return Ok(new

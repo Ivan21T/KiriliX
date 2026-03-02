@@ -1,8 +1,10 @@
 :root {
     --danger: #d63031;
     --success: #00b894;
-    --pending:rgb(243, 150, 38);
+    --pending: rgb(243, 150, 38);
+    --info: #0984e3;  /* Added info color */
 }
+
 .alert-container {
     position: fixed;
     top: 20px;
@@ -43,14 +45,23 @@
     color: var(--success);
     border-left: 4px solid var(--success);
 }
-.alert-message.pending{
+
+.alert-message.pending {
     background-color: white;
     color: var(--pending);
     border-left: 4px solid var(--pending);
 }
+
+.alert-message.info {  /* Added info styles */
+    background-color: white;
+    color: var(--info);
+    border-left: 4px solid var(--info);
+}
+
 .alert-message i {
     font-size: 1.2rem;
 }
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -95,7 +106,6 @@
 }
 
 @media (max-width: 576px) {
-    
     .alert-message {
         padding: 0.8rem 1rem;
         font-size: 0.85rem;

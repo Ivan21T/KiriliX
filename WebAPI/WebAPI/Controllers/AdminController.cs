@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
             _postService = postService;
             _userService = userService;
         }
-        [HttpDelete]
+        [HttpDelete("delete-user/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             try
@@ -37,6 +37,32 @@ namespace WebAPI.Controllers
             {
                 List<User> users = await _userService.GetAllUsersAsync();
                 return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPost("create-user")]
+        public async Task<IActionResult> CreateUser([FromBody] User user)
+        {
+            try
+            {
+                await _userService.CreateUserAsync(user);
+                return Ok(new { message = "Потребителят е създаден успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPost("create-post")]
+        public async Task<IActionResult> CreatePost([FromBody] Post post)
+        {
+            try
+            {
+                await _postService.CreatePostAsync(post);
+                return Ok(new { message = "Публикацията е създадена успешно!" });
             }
             catch (Exception ex)
             {

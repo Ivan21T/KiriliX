@@ -28,10 +28,12 @@ public class Program
         });
         builder.Services.AddScoped<UserContext>();
         builder.Services.AddScoped<OTPCodeContext>();
+        builder.Services.AddScoped<PostContext>();
 
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<OTPCodeService>();
         builder.Services.AddScoped<EmailService>();
+        builder.Services.AddScoped<PostService>();
 
         builder.Services.AddControllers();
 

@@ -74,8 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 showAlert(data.message, 'success');
                 modeBtns[0].click();
-                sessionStorage.setItem("user",data.user)
+                sessionStorage.setItem("user", JSON.stringify(data.user))
                 this.reset();
+                window.location.href="../HTML/index.html"
             }
 
             submitBtn.classList.remove('loading');

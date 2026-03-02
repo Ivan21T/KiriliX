@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BCrypt.Net;
+using Business_Layer;
 using Business_Layer.Enums;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer
@@ -18,6 +19,10 @@ namespace DataLayer
         public string Password { get; set; }
         [Required]
         public Role Role { get;set; }
+        public List<Post> Posts { get; set; } = new List<Post>();
+        public List<Comment> Comments { get; set; } = new List<Comment>();
+        [Required]
+        public DateTime CreatedAt { get; set; }
         public User()
         {
         }

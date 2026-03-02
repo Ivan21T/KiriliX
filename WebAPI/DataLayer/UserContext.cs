@@ -15,6 +15,7 @@ namespace DataLayer
             {
                 throw new ArgumentNullException(nameof(user));
             }
+            user.CreatedAt = DateTime.UtcNow;
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }

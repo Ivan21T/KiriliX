@@ -72,10 +72,6 @@
                     <div class="stat-number" id="totalPosts">0</div>
                     <div class="stat-label">Постове</div>
                 </div>
-                <div class="admin-stat">
-                    <div class="stat-number" id="activeUsers">0</div>
-                    <div class="stat-label">Активни</div>
-                </div>
             </div>
         </div>
 
@@ -205,7 +201,6 @@
                                 <th>Автор</th>
                                 <th>Дата</th>
                                 <th>Коментари</th>
-                                <th>Прегледи</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
@@ -230,38 +225,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Статистики за постове -->
-            <div class="user-stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
-                    <div>
-                        <div class="stat-number" id="totalPostsCount">0</div>
-                        <div class="stat-label">Общо постове</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-comments"></i></div>
-                    <div>
-                        <div class="stat-number" id="totalCommentsCount">0</div>
-                        <div class="stat-label">Общо коментари</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-fire"></i></div>
-                    <div>
-                        <div class="stat-number" id="popularPostsCount">0</div>
-                        <div class="stat-label">Популярни постове</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                    <div>
-                        <div class="stat-number" id="postsGrowth">0%</div>
-                        <div class="stat-label">Ръст тази седмица</div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- Секция Добави новина -->
@@ -277,21 +240,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="articleExcerpt">Кратко описание</label>
-                    <textarea id="articleExcerpt" class="form-control" rows="3" required></textarea>
-                </div>
-                
-                <div class="form-group">
                     <label class="form-label" for="articleContent">Съдържание</label>
                     <textarea id="articleContent" class="form-control form-textarea" rows="8" required></textarea>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group" style="position: relative;">
-                        <label class="form-label" for="articleAuthor">Автор</label>
-                        <input type="text" id="articleAuthor" class="form-control" value="Администратор" required autocomplete="off">
-                        <div id="authorSuggestions" class="autocomplete-suggestions"></div>
-                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -321,7 +271,6 @@
         </section>
     </main>
 
-    <!-- Модал за потвърждение -->
     <div class="modal" id="confirmModal">
         <div class="modal-content">
             <h3 class="modal-title" id="modalTitle">Потвърждение</h3>
@@ -332,59 +281,10 @@
             </div>
         </div>
     </div>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">
-                        <div class="logo-icon">K</div>
-                        KiriliX
-                    </div>
-                    <p class="footer-description">
-                        Първият български език за програмиране.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="footer-title">Новини</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Всички новини</a></li>
-                        <li><a href="#">Обновления</a></li>
-                        <li><a href="#">Събития</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-title">Общност</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Форум</a></li>
-                        <li><a href="#">Потребители</a></li>
-                        <li><a href="#">Контакти</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-title">Ресурси</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Документация</a></li>
-                        <li><a href="#">Уроци</a></li>
-                        <li><a href="#">Помощ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div>© 2024 KiriliX. Всички права запазени.</div>
-                <div class="footer-badge">
-                    <i class="fas fa-heart"></i>
-                    <span>Създадено в България</span>
-                </div>
-            </div>
-        </div>
-    </footer>
     
+    <kirilix-footer></kirilix-footer>
+    
+    <script type="module" src="../JS/footer.js"></script>
     <script src="../JS/notification_system.js"></script>
     <script src="../JS/config.js"></script>
     <script src="../JS/admin.js"></script>

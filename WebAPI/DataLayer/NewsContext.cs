@@ -38,10 +38,6 @@ namespace DataLayer
         public async Task<List<News>> ReadAllAsync(bool useNavigationProperties = false, bool isReadOnly = false)
         {
             IQueryable<News> query = _context.News;
-            if (useNavigationProperties)
-            {
-                query = query.Include(n => n.Author);
-            }
             if(isReadOnly)
             {
                 query = query.AsNoTrackingWithIdentityResolution();
@@ -52,10 +48,6 @@ namespace DataLayer
         public async Task<News> ReadAsync(int id, bool useNavigationProperties = false, bool isReadOnly = false)
         {
             IQueryable<News> query = _context.News;
-            if (useNavigationProperties)
-            {
-                query = query.Include(n => n.Author);
-            }
             if(isReadOnly)
             {
                 query = query.AsNoTrackingWithIdentityResolution();
@@ -77,17 +69,6 @@ namespace DataLayer
             }
             newsFromDb.Description = entity.Description;
             newsFromDb.PublishedAt = entity.PublishedAt;
-            newsFromDb.Views = entity.Views;
-            newsFromDb.TimeToRead = entity.TimeToRead;
-            if (useNavigationProperties)
-            {
-                var authorFromDb = await _context.Users.FirstOrDefaultAsync(u => u.Id == entity.Author.Id);
-                if (authorFromDb == null)
-                {
-                    throw new Exception("Авторът не бе намерен!");
-                }
-                newsFromDb.Author = authorFromDb;
-            }
         }
     }
 }

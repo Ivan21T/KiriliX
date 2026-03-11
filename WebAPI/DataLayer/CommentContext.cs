@@ -1,4 +1,5 @@
 ﻿using Business_Layer;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,24 +16,68 @@ namespace DataLayer
             _context = context;
         }
 
-        public Task CreateAsync(Comment item)
+        public async Task CreateAsync(Comment item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException("Неуспешно добавяне!");
+            }
+            var user= await _context.Users.FindAsync(item.Author.Id);
+            if (user!=null)
+            {
+                item.Author = user;
+            }
+            var post = await _context.Posts.FindAsync(item.Post.Id);
+            if (post!=null)
+            {
+                item.Post = post;
+            }
+            item.CreatedAt = DateTime.UtcNow;
+            _context.Comments.Add(item);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var comment = await _context.Comments.FindAsync(id);
+            if(comment==null)
+                {
+                throw new Exception("Коментарът не е намерен!");
+            }
+            _context.Comments.Remove(comment);
         }
 
-        public Task<List<Comment>> ReadAllAsync(bool useNavigationProperties = false, bool isReadOnly = false)
+        public async Task<List<Comment>> ReadAllAsync(bool useNavigationProperties = false, bool isReadOnly = false)
         {
-            throw new NotImplementedException();
+            IQueryable<Comment> query = _context.Comments;
+            if (useNavigationProperties)
+            {
+                query = query.Include(c => c.Author).Include(c => c.Post);
+            }
+            if (isReadOnly)
+            {
+                query = query.AsNoTrackingWithIdentityResolution();
+            }
+            return await query.ToListAsync();
         }
 
-        public Task<Comment> ReadAsync(int id, bool useNavigationProperties = false, bool isReadOnly = false)
+        public async Task<Comment> ReadAsync(int id, bool useNavigationProperties = false, bool isReadOnly = false)
         {
-            throw new NotImplementedException();
+            IQueryable<Comment> query = _context.Comments;
+            if (useNavigationProperties)
+            {
+                query = query.Include(c => c.Author).Include(c => c.Post);
+            }
+            if (isReadOnly)
+            {
+                query = query.AsNoTrackingWithIdentityResolution();
+            }
+            var comment = query.FirstOrDefault(c => c.Id == id);
+            if (comment == null)
+            {
+                throw new Exception("Коментарът не е намерен!");
+            }
+            return comment;
         }
 
         public Task UpdateAsync(Comment entity, bool useNavigationProperties = false)

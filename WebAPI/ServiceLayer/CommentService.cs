@@ -5,23 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
 using Business_Layer;
+using ServiceLayer.DTOs;
+using AutoMapper;
 
 namespace ServiceLayer
 {
     public class CommentService
     {
         private readonly CommentContext _commentContext;
+
         public CommentService(CommentContext commentContext)
         {
             _commentContext = commentContext;
         }
+
         public async Task CreateCommentAsync(Comment comment)
         {
+
             await _commentContext.CreateAsync(comment);
         }
-        public async Task<Comment> GetCommentByIdAsync(int id)
+
+        public async Task<Comment> GetCommentByIdAsync(int id,bool useNavigationalProperties,bool isReadOnly)
         {
-            return await _commentContext.ReadAsync(id);
+            return await _commentContext.ReadAsync(id,useNavigationalProperties,isReadOnly);
         }
         public async Task<List<Comment>> GetAllCommentsAsync()
         {

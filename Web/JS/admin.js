@@ -6,6 +6,7 @@ const adminData = {
 
 // ================ СЪСТОЯНИЕ ================
 let currentEditingArticleId = null;
+let currentEditingUserId = null;
 let currentAction = null;
 let currentImageFile = null;
 
@@ -20,9 +21,11 @@ const pagination = {
 document.addEventListener('DOMContentLoaded', async function() {
     initMobileMenu();
     initNavigation();
-    initAutocomplete();
     initFileUpload();
     initPaginationControls();
+    
+    // Добавяме респонсив стилове за модалите
+    addResponsiveModalStyles();
     
     // Първо зареждаме потребителите
     showAlert('Зареждане на потребители...', 'pending');
@@ -49,10 +52,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 });
 
-// Мобилно меню
+// ================ МОБИЛНО МЕНЮ ================
 function initMobileMenu() {
     const toggle = document.getElementById('mobileMenuToggle');
     const menu = document.getElementById('mobileMenu');
+    
+    if (!toggle || !menu) return;
     
     toggle.addEventListener('click', function() {
         this.classList.toggle('active');
@@ -60,7 +65,7 @@ function initMobileMenu() {
     });
 }
 
-// Навигация
+// ================ НАВИГАЦИЯ ================
 function initNavigation() {
     const navBtns = document.querySelectorAll('.admin-nav-btn');
     const sections = document.querySelectorAll('.admin-section');
@@ -83,6 +88,7 @@ function initNavigation() {
     });
 }
 
+// ================ API ФУНКЦИИ ================
 async function getUsers() {
     try {
         const response = await fetch(`${API_CONFIG.ADMIN}/get-users`, {
@@ -98,10 +104,10 @@ async function getUsers() {
 
         const users = await response.json();
         
-        // Трансформираме потребителите към очаквания формат
         return users.map(user => ({
             id: user.id,
-            name: user.username || 'Потребител',
+            username: user.username || 'Потребител',
+            name: user.username || 'Потребител', // За обратна съвместимост
             email: user.email,
             role: user.role === 0 ? 'admin' : 'user',
             initials: (user.username || 'П').split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'П'
@@ -113,7 +119,6 @@ async function getUsers() {
     }
 }
 
-// Функция за зареждане на постове от базата
 async function getPosts() {
     try {
         const response = await fetch(`${API_CONFIG.ADMIN}/get-posts`, {
@@ -136,7 +141,6 @@ async function getPosts() {
     }
 }
 
-// Примерни данни за тест
 function getSamplePosts() {
     return [
         {
@@ -197,12 +201,905 @@ function getSamplePosts() {
     ];
 }
 
+// ================ РЕСПОНСИВ МОДАЛНИ СТИЛОВЕ ================
+function addResponsiveModalStyles() {
+    if (document.getElementById('responsiveModalStyles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'responsiveModalStyles';
+    style.textContent = `
+        /* Основни модални стилове */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-window {
+            background: var(--bg-darker);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .modal-header h3 {
+            color: var(--neon-green);
+            font-size: 1.3rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: #b0b0d0;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close-btn:hover {
+            color: var(--neon-green);
+            background: rgba(0, 255, 157, 0.1);
+        }
+        
+        .modal-body {
+            padding: 24px;
+            max-height: calc(90vh - 120px);
+            overflow-y: auto;
+        }
+        
+        .modal-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .modal-form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0d0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .modal-form-label i {
+            color: var(--neon-green);
+            margin-right: 8px;
+            width: 20px;
+        }
+        
+        .modal-form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .modal-form-control:focus {
+            border-color: var(--neon-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.1);
+        }
+        
+        .modal-form-control.error {
+            border-color: #ff4444;
+            animation: shake 0.3s ease;
+        }
+        
+        .modal-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300ff9d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 48px;
+        }
+        
+        .password-hint {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #b0b0d0;
+            line-height: 1.4;
+        }
+        
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .modal-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 120px;
+            border: none;
+            font-weight: 500;
+        }
+        
+        .modal-btn i {
+            font-size: 18px;
+        }
+        
+        .modal-btn-primary {
+            background: var(--neon-green);
+            color: var(--bg-darker);
+        }
+        
+        .modal-btn-primary:hover {
+            background: #00cc7d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+        
+        .modal-btn-outline {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+        }
+        
+        .modal-btn-outline:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .modal-window {
+                width: 95%;
+            }
+            
+            .modal-header {
+                padding: 16px 20px;
+            }
+            
+            .modal-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                margin: 0;
+                padding: 14px 20px;
+            }
+            
+            .modal-form-control {
+                padding: 14px 16px;
+                font-size: 16px;
+            }
+            
+            .modal-close-btn {
+                padding: 10px;
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modal-overlay {
+                padding: 0;
+                align-items: flex-end;
+            }
+            
+            .modal-window {
+                width: 100%;
+                max-width: none;
+                border-radius: 20px 20px 0 0;
+                animation: modalSlideUp 0.3s ease;
+            }
+            
+            .modal-header {
+                padding: 16px;
+            }
+            
+            .modal-body {
+                padding: 16px;
+                max-height: 70vh;
+            }
+            
+            .modal-form-group {
+                margin-bottom: 16px;
+            }
+            
+            .modal-footer {
+                margin-top: 20px;
+                gap: 8px;
+            }
+            
+            .modal-btn {
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+            
+            .modal-btn i {
+                font-size: 20px;
+            }
+            
+            .password-hint {
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .modal-header h3 {
+                font-size: 1rem;
+            }
+            
+            .modal-header h3 i {
+                font-size: 18px;
+            }
+            
+            .modal-body {
+                padding: 12px;
+            }
+            
+            .modal-form-label {
+                font-size: 13px;
+            }
+            
+            .modal-form-control {
+                padding: 12px 14px;
+                font-size: 15px;
+            }
+        }
+        
+        /* Ландшафтна ориентация */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .modal-window {
+                max-height: 90vh;
+            }
+            
+            .modal-body {
+                max-height: 60vh;
+            }
+            
+            .modal-form-group {
+                margin-bottom: 12px;
+            }
+            
+            .modal-form-control {
+                padding: 10px 14px;
+            }
+            
+            .modal-footer {
+                margin-top: 16px;
+            }
+            
+            .modal-btn {
+                padding: 10px 16px;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Скрол бар */
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .modal-body::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 3px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #00cc7d;
+        }
+        
+        /* Touch устройства */
+        @media (hover: none) and (pointer: coarse) {
+            .modal-btn:hover {
+                transform: none;
+            }
+            
+            .modal-btn:active {
+                transform: scale(0.98);
+            }
+            
+            .modal-close-btn {
+                padding: 12px;
+            }
+            
+            .modal-select {
+                background-size: 20px;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+}
+
+// ================ МОДАЛ ЗА РЕДАКТИРАНЕ НА ПОТРЕБИТЕЛ ================
+function showEditUserModal(id) {
+    const user = adminData.users?.find(u => u.id === id);
+    if (!user) return;
+    
+    currentEditingUserId = id;
+    
+    let modalOverlay = document.getElementById('editUserModalOverlay');
+    
+    if (!modalOverlay) {
+        modalOverlay = document.createElement('div');
+        modalOverlay.id = 'editUserModalOverlay';
+        modalOverlay.className = 'modal-overlay';
+        
+        modalOverlay.innerHTML = `
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h3><i class="fas fa-user-edit"></i>Редактиране на потребител</h3>
+                    <button class="modal-close-btn" onclick="closeEditUserModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="editUserModalForm" onsubmit="saveEditedUser(event)">
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editModalUsername">
+                                <i class="fas fa-user"></i> Потребителско име
+                            </label>
+                            <input type="text" 
+                                   id="editModalUsername" 
+                                   class="modal-form-control" 
+                                   placeholder="Въведете потребителско име"
+                                   required 
+                                   minlength="3" 
+                                   maxlength="50"
+                                   autocomplete="off">
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editModalEmail">
+                                <i class="fas fa-envelope"></i> Имейл
+                            </label>
+                            <input type="email" 
+                                   id="editModalEmail" 
+                                   class="modal-form-control" 
+                                   placeholder="user@example.com"
+                                   required 
+                                   autocomplete="off">
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editModalPassword">
+                                <i class="fas fa-lock"></i> Нова парола
+                            </label>
+                            <input type="password" 
+                                   id="editModalPassword" 
+                                   class="modal-form-control" 
+                                   placeholder="Оставете празно за да запазите старата"
+                                   minlength="6"
+                                   oninput="checkEditPasswordStrength(this.value)">
+                            <small class="password-hint">Ако полето остане празно, паролата няма да се промени</small>
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editModalRole">
+                                <i class="fas fa-shield-alt"></i> Роля
+                            </label>
+                            <select id="editModalRole" class="modal-form-control modal-select" required>
+                                <option value="user">Потребител</option>
+                                <option value="admin">Администратор</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="modal-btn modal-btn-outline" onclick="closeEditUserModal()">
+                                <i class="fas fa-times"></i> <span>Отказ</span>
+                            </button>
+                            <button type="submit" class="modal-btn modal-btn-primary">
+                                <i class="fas fa-save"></i> <span>Запази промените</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modalOverlay);
+        
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeEditUserModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeEditUserModal();
+            }
+        });
+    }
+    
+    // Използваме username вместо name
+    document.getElementById('editModalUsername').value = user.username || user.name;
+    document.getElementById('editModalEmail').value = user.email;
+    document.getElementById('editModalRole').value = user.role;
+    document.getElementById('editModalPassword').value = '';
+    
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => {
+        document.getElementById('editModalUsername')?.focus();
+    }, 100);
+}
+
+function closeEditUserModal() {
+    const modalOverlay = document.getElementById('editUserModalOverlay');
+    if (modalOverlay) {
+        modalOverlay.classList.remove('active');
+        
+        const form = document.getElementById('editUserModalForm');
+        if (form) form.reset();
+        
+        document.body.style.overflow = '';
+        currentEditingUserId = null;
+    }
+}
+
+function checkEditPasswordStrength(password) {
+    // Функцията може да се имплементира ако имате индикатор за сила на паролата
+    if (!password) return;
+}
+
+async function saveEditedUser(event) {
+    event.preventDefault();
+    
+    if (!currentEditingUserId) return;
+    
+    const usernameInput = document.getElementById('editModalUsername');
+    const emailInput = document.getElementById('editModalEmail');
+    const passwordInput = document.getElementById('editModalPassword');
+    const roleSelect = document.getElementById('editModalRole');
+    
+    const username = usernameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    const role = roleSelect.value;
+    
+    let hasError = false;
+    
+    if (username.length < 3) {
+        usernameInput.classList.add('error');
+        showAlert('Потребителското име трябва да е поне 3 символа', 'error');
+        hasError = true;
+        setTimeout(() => usernameInput.classList.remove('error'), 500);
+    }
+    
+    if (!isValidEmail(email)) {
+        emailInput.classList.add('error');
+        showAlert('Моля, въведете валиден имейл адрес', 'error');
+        hasError = true;
+        setTimeout(() => emailInput.classList.remove('error'), 500);
+    }
+    
+    if (password && password.length < 6) {
+        passwordInput.classList.add('error');
+        showAlert('Паролата трябва да е поне 6 символа', 'error');
+        hasError = true;
+        setTimeout(() => passwordInput.classList.remove('error'), 500);
+    }
+    
+    if (hasError) return;
+    
+    // Проверка за съществуващо потребителско име
+    const existingUserWithSameName = adminData.users?.find(u => 
+        u.id !== currentEditingUserId && (u.username || u.name).toLowerCase() === username.toLowerCase()
+    );
+    
+    if (existingUserWithSameName) {
+        usernameInput.classList.add('error');
+        showAlert('Потребител с това име вече съществува', 'error');
+        setTimeout(() => usernameInput.classList.remove('error'), 500);
+        return;
+    }
+    
+    // Проверка за съществуващ имейл
+    const existingUserWithSameEmail = adminData.users?.find(u => 
+        u.id !== currentEditingUserId && u.email.toLowerCase() === email.toLowerCase()
+    );
+    
+    if (existingUserWithSameEmail) {
+        emailInput.classList.add('error');
+        showAlert('Потребител с този имейл вече съществува', 'error');
+        setTimeout(() => emailInput.classList.remove('error'), 500);
+        return;
+    }
+    
+    showAlert('Запазване на промените...', 'pending');
+    
+    try {
+        const updates = {};
+        
+        const originalUser = adminData.users.find(u => u.id === currentEditingUserId);
+        const originalUsername = originalUser.username || originalUser.name;
+        
+        if (username !== originalUsername) {
+            updates.username = username; // Изпращаме username вместо name
+        }
+        
+        if (email !== originalUser.email) {
+            updates.email = email;
+        }
+        
+        if (password) {
+            updates.password = password;
+        }
+        
+        const roleValue = role === 'admin' ? 0 : 1;
+        const originalRoleValue = originalUser.role === 'admin' ? 0 : 1;
+        
+        if (roleValue !== originalRoleValue) {
+            updates.role = roleValue;
+        }
+        
+        if (Object.keys(updates).length === 0) {
+            showAlert('Няма промени за запазване', 'info');
+            closeEditUserModal();
+            return;
+        }
+        
+        const response = await fetch(`${API_CONFIG.USER}/${currentEditingUserId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updates)
+        });
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message || 'Грешка при редактиране на потребител');
+        }
+        
+        const index = adminData.users.findIndex(u => u.id === currentEditingUserId);
+        
+        if (index !== -1) {
+            // Обновяваме локалните данни
+            adminData.users[index] = {
+                ...adminData.users[index],
+                ...(updates.username && { 
+                    username: updates.username, 
+                    name: updates.username // Запазваме и name за съвместимост
+                }),
+                ...(updates.email && { email: updates.email }),
+                ...(updates.role !== undefined && { role: role }),
+                initials: updates.username 
+                    ? updates.username.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || updates.username.substring(0, 2).toUpperCase()
+                    : adminData.users[index].initials
+            };
+        }
+        
+        loadUsers();
+        loadStatistics();
+        
+        closeEditUserModal();
+        showAlert(`Потребителят ${username} е обновен успешно!`, 'success');
+        
+    } catch (error) {
+        console.error('Error updating user:', error);
+        showAlert(error.message, 'error');
+    }
+}
+
+// ================ МОДАЛ ЗА ДОБАВЯНЕ НА ПОТРЕБИТЕЛ ================
+function showAddUserModal() {
+    let modalOverlay = document.getElementById('addUserModalOverlay');
+    
+    if (!modalOverlay) {
+        modalOverlay = document.createElement('div');
+        modalOverlay.id = 'addUserModalOverlay';
+        modalOverlay.className = 'modal-overlay';
+        
+        modalOverlay.innerHTML = `
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h3><i class="fas fa-user-plus"></i>Нов потребител</h3>
+                    <button class="modal-close-btn" onclick="closeAddUserModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="addUserModalForm" onsubmit="saveNewUser(event)">
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="modalUsername">
+                                <i class="fas fa-user"></i> Потребителско име
+                            </label>
+                            <input type="text" 
+                                   id="modalUsername" 
+                                   class="modal-form-control" 
+                                   placeholder="Въведете потребителско име"
+                                   required 
+                                   minlength="3" 
+                                   maxlength="50"
+                                   autocomplete="off">
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="modalEmail">
+                                <i class="fas fa-envelope"></i> Имейл
+                            </label>
+                            <input type="email" 
+                                   id="modalEmail" 
+                                   class="modal-form-control" 
+                                   placeholder="user@example.com"
+                                   required 
+                                   autocomplete="off">
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="modalPassword">
+                                <i class="fas fa-lock"></i> Парола
+                            </label>
+                            <input type="password" 
+                                   id="modalPassword" 
+                                   class="modal-form-control" 
+                                   placeholder="Минимум 6 символа"
+                                   required 
+                                   minlength="6"
+                                   oninput="checkPasswordStrength(this.value)">
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="modalRole">
+                                <i class="fas fa-shield-alt"></i> Роля
+                            </label>
+                            <select id="modalRole" class="modal-form-control modal-select" required>
+                                <option value="user">👤 Потребител</option>
+                                <option value="admin">🛡️ Администратор</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="modal-btn modal-btn-outline" onclick="closeAddUserModal()">
+                                <i class="fas fa-times"></i> <span>Отказ</span>
+                            </button>
+                            <button type="submit" class="modal-btn modal-btn-primary">
+                                <i class="fas fa-save"></i> <span>Запази</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modalOverlay);
+        
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeAddUserModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeAddUserModal();
+            }
+        });
+    }
+    
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => {
+        document.getElementById('modalUsername')?.focus();
+    }, 100);
+}
+
+function closeAddUserModal() {
+    const modalOverlay = document.getElementById('addUserModalOverlay');
+    if (modalOverlay) {
+        modalOverlay.classList.remove('active');
+        
+        const form = document.getElementById('addUserModalForm');
+        if (form) form.reset();
+        
+        document.body.style.overflow = '';
+    }
+}
+
+function checkPasswordStrength(password) {
+    // Функцията може да се имплементира ако имате индикатор за сила на паролата
+    if (!password) return;
+}
+
+async function saveNewUser(event) {
+    event.preventDefault();
+    
+    const usernameInput = document.getElementById('modalUsername');
+    const emailInput = document.getElementById('modalEmail');
+    const passwordInput = document.getElementById('modalPassword');
+    const roleSelect = document.getElementById('modalRole');
+    
+    const username = usernameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    const role = roleSelect.value;
+    
+    let hasError = false;
+    
+    if (username.length < 3) {
+        usernameInput.classList.add('error');
+        showAlert('Потребителското име трябва да е поне 3 символа', 'error');
+        hasError = true;
+        setTimeout(() => usernameInput.classList.remove('error'), 500);
+    }
+    
+    if (!isValidEmail(email)) {
+        emailInput.classList.add('error');
+        showAlert('Моля, въведете валиден имейл адрес', 'error');
+        hasError = true;
+        setTimeout(() => emailInput.classList.remove('error'), 500);
+    }
+    
+    if (password.length < 6) {
+        passwordInput.classList.add('error');
+        showAlert('Паролата трябва да е поне 6 символа', 'error');
+        hasError = true;
+        setTimeout(() => passwordInput.classList.remove('error'), 500);
+    }
+    
+    if (hasError) return;
+    
+    // Проверка за съществуващо потребителско име
+    if (adminData.users?.some(u => (u.username || u.name).toLowerCase() === username.toLowerCase())) {
+        usernameInput.classList.add('error');
+        showAlert('Потребител с това име вече съществува', 'error');
+        setTimeout(() => usernameInput.classList.remove('error'), 500);
+        return;
+    }
+    
+    // Проверка за съществуващ имейл
+    if (adminData.users?.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        emailInput.classList.add('error');
+        showAlert('Потребител с този имейл вече съществува', 'error');
+        setTimeout(() => emailInput.classList.remove('error'), 500);
+        return;
+    }
+    
+    showAlert('Създаване на потребител...', 'pending');
+    
+    try {
+        const response = await fetch(`${API_CONFIG.ADMIN}/create-user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username, // Изпращаме username
+                email: email,
+                password: password,
+                role: role === 'admin' ? 0 : 1
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message || 'Грешка при създаване на потребител');
+        }
+        
+        const newUser = {
+            id: result.id || (adminData.users?.length || 0) + 1,
+            username: username,
+            name: username, // За обратна съвместимост
+            email: email,
+            role: role,
+            initials: username.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || username.substring(0, 2).toUpperCase()
+        };
+        
+        adminData.users = [newUser, ...(adminData.users || [])];
+        
+        pagination.users.page = 1;
+        loadUsers();
+        loadStatistics();
+        
+        closeAddUserModal();
+        showAlert(`Потребителят ${username} е създаден успешно!`, 'success');
+        
+    } catch (error) {
+        console.error('Error creating user:', error);
+        showAlert(error.message, 'error');
+    }
+}
+
 // ================ FILE UPLOAD ================
 function initFileUpload() {
     const fileInput = document.getElementById('articleImage');
     const uploadArea = document.getElementById('fileUploadArea');
     const previewContainer = document.getElementById('imagePreviewContainer');
     const preview = document.getElementById('imagePreview');
+    
+    if (!fileInput || !uploadArea) return;
     
     uploadArea.addEventListener('click', () => {
         fileInput.click();
@@ -273,70 +1170,8 @@ function removeImage() {
     showAlert('Изображението е премахнато', 'info');
 }
 
-// ================ AUTOCOMPLETE ================
-function initAutocomplete() {
-    const input = document.getElementById('articleAuthor');
-    const suggestions = document.getElementById('authorSuggestions');
-    
-    input.addEventListener('input', function() {
-        const term = this.value.toLowerCase();
-        
-        if (term.length < 2 || !adminData.users || adminData.users.length === 0) {
-            suggestions.style.display = 'none';
-            return;
-        }
-        
-        const matches = adminData.users.filter(u => 
-            u.name.toLowerCase().includes(term) || 
-            u.email.toLowerCase().includes(term)
-        );
-        
-        if (matches.length === 0) {
-            suggestions.style.display = 'none';
-            return;
-        }
-        
-        suggestions.innerHTML = '';
-        matches.slice(0, 8).forEach(user => {
-            const div = document.createElement('div');
-            div.className = 'suggestion-item';
-            div.innerHTML = `
-                <div class="user-avatar" style="width: 32px; height: 32px;">${user.initials}</div>
-                <div>
-                    <div style="font-weight: 600;">${user.name}</div>
-                    <div style="font-size: 12px; color: #b0b0d0;">${user.email}</div>
-                </div>
-                ${user.role === 'admin' ? '<i class="fas fa-shield-alt" style="color: var(--neon-green);"></i>' : ''}
-            `;
-            
-            div.addEventListener('click', () => {
-                input.value = user.name;
-                suggestions.style.display = 'none';
-                showAlert(`Избран автор: ${user.name}`, 'success');
-            });
-            
-            suggestions.appendChild(div);
-        });
-        
-        suggestions.style.display = 'block';
-    });
-    
-    document.addEventListener('click', (e) => {
-        if (e.target !== input && !suggestions.contains(e.target)) {
-            suggestions.style.display = 'none';
-        }
-    });
-    
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            suggestions.style.display = 'none';
-        }
-    });
-}
-
 // ================ ПАГИНАЦИЯ ================
 function initPaginationControls() {
-    // Потребители
     const usersPageSize = document.getElementById('usersPageSize');
     if (usersPageSize) {
         usersPageSize.addEventListener('change', function() {
@@ -347,7 +1182,6 @@ function initPaginationControls() {
         });
     }
     
-    // Новини
     const articlesPageSize = document.getElementById('articlesPageSize');
     if (articlesPageSize) {
         articlesPageSize.addEventListener('change', function() {
@@ -358,7 +1192,6 @@ function initPaginationControls() {
         });
     }
     
-    // Постове
     const postsPageSize = document.getElementById('postsPageSize');
     if (postsPageSize) {
         postsPageSize.addEventListener('change', function() {
@@ -380,19 +1213,16 @@ function updatePagination(type, totalItems) {
     
     if (!container) return;
     
-    // Информация
     const start = totalItems === 0 ? 0 : (state.page - 1) * state.pageSize + 1;
     const end = Math.min(state.page * state.pageSize, totalItems);
     info.textContent = totalItems === 0 ? 'Няма записи за показване' : `Показване на ${start}-${end} от ${totalItems}`;
     
-    // Бутони
     container.innerHTML = '';
     
     if (totalPages <= 1) {
         return;
     }
     
-    // Бутон Предишна
     const prevBtn = document.createElement('button');
     prevBtn.className = 'page-btn';
     prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
@@ -405,7 +1235,6 @@ function updatePagination(type, totalItems) {
     };
     container.appendChild(prevBtn);
     
-    // Номера на страници
     let startPage = Math.max(1, state.page - 2);
     let endPage = Math.min(totalPages, state.page + 2);
     
@@ -464,7 +1293,6 @@ function updatePagination(type, totalItems) {
         container.appendChild(lastBtn);
     }
     
-    // Бутон Следваща
     const nextBtn = document.createElement('button');
     nextBtn.className = 'page-btn';
     nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
@@ -483,12 +1311,6 @@ function loadStatistics() {
     document.getElementById('totalUsers').textContent = adminData.users?.length || 0;
     document.getElementById('totalArticles').textContent = adminData.articles?.length || 0;
     document.getElementById('totalPosts').textContent = adminData.posts?.length || 0;
-    
-    const totalComments = adminData.posts?.reduce((sum, p) => sum + (p.comments || 0), 0) || 0;
-    document.getElementById('totalCommentsCount').textContent = totalComments;
-    
-    const activeUsers = adminData.users?.filter(u => u.status === 'active').length || 0;
-    document.getElementById('activeUsers').textContent = activeUsers;
 }
 
 // ================ ЗАРЕЖДАНЕ НА ПОТРЕБИТЕЛИ ================
@@ -515,13 +1337,16 @@ function loadUsers() {
             ? '<span class="badge badge-admin"><i class="fas fa-shield-alt"></i> Админ</span>'
             : '<span class="badge badge-user"><i class="fas fa-user"></i> Потребител</span>';
         
+        // Използваме username за показване
+        const displayName = user.username || user.name;
+        
         tbody.innerHTML += `
             <tr>
                 <td>
                     <div class="user-info">
                         <div class="user-avatar">${user.initials || 'П'}</div>
                         <div>
-                            <div class="user-name">${user.name}</div>
+                            <div class="user-name">${displayName}</div>
                             <div class="user-email">${user.email}</div>
                         </div>
                     </div>
@@ -529,7 +1354,7 @@ function loadUsers() {
                 <td>${roleBadge}</td>
                 <td>
                     <div class="action-buttons">
-                        <button class="action-btn edit" onclick="editUser(${user.id})"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn edit" onclick="showEditUserModal(${user.id})"><i class="fas fa-edit"></i></button>
                         <button class="action-btn delete" onclick="confirmDelete('user', ${user.id})"><i class="fas fa-trash"></i></button>
                     </div>
                 </td>
@@ -554,7 +1379,7 @@ function loadArticles() {
     tbody.innerHTML = '';
     
     if (articlesToShow.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Няма намерени новини</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Няма намерени новини</td></tr>';
         updatePagination('articles', 0);
         return;
     }
@@ -563,7 +1388,6 @@ function loadArticles() {
         tbody.innerHTML += `
             <tr>
                 <td><strong>${article.title}</strong></td>
-                <td>${article.author}</td>
                 <td>${formatDate(article.date)}</td>
                 <td>${article.views || 0}</td>
                 <td>
@@ -594,9 +1418,8 @@ function loadPosts() {
     tbody.innerHTML = '';
     
     if (postsToShow.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Няма намерени постове</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Няма намерени постове</td></tr>';
         updatePagination('posts', 0);
-        updatePostsStats();
         return;
     }
     
@@ -622,11 +1445,6 @@ function loadPosts() {
                     </span>
                 </td>
                 <td>
-                    <span class="badge" style="background: rgba(0, 255, 157, 0.1); color: var(--neon-green);">
-                        <i class="fas fa-eye"></i> ${post.views || 0}
-                    </span>
-                </td>
-                <td>
                     <div class="action-buttons">
                         <button class="action-btn edit" onclick="editPost(${post.id})"><i class="fas fa-edit"></i></button>
                         <button class="action-btn delete" onclick="confirmDeletePost(${post.id})"><i class="fas fa-trash"></i></button>
@@ -638,47 +1456,6 @@ function loadPosts() {
     });
     
     updatePagination('posts', adminData.posts?.length || 0);
-    updatePostsStats();
-}
-
-function updatePostsStats() {
-    const posts = adminData.posts || [];
-    const totalPosts = posts.length;
-    const totalComments = posts.reduce((sum, p) => sum + (p.comments || 0), 0);
-    const popularPosts = posts.filter(p => p.views > 200).length;
-    
-    // Изчисляваме ръст спрямо предходния период
-    const now = new Date();
-    const oneWeekAgo = new Date(now.setDate(now.getDate() - 7));
-    const postsThisWeek = posts.filter(p => new Date(p.createdAt) >= oneWeekAgo).length;
-    const postsLastWeek = posts.filter(p => {
-        const date = new Date(p.createdAt);
-        return date < oneWeekAgo && date >= new Date(oneWeekAgo.setDate(oneWeekAgo.getDate() - 7));
-    }).length;
-    
-    let growth = 0;
-    if (postsLastWeek > 0) {
-        growth = ((postsThisWeek - postsLastWeek) / postsLastWeek) * 100;
-    } else if (postsThisWeek > 0) {
-        growth = 100;
-    }
-    
-    document.getElementById('totalPostsCount').textContent = totalPosts;
-    document.getElementById('totalCommentsCount').textContent = totalComments;
-    document.getElementById('popularPostsCount').textContent = popularPosts;
-    document.getElementById('postsGrowth').textContent = Math.round(growth) + '%';
-}
-
-function refreshPosts() {
-    showAlert('Обновяване на постовете...', 'pending');
-    // Тук може да направите заявка към сървъра за нови данни
-    setTimeout(() => {
-        adminData.posts = getSamplePosts(); // Временно използваме примерни данни
-        pagination.posts.page = 1;
-        loadPosts();
-        loadStatistics();
-        showAlert('Постовете са обновени успешно!', 'success');
-    }, 500);
 }
 
 function getInitials(name) {
@@ -691,7 +1468,6 @@ function editPost(id) {
     const post = adminData.posts?.find(p => p.id === id);
     if (post) {
         showAlert(`Редактиране на пост: ${post.title}`, 'info');
-        // Тук може да отворите форма за редактиране
     }
 }
 
@@ -699,7 +1475,6 @@ function viewPost(id) {
     const post = adminData.posts?.find(p => p.id === id);
     if (post) {
         showAlert(`Преглед на пост: ${post.title}`, 'info');
-        // Тук може да отворите поста за преглед
     }
 }
 
@@ -728,11 +1503,8 @@ function showAddArticleForm() {
 
 function clearArticleForm() {
     document.getElementById('articleTitle').value = '';
-    document.getElementById('articleExcerpt').value = '';
     document.getElementById('articleContent').value = '';
     document.getElementById('articleCategory').value = 'update';
-    document.getElementById('articleAuthor').value = 'Администратор';
-    document.getElementById('authorSuggestions').style.display = 'none';
     removeImage();
     currentEditingArticleId = null;
     document.getElementById('articleFormTitle').textContent = 'Добави нова новина';
@@ -742,71 +1514,42 @@ function saveArticle(event) {
     event.preventDefault();
     
     const title = document.getElementById('articleTitle').value;
-    const excerpt = document.getElementById('articleExcerpt').value;
     const content = document.getElementById('articleContent').value;
-    const author = document.getElementById('articleAuthor').value;
     
-    if (!title || !author) {
-        showAlert('Моля, попълнете заглавие и автор!', 'error');
+    if (!title) {
+        showAlert('Моля, попълнете заглавие!', 'error');
         return;
     }
     
     showAlert('Запазване на новината...', 'pending');
     
-    // Проверка за автор
-    const existingUser = adminData.users?.find(u => u.name.toLowerCase() === author.toLowerCase());
-    
-    if (!existingUser && author !== 'Администратор' && author !== 'Екип KiriliX') {
-        if (confirm(`Потребител "${author}" не съществува. Желаете ли да го добавите?`)) {
-            const newUser = {
-                id: (adminData.users?.length || 0) + 1,
-                name: author,
-                email: `${author.toLowerCase().replace(/\s+/g, '.')}@example.com`,
-                role: 'user',
-                status: 'active',
-                initials: author.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
-            };
-            adminData.users = [...(adminData.users || []), newUser];
-            showAlert(`Нов потребител "${author}" е добавен!`, 'success');
-        } else {
-            return;
-        }
-    }
-    
-    // Обработка на изображението
     if (currentImageFile) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            saveArticleWithImage(e.target.result, title, excerpt, content, author);
+            saveArticleWithImage(e.target.result, title, content);
         };
         reader.readAsDataURL(currentImageFile);
     } else {
-        saveArticleWithImage(null, title, excerpt, content, author);
+        saveArticleWithImage(null, title, content);
     }
 }
 
-function saveArticleWithImage(imageData, title, excerpt, content, author) {
+function saveArticleWithImage(imageData, title, content) {
     if (currentEditingArticleId) {
-        // Редактиране
         const index = adminData.articles.findIndex(a => a.id === currentEditingArticleId);
         if (index !== -1) {
             adminData.articles[index] = {
                 ...adminData.articles[index],
                 title,
-                author,
-                excerpt,
                 content,
                 image: imageData || adminData.articles[index].image
             };
             showAlert('Новината е обновена успешно!', 'success');
         }
     } else {
-        // Добавяне
         const newArticle = {
             id: (adminData.articles?.length || 0) + 1,
             title,
-            author,
-            excerpt,
             content,
             image: imageData,
             date: new Date().toISOString().split('T')[0],
@@ -827,12 +1570,9 @@ function editArticle(id) {
     const article = adminData.articles?.find(a => a.id === id);
     if (article) {
         document.getElementById('articleTitle').value = article.title;
-        document.getElementById('articleExcerpt').value = article.excerpt || '';
         document.getElementById('articleContent').value = article.content || '';
-        document.getElementById('articleAuthor').value = article.author;
         currentEditingArticleId = id;
         
-        // Ако има изображение, покажи го
         if (article.image) {
             const preview = document.getElementById('imagePreview');
             const previewContainer = document.getElementById('imagePreviewContainer');
@@ -857,21 +1597,14 @@ function viewArticle(id) {
     }
 }
 
-// ================ ФУНКЦИИ ЗА ПОТРЕБИТЕЛИ ================
-function editUser(id) {
-    const user = adminData.users?.find(u => u.id === id);
-    if (user) {
-        showAlert(`Редактиране на потребител: ${user.name}`, 'info');
-    }
-}
-
 // ================ ПОТВЪРЖДЕНИЕ ЗА ИЗТРИВАНЕ ================
 async function confirmDelete(type, id) {
     let message = '';
 
     if (type === 'user') {
         const user = adminData.users?.find(u => u.id === id);
-        message = `Сигурни ли сте, че искате да изтриете потребителя ${user?.name}?`;
+        const displayName = user?.username || user?.name;
+        message = `Сигурни ли сте, че искате да изтриете потребителя ${displayName}?`;
     } else {
         const article = adminData.articles?.find(a => a.id === id);
         message = `Сигурни ли сте, че искате да изтриете новината "${article?.title}"?`;
@@ -895,13 +1628,11 @@ async function confirmDelete(type, id) {
 
                 if (!response.ok) throw new Error(result.message || 'Грешка при изтриване на потребителя');
 
-                // Update local data
                 adminData.users = adminData.users?.filter(u => u.id !== id) || [];
                 pagination.users.page = 1;
                 loadUsers();
                 showAlert('Потребителят е изтрит успешно!', 'success');
             } else {
-                // For articles, keep same logic if no backend endpoint yet
                 adminData.articles = adminData.articles?.filter(a => a.id !== id) || [];
                 pagination.articles.page = 1;
                 loadArticles();
@@ -933,262 +1664,6 @@ function formatDate(dateStr) {
     if (!dateStr) return 'Няма дата';
     const date = new Date(dateStr);
     return date.toLocaleDateString('bg-BG');
-}
-// ================ НОВ МОДАЛ ЗА ДОБАВЯНЕ НА ПОТРЕБИТЕЛ (без иконки) ================
-function showAddUserModal() {
-    // Проверяваме дали модалът вече съществува
-    let modalOverlay = document.getElementById('addUserModalOverlay');
-    
-    if (!modalOverlay) {
-        // Създаваме модала
-        modalOverlay = document.createElement('div');
-        modalOverlay.id = 'addUserModalOverlay';
-        modalOverlay.className = 'modal-overlay';
-        
-        modalOverlay.innerHTML = `
-            <div class="modal-window">
-                <div class="modal-header">
-                    <h3><i class="fas fa-user-plus" style="margin-right: 10px;"></i>Нов потребител</h3>
-                    <button class="modal-close-btn" onclick="closeAddUserModal()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                
-                <div class="modal-body">
-                    <form id="addUserModalForm" onsubmit="saveNewUser(event)">
-                        <div class="modal-form-group">
-                            <label class="modal-form-label" for="modalUsername">
-                                <i class="fas fa-user"></i> Потребителско име
-                            </label>
-                            <input type="text" 
-                                   id="modalUsername" 
-                                   class="modal-form-control" 
-                                   placeholder="Въведете потребителско име"
-                                   required 
-                                   minlength="3" 
-                                   maxlength="50"
-                                   autocomplete="off">
-                        </div>
-                        
-                        <div class="modal-form-group">
-                            <label class="modal-form-label" for="modalEmail">
-                                <i class="fas fa-envelope"></i> Имейл
-                            </label>
-                            <input type="email" 
-                                   id="modalEmail" 
-                                   class="modal-form-control" 
-                                   placeholder="user@example.com"
-                                   required 
-                                   autocomplete="off">
-                        </div>
-                        
-                        <div class="modal-form-group">
-                            <label class="modal-form-label" for="modalPassword">
-                                <i class="fas fa-lock"></i> Парола
-                            </label>
-                            <input type="password" 
-                                   id="modalPassword" 
-                                   class="modal-form-control" 
-                                   placeholder="Минимум 6 символа"
-                                   required 
-                                   minlength="6"
-                                   oninput="checkPasswordStrength(this.value)">
-                            <div class="password-strength">
-                                <div class="password-strength-bar" id="passwordStrengthBar"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="modal-form-group">
-                            <label class="modal-form-label" for="modalRole">
-                                <i class="fas fa-shield-alt"></i> Роля
-                            </label>
-                            <select id="modalRole" class="modal-form-control modal-select" required>
-                                <option value="user">👤 Потребител</option>
-                                <option value="admin">🛡️ Администратор</option>
-                            </select>
-                        </div>
-                        
-                        <div class="modal-footer">
-                            <button type="button" class="modal-btn modal-btn-outline" onclick="closeAddUserModal()">
-                                <i class="fas fa-times"></i> Отказ
-                            </button>
-                            <button type="submit" class="modal-btn modal-btn-primary">
-                                <i class="fas fa-save"></i> Запази
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modalOverlay);
-        
-        // Добавяме event listener за затваряне при клик извън модала
-        modalOverlay.addEventListener('click', function(e) {
-            if (e.target === modalOverlay) {
-                closeAddUserModal();
-            }
-        });
-        
-        // Добавяме listener за Escape клавиш
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                closeAddUserModal();
-            }
-        });
-    }
-    
-    // Показваме модала
-    modalOverlay.classList.add('active');
-    
-    // Фокусираме първото поле след малка пауза
-    setTimeout(() => {
-        document.getElementById('modalUsername')?.focus();
-    }, 100);
-    
-    // Заключваме скрола на body-то
-    document.body.style.overflow = 'hidden';
-}
-
-function closeAddUserModal() {
-    const modalOverlay = document.getElementById('addUserModalOverlay');
-    if (modalOverlay) {
-        modalOverlay.classList.remove('active');
-        
-        const form = document.getElementById('addUserModalForm');
-        if (form) form.reset();
-        
-        const strengthBar = document.getElementById('passwordStrengthBar');
-        if (strengthBar) {
-            strengthBar.className = 'password-strength-bar';
-        }
-        
-        document.body.style.overflow = '';
-    }
-}
-
-function checkPasswordStrength(password) {
-    const strengthBar = document.getElementById('passwordStrengthBar');
-    if (!strengthBar) return;
-    
-    strengthBar.className = 'password-strength-bar';
-    
-    if (!password) {
-        return;
-    }
-    
-    let strength = 0;
-    
-    if (password.length >= 6) strength += 1;
-    if (password.length >= 8) strength += 1;
-    if (/[A-Z]/.test(password)) strength += 1;
-    if (/[0-9]/.test(password)) strength += 1;
-    if (/[^A-Za-z0-9]/.test(password)) strength += 1;
-    
-    if (strength <= 2) {
-        strengthBar.classList.add('weak');
-    } else if (strength <= 4) {
-        strengthBar.classList.add('medium');
-    } else {
-        strengthBar.classList.add('strong');
-    }
-}
-
-async function saveNewUser(event) {
-    event.preventDefault();
-    
-    const usernameInput = document.getElementById('modalUsername');
-    const emailInput = document.getElementById('modalEmail');
-    const passwordInput = document.getElementById('modalPassword');
-    const roleSelect = document.getElementById('modalRole');
-    
-    const username = usernameInput.value.trim();
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const role = roleSelect.value;
-    
-    let hasError = false;
-    
-    if (username.length < 3) {
-        usernameInput.classList.add('error');
-        showAlert('Потребителското име трябва да е поне 3 символа', 'error');
-        hasError = true;
-        setTimeout(() => usernameInput.classList.remove('error'), 500);
-    }
-    
-    if (!isValidEmail(email)) {
-        emailInput.classList.add('error');
-        showAlert('Моля, въведете валиден имейл адрес', 'error');
-        hasError = true;
-        setTimeout(() => emailInput.classList.remove('error'), 500);
-    }
-    
-    if (password.length < 6) {
-        passwordInput.classList.add('error');
-        showAlert('Паролата трябва да е поне 6 символа', 'error');
-        hasError = true;
-        setTimeout(() => passwordInput.classList.remove('error'), 500);
-    }
-    
-    if (hasError) return;
-    
-    if (adminData.users?.some(u => u.name.toLowerCase() === username.toLowerCase())) {
-        usernameInput.classList.add('error');
-        showAlert('Потребител с това име вече съществува', 'error');
-        setTimeout(() => usernameInput.classList.remove('error'), 500);
-        return;
-    }
-    
-    if (adminData.users?.some(u => u.email.toLowerCase() === email.toLowerCase())) {
-        emailInput.classList.add('error');
-        showAlert('Потребител с този имейл вече съществува', 'error');
-        setTimeout(() => emailInput.classList.remove('error'), 500);
-        return;
-    }
-    
-    showAlert('Създаване на потребител...', 'pending');
-    
-    try {
-        const response = await fetch(`${API_CONFIG.ADMIN}/create-user`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password,
-                role: role === 'admin' ? 0 : 1
-            })
-        });
-        
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.message || 'Грешка при създаване на потребител');
-        }
-        
-        const newUser = {
-            id: result.id || (adminData.users?.length || 0) + 1,
-            name: username,
-            email: email,
-            role: role,
-            initials: username.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || username.substring(0, 2).toUpperCase()
-        };
-        
-        adminData.users = [newUser, ...(adminData.users || [])];
-        
-        pagination.users.page = 1;
-        loadUsers();
-        loadStatistics();
-        
-        closeAddUserModal();
-        showAlert(`Потребителят ${username} е създаден успешно!`, 'success');
-        
-    } catch (error) {
-        console.error('Error creating user:', error);
-        showAlert(error.message, 'error');
-    }
 }
 
 function isValidEmail(email) {

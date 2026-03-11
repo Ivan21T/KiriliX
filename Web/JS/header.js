@@ -517,9 +517,9 @@ class Header extends HTMLElement {
                         KiriliX
                     </a>
                     <div class="nav-links">
-                        <a href="../HTML/features.html" class="nav-link">Възможности</a>
                         <a href="../HTML/docs.html" class="nav-link">Документация</a>
-                        <a href="../HTML/forum.html" class="nav-link">Блог</a>
+                        <a href="../HTML/news.html" class="nav-link">Новини</a>
+                        <a href="../HTML/forum.html" class="nav-link">Форум</a>
                         <a href="../HTML/contact.html" class="nav-link">Контакти</a>
                     </div>
                     <div class="nav-actions">
@@ -574,7 +574,6 @@ class Header extends HTMLElement {
         const firstLetter = this.getFirstLetter();
         const name = this.userData?.name || 'Потребител';
         
-        // Само иконка с първа буква - без зеленото кръгче
         return `
             <a href="../HTML/profile.html" class="user-avatar" title="${name}">
                 ${firstLetter}

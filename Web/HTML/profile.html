@@ -1482,10 +1482,8 @@
             }
         });
 
-        // Зареждаме данните
         loadUserData();
 
-        // Периодична проверка за сесия
         setInterval(() => {
             const currentUser = sessionStorage.getItem('user');
             if (!currentUser || currentUser === 'undefined' || currentUser === 'null') {

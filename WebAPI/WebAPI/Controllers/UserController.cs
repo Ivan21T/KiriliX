@@ -9,8 +9,8 @@ namespace WebAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly OTPCodeService _otpCodeService;    
-        public UserController(UserService userService,OTPCodeService otpCodeService)
+        private readonly OTPCodeService _otpCodeService;
+        public UserController(UserService userService, OTPCodeService otpCodeService)
         {
             _userService = userService;
             _otpCodeService = otpCodeService;
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromBody] User user )
+        public async Task<IActionResult> SignUp([FromBody] User user)
         {
             try
             {
@@ -56,13 +56,7 @@ namespace WebAPI.Controllers
                 return Ok(new
                 {
                     message = "Успешно влизане!",
-                    user = new
-                    {
-                        user.Id,
-                        user.Username,
-                        user.Email,
-                        user.Role
-                    }
+                    user = user
                 });
             }
             catch (Exception ex)
@@ -71,15 +65,15 @@ namespace WebAPI.Controllers
             }
         }
         [HttpGet("otp-code")]
-        public async Task<IActionResult> GetOTPCode([FromQuery] string email,int offsetTime)
+        public async Task<IActionResult> GetOTPCode([FromQuery] string email, int offsetTime)
         {
             try
             {
-                if (await _userService.GetUserByEmail(email)==null)
+                if (await _userService.GetUserByEmail(email) == null)
                 {
                     return BadRequest();
                 }
-                var otpCode = await _otpCodeService.GenerateAndSendOTPAsync(email,offsetTime);
+                var otpCode = await _otpCodeService.GenerateAndSendOTPAsync(email, offsetTime);
 
                 return Ok(new
                 {
@@ -133,6 +127,45 @@ namespace WebAPI.Controllers
             {
                 await _userService.ResetPassword(resetPasswordDTO);
                 return Ok(new { message = "Паролата е нулирана успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        {
+            try
+            {
+                await _userService.UpdateUserAsync(user);
+                return Ok(new { message = "Потребителят е обновен успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchUser(int id, [FromBody] Dictionary<string, object> updates)
+        {
+            try
+            {
+                if (updates == null || updates.Count == 0)
+                {
+                    return BadRequest(new { message = "Няма подадени полета за обновяване!" });
+                }
+
+                await _userService.PatchUserAsync(id, updates);
+                return Ok(new { message = "Потребителят е обновен успешно!" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {

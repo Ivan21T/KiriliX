@@ -56,18 +56,5 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [HttpPost("create-post")]
-        public async Task<IActionResult> CreatePost([FromBody] Post post)
-        {
-            try
-            {
-                await _postService.CreatePostAsync(post);
-                return Ok(new { message = "Публикацията е създадена успешно!" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
     }
 }

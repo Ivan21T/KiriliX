@@ -1,770 +1,637 @@
-        const allThreads = [
-            { 
-                id: 1, 
-                title: "Проблем с инсталацията на Windows 11", 
-                preview: "При опит за инсталация получавам грешка 'DLL missing'. Опитах всичко според документацията...",
-                author: "Мария Георгиева", 
-                authorInitials: "МГ", 
-                replies: 15, 
-                views: 324, 
-                date: "Преди 2 часа", 
-                pinned: true,
-                status: "open",
-                tags: ["инсталация", "windows", "проблем"]
-            },
-            { 
-                id: 2, 
-                title: "Грешка при компилация: 'undefined reference to main'", 
-                preview: "Когато се опитвам да компилирам прост Hello World програма, получавам тази грешка...",
-                author: "Иван Петров", 
-                authorInitials: "ИП", 
-                replies: 42, 
-                views: 1247, 
-                date: "Преди 5 часа", 
-                pinned: false,
-                status: "solved",
-                tags: ["компилация", "грешка", "основно"]
-            },
-            { 
-                id: 3, 
-                title: "Проблем с работа на библиотека за мрежова комуникация", 
-                preview: "Библиотеката network не работи правилно при опит за свързване към отдалечен сървър...",
-                author: "Димитър Стоянов", 
-                authorInitials: "ДС", 
-                replies: 28, 
-                views: 587, 
-                date: "Преди 1 ден", 
-                pinned: false,
-                status: "open",
-                tags: ["библиотека", "мрежа", "проблем"]
-            },
-            { 
-                id: 4, 
-                title: "Как да дебъгна memory leak в KiriliX?", 
-                preview: "Имам програма, която бавно увеличава използваната памет. Какви инструменти има за дебъгване...",
-                author: "Александър Василев", 
-                authorInitials: "АВ", 
-                replies: 9, 
-                views: 412, 
-                date: "Преди 2 дни", 
-                pinned: false,
-                status: "solved",
-                tags: ["дебъгване", "памет", "оптимизация"]
-            },
-            { 
-                id: 5, 
-                title: "Проблем с кирилица в конзолата на Linux", 
-                preview: "Когато извеждам текст на кирилица в терминала на Ubuntu, се появяват странни символи...",
-                author: "Пламен Иванов", 
-                authorInitials: "ПИ", 
-                replies: 7, 
-                views: 198, 
-                date: "Преди 3 дни", 
-                pinned: false,
-                status: "new",
-                tags: ["кирилица", "linux", "конзола", "проблем"]
-            },
-            { 
-                id: 6, 
-                title: "Грешка 'segmentation fault' при работа с масиви", 
-                preview: "Получавам segmentation fault при опит за достъп до елемент извън границите на масив...",
-                author: "Георги Димитров", 
-                authorInitials: "ГД", 
-                replies: 12, 
-                views: 256, 
-                date: "Преди 4 дни", 
-                pinned: false,
-                status: "solved",
-                tags: ["масиви", "грешка", "памет"]
-            },
-            { 
-                id: 7, 
-                title: "Проблем със синхронизация между нишки", 
-                preview: "Имам race condition при многопоточно програмиране. Какви механизми за синхронизация предлага KiriliX...",
-                author: "Стефан Петров", 
-                authorInitials: "СП", 
-                replies: 34, 
-                views: 789, 
-                date: "Преди 5 дни", 
-                pinned: false,
-                status: "popular",
-                tags: ["нишки", "синхронизация", "многопоточност"]
-            },
-            { 
-                id: 8, 
-                title: "Проблем с връзка към база данни PostgreSQL", 
-                preview: "Не мога да се свържа към моя PostgreSQL база данни. Драйверът изглежда не работи правилно...",
-                author: "Теодора Николова", 
-                authorInitials: "ТН", 
-                replies: 18, 
-                views: 345, 
-                date: "Преди 1 седмица", 
-                pinned: false,
-                status: "open",
-                tags: ["база данни", "postgresql", "връзка"]
-            },
-            { 
-                id: 9, 
-                title: "Грешка при работа с JSON файлове", 
-                preview: "Когато се опитвам да прочета JSON файл с нестандартна структура, получавам parsing error...",
-                author: "Калин Антонов", 
-                authorInitials: "КА", 
-                replies: 22, 
-                views: 467, 
-                date: "Преди 1 седмица", 
-                pinned: false,
-                status: "solved",
-                tags: ["json", "файлове", "парсване"]
-            },
-            { 
-                id: 10, 
-                title: "Проблем с performance на алгоритъм за сортиране", 
-                preview: "Моята имплементация на quicksort е много по-бавна от очакваното. Как да оптимизирам...",
-                author: "Радослав Георгиев", 
-                authorInitials: "РГ", 
-                replies: 31, 
-                views: 512, 
-                date: "Преди 2 седмици", 
-                pinned: false,
-                status: "popular",
-                tags: ["производителност", "алгоритми", "оптимизация"]
-            },
-            { 
-                id: 11, 
-                title: "Грешка при използване на външни C библиотеки", 
-                preview: "Опитвам се да използвам библиотека, написана на C, но получавам linking errors...",
-                author: "Мартин Стоянов", 
-                authorInitials: "МС", 
-                replies: 14, 
-                views: 289, 
-                date: "Преди 2 седмици", 
-                pinned: false,
-                status: "open",
-                tags: ["c", "библиотеки", "линкване"]
-            },
-            { 
-                id: 12, 
-                title: "Проблем с графичната библиотека на KiriliX", 
-                preview: "Когато се опитвам да изобразя сложна графика, програмата се затваря неочаквано...",
-                author: "Даниел Иванов", 
-                authorInitials: "ДИ", 
-                replies: 8, 
-                views: 176, 
-                date: "Преди 3 седмици", 
-                pinned: false,
-                status: "new",
-                tags: ["графика", "библиотека", "проблем"]
-            },
-            { 
-                id: 13, 
-                title: "Грешка 'out of memory' при големи datasets", 
-                preview: "Работя с много големи данни и програмата ми дава out of memory след известно време...",
-                author: "Елена Димитрова", 
-                authorInitials: "ЕД", 
-                replies: 19, 
-                views: 398, 
-                date: "Преди 3 седмици", 
-                pinned: false,
-                status: "solved",
-                tags: ["памет", "големи данни", "оптимизация"]
-            },
-            { 
-                id: 14, 
-                title: "Проблем с кодировка при четене от файл", 
-                preview: "Когато чета текстов файл, написана на кирилица, символите са объркани...",
-                author: "Васил Петков", 
-                authorInitials: "ВП", 
-                replies: 25, 
-                views: 521, 
-                date: "Преди 1 месец", 
-                pinned: false,
-                status: "solved",
-                tags: ["кодировка", "файлове", "кирилица"]
-            },
-            { 
-                id: 15, 
-                title: "Грешка при компилация за различни платформи", 
-                preview: "Програмата ми се компилира добре на Windows, но на Linux получавам грешки...",
-                author: "Николай Стоянов", 
-                authorInitials: "НС", 
-                replies: 16, 
-                views: 432, 
-                date: "Преди 1 месец", 
-                pinned: false,
-                status: "open",
-                tags: ["кръс-платформа", "компилация", "проблем"]
-            },
-            { 
-                id: 16, 
-                title: "Проблем с unit тестове и мокирането", 
-                preview: "Не мога да направя правилно мокинг на външни зависимости за моите unit тестове...",
-                author: "Петър Георгиев", 
-                authorInitials: "ПГ", 
-                replies: 13, 
-                views: 298, 
-                date: "Преди 2 месеца", 
-                pinned: false,
-                status: "solved",
-                tags: ["тестове", "unit тестване", "моки"]
-            },
-            { 
-                id: 17, 
-                title: "Грешка при използване на регулярни изрази", 
-                preview: "Моят регулярен израз не работи както очаквам. Може ли някой да помогне с синтаксиса...",
-                author: "Иван Петров", 
-                authorInitials: "ИП", 
-                replies: 21, 
-                views: 387, 
-                date: "Преди 2 месеца", 
-                pinned: false,
-                status: "popular",
-                tags: ["регулярни изрази", "синтаксис", "проблем"]
-            },
-            { 
-                id: 18, 
-                title: "Проблем с dependency management", 
-                preview: "Имам проблем със зависимости между различни модули в моя проект. Как се управляват...",
-                author: "Администратор", 
-                authorInitials: "АД", 
-                replies: 45, 
-                views: 987, 
-                date: "Преди 3 месеца", 
-                pinned: true,
-                status: "solved",
-                tags: ["зависимости", "модули", "проект"]
-            },
-            { 
-                id: 19, 
-                title: "Грешка при сериализация на обекти", 
-                preview: "Когато се опитвам да сериализирам сложен обект, получавам stack overflow error...",
-                author: "Мария Георгиева", 
-                authorInitials: "МГ", 
-                replies: 11, 
-                views: 234, 
-                date: "Преди 3 месеца", 
-                pinned: false,
-                status: "open",
-                tags: ["сериализация", "обекти", "грешка"]
-            },
-            { 
-                id: 20, 
-                title: "Проблем с cache invalidation в уеб приложение", 
-                preview: "Имам проблем с кеширането в моето уеб приложение. Кешът не се инвалидира правилно...",
-                author: "Димитър Стоянов", 
-                authorInitials: "ДС", 
-                replies: 29, 
-                views: 543, 
-                date: "Преди 4 месеца", 
-                pinned: false,
-                status: "solved",
-                tags: ["кеширане", "уеб", "приложение"]
-            }
-        ];
+const user = JSON.parse(sessionStorage.getItem('user'));
 
-        // Настройки за пагинация
-        const threadsPerPage = 8;
-        let currentPage = 1;
-        let filteredThreads = [...allThreads];
-        let currentSort = "newest";
+const threadsPerPage = 8;
+let currentPage = 1;
+let filteredThreads = [];
+let currentSort = "newest";
+let allThreads = [];
 
-        // Модален прозорец
-        const newThreadModal = document.getElementById('newThreadModal');
-        const modalClose = document.getElementById('modalClose');
-        const cancelThreadBtn = document.getElementById('cancelThreadBtn');
-        const desktopNewThreadBtn = document.getElementById('desktopNewThreadBtn');
-        const mobileNewThreadBtn = document.getElementById('mobileNewThreadBtn');
-        const newThreadForm = document.getElementById('newThreadForm');
-        const submitThreadBtn = document.getElementById('submitThreadBtn');
-        const threadTitle = document.getElementById('threadTitle');
-        const threadQuestion = document.getElementById('threadQuestion');
-        const titleCounter = document.getElementById('titleCounter');
-        const questionCounter = document.getElementById('questionCounter');
+const newThreadModal = document.getElementById('newThreadModal');
+const modalClose = document.getElementById('modalClose');
+const cancelThreadBtn = document.getElementById('cancelThreadBtn');
+const desktopNewThreadBtn = document.getElementById('desktopNewThreadBtn');
+const mobileNewThreadBtn = document.getElementById('mobileNewThreadBtn');
+const newThreadForm = document.getElementById('newThreadForm');
+const submitThreadBtn = document.getElementById('submitThreadBtn');
+const threadTitle = document.getElementById('threadTitle');
+const threadQuestion = document.getElementById('threadQuestion');
+const titleCounter = document.getElementById('titleCounter');
+const questionCounter = document.getElementById('questionCounter');
 
-        // Loader functionality
-        window.addEventListener('load', function() {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                renderThreads();
-                renderPagination();
-                initModal();
-            }, 1000);
+// Loader functionality
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    setTimeout(() => {
+        loader.classList.add('hidden');
+        loadPosts();
+        renderPagination();
+        initModal();
+    }, 1000);
+});
+
+function initModal() {
+    if (threadTitle) {
+        threadTitle.addEventListener('input', function() {
+            titleCounter.textContent = this.value.length + '/120';
         });
-
-        // Инициализация на модалния прозорец
-        function initModal() {
-            // Събития за брояча на символи
-            threadTitle.addEventListener('input', function() {
-                titleCounter.textContent = this.value.length + '/120';
-            });
-            
-            threadQuestion.addEventListener('input', function() {
-                questionCounter.textContent = this.value.length;
-            });
-        }
-
-        // Показване на модалния прозорец
-        function showModal() {
-            newThreadModal.classList.add('active');
-            document.body.classList.add('modal-open');
-            threadTitle.focus();
-        }
-
-        // Скриване на модалния прозорец
-        function hideModal() {
-            newThreadModal.classList.remove('active');
-            document.body.classList.remove('modal-open');
-            
-            // Ресет на формата
-            newThreadForm.reset();
-            titleCounter.textContent = '0/120';
-            questionCounter.textContent = '0';
-        }
-
-        // Функция за показване на toast съобщение
-        function showToast(message, type = 'info') {
-            // Премахване на старите toast съобщения
-            const oldToast = document.querySelector('.toast-message');
-            if (oldToast) oldToast.remove();
-            
-            // Създаване на новото съобщение
-            const toast = document.createElement('div');
-            toast.className = `toast-message toast-${type}`;
-            toast.innerHTML = `
-                <div class="toast-content">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-                <button class="toast-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            
-            // Добавяне на стилове
-            toast.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: ${type === 'success' ? 'rgba(0, 255, 157, 0.2)' : 
-                            type === 'error' ? 'rgba(255, 0, 60, 0.2)' : 
-                            type === 'warning' ? 'rgba(255, 204, 0, 0.2)' : 
-                            'rgba(0, 243, 255, 0.2)'};
-                border: 1px solid ${type === 'success' ? 'var(--neon-green)' : 
-                                type === 'error' ? 'var(--neon-red)' : 
-                                type === 'warning' ? 'var(--yellow)' : 
-                                'var(--cyan)'};
-                border-radius: 12px;
-                padding: 1rem 1.5rem;
-                color: var(--white);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 15px;
-                min-width: 300px;
-                max-width: 400px;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                transform: translateX(150%);
-                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                z-index: 1200;
-            `;
-            
-            // Адаптация за мобилни
-            if (window.innerWidth <= 768) {
-                toast.style.cssText += `
-                    top: 80px;
-                    right: 10px;
-                    left: 10px;
-                    min-width: auto;
-                    max-width: none;
-                `;
-            }
-            
-            document.body.appendChild(toast);
-            
-            // Анимация за показване
-            setTimeout(() => {
-                toast.style.transform = 'translateX(0)';
-            }, 100);
-            
-            // Автоматично скриване след 5 секунди
-            setTimeout(() => {
-                toast.style.transform = 'translateX(150%)';
-                setTimeout(() => toast.remove(), 400);
-            }, 5000);
-            
-            // Бутон за затваряне
-            const closeBtn = toast.querySelector('.toast-close');
-            closeBtn.addEventListener('click', () => {
-                toast.style.transform = 'translateX(150%)';
-                setTimeout(() => toast.remove(), 400);
-            });
-        }
-
-        // Събития за модалния прозорец
-        desktopNewThreadBtn.addEventListener('click', showModal);
-        mobileNewThreadBtn.addEventListener('click', showModal);
-        modalClose.addEventListener('click', hideModal);
-        cancelThreadBtn.addEventListener('click', hideModal);
-
-        // Затваряне на модалния прозорец при клик извън него
-        newThreadModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideModal();
-            }
+    }
+    
+    if (threadQuestion) {
+        threadQuestion.addEventListener('input', function() {
+            questionCounter.textContent = this.value.length;
         });
+    }
+}
 
-        // Затваряне на модалния прозорец с клавиша Esc
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && newThreadModal.classList.contains('active')) {
-                hideModal();
-            }
-        });
+function showModal() {
+    newThreadModal.classList.add('active');
+    document.body.classList.add('modal-open');
+    threadTitle.focus();
+}
 
-        // Обработка на формата
-        submitThreadBtn.addEventListener('click', function() {
-            // Валидация
-            if (!threadTitle.value.trim()) {
-                showToast('Моля, въведете заглавие на темата', 'error');
-                threadTitle.focus();
-                return;
-            }
-            
-            if (!threadQuestion.value.trim()) {
-                showToast('Моля, въведете въпрос/съдържание', 'error');
-                threadQuestion.focus();
-                return;
-            }
-            
-            // Симулиране на създаване на нова тема
-            const newThread = {
-                id: allThreads.length + 1,
-                title: threadTitle.value,
-                preview: threadQuestion.value.substring(0, 150) + (threadQuestion.value.length > 150 ? '...' : ''),
-                author: "Нов Потребител",
-                authorInitials: "НП",
-                replies: 0,
-                views: 0,
-                date: "Току-що",
-                pinned: false,
-                status: "new",
-                tags: ["нова тема"]
-            };
-            
-            // Добавяне на новата тема в началото на списъка
-            allThreads.unshift(newThread);
-            filteredThreads.unshift(newThread);
-            
-            // Обновяване на брояча на темите
-            document.querySelector('.stat-number:nth-child(2)').textContent = (parseInt(document.querySelector('.stat-number:nth-child(2)').textContent) + 1).toString();
-            
-            // Скриване на модалния прозорец
+function hideModal() {
+    newThreadModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    
+    if (newThreadForm) {
+        newThreadForm.reset();
+        titleCounter.textContent = '0/120';
+        questionCounter.textContent = '0';
+    }
+}
+
+if (desktopNewThreadBtn) desktopNewThreadBtn.addEventListener('click', showModal);
+if (mobileNewThreadBtn) mobileNewThreadBtn.addEventListener('click', showModal);
+if (modalClose) modalClose.addEventListener('click', hideModal);
+if (cancelThreadBtn) cancelThreadBtn.addEventListener('click', hideModal);
+
+if (newThreadModal) {
+    newThreadModal.addEventListener('click', function(e) {
+        if (e.target === this) {
             hideModal();
-            
-            // Показване на съобщение за успех
-            showToast('Темата е успешно създадена!', 'success');
-            
-            // Презареждане на темите
-            currentPage = 1;
-            renderThreads();
-            renderPagination();
-            
-            // Скролване до началото на темите
-            window.scrollTo({ top: document.querySelector('.latest-threads').offsetTop - 100, behavior: 'smooth' });
-        });
+        }
+    });
+}
 
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && newThreadModal.classList.contains('active')) {
+        hideModal();
+    }
+});
+
+if (submitThreadBtn) {
+    submitThreadBtn.addEventListener('click', async function() {
+        if (!threadTitle.value.trim()) {
+            showAlert('Моля, въведете заглавие на темата', 'error');
+            threadTitle.focus();
+            return;
+        }
         
-        mobileMenuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            });
-        });
-
-        // Функция за получаване на статус таг
-        function getStatusTag(status) {
-            const statusMap = {
-                "new": { text: "Нов", class: "status-new" },
-                "popular": { text: "Популярен", class: "status-popular" },
-                "solved": { text: "Решен", class: "status-solved" },
-                "open": { text: "Отворен", class: "status-open" }
+        if (!threadQuestion.value.trim()) {
+            showAlert('Моля, въведете въпрос/съдържание', 'error');
+            threadQuestion.focus();
+            return;
+        }
+        
+        try {
+            submitThreadBtn.disabled = true;
+            submitThreadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Зареждане...';
+            
+            const newPost = {
+                title: threadTitle.value,
+                content: threadQuestion.value,
+                createdAt: new Date().toISOString(),
+                author: user
             };
             
-            return statusMap[status] || { text: "", class: "" };
-        }
-
-        // Функция за сортиране на темите
-        function sortThreads(threads, sortType) {
-            const sortedThreads = [...threads];
+            const response = await fetch(`${API_CONFIG.POST}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newPost)
+            });
             
-            switch(sortType) {
-                case "newest":
-                    // За най-новите - темите са вече в правилния ред в нашия масив (добавени са най-новите първи)
-                    return sortedThreads;
-                case "oldest":
-                    // За най-старите - обръщаме реда
-                    return sortedThreads.reverse();
-                case "popular":
-                    // За най-популярните - сортираме по брой прегледи
-                    return sortedThreads.sort((a, b) => b.views - a.views);
-                case "commented":
-                    // За най-коментираните - сортираме по брой отговори
-                    return sortedThreads.sort((a, b) => b.replies - a.replies);
-                default:
-                    return sortedThreads;
-            }
-        }
-
-        // Функция за рендиране на темите
-        function renderThreads() {
-            const container = document.getElementById('threadsContainer');
-            const startIndex = (currentPage - 1) * threadsPerPage;
-            const endIndex = startIndex + threadsPerPage;
+            const result = await response.json();
             
-            // Сортираме темите според текущия избор
-            const sortedThreads = sortThreads(filteredThreads, currentSort);
-            const threadsToShow = sortedThreads.slice(startIndex, endIndex);
-            
-            let html = `<div class="thread-header">Всички теми (${filteredThreads.length})</div>`;
-            
-            if (threadsToShow.length === 0) {
-                html += `
-                    <div class="thread-item" style="text-align: center; padding: 3rem 2rem;">
-                        <i class="fas fa-search" style="font-size: 3rem; color: var(--neon-green); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--white); margin-bottom: 0.5rem;">Няма намерени теми</h3>
-                        <p style="color: #b0b0d0;">Променете критериите за търсене</p>
-                    </div>
-                `;
+            if (response.ok) {
+                hideModal();
+                showAlert(result.message, 'success');
+                await refreshPosts();
             } else {
-                threadsToShow.forEach(thread => {
-                    const statusTag = getStatusTag(thread.status);
-                    
-                    html += `
-                        <div class="thread-item">
-                            <h3 class="thread-title">
-                                ${thread.pinned ? '<span class="pinned"><i class="fas fa-thumbtack"></i></span>' : ''}
-                                <a href="#">${thread.title}</a>
-                                ${statusTag.text ? `<span class="thread-status-tag ${statusTag.class}"><i class="fas fa-circle"></i> ${statusTag.text}</span>` : ''}
-                            </h3>
-                            <p class="thread-preview">${thread.preview}</p>
-                            <div class="thread-meta">
-                                <div class="thread-author">
-                                    <div class="author-avatar">${thread.authorInitials}</div>
-                                    <span>${thread.author}</span>
-                                </div>
-                                <div class="thread-info">
-                                    <span><i class="far fa-comment"></i> ${thread.replies} отговора</span>
-                                    <span><i class="far fa-eye"></i> ${thread.views} прегледа</span>
-                                    <span><i class="far fa-clock"></i> ${thread.date}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
+                showAlert(result.message, 'error');
             }
-            
-            container.innerHTML = html;
-            
-            // Анимиране на новите елементи
-            document.querySelectorAll('.thread-item').forEach(el => {
-                el.classList.add('fade-in');
-            });
-            
-            // Обновяване на информацията за пагинацията
-            updatePaginationInfo();
+        } catch (error) {
+            console.error('Error:', error);
+            showAlert('Възникна грешка при комуникация със сървъра', 'error');
+        } finally {
+            submitThreadBtn.disabled = false;
+            submitThreadBtn.innerHTML = 'Публикувай';
+        }
+    });
+}
+
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (mobileMenuToggle && mobileMenu) {
+    mobileMenuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
+
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+    });
+}
+
+function formatDate(utcDateString) {
+    if (!utcDateString) return 'Неизвестна дата';
+    
+    const utcDate = new Date(utcDateString);
+    const now = new Date();
+    
+    const localDate = new Date(utcDate.getTime() + (now.getTimezoneOffset() * 60000));
+    
+    const diffTime = Math.abs(now - localDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffMinutes = Math.floor(diffTime / (1000 * 60));
+    
+    if (diffDays === 0) {
+        if (diffHours === 0) {
+            if (diffMinutes === 0) {
+                return 'Току-що';
+            } else if (diffMinutes === 1) {
+                return 'Преди 1 минута';
+            }
+            return `Преди ${diffMinutes} минути`;
+        } else if (diffHours === 1) {
+            return 'Преди 1 час';
+        }
+        return `Преди ${diffHours} часа`;
+    } else if (diffDays === 1) {
+        return 'Преди 1 ден';
+    } else if (diffDays < 7) {
+        return `Преди ${diffDays} дни`;
+    } else if (diffDays < 30) {
+        const weeks = Math.floor(diffDays / 7);
+        if (weeks === 1) {
+            return 'Преди 1 седмица';
+        }
+        return `Преди ${weeks} седмици`;
+    } else if (diffDays < 365) {
+        const months = Math.floor(diffDays / 30);
+        if (months === 1) {
+            return 'Преди 1 месец';
+        }
+        return `Преди ${months} месеца`;
+    } else {
+        const years = Math.floor(diffDays / 365);
+        if (years === 1) {
+            return 'Преди 1 година';
+        }
+        return `Преди ${years} години`;
+    }
+}
+
+// Функция за зареждане на постове от API
+async function loadPosts() {
+    try {
+        const loader = document.getElementById('loader');
+        if (loader) loader.classList.remove('hidden');
+
+        const useNavigationalProperties = true;
+        const isReadOnly = true;
+        
+        const response = await fetch(`${API_CONFIG.POST}?useNavigationalProperties=${useNavigationalProperties}&isReadOnly=${isReadOnly}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Грешка при зареждане на постове');
         }
 
-        // Функция за рендиране на пагинацията
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredThreads.length / threadsPerPage);
-            const pagination = document.getElementById('pagination');
+        const posts = await response.json();
+        
+        // Трансформираме постовете към формата, който очаква renderThreads
+        allThreads = posts.map((post, index) => {
+            const authorName = post.author?.username || 'Анонимен';
             
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-            
-            let html = '';
-            
-            // Бутон "Назад"
-            html += `
-                <li class="page-item">
-                    <a class="page-link prev ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">
-                        <i class="fas fa-chevron-left"></i> Назад
-                    </a>
-                </li>
-            `;
-            
-            // Номера на страниците
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
-                    html += `
-                        <li class="page-item">
-                            <a class="page-link ${currentPage === i ? 'active' : ''}" data-page="${i}">${i}</a>
-                        </li>
-                    `;
-                } else if (i === currentPage - 3 || i === currentPage + 3) {
-                    html += `
-                        <li class="page-item">
-                            <a class="page-link disabled">...</a>
-                        </li>
-                    `;
+            // По-добра обработка на инициалите
+            let authorInitials = 'АН';
+            if (authorName !== 'Анонимен') {
+                const nameParts = authorName.split(' ');
+                if (nameParts.length >= 2) {
+                    authorInitials = (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+                } else {
+                    authorInitials = authorName.substring(0, 2).toUpperCase();
                 }
             }
             
-            // Бутон "Напред"
-            html += `
-                <li class="page-item">
-                    <a class="page-link next ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">
-                        Напред <i class="fas fa-chevron-right"></i>
-                    </a>
-                </li>
-            `;
+            const repliesCount = post.replies?.length || 0;
+            const datePosted = post.createdAt ? formatDate(post.createdAt) : 'Неизвестна дата';
             
-            pagination.innerHTML = html;
+            // Запазваме пълния content за проверка на дължината
+            const preview = post.content 
+                ? post.content.substring(0, 100) + (post.content.length > 100 ? '...' : '')
+                : 'Няма съдържание';
             
-            // Добавяне на събития за кликване
-            document.querySelectorAll('.page-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (!this.classList.contains('disabled')) {
-                        const page = parseInt(this.getAttribute('data-page'));
-                        if (page) {
-                            currentPage = page;
-                            renderThreads();
-                            renderPagination();
-                            window.scrollTo({ top: document.querySelector('.latest-threads').offsetTop - 100, behavior: 'smooth' });
-                        }
-                    }
-                });
-            });
-        }
-
-        // Функция за обновяване на информацията за пагинацията
-        function updatePaginationInfo() {
-            const totalPages = Math.ceil(filteredThreads.length / threadsPerPage);
-            const startThread = (currentPage - 1) * threadsPerPage + 1;
-            const endThread = Math.min(currentPage * threadsPerPage, filteredThreads.length);
-            
-            document.getElementById('paginationInfo').innerHTML = 
-                `Показване на теми ${startThread} - ${endThread} от общо ${filteredThreads.length}`;
-        }
-
-        // Обща функция за търсене
-        function performSearch(searchTerm) {
-            if (searchTerm === '') {
-                filteredThreads = [...allThreads];
-            } else {
-                // Филтриране по заглавие, преглед и тагове
-                filteredThreads = allThreads.filter(thread => 
-                    thread.title.toLowerCase().includes(searchTerm) ||
-                    thread.preview.toLowerCase().includes(searchTerm) ||
-                    thread.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
-                    thread.author.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            currentPage = 1;
-            renderThreads();
-            renderPagination();
-        }
-
-        // Търсене на проблеми (за десктоп)
-        const desktopSearchInput = document.getElementById('desktopProblemSearch');
-        desktopSearchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            performSearch(searchTerm);
+            return {
+                id: post.id || index + 1,
+                title: post.title || 'Без заглавие',
+                preview: preview,
+                content: post.content, // Запазваме пълния content
+                author: authorName,
+                authorInitials: authorInitials,
+                replies: repliesCount,
+                date: datePosted,
+                createdAt: post.createdAt,
+                authorId: post.author?.id
+            };
         });
 
-        // Търсене на проблеми (за мобилни)
-        const mobileSearchInput = document.getElementById('mobileProblemSearch');
-        mobileSearchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            performSearch(searchTerm);
-        });
+        filteredThreads = [...allThreads];
+        
+        renderThreads();
+        renderPagination();
+        
+    } catch (error) {
+        console.error('Error loading posts:', error);
+        showAlert('Възникна грешка при зареждане на темите', 'error');
+    } finally {
+        const loader = document.getElementById('loader');
+        if (loader) loader.classList.add('hidden');
+    }
+}
 
-        // Добавяне на hover ефекти
-        const forumItems = document.querySelectorAll('.thread-item, .quick-link');
-        forumItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
-                this.style.boxShadow = '0 10px 20px rgba(0, 255, 157, 0.1)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = 'none';
-            });
-        });
+async function refreshPosts() {
+    await loadPosts();
+}
 
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+function sortThreads(threads, sortType) {
+    const sortedThreads = [...threads];
+    
+    switch(sortType) {
+        case "newest":
+            return sortedThreads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        case "oldest":
+            return sortedThreads.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        case "popular":
+            return sortedThreads.sort((a, b) => b.replies - a.replies);
+        default:
+            return sortedThreads;
+    }
+}
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for fade-in animation
-        document.querySelectorAll('.thread-item, .sidebar-widget').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add click effect to buttons
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // Create ripple effect
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-
-        // Add some CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.7);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-            }
-            
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
+function renderThreads() {
+    const container = document.getElementById('threadsContainer');
+    if (!container) return;
+    
+    const startIndex = (currentPage - 1) * threadsPerPage;
+    const endIndex = startIndex + threadsPerPage;
+    
+    const sortedThreads = sortThreads(filteredThreads, currentSort);
+    const threadsToShow = sortedThreads.slice(startIndex, endIndex);
+    
+    let html = `<div class="thread-header">Всички теми (${filteredThreads.length})</div>`;
+    
+    if (threadsToShow.length === 0) {
+        html += `
+            <div class="thread-item" style="text-align: center; padding: 3rem 2rem;">
+                <i class="fas fa-search" style="font-size: 3rem; color: var(--neon-green); margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--white); margin-bottom: 0.5rem;">Няма намерени теми</h3>
+                <p style="color: #b0b0d0;">Променете критериите за търсене</p>
+            </div>
         `;
-        document.head.appendChild(style);
+    } else {
+        threadsToShow.forEach(thread => {
+            const hasFullContent = thread.content && thread.content.length > 100;
+            
+            html += `
+                <div class="thread-item" data-thread-id="${thread.id}">
+                    <h3 class="thread-title">
+                        <a href="forum_details.html?id=${thread.id}" class="thread-title-link">${thread.title}</a>
+                    </h3>
+                    <p class="thread-preview">
+                        ${thread.preview}
+                        ${hasFullContent ? '<span class="read-more-link" data-thread-id="' + thread.id + '">Вижте повече...</span>' : ''}
+                    </p>
+                    <div class="thread-meta">
+                        <div class="thread-author">
+                            <div class="author-avatar">${thread.authorInitials}</div>
+                            <span>${thread.author}</span>
+                        </div>
+                        <div class="thread-info">
+                            <span><i class="far fa-comment"></i> ${thread.replies} ${thread.replies === 1 ? 'отговор' : 'отговора'}</span>
+                            <span><i class="far fa-clock"></i> ${thread.date}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    container.innerHTML = html;
+    
+    document.querySelectorAll('.read-more-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const threadId = this.getAttribute('data-thread-id');
+            window.location.href = `forum_details.html?id=${threadId}`;
+        });
+    });
+    
+    document.querySelectorAll('.thread-title-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+    
+    document.querySelectorAll('.thread-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            // Проверка дали не е кликнато върху линк или "Вижте повече"
+            if (!e.target.classList.contains('read-more-link') && 
+                !e.target.classList.contains('thread-title-link') &&
+                e.target.tagName !== 'A') {
+                const threadId = this.getAttribute('data-thread-id');
+                if (threadId) {
+                    window.location.href = `forum_details.html?id=${threadId}`;
+                }
+            }
+        });
+        
+        // Добавяне на курсор поинтър за по-добро UX
+        item.style.cursor = 'pointer';
+    });
+    
+    // Добавяне на анимация
+    document.querySelectorAll('.thread-item').forEach(el => {
+        el.classList.add('fade-in');
+    });
+    
+    updatePaginationInfo();
+}
+
+function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    if (!pagination) return;
+    
+    const totalPages = Math.ceil(filteredThreads.length / threadsPerPage);
+    
+    if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+    }
+    
+    let html = '';
+    
+    html += `
+        <li class="page-item">
+            <a class="page-link prev ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">
+                <i class="fas fa-chevron-left"></i> Назад
+            </a>
+        </li>
+    `;
+    
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+            html += `
+                <li class="page-item">
+                    <a class="page-link ${currentPage === i ? 'active' : ''}" data-page="${i}">${i}</a>
+                </li>
+            `;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+            html += `
+                <li class="page-item">
+                    <a class="page-link disabled">...</a>
+                </li>
+            `;
+        }
+    }
+    
+    html += `
+        <li class="page-item">
+            <a class="page-link next ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">
+                Напред <i class="fas fa-chevron-right"></i>
+            </a>
+        </li>
+    `;
+    
+    pagination.innerHTML = html;
+    
+    document.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!this.classList.contains('disabled')) {
+                const page = parseInt(this.getAttribute('data-page'));
+                if (page) {
+                    currentPage = page;
+                    renderThreads();
+                    renderPagination();
+                    window.scrollTo({ top: document.querySelector('.latest-threads')?.offsetTop - 100, behavior: 'smooth' });
+                }
+            }
+        });
+    });
+}
+
+function updatePaginationInfo() {
+    const infoElement = document.getElementById('paginationInfo');
+    if (!infoElement) return;
+    
+    const startThread = filteredThreads.length === 0 ? 0 : (currentPage - 1) * threadsPerPage + 1;
+    const endThread = Math.min(currentPage * threadsPerPage, filteredThreads.length);
+    
+    infoElement.innerHTML = filteredThreads.length === 0 
+        ? 'Няма намерени теми'
+        : `Показване на теми ${startThread} - ${endThread} от общо ${filteredThreads.length}`;
+}
+
+function performSearch(searchTerm) {
+    if (!searchTerm || searchTerm === '') {
+        filteredThreads = [...allThreads];
+    } else {
+        const searchLower = searchTerm.toLowerCase();
+        filteredThreads = allThreads.filter(thread => 
+            thread.title.toLowerCase().includes(searchLower) ||
+            thread.preview.toLowerCase().includes(searchLower) ||
+            thread.author.toLowerCase().includes(searchLower)
+        );
+    }
+    
+    currentPage = 1;
+    renderThreads();
+    renderPagination();
+}
+
+const desktopSearchInput = document.getElementById('desktopProblemSearch');
+if (desktopSearchInput) {
+    desktopSearchInput.addEventListener('input', function() {
+        performSearch(this.value.toLowerCase().trim());
+    });
+}
+
+const mobileSearchInput = document.getElementById('mobileProblemSearch');
+if (mobileSearchInput) {
+    mobileSearchInput.addEventListener('input', function() {
+        performSearch(this.value.toLowerCase().trim());
+    });
+}
+
+// Hover ефекти
+document.querySelectorAll('.thread-item, .quick-link').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px)';
+        this.style.boxShadow = '0 10px 20px rgba(0, 255, 157, 0.1)';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+    });
+});
+
+// Intersection Observer за анимации
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.thread-item, .sidebar-widget').forEach(el => {
+    observer.observe(el);
+});
+
+// Ripple ефект за бутони
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+});
+
+// Допълнителни CSS стилове
+const additionalStyles = document.createElement('style');
+additionalStyles.textContent = `
+    .read-more-link {
+        color: var(--neon-green);
+        cursor: pointer;
+        font-weight: 500;
+        margin-left: 5px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    
+    .read-more-link:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+        transform: translateX(3px);
+    }
+    
+    .thread-title-link {
+        color: var(--white);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .thread-title-link:hover {
+        color: var(--neon-green);
+    }
+    
+    .thread-item {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .thread-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 255, 157, 0.1);
+    }
+    
+    .thread-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--neon-green);
+        transition: width 0.3s ease;
+    }
+    
+    .thread-item:hover::after {
+        width: 100%;
+    }
+    
+    .thread-preview {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        pointer-events: none;
+    }
+    
+    @keyframes ripple-animation {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+    }
+`;
+document.head.appendChild(additionalStyles);

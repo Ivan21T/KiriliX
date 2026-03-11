@@ -63,7 +63,7 @@ namespace ServiceLayer
         }
         public async Task<User> SignIn(string email, string password)
         {
-            User user = await GetUserByEmail(email);
+            User user = await GetUserByEmail(email,true);
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
             if (!isPasswordValid)
             {
@@ -101,6 +101,34 @@ namespace ServiceLayer
         public async Task DeleteAsync(int id)
         {
             await _userContext.DeleteAsync(id);
+        }
+        public async Task PatchUserAsync(int id, Dictionary<string, object> updates)
+        {
+            var user = await _userContext.ReadAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("Потребителят не е намерен!");
+            }
+
+            foreach (var update in updates)
+            {
+                switch (update.Key.ToLower())
+                {
+                    case "username":
+                        user.Username = update.Value?.ToString() ?? user.Username;
+                        break;
+                    case "email":
+                        user.Email = update.Value?.ToString() ?? user.Email;
+                        break;
+                    case "password":
+                        user.Password = BCrypt.Net.BCrypt.HashPassword(update.Value?.ToString() ?? user.Password);
+                        break;
+                    default:
+                        throw new ArgumentException($"Полето '{update.Key}' не може да бъде обновено!");
+                }
+            }
+
+            await _userContext.UpdateAsync(user);
         }
     }
 }

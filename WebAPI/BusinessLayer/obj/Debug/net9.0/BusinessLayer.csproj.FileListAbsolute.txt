@@ -1,0 +1,26 @@
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\bin\Debug\net9.0\BusinessLayer.deps.json
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\bin\Debug\net9.0\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\bin\Debug\net9.0\BusinessLayer.pdb
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.AssemblyInfoInputs.cache
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.AssemblyInfo.cs
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.sourcelink.json
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\refint\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\BusinessLayer.pdb
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\Business Layer\obj\Debug\net9.0\ref\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\bin\Debug\net9.0\BusinessLayer.deps.json
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\bin\Debug\net9.0\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\bin\Debug\net9.0\BusinessLayer.pdb
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.AssemblyInfoInputs.cache
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.AssemblyInfo.cs
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.sourcelink.json
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\refint\BusinessLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\BusinessLayer.pdb
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\BusinessLayer\obj\Debug\net9.0\ref\BusinessLayer.dll

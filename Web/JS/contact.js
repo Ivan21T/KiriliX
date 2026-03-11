@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-            const notifications = new NotificationSystem();
             emailjs.init('zmbWVx3i_C-gZPbpL');
 
             const contactForm = document.getElementById('contactForm');
@@ -20,9 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
 
 
-                    const loadingNotification = notifications.showLoading(
-                        'Изпращаме вашето съобщение...'
-                    );
+                    showAlert('Изпращаме вашето съобщение...', 'pending');
 
                     emailjs.send(
                         'service_207wc0d',
@@ -30,20 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         templateParams
                     )
                     .then(() => {
-                        notifications.removeNotification(loadingNotification);
-
-                        notifications.showSuccess(
-                            'Съобщението беше изпратено успешно!'
-                        );
-
+                        showAlert('Съобщението беше изпратено успешно!', 'success');
                         contactForm.reset();
                     })
                     .catch((error) => {
-                        notifications.removeNotification(loadingNotification);
-
-                        notifications.showError(
-                            'Възникна проблем при изпращането. Моля, опитайте отново.'
-                        );
+                        showAlert('Възникна проблем при изпращането. Моля, опитайте отново.', 'error');
                     });
                 });
             }
@@ -55,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const platform = this.getAttribute('title') || 'социална мрежа';
-                    alert(`🚀 Пренасочваме ви към нашата ${platform} страница!`);
+                    showAlert(`Пренасочваме ви към нашата ${platform} страница!`, 'info');
                 });
             });
             

@@ -21,6 +21,12 @@ namespace DataLayer
             {
                 throw new ArgumentNullException(nameof(item));
             }
+            var existingUser = await _context.Users.FirstOrDefaultAsync(i => i.Id == item.Author.Id);
+            if (existingUser!=null)
+            {
+                item.Author = existingUser;
+            }
+            item.CreatedAt = DateTime.UtcNow;
             await _context.Posts.AddAsync(item);
             await _context.SaveChangesAsync();
         }

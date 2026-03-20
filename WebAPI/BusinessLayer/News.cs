@@ -1,12 +1,11 @@
-﻿using DataLayer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business_Layer
+namespace BusinessLayer
 {
     public class News
     {
@@ -15,13 +14,16 @@ namespace Business_Layer
         [Required]
         public string Description { get; set; }
         [Required]
+        public string Title { get; set; }   
+        [Required]
         public DateTime PublishedAt { get; set; }
         public News()
         {
         }
 
-        public News(string description,DateTime publishedAt)
+        public News(string title,string description,DateTime publishedAt)
         {
+            Title = title;
             Description = description;
             PublishedAt = publishedAt;
         }

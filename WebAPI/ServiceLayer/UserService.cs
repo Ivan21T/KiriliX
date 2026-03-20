@@ -4,6 +4,7 @@ using ServiceLayer.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Business_Layer;
 using System.Security.Cryptography;
+using BusinessLayer;
 namespace ServiceLayer
 {
     public class UserService

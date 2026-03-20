@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using BusinessLayer;
+using DataLayer.Repositories;
 namespace DataLayer
 {
     public class UserContext:IDb<User,int>

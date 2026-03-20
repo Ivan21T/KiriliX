@@ -308,6 +308,64 @@
             background: linear-gradient(135deg, var(--neon-green), #00ff9d);
         }
 
+        /* Loading и грешка индикатори */
+        .loading-container, .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 255, 157, 0.1);
+            border-top: 5px solid var(--neon-green);
+            border-right: 5px solid var(--neon-red);
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-container i {
+            font-size: 4rem;
+            color: var(--neon-red);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px var(--neon-red);
+            animation: errorPulse 2s infinite;
+        }
+
+        @keyframes errorPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .error-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .error-message {
+            color: #b0b0d0;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
         /* Контейнер за детайли на новина */
         .news-detail-container {
             max-width: 1200px;
@@ -323,20 +381,6 @@
         /* Заглавие на новината */
         .news-detail-header {
             margin-bottom: 3rem;
-        }
-
-        .news-category-badge {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(0, 255, 157, 0.2);
-            color: var(--neon-green);
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(0, 255, 157, 0.4);
-            backdrop-filter: blur(5px);
         }
 
         .news-detail-title {
@@ -374,23 +418,6 @@
             color: var(--dark);
             font-weight: 700;
             font-size: 1.2rem;
-        }
-
-        /* Главно изображение */
-        .news-hero-image {
-            width: 100%;
-            height: 500px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 3rem;
-            position: relative;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .news-hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         /* Съдържание на новината */
@@ -462,12 +489,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        /* Бутон за връщане - ДОЛУ */
-        .back-button-bottom {
-            text-align: center;
-            margin-top: 4rem;
         }
 
         .footer {
@@ -730,10 +751,6 @@
                 font-size: 2rem;
             }
             
-            .news-hero-image {
-                height: 300px;
-            }
-            
             .news-actions-simple {
                 flex-direction: column;
                 align-items: flex-start;
@@ -831,10 +848,6 @@
                 font-size: 1.7rem;
             }
             
-            .news-hero-image {
-                height: 200px;
-            }
-            
             .news-text {
                 font-size: 1.1rem;
             }
@@ -921,57 +934,47 @@
         
         <!-- Заглавие и мета информация -->
         <div class="news-detail-header">
-            <div class="news-category-badge" id="newsCategoryBadge">
-                <i class="fas fa-tag"></i>
-                <span id="newsCategoryText">Обновление</span>
-            </div>
-            
-            <h1 class="news-detail-title" id="newsDetailTitle">Пускане на KiriliX версия 2.0</h1>
+            <h1 class="news-detail-title" id="newsDetailTitle">Зареждане...</h1>
             
             <div class="news-meta-detail">
                 <div class="news-author-detail">
-                    <div class="author-avatar-large" id="newsAuthorAvatar">EK</div>
+                    <div class="author-avatar-large" id="newsAuthorAvatar">--</div>
                     <div>
-                        <div id="newsAuthorName">Екип KiriliX</div>
-                        <div id="newsPublishDate">20 октомври 2023</div>
+                        <div id="newsAuthorName">Зареждане...</div>
+                        <div id="newsPublishDate">...</div>
                     </div>
                 </div>
                 
                 <div class="news-stats">
                     <div class="news-stat">
                         <i class="far fa-eye"></i>
-                        <span id="newsViewsCount">1,247</span> прегледа
+                        <span id="newsViewsCount">0</span> прегледа
                     </div>
                     <div class="news-stat">
                         <i class="far fa-clock"></i>
-                        <span id="newsReadTime">5 мин</span> четене
+                        <span id="newsReadTime">0</span> мин четене
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Главно изображение -->
-        <div class="news-hero-image">
-            <img id="newsHeroImage" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Новина изображение">
-        </div>
-        
-        <!-- Съдържание на новината -->
-        <div class="news-content-detail">
-            <div class="news-text" id="newsContent">
-                <p>С гордость представяме KiriliX версия 2.0 - най-значителното обновление на нашата платформа до момента. Тази версия включва над 50 нови функции и подобрения, фокусирани върху производителността, удобството и стабилността.</p>
-                
-                <p>Основни новости в версия 2.0:</p>
-                <ul>
-                    <li>Нова система за управление на библиотеките</li>
-                    <li>Подобрена поддръжка за паралелно програмиране</li>
-                    <li>Интегрирана среда за разработка (IDE) с автоматично допълване</li>
-                    <li>Нови стандартни библиотеки за работа с мрежа и бази данни</li>
-                    <li>Значителни подобрения в компилатора, водещи до 40% по-бързо изпълнение</li>
-                </ul>
-                
-                <p>Версия 2.0 е резултат от над 6 месеца интензивна работа на нашия екип и ценни обратни връзки от нашата общност. Благодарим на всички, които участваха в бета тестването и предоставиха своите мнения.</p>
-                
-                <p>Изтеглете новата версия от нашия официален сайт или чрез командния ред: <code>kirilix update 2.0</code></p>
+        <!-- Съдържание на новината - тук ще се показва loading, грешка или съдържание -->
+        <div class="news-content-detail" id="newsContentContainer">
+            <div class="loading-container" id="loadingIndicator">
+                <div class="loading-spinner"></div>
+                <p>Зареждане на новината...</p>
+            </div>
+            
+            <div class="news-text" id="newsContent" style="display: none;"></div>
+            
+            <div class="error-container" id="errorIndicator" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2 class="error-title">Грешка при зареждане</h2>
+                <p class="error-message" id="errorMessage">Новината не можа да бъде заредена. Моля, опитайте по-късно.</p>
+                <button class="btn btn-primary" onclick="location.reload()">
+                    <i class="fas fa-sync-alt"></i>
+                    Опитай отново
+                </button>
             </div>
         </div>
         
@@ -980,15 +983,14 @@
             <div class="news-stats">
                 <div class="news-stat">
                     <i class="far fa-calendar-alt"></i>
-                    Публикувана на: <span id="newsFullDate">20 октомври 2023 г.</span>
+                    Публикувана на: <span id="newsFullDate">...</span>
                 </div>
                 <div class="news-stat">
                     <i class="fas fa-user-edit"></i>
-                    Автор: <span id="newsAuthorFull">Екип KiriliX</span>
+                    Автор: <span id="newsAuthorFull">...</span>
                 </div>
             </div>
         </div>
-        
     </main>
 
     <footer class="footer">
@@ -1057,161 +1059,204 @@
         </div>
     </footer>
 
+    <script src="../JS/config.js"></script>
     <script>
-        // Данни за новините (същите като на главната страница)
-        const allNews = [
-            { 
-                id: 1, 
-                title: "Пускане на KiriliX версия 2.0", 
-                excerpt: "Втората основна версия на KiriliX вече е достъпна с множество нови функции и подобрения в производителността.",
-                category: "update", 
-                date: "20 октомври 2023", 
-                author: "Екип KiriliX", 
-                authorInitials: "EK", 
-                views: 1247,
-                featured: true,
-                content: `
-                    <p>С гордость представяме KiriliX версия 2.0 - най-значителното обновление на нашата платформа до момента. Тази версия включва над 50 нови функции и подобрения, фокусирани върху производителността, удобството и стабилността.</p>
-                    
-                    <p>Основни новости в версия 2.0:</p>
-                    <ul>
-                        <li>Нова система за управление на библиотеките</li>
-                        <li>Подобрена поддръжка за паралелно програмиране</li>
-                        <li>Интегрирана среда за разработка (IDE) с автоматично допълване</li>
-                        <li>Нови стандартни библиотеки за работа с мрежа и бази данни</li>
-                        <li>Значителни подобрения в компилатора, водещи до 40% по-бързо изпълнение</li>
-                    </ul>
-                    
-                    <p>Версия 2.0 е резултат от над 6 месеца интензивна работа на нашия екип и ценни обратни връзки от нашата общност. Благодарим на всички, които участваха в бета тестването и предоставиха своите мнения.</p>
-                    
-                    <p>Изтеглете новата версия от нашия официален сайт или чрез командния ред: <code>kirilix update 2.0</code></p>
-                `,
-                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-            },
-            { 
-                id: 2, 
-                title: "Предстоящо събитие: Ден на отворените врати KiriliX", 
-                excerpt: "Присъединете се към нас на 15 ноември за нашето годишно събитие с лекции, workshops и networking.",
-                category: "event", 
-                date: "28 октомври 2023", 
-                author: "Мария Георгиева", 
-                authorInitials: "МГ", 
-                views: 856,
-                featured: false,
-                content: `
-                    <p>С радост обявяваме нашето годишно събитие "Ден на отворените врати KiriliX", което ще се проведе на 15 ноември в Технопарк София. Събитието е насочено към всички любители на програмирането, студенти и професионалисти, които искат да научат повече за KiriliX.</p>
-                    
-                    <p>Програмата на събитието включва:</p>
-                    <ul>
-                        <li>10:00 - 11:00: Регистрация и кафе</li>
-                        <li>11:00 - 12:00: Ключова реч: "Бъдещето на българското програмиране"</li>
-                        <li>12:00 - 13:30: Паралелни сесии - въведение в KiriliX за начинаещи</li>
-                        <li>13:30 - 14:30: Обяд и нетуъркинг</li>
-                        <li>14:30 - 16:00: Напреднали теми: паралелно програмиране с KiriliX</li>
-                        <li>16:00 - 17:00: Презентация на проекти от общността</li>
-                        <li>17:00 - 18:00: Свободна дискусия и networking</li>
-                    </ul>
-                    
-                    <p>Участието е безплатно, но е необходимо предварително регистриране поради ограничен брой места. Регистрацията отваря на 1 ноември.</p>
-                    
-                    <p>Това е отлична възможност да се запознаете с нашата общност, да научите нови неща и да споделите своите идеи и проекти.</p>
-                `,
-                image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
-            },
-            { 
-                id: 3, 
-                title: "Нов урок: Създаване на уеб сървър с KiriliX", 
-                excerpt: "Научи се да създаваш собствен уеб сървър с нашия нов подробен урок за начинаещи.",
-                category: "tutorial", 
-                date: "22 октомври 2023", 
-                author: "Иван Петров", 
-                authorInitials: "ИП", 
-                views: 743,
-                featured: false,
-                content: `
-                    <p>Добавихме нов подробен урок в нашата документация, който ще ви научи как да създадете собствен уеб сървър с KiriliX от нулата. Урокът е подходящ за начинаещи и покрива всички основни концепции.</p>
-                    
-                    <p>В урока ще научите:</p>
-                    <ul>
-                        <li>Как да настроите вашата среда за разработка</li>
-                        <li>Основите на мрежовото програмиране с KiriliX</li>
-                        <li>Как да създадете прост HTTP сървър</li>
-                        <li>Работа с маршрутизация и заявки</li>
-                        <li>Обслужване на статични файлове</li>
-                        <li>Основи на сигурността за уеб приложения</li>
-                    </ul>
-                    
-                    <p>Урокът включва подробни стъпки, кодови примери и упражнения за затвърждаване на знанията. Всички примерни кодове са достъпни в нашето GitHub хранилище.</p>
-                    
-                    <p>Това е първият от поредица уроки за уеб разработка с KiriliX. В следващите уроци ще разгледаме по-напреднали теми като работа с бази данни, автентикация и REST API.</p>
-                    
-                    <p>Започнете с урока тук: <a href="#">Урок: Създаване на уеб сървър с KiriliX</a></p>
-                `,
-                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-            }
-        ];
-
-        // Функция за получаване на текст за категория
-        function getCategoryText(category) {
-            const categoryMap = {
-                "update": "Обновление",
-                "event": "Събитие",
-                "tutorial": "Урок",
-                "community": "Общност",
-                "announcement": "Съобщение"
-            };
-            
-            return categoryMap[category] || "Новина";
-        }
-
+        // Конфигурация на API
+        const API_BASE_URL = API_CONFIG.POST; // Сменете с реалния API адрес
+        
         // Функция за изчисляване на времето за четене
         function calculateReadTime(content) {
             const wordsPerMinute = 200;
             const textContent = content.replace(/<[^>]*>/g, '');
             const wordCount = textContent.split(/\s+/).length;
             const readTime = Math.ceil(wordCount / wordsPerMinute);
-            return readTime;
+            return readTime || 1; // Минимум 1 минута
         }
 
-        // Зареждане на детайли за новината
+        // Функция за показване на грешка
+        function showError(message = 'Възникна грешка при зареждането на новината.') {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('newsContent').style.display = 'none';
+            document.getElementById('errorIndicator').style.display = 'flex';
+            document.getElementById('errorMessage').textContent = message;
+            
+            // Скриване на мета данните
+            document.getElementById('newsDetailTitle').textContent = 'Грешка';
+            document.querySelector('.news-actions-simple').style.opacity = '0.5';
+        }
+
+        // Функция за показване на новината
+        function displayNews(news) {
+            const readTime = calculateReadTime(news.content);
+            
+            // Актуализиране на заглавието на страницата
+            document.title = `${news.title} | KiriliX Новини`;
+            
+            // Показване на съдържанието
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('errorIndicator').style.display = 'none';
+            document.getElementById('newsContent').style.display = 'block';
+            
+            // Актуализиране на елементите
+            document.getElementById('newsDetailTitle').textContent = news.title;
+            document.getElementById('newsAuthorAvatar').textContent = news.authorInitials || news.author.substring(0, 2).toUpperCase();
+            document.getElementById('newsAuthorName').textContent = news.author;
+            document.getElementById('newsPublishDate').textContent = news.date;
+            document.getElementById('newsViewsCount').textContent = news.views ? news.views.toLocaleString() : '0';
+            document.getElementById('newsReadTime').textContent = readTime;
+            document.getElementById('newsContent').innerHTML = news.content;
+            document.getElementById('newsFullDate').textContent = news.date;
+            document.getElementById('newsAuthorFull').textContent = news.author;
+        }
+
+        // Функция за зареждане на новина от API
+        async function fetchNews(newsId) {
+            try {
+                // Показваме loading индикатора
+                document.getElementById('loadingIndicator').style.display = 'flex';
+                document.getElementById('errorIndicator').style.display = 'none';
+                document.getElementById('newsContent').style.display = 'none';
+                
+                // Първо опитваме да заредим от локалните данни (за демонстрация)
+                // В реална ситуация, това ще бъде заменено с API заявка
+                const localNews = {
+                    1: { 
+                        id: 1, 
+                        title: "Пускане на KiriliX версия 2.0", 
+                        date: "20 октомври 2023", 
+                        author: "Екип KiriliX", 
+                        authorInitials: "EK", 
+                        views: 1247,
+                        content: `
+                            <p>С гордост представяме KiriliX версия 2.0 - най-значителното обновление на нашата платформа до момента. Тази версия включва над 50 нови функции и подобрения, фокусирани върху производителността, удобството и стабилността.</p>
+                            
+                            <p>Основни новости в версия 2.0:</p>
+                            <ul>
+                                <li>Нова система за управление на библиотеките</li>
+                                <li>Подобрена поддръжка за паралелно програмиране</li>
+                                <li>Интегрирана среда за разработка (IDE) с автоматично допълване</li>
+                                <li>Нови стандартни библиотеки за работа с мрежа и бази данни</li>
+                                <li>Значителни подобрения в компилатора, водещи до 40% по-бързо изпълнение</li>
+                            </ul>
+                            
+                            <p>Версия 2.0 е резултат от над 6 месеца интензивна работа на нашия екип и ценни обратни връзки от нашата общност. Благодарим на всички, които участваха в бета тестването и предоставиха своите мнения.</p>
+                            
+                            <p>Изтеглете новата версия от нашия официален сайт или чрез командния ред: <code>kirilix update 2.0</code></p>
+                        `
+                    },
+                    2: { 
+                        id: 2, 
+                        title: "Предстоящо събитие: Ден на отворените врати KiriliX", 
+                        date: "28 октомври 2023", 
+                        author: "Мария Георгиева", 
+                        authorInitials: "МГ", 
+                        views: 856,
+                        content: `
+                            <p>С радост обявяваме нашето годишно събитие "Ден на отворените врати KiriliX", което ще се проведе на 15 ноември в Технопарк София. Събитието е насочено към всички любители на програмирането, студенти и професионалисти, които искат да научат повече за KiriliX.</p>
+                            
+                            <p>Програмата на събитието включва:</p>
+                            <ul>
+                                <li>10:00 - 11:00: Регистрация и кафе</li>
+                                <li>11:00 - 12:00: Ключова реч: "Бъдещето на българското програмиране"</li>
+                                <li>12:00 - 13:30: Паралелни сесии - въведение в KiriliX за начинаещи</li>
+                                <li>13:30 - 14:30: Обяд и нетуъркинг</li>
+                                <li>14:30 - 16:00: Напреднали теми: паралелно програмиране с KiriliX</li>
+                                <li>16:00 - 17:00: Презентация на проекти от общността</li>
+                                <li>17:00 - 18:00: Свободна дискусия и networking</li>
+                            </ul>
+                            
+                            <p>Участието е безплатно, но е необходимо предварително регистриране поради ограничен брой места. Регистрацията отваря на 1 ноември.</p>
+                            
+                            <p>Това е отлична възможност да се запознаете с нашата общност, да научите нови неща и да споделите своите идеи и проекти.</p>
+                        `
+                    },
+                    3: { 
+                        id: 3, 
+                        title: "Нов урок: Създаване на уеб сървър с KiriliX", 
+                        date: "22 октомври 2023", 
+                        author: "Иван Петров", 
+                        authorInitials: "ИП", 
+                        views: 743,
+                        content: `
+                            <p>Добавихме нов подробен урок в нашата документация, който ще ви научи как да създадете собствен уеб сървър с KiriliX от нулата. Урокът е подходящ за начинаещи и покрива всички основни концепции.</p>
+                            
+                            <p>В урока ще научите:</p>
+                            <ul>
+                                <li>Как да настроите вашата среда за разработка</li>
+                                <li>Основите на мрежовото програмиране с KiriliX</li>
+                                <li>Как да създадете прост HTTP сървър</li>
+                                <li>Работа с маршрутизация и заявки</li>
+                                <li>Обслужване на статични файлове</li>
+                                <li>Основи на сигурността за уеб приложения</li>
+                            </ul>
+                            
+                            <p>Урокът включва подробни стъпки, кодови примери и упражнения за затвърждаване на знанията. Всички примерни кодове са достъпни в нашето GitHub хранилище.</p>
+                            
+                            <p>Това е първият от поредица уроки за уеб разработка с KiriliX. В следващите уроци ще разгледаме по-напреднали теми като работа с бази данни, автентикация и REST API.</p>
+                            
+                            <p>Започнете с урока тук: <a href="#">Урок: Създаване на уеб сървър с KiriliX</a></p>
+                        `
+                    }
+                };
+
+                // Проверяваме дали имаме локална новина (за демонстрация)
+                if (localNews[newsId]) {
+                    // Симулираме мрежово закъснение
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    displayNews(localNews[newsId]);
+                    return;
+                }
+
+                // Ако няма локална новина, опитваме да заредим от API
+                // Коментирайте горния код и разкоментирайте долния за реална API интеграция
+                
+                /*
+                const response = await fetch(`${API_BASE_URL}/news/${newsId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': 'Bearer YOUR_TOKEN' // ако е необходимо
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Новината не е намерена.');
+                    } else if (response.status === 500) {
+                        throw new Error('Вътрешна грешка в сървъра. Моля, опитайте по-късно.');
+                    } else {
+                        throw new Error(`Грешка при зареждане: ${response.status}`);
+                    }
+                }
+
+                const news = await response.json();
+                displayNews(news);
+                */
+                
+            } catch (error) {
+                console.error('Грешка при зареждане на новина:', error);
+                showError(error.message || 'Възникна грешка при зареждането на новината.');
+            }
+        }
+
+        // Зареждане на детайли за новината при зареждане на страницата
         document.addEventListener('DOMContentLoaded', function() {
             // Вземане на ID на новината от URL параметър
             const urlParams = new URLSearchParams(window.location.search);
-            const newsId = parseInt(urlParams.get('id')) || 1;
+            const newsId = parseInt(urlParams.get('id'));
             
-            // Намиране на новината
-            const news = allNews.find(n => n.id === newsId) || allNews[0];
+            // Проверка за валидно ID
+            if (!newsId || isNaN(newsId) || newsId < 1) {
+                showError('Невалиден идентификатор на новина.');
+                return;
+            }
             
-            // Показване на информацията за новината
-            displayNewsDetails(news);
+            // Зареждане на новината
+            fetchNews(newsId);
             
             // Инициализация на мобилното меню
             initMobileMenu();
         });
-
-        // Показване на детайли за новината
-        function displayNewsDetails(news) {
-            const categoryText = getCategoryText(news.category);
-            const readTime = calculateReadTime(news.content);
-            
-            // Актуализиране на елементите на страницата
-            document.getElementById('newsCategoryBadge').innerHTML = `<i class="fas fa-tag"></i><span>${categoryText}</span>`;
-            document.getElementById('newsCategoryText').textContent = categoryText;
-            document.getElementById('newsDetailTitle').textContent = news.title;
-            document.getElementById('newsAuthorAvatar').textContent = news.authorInitials;
-            document.getElementById('newsAuthorName').textContent = news.author;
-            document.getElementById('newsPublishDate').textContent = news.date;
-            document.getElementById('newsViewsCount').textContent = news.views.toLocaleString();
-            document.getElementById('newsReadTime').textContent = readTime;
-            document.getElementById('newsHeroImage').src = news.image;
-            document.getElementById('newsHeroImage').alt = news.title;
-            document.getElementById('newsContent').innerHTML = news.content;
-            document.getElementById('newsFullDate').textContent = news.date;
-            document.getElementById('newsAuthorFull').textContent = news.author;
-            
-            // Актуализиране на заглавието на страницата
-            document.title = `${news.title} | KiriliX Новини`;
-        }
 
         // Инициализация на мобилното меню
         function initMobileMenu() {
@@ -1225,7 +1270,7 @@
                 });
             }
             
-            // Close mobile menu when clicking on a link
+            // Затваряне на мобилното меню при клик на линк
             const mobileLinks = document.querySelectorAll('.mobile-nav-link');
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {

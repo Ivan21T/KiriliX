@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "DataLayer.User",
+        "Type": "BusinessLayer.User",
         "IsRequired": true
       }
     ],
@@ -51,7 +51,7 @@
     "Parameters": [
       {
         "Name": "comment",
-        "Type": "Business_Layer.Comment",
+        "Type": "BusinessLayer.Comment",
         "IsRequired": true
       }
     ],
@@ -79,6 +79,85 @@
         "Name": "isReadOnly",
         "Type": "System.Boolean",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.NewsController",
+    "Method": "CreateNews",
+    "RelativePath": "news",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "news",
+        "Type": "BusinessLayer.News",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.NewsController",
+    "Method": "GetNews",
+    "RelativePath": "news",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.NewsController",
+    "Method": "DeleteNews",
+    "RelativePath": "news/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.NewsController",
+    "Method": "GetNewsById",
+    "RelativePath": "news/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.NewsController",
+    "Method": "UpdateNews",
+    "RelativePath": "news/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "news",
+        "Type": "BusinessLayer.News",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -114,7 +193,7 @@
     "Parameters": [
       {
         "Name": "post",
-        "Type": "Business_Layer.Post",
+        "Type": "BusinessLayer.Post",
         "IsRequired": true
       }
     ],
@@ -182,7 +261,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "DataLayer.User",
+        "Type": "BusinessLayer.User",
         "IsRequired": true
       }
     ],
@@ -198,7 +277,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "DataLayer.User",
+        "Type": "BusinessLayer.User",
         "IsRequired": true
       }
     ],

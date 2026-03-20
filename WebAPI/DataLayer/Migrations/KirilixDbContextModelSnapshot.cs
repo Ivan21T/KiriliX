@@ -17,7 +17,7 @@ namespace DataLayer.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.11");
 
-            modelBuilder.Entity("Business_Layer.Comment", b =>
+            modelBuilder.Entity("BusinessLayer.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace DataLayer.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Business_Layer.News", b =>
+            modelBuilder.Entity("BusinessLayer.News", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,12 +58,16 @@ namespace DataLayer.Migrations
                     b.Property<DateTime>("PublishedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("Business_Layer.OTPCode", b =>
+            modelBuilder.Entity("BusinessLayer.OTPCode", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +89,7 @@ namespace DataLayer.Migrations
                     b.ToTable("OTPCodes");
                 });
 
-            modelBuilder.Entity("Business_Layer.Post", b =>
+            modelBuilder.Entity("BusinessLayer.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +116,7 @@ namespace DataLayer.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DataLayer.User", b =>
+            modelBuilder.Entity("BusinessLayer.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,13 +146,13 @@ namespace DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Business_Layer.Comment", b =>
+            modelBuilder.Entity("BusinessLayer.Comment", b =>
                 {
-                    b.HasOne("DataLayer.User", "Author")
+                    b.HasOne("BusinessLayer.User", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("Business_Layer.Post", "Post")
+                    b.HasOne("BusinessLayer.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId");
 
@@ -157,9 +161,9 @@ namespace DataLayer.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Business_Layer.Post", b =>
+            modelBuilder.Entity("BusinessLayer.Post", b =>
                 {
-                    b.HasOne("DataLayer.User", "Author")
+                    b.HasOne("BusinessLayer.User", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -168,12 +172,12 @@ namespace DataLayer.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("Business_Layer.Post", b =>
+            modelBuilder.Entity("BusinessLayer.Post", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("DataLayer.User", b =>
+            modelBuilder.Entity("BusinessLayer.User", b =>
                 {
                     b.Navigation("Comments");
 

@@ -479,7 +479,6 @@
             text-shadow: 0 0 10px var(--neon-green);
         }
 
-        /* Търсачка */
         .search-container {
             position: relative;
             margin-bottom: 3rem;
@@ -514,7 +513,6 @@
             font-size: 1.3rem;
         }
 
-        /* Списък с новини */
         .news-list {
             display: flex;
             flex-direction: column;
@@ -544,6 +542,13 @@
             color: var(--white);
             margin-bottom: 0.8rem;
             line-height: 1.3;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .news-title:hover {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
         }
 
         .news-meta {
@@ -559,10 +564,69 @@
             margin-right: 0.5rem;
         }
 
+        .author-link {
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .author-link:hover {
+            color: var(--cyan) !important;
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        
+        .author-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--neon-green));
+            transition: width 0.3s ease;
+        }
+        
+        .author-link:hover::after {
+            width: 100%;
+        }
+
         .news-excerpt {
             color: #b0b0d0;
             font-size: 1rem;
             line-height: 1.7;
+        }
+
+        .read-more {
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            color: var(--neon-green) !important;
+            font-weight: 600;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        
+        .read-more:hover {
+            transform: translateX(5px);
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+        
+        .read-more::after {
+            content: '→';
+            margin-left: 5px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .read-more:hover::after {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .no-results {
@@ -580,7 +644,40 @@
             opacity: 0.5;
         }
 
-        /* Пагинация */
+        .error-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #ff6b6b;
+            border: 1px dashed rgba(255, 0, 60, 0.3);
+            border-radius: 20px;
+            background: rgba(255, 0, 60, 0.05);
+        }
+
+        .error-message i {
+            font-size: 3rem;
+            color: var(--neon-red);
+            margin-bottom: 1rem;
+        }
+
+        .retry-btn {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--neon-red);
+            color: var(--neon-red);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .retry-btn:hover {
+            background: var(--neon-red);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 0, 60, 0.3);
+        }
+
         .pagination {
             display: flex;
             justify-content: center;
@@ -1048,7 +1145,7 @@
             
             <div class="news-stats fade-in delay-3">
                 <div class="stat-card">
-                    <div class="stat-number" id="totalNewsCount">42</div>
+                    <div class="stat-number" id="totalNewsCount">0</div>
                     <div class="stat-label">Новини</div>
                 </div>
             </div>
@@ -1056,16 +1153,18 @@
     </section>
 
     <div class="news-content">
-        <!-- Търсачка -->
         <div class="search-container fade-in">
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" id="newsSearch" placeholder="Търсене по заглавие, съдържание или автор...">
         </div>
         
-        <!-- Списък с новини -->
-        <div class="news-list" id="newsList"></div>
+        <div class="news-list" id="newsList">
+            <div class="no-results">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>Зареждане на новините...</h3>
+            </div>
+        </div>
         
-        <!-- Пагинация -->
         <nav class="pagination" id="pagination"></nav>
         <div class="pagination-info" id="paginationInfo"></div>
     </div>
@@ -1128,72 +1227,18 @@
         </div>
     </footer>
 
+    <script src="../JS/config.js"></script>
     <script>
-        // Данни за новините (само текст)
-        const allNews = [
-            { 
-                id: 1, 
-                title: "Пускане на KiriliX версия 2.0", 
-                excerpt: "Втората основна версия на KiriliX вече е достъпна с множество нови функции и подобрения в производителността. Новата версия включва над 50 подобрения и е резултат от 6 месеца работа.",
-                date: "20 октомври 2023", 
-                author: "Екип KiriliX"
-            },
-            { 
-                id: 2, 
-                title: "Предстоящо събитие: Ден на отворените врати KiriliX", 
-                excerpt: "Присъединете се към нас на 15 ноември за нашето годишно събитие с лекции, workshops и networking. Събитието ще се проведе в Технопарк София.",
-                date: "28 октомври 2023", 
-                author: "Мария Георгиева"
-            },
-            { 
-                id: 3, 
-                title: "Нов урок: Създаване на уеб сървър с KiriliX", 
-                excerpt: "Научи се да създаваш собствен уеб сървър с нашия нов подробен урок за начинаещи. Урокът включва кодови примери и стъпка по стъпка обяснения.",
-                date: "22 октомври 2023", 
-                author: "Иван Петров"
-            },
-            { 
-                id: 4, 
-                title: "Проект на месеца: Графичен редактор на KiriliX", 
-                excerpt: "Младият разработчик Алекс създаде пълнофункционален графичен редактор с KiriliX. Проектът включва слоеве, инструменти за рисуване и експорт на файлове.",
-                date: "18 октомври 2023", 
-                author: "Администратор"
-            },
-            { 
-                id: 5, 
-                title: "Планирани прекъсвания за поддръжка на 25 октомври", 
-                excerpt: "Имайте предвид, че на 25 октомври ще има прекъсвания за поддръжка между 02:00 и 04:00 ч. Локалната инсталация няма да бъде засегната.",
-                date: "15 октомври 2023", 
-                author: "Екип KiriliX"
-            },
-            { 
-                id: 6, 
-                title: "Нова библиотека за машинно обучение", 
-                excerpt: "Въвеждаме нова библиотека за машинно обучение, създадена специално за KiriliX. Библиотеката поддържа основни алгоритми и обработка на български език.",
-                date: "12 октомври 2023", 
-                author: "Екип KiriliX"
-            },
-            { 
-                id: 7, 
-                title: "KiriliX на конференция HackBulgaria", 
-                excerpt: "Екипът на KiriliX ще участва в предстоящата конференция HackBulgaria на 5 ноември. Ще имате възможност да се запознаете с нас лично.",
-                date: "10 октомври 2023", 
-                author: "Петър Димитров"
-            },
-            { 
-                id: 8, 
-                title: "Наръчник за начинаещи вече на български", 
-                excerpt: "Пълният наръчник за начинаещи в KiriliX вече е достъпен на български език. Над 200 страници с примери и упражнения.",
-                date: "5 октомври 2023", 
-                author: "Екип KiriliX"
-            }
-        ];
-
-        // Настройки
+        // Конфигурация
         const newsPerPage = 5;
+        
+        // Състояние
+        let allNews = [];
+        let filteredNews = [];
         let currentPage = 1;
-        let filteredNews = [...allNews];
         let searchTerm = '';
+        let isLoading = false;
+        let error = null;
 
         // Елементи
         const newsListEl = document.getElementById('newsList');
@@ -1201,13 +1246,109 @@
         const paginationInfoEl = document.getElementById('paginationInfo');
         const searchInput = document.getElementById('newsSearch');
         const totalNewsCountEl = document.getElementById('totalNewsCount');
+        const loader = document.getElementById('loader');
 
-        // Обновяване на статистиките
+        // Функция за извличане на новини от API
+        async function fetchNews() {
+            isLoading = true;
+            error = null;
+            
+            try {
+                if (typeof API_CONFIG === 'undefined') {
+                    throw new Error('API_CONFIG не е зареден! Проверете дали config.js съществува.');
+                }
+
+                const NEWS_API_URL = API_CONFIG.NEWS;
+                
+                console.log('Използвам API URL:', NEWS_API_URL);
+                
+                const fetchOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    mode: 'cors',
+                    credentials: 'same-origin',
+                    cache: 'no-cache'
+                };
+                
+                const response = await fetch(NEWS_API_URL, fetchOptions);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Response not OK:', response.status, errorText);
+                    throw new Error(`Грешка ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Получени данни:', data);
+                
+                if (Array.isArray(data)) {
+                    allNews = data.map(item => ({
+                        id: item.id,
+                        title: item.title || 'Без заглавие',
+                        excerpt: item.excerpt || item.content || item.description || 'Няма съдържание',
+                        fullContent: item.content || item.full_content || item.excerpt || 'Няма съдържание',
+                        date: formatDate(item.created_at || item.date || item.published_at || new Date().toISOString()),
+                        author: 'Екип на KiriliX',
+                        authorId: item.author_id || item.user_id || 1,
+                        slug: item.slug || item.id
+                    }));
+                } else if (data.data && Array.isArray(data.data)) {
+                    allNews = data.data.map(item => ({
+                        id: item.id,
+                        title: item.title || 'Без заглавие',
+                        excerpt: item.excerpt || item.content || item.description || 'Няма съдържание',
+                        fullContent: item.content || item.full_content || item.excerpt || 'Няма съдържание',
+                        date: formatDate(item.created_at || item.date || item.published_at || new Date().toISOString()),
+                        author: 'Екип на KiriliX',
+                        authorId: item.author_id || item.user_id || 1,
+                        slug: item.slug || item.id
+                    }));
+                } else if (data.news && Array.isArray(data.news)) {
+                    allNews = data.news.map(item => ({
+                        id: item.id,
+                        title: item.title || 'Без заглавие',
+                        excerpt: item.excerpt || item.content || item.description || 'Няма съдържание',
+                        fullContent: item.content || item.full_content || item.excerpt || 'Няма съдържание',
+                        date: formatDate(item.created_at || item.date || item.published_at || new Date().toISOString()),
+                        author: 'Екип на KiriliX',
+                        authorId: item.author_id || item.user_id || 1,
+                        slug: item.slug || item.id
+                    }));
+                } else {
+                    console.error('Неочакван формат на данните:', data);
+                    throw new Error('Неочакван формат на данните от сървъра');
+                }
+                
+                filteredNews = [...allNews];
+                updateStats();
+                
+            } catch (err) {
+                console.error('Грешка при зареждане на новини:', err);
+                error = err.message;
+                allNews = [];
+                filteredNews = [];
+            } finally {
+                isLoading = false;
+                renderNews();
+                renderPagination();
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return 'Невалидна дата';
+            
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('bg-BG', options);
+        }
+
         function updateStats() {
             totalNewsCountEl.textContent = allNews.length;
         }
 
-        // Функция за филтриране
         function filterNews() {
             const term = searchTerm.toLowerCase().trim();
             
@@ -1216,8 +1357,7 @@
             } else {
                 filteredNews = allNews.filter(news => 
                     news.title.toLowerCase().includes(term) ||
-                    news.excerpt.toLowerCase().includes(term) ||
-                    news.author.toLowerCase().includes(term)
+                    news.excerpt.toLowerCase().includes(term)
                 );
             }
             
@@ -1226,8 +1366,41 @@
             renderPagination();
         }
 
-        // Рендиране на новините
+        function goToNewsDetail(newsId, slug) {
+            const url = `news_details.html/${newsId}`;
+            console.log('Навигиране към:', url);
+            window.location.href = url;
+        }
+
         function renderNews() {
+            if (isLoading) {
+                newsListEl.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <h3>Зареждане на новините...</h3>
+                    </div>
+                `;
+                paginationEl.innerHTML = '';
+                paginationInfoEl.innerHTML = '';
+                return;
+            }
+
+            if (error) {
+                newsListEl.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Грешка при зареждане</h3>
+                        <p>${error}</p>
+                        <button class="retry-btn" onclick="fetchNews()">
+                            <i class="fas fa-redo"></i> Опитай отново
+                        </button>
+                    </div>
+                `;
+                paginationEl.innerHTML = '';
+                paginationInfoEl.innerHTML = '';
+                return;
+            }
+
             const start = (currentPage - 1) * newsPerPage;
             const end = start + newsPerPage;
             const newsToShow = filteredNews.slice(start, end);
@@ -1247,14 +1420,26 @@
 
             let html = '';
             newsToShow.forEach((news, index) => {
+                const maxExcerptLength = 200;
+                const excerpt = news.excerpt.length > maxExcerptLength 
+                    ? news.excerpt.substring(0, maxExcerptLength) + '...' 
+                    : news.excerpt;
+                
                 html += `
                     <div class="news-item fade-in" style="animation-delay: ${index * 0.1}s">
-                        <h2 class="news-title">${news.title}</h2>
+                        <h2 class="news-title" onclick="goToNewsDetail(${news.id}, '${news.slug}')">${escapeHtml(news.title)}</h2>
                         <div class="news-meta">
-                            <span><i class="far fa-calendar-alt"></i> ${news.date}</span>
-                            <span><i class="far fa-user"></i> ${news.author}</span>
+                            <span><i class="far fa-calendar-alt"></i> ${escapeHtml(news.date)}</span>
+                            <span class="author-link" onclick="goToAuthorProfile(${news.authorId})">
+                                <i class="far fa-user"></i> ${escapeHtml(news.author)}
+                            </span>
                         </div>
-                        <div class="news-excerpt">${news.excerpt}</div>
+                        <div class="news-excerpt">
+                            ${escapeHtml(excerpt)}
+                            ${news.excerpt.length > maxExcerptLength ? 
+                                `<span class="read-more" onclick="goToNewsDetail(${news.id}, '${news.slug}')">Виж повече...</span>` 
+                                : ''}
+                        </div>
                     </div>
                 `;
             });
@@ -1263,8 +1448,18 @@
             updatePaginationInfo();
         }
 
-        // Рендиране на пагинация
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         function renderPagination() {
+            if (isLoading || error || filteredNews.length === 0) {
+                paginationEl.innerHTML = '';
+                return;
+            }
+
             const totalPages = Math.ceil(filteredNews.length / newsPerPage);
             
             if (totalPages <= 1) {
@@ -1274,21 +1469,22 @@
 
             let html = '';
 
-            // Бутон "Назад"
             html += `
                 <div class="page-link prev ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">
                     <i class="fas fa-chevron-left"></i> Назад
                 </div>
             `;
 
-            // Номера на страници
             for (let i = 1; i <= totalPages; i++) {
-                html += `
-                    <div class="page-link ${currentPage === i ? 'active' : ''}" data-page="${i}">${i}</div>
-                `;
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    html += `
+                        <div class="page-link ${currentPage === i ? 'active' : ''}" data-page="${i}">${i}</div>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    html += `<div class="page-link disabled">...</div>`;
+                }
             }
 
-            // Бутон "Напред"
             html += `
                 <div class="page-link next ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">
                     Напред <i class="fas fa-chevron-right"></i>
@@ -1297,7 +1493,6 @@
 
             paginationEl.innerHTML = html;
 
-            // Събития за пагинация
             document.querySelectorAll('.page-link[data-page]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1305,16 +1500,18 @@
                         currentPage = parseInt(this.dataset.page);
                         renderNews();
                         renderPagination();
-                        window.scrollTo({ top: document.querySelector('.news-content').offsetTop - 100, behavior: 'smooth' });
+                        window.scrollTo({ 
+                            top: document.querySelector('.news-content').offsetTop - 100, 
+                            behavior: 'smooth' 
+                        });
                     }
                 });
             });
         }
 
-        // Информация за пагинация
         function updatePaginationInfo() {
             const total = filteredNews.length;
-            if (total === 0) {
+            if (total === 0 || isLoading || error) {
                 paginationInfoEl.textContent = '';
                 return;
             }
@@ -1324,7 +1521,6 @@
             paginationInfoEl.textContent = `Показване на ${start} - ${end} от ${total} новини`;
         }
 
-        // Търсене с debounce
         let searchTimeout;
         searchInput.addEventListener('input', function() {
             clearTimeout(searchTimeout);
@@ -1332,18 +1528,25 @@
             searchTimeout = setTimeout(filterNews, 300);
         });
 
-        // Loader
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 800);
-            
-            updateStats();
-            renderNews();
-            renderPagination();
+        window.addEventListener('load', async function() {
+            if (typeof API_CONFIG === 'undefined') {
+                console.error('API_CONFIG не е намерен! Проверете пътя до config.js');
+                loader.classList.add('hidden');
+                newsListEl.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Грешка в конфигурацията</h3>
+                        <p>Конфигурационният файл не е зареден правилно.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 800));
+            await fetchNews();
+            loader.classList.add('hidden');
         });
 
-        // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         
@@ -1352,13 +1555,16 @@
             mobileMenu.classList.toggle('active');
         });
 
-        // Close mobile menu on link click
         document.querySelectorAll('.mobile-nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenuToggle.classList.remove('active');
                 mobileMenu.classList.remove('active');
             });
         });
+
+        window.fetchNews = fetchNews;
+        window.goToNewsDetail = goToNewsDetail;
+        window.goToAuthorProfile = goToAuthorProfile;
     </script>
 </body>
 </html>

@@ -4,7 +4,8 @@ using Business_Layer.Enums;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-namespace DataLayer
+
+namespace BusinessLayer
 {
     public class User
     {

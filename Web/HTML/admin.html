@@ -154,7 +154,6 @@
                                 <th>Заглавие</th>
                                 <th>Автор</th>
                                 <th>Дата</th>
-                                <th>Прегледи</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
@@ -242,23 +241,6 @@
                 <div class="form-group">
                     <label class="form-label" for="articleContent">Съдържание</label>
                     <textarea id="articleContent" class="form-control form-textarea" rows="8" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Изображение</label>
-                    <div class="file-upload" id="fileUploadArea">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Кликнете или плъзнете снимка тук</p>
-                        <p style="font-size: 0.8rem;">Поддържани формати: JPG, PNG, GIF (макс. 5MB)</p>
-                        <input type="file" id="articleImage" accept="image/*">
-                    </div>
-                    
-                    <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
-                        <img id="imagePreview" class="image-preview" src="" alt="Preview">
-                        <button type="button" class="action-btn delete" onclick="removeImage()" style="position: absolute; top: 10px; right: 10px;">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
                 </div>
                 
                 <div class="form-actions">

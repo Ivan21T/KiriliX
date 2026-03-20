@@ -8,7 +8,6 @@ const adminData = {
 let currentEditingArticleId = null;
 let currentEditingUserId = null;
 let currentAction = null;
-let currentImageFile = null;
 
 // Пагинация
 const pagination = {
@@ -21,7 +20,6 @@ const pagination = {
 document.addEventListener('DOMContentLoaded', async function() {
     initMobileMenu();
     initNavigation();
-    initFileUpload();
     initPaginationControls();
     
     // Добавяме респонсив стилове за модалите
@@ -32,14 +30,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     adminData.users = await getUsers();
     
     // Зареждаме постовете
-    showAlert('Зареждане на постове...', 'pending');
-    adminData.posts = await getPosts();
+    await fetchPosts();
     
-    // След като имаме потребители, зареждаме останалото
+    // Зареждаме новините
+    await fetchArticles();
+    
+    // След като имаме всички данни, зареждаме останалото
     loadStatistics();
     loadUsers();
     loadArticles();
-    loadPosts();
     
     showAlert('Данните са заредени успешно!', 'success');
     
@@ -88,7 +87,7 @@ function initNavigation() {
     });
 }
 
-// ================ API ФУНКЦИИ ================
+// ================ API ФУНКЦИИ ЗА ПОТРЕБИТЕЛИ ================
 async function getUsers() {
     try {
         const response = await fetch(`${API_CONFIG.ADMIN}/get-users`, {
@@ -107,7 +106,7 @@ async function getUsers() {
         return users.map(user => ({
             id: user.id,
             username: user.username || 'Потребител',
-            name: user.username || 'Потребител', // За обратна съвместимост
+            name: user.username || 'Потребител',
             email: user.email,
             role: user.role === 0 ? 'admin' : 'user',
             initials: (user.username || 'П').split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'П'
@@ -119,9 +118,223 @@ async function getUsers() {
     }
 }
 
-async function getPosts() {
+// ================ API ФУНКЦИИ ЗА НОВИНИ ================
+
+// ВЗЕМАНЕ НА НОВИНИ
+async function fetchArticles() {
     try {
-        const response = await fetch(`${API_CONFIG.ADMIN}/get-posts`, {
+        showAlert('Зареждане на новини...', 'pending');
+        
+        const response = await fetch(`${API_CONFIG.NEWS}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const articles = await response.json();
+        
+        console.log('Сървърът върна:', articles);
+        
+        // Трансформираме данните според формата от сървъра
+        adminData.articles = articles.map(article => ({
+            id: article.id,
+            title: article.title || 'Без заглавие',
+            description: article.description || '',
+            content: article.description || '',
+            author: 'Администратор',
+            date: article.publishedAt ? article.publishedAt.split('T')[0] : new Date().toISOString().split('T')[0],
+            publishedAt: article.publishedAt
+        }));
+        
+        console.log('Трансформирани новини:', adminData.articles);
+        
+        loadArticles();
+        loadStatistics();
+        showAlert('Новините са заредени успешно!', 'success');
+        
+    } catch (error) {
+        console.error('Error fetching articles:', error);
+        showAlert('Грешка при зареждане на новините: ' + error.message, 'error');
+        adminData.articles = [];
+        loadArticles();
+    }
+}
+
+// СЪЗДАВАНЕ НА НОВА НОВИНА
+async function createArticle(title, description) {
+    try {
+        showAlert('Създаване на новина...', 'pending');
+        
+        const response = await fetch(`${API_CONFIG.NEWS}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: title,
+                description: description,
+                publishedAt: new Date().toISOString()
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Грешка при създаване! Status: ${response.status}`);
+        }
+
+        const newArticle = await response.json();
+        
+        console.log('Създадена новина от сървъра:', newArticle);
+        
+        const articleToAdd = {
+            id: newArticle.id || Date.now(),
+            title: title,
+            content: description,
+            description: description,
+            author: 'Администратор',
+            date: newArticle.publishedAt ? newArticle.publishedAt.split('T')[0] : new Date().toISOString().split('T')[0],
+            publishedAt: newArticle.publishedAt || new Date().toISOString()
+        };
+        
+        adminData.articles = [articleToAdd, ...(adminData.articles || [])];
+        pagination.articles.page = 1;
+        
+        loadArticles();
+        loadStatistics();
+        
+        showAlert('Новината е създадена успешно!', 'success');
+        return newArticle;
+        
+    } catch (error) {
+        console.error('Error creating article:', error);
+        showAlert('Грешка при създаване на новина: ' + error.message, 'error');
+        throw error;
+    }
+}
+
+// РЕДАКТИРАНЕ НА НОВИНА
+async function updateArticle(id, title, description) {
+    try {
+        showAlert('Обновяване на новина...', 'pending');
+        
+        console.log('Опит за редакция на новина с ID:', id);
+        
+        const article = adminData.articles.find(a => a.id === id);
+        
+        if (!article) {
+            throw new Error('Новината не е намерена в локалния списък');
+        }
+        
+        const response = await fetch(`${API_CONFIG.NEWS}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                title: title,
+                description: description,
+                publishedAt: article.publishedAt || new Date().toISOString()
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Грешка при обновяване! Status: ${response.status}`);
+        }
+
+        const updatedArticle = await response.json();
+        console.log('Обновена новина от сървъра:', updatedArticle);
+
+        const index = adminData.articles.findIndex(a => a.id === id);
+        if (index !== -1) {
+            adminData.articles[index] = {
+                ...adminData.articles[index],
+                title: title,
+                description: description,
+                content: description
+            };
+        }
+        
+        loadArticles();
+        showAlert('Новината е обновена успешно!', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('Error updating article:', error);
+        
+        const index = adminData.articles.findIndex(a => a.id === id);
+        if (index !== -1) {
+            adminData.articles[index] = {
+                ...adminData.articles[index],
+                title: title,
+                content: description,
+                description: description
+            };
+            loadArticles();
+            showAlert('Новината е обновена локално!', 'info');
+            return true;
+        }
+        
+        showAlert('Грешка при обновяване на новина: ' + error.message, 'error');
+        throw error;
+    }
+}
+
+// ИЗТРИВАНЕ НА НОВИНА
+async function deleteArticle(id) {
+    try {
+        showAlert('Изтриване на новина...', 'pending');
+        
+        console.log('Опит за изтриване на новина с ID:', id);
+        
+        const response = await fetch(`${API_CONFIG.NEWS}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Грешка при изтриване! Status: ${response.status}`);
+        }
+
+        adminData.articles = adminData.articles?.filter(a => a.id !== id) || [];
+        pagination.articles.page = 1;
+        
+        loadArticles();
+        loadStatistics();
+        
+        showAlert('Новината е изтрита успешно!', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('Error deleting article:', error);
+        
+        adminData.articles = adminData.articles?.filter(a => a.id !== id) || [];
+        pagination.articles.page = 1;
+        loadArticles();
+        loadStatistics();
+        
+        showAlert('Новината е изтрита локално!', 'info');
+        return true;
+    }
+}
+
+// ================ API ФУНКЦИИ ЗА ПОСТОВЕ ================
+
+// ВЗЕМАНЕ НА ПОСТОВЕ
+async function fetchPosts() {
+    try {
+        showAlert('Зареждане на постове...', 'pending');
+        
+        const response = await fetch(`${API_CONFIG.POST}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -133,72 +346,61 @@ async function getPosts() {
         }
 
         const posts = await response.json();
-        return posts;
+        
+        adminData.posts = posts.map(post => ({
+            id: post.id,
+            title: post.title || 'Без заглавие',
+            content: post.content || '',
+            author: post.author?.username || 'Неизвестен',
+            authorId: post.author?.id,
+            createdAt: post.createdAt,
+            comments: post.comments?.length || 0,
+            status: 'active'
+        }));
+        
+        loadPosts();
+        loadStatistics();
+        showAlert('Постовете са заредени успешно!', 'success');
+        
     } catch (error) {
         console.error('Error fetching posts:', error);
-        showAlert('Използват се примерни данни за постовете', 'info');
-        return getSamplePosts();
+        showAlert('Грешка при зареждане на постовете: ' + error.message, 'error');
+        adminData.posts = [];
+        loadPosts();
     }
 }
 
-function getSamplePosts() {
-    return [
-        {
-            id: 1,
-            title: "Как да започнем с KiriliX?",
-            content: "Пълно ръководство за начинаещи, които искат да научат основите на програмирането с KiriliX...",
-            author: "Георги Петров",
-            authorId: 1,
-            createdAt: "2024-01-15",
-            comments: 12,
-            views: 345,
-            status: "active"
-        },
-        {
-            id: 2,
-            title: "Нови функции в езика",
-            content: "Представяме ви новите възможности в последната версия на KiriliX...",
-            author: "Иван Иванов",
-            authorId: 2,
-            createdAt: "2024-01-20",
-            comments: 8,
-            views: 234,
-            status: "active"
-        },
-        {
-            id: 3,
-            title: "Оптимизация на код с KiriliX",
-            content: "Съвети и трикове за по-бърз и ефективен код...",
-            author: "Мария Георгиева",
-            authorId: 3,
-            createdAt: "2024-01-25",
-            comments: 15,
-            views: 567,
-            status: "active"
-        },
-        {
-            id: 4,
-            title: "Интеграция с популярни API-та",
-            content: "Как да свържем KiriliX с външни услуги...",
-            author: "Петър Димитров",
-            authorId: 4,
-            createdAt: "2024-01-28",
-            comments: 5,
-            views: 123,
-            status: "active"
-        },
-        {
-            id: 5,
-            title: "Създаване на игри с KiriliX",
-            content: "Въведение в гейм разработката с нашия език...",
-            author: "Николай Стоянов",
-            authorId: 5,
-            createdAt: "2024-01-30",
-            comments: 23,
-            views: 789,
-            status: "active"
+// ИЗТРИВАНЕ НА ПОСТ
+async function deletePost(id) {
+    try {
+        showAlert('Изтриване на пост...', 'pending');
+        
+        const response = await fetch(`${API_CONFIG.POST}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Грешка при изтриване! Status: ${response.status}`);
         }
-    ];
+
+        adminData.posts = adminData.posts?.filter(p => p.id !== id) || [];
+        pagination.posts.page = 1;
+        
+        loadPosts();
+        loadStatistics();
+        
+        showAlert('Постът е изтрит успешно!', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        showAlert('Грешка при изтриване на поста: ' + error.message, 'error');
+        return false;
+    }
 }
 
 // ================ РЕСПОНСИВ МОДАЛНИ СТИЛОВЕ ================
@@ -388,6 +590,49 @@ function addResponsiveModalStyles() {
         .modal-btn-outline:hover {
             background: rgba(0, 255, 157, 0.1);
             transform: translateY(-2px);
+        }
+        
+        /* Стилове за автор балона в таблицата */
+        .author-bubble {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(145deg, rgba(0, 255, 157, 0.15), rgba(0, 255, 157, 0.05));
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 30px;
+            padding: 6px 16px 6px 12px;
+            font-size: 13px;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .author-bubble:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 4px 12px rgba(0, 255, 157, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .author-bubble i {
+            color: var(--neon-green);
+            font-size: 12px;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 157, 0.5));
+        }
+        
+        .author-bubble .author-name {
+            font-weight: 500;
+            color: var(--neon-green);
+            letter-spacing: 0.3px;
+        }
+        
+        @media (max-width: 768px) {
+            .author-bubble {
+                padding: 4px 12px 4px 8px;
+                font-size: 12px;
+                white-space: normal;
+                word-break: break-word;
+            }
         }
         
         @media (max-width: 768px) {
@@ -619,7 +864,7 @@ function showEditUserModal(id) {
                 </div>
                 
                 <div class="modal-body">
-                    <form id="editUserModalForm" onsubmit="saveEditedUser(event)">
+                    <form id="editUserModalForm" onsubmit="saveEditedUser(event)" novalidate>
                         <div class="modal-form-group">
                             <label class="modal-form-label" for="editModalUsername">
                                 <i class="fas fa-user"></i> Потребителско име
@@ -697,7 +942,6 @@ function showEditUserModal(id) {
         });
     }
     
-    // Използваме username вместо name
     document.getElementById('editModalUsername').value = user.username || user.name;
     document.getElementById('editModalEmail').value = user.email;
     document.getElementById('editModalRole').value = user.role;
@@ -725,7 +969,6 @@ function closeEditUserModal() {
 }
 
 function checkEditPasswordStrength(password) {
-    // Функцията може да се имплементира ако имате индикатор за сила на паролата
     if (!password) return;
 }
 
@@ -769,7 +1012,6 @@ async function saveEditedUser(event) {
     
     if (hasError) return;
     
-    // Проверка за съществуващо потребителско име
     const existingUserWithSameName = adminData.users?.find(u => 
         u.id !== currentEditingUserId && (u.username || u.name).toLowerCase() === username.toLowerCase()
     );
@@ -781,7 +1023,6 @@ async function saveEditedUser(event) {
         return;
     }
     
-    // Проверка за съществуващ имейл
     const existingUserWithSameEmail = adminData.users?.find(u => 
         u.id !== currentEditingUserId && u.email.toLowerCase() === email.toLowerCase()
     );
@@ -802,7 +1043,7 @@ async function saveEditedUser(event) {
         const originalUsername = originalUser.username || originalUser.name;
         
         if (username !== originalUsername) {
-            updates.username = username; // Изпращаме username вместо name
+            updates.username = username;
         }
         
         if (email !== originalUser.email) {
@@ -843,12 +1084,11 @@ async function saveEditedUser(event) {
         const index = adminData.users.findIndex(u => u.id === currentEditingUserId);
         
         if (index !== -1) {
-            // Обновяваме локалните данни
             adminData.users[index] = {
                 ...adminData.users[index],
                 ...(updates.username && { 
                     username: updates.username, 
-                    name: updates.username // Запазваме и name за съвместимост
+                    name: updates.username
                 }),
                 ...(updates.email && { email: updates.email }),
                 ...(updates.role !== undefined && { role: role }),
@@ -889,7 +1129,7 @@ function showAddUserModal() {
                 </div>
                 
                 <div class="modal-body">
-                    <form id="addUserModalForm" onsubmit="saveNewUser(event)">
+                    <form id="addUserModalForm" onsubmit="saveNewUser(event)" novalidate>
                         <div class="modal-form-group">
                             <label class="modal-form-label" for="modalUsername">
                                 <i class="fas fa-user"></i> Потребителско име
@@ -988,7 +1228,6 @@ function closeAddUserModal() {
 }
 
 function checkPasswordStrength(password) {
-    // Функцията може да се имплементира ако имате индикатор за сила на паролата
     if (!password) return;
 }
 
@@ -1030,7 +1269,6 @@ async function saveNewUser(event) {
     
     if (hasError) return;
     
-    // Проверка за съществуващо потребителско име
     if (adminData.users?.some(u => (u.username || u.name).toLowerCase() === username.toLowerCase())) {
         usernameInput.classList.add('error');
         showAlert('Потребител с това име вече съществува', 'error');
@@ -1038,7 +1276,6 @@ async function saveNewUser(event) {
         return;
     }
     
-    // Проверка за съществуващ имейл
     if (adminData.users?.some(u => u.email.toLowerCase() === email.toLowerCase())) {
         emailInput.classList.add('error');
         showAlert('Потребител с този имейл вече съществува', 'error');
@@ -1055,7 +1292,7 @@ async function saveNewUser(event) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: username, // Изпращаме username
+                username: username,
                 email: email,
                 password: password,
                 role: role === 'admin' ? 0 : 1
@@ -1071,7 +1308,7 @@ async function saveNewUser(event) {
         const newUser = {
             id: result.id || (adminData.users?.length || 0) + 1,
             username: username,
-            name: username, // За обратна съвместимост
+            name: username,
             email: email,
             role: role,
             initials: username.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || username.substring(0, 2).toUpperCase()
@@ -1092,82 +1329,145 @@ async function saveNewUser(event) {
     }
 }
 
-// ================ FILE UPLOAD ================
-function initFileUpload() {
-    const fileInput = document.getElementById('articleImage');
-    const uploadArea = document.getElementById('fileUploadArea');
-    const previewContainer = document.getElementById('imagePreviewContainer');
-    const preview = document.getElementById('imagePreview');
+// ================ МОДАЛ ЗА РЕДАКТИРАНЕ НА НОВИНА ================
+function showEditArticleModal(id) {
+    const article = adminData.articles?.find(a => a.id === id);
+    if (!article) return;
     
-    if (!fileInput || !uploadArea) return;
+    currentEditingArticleId = id;
     
-    uploadArea.addEventListener('click', () => {
-        fileInput.click();
-    });
+    let modalOverlay = document.getElementById('editArticleModalOverlay');
     
-    uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.style.borderColor = 'var(--neon-green)';
-        uploadArea.style.background = 'rgba(0, 255, 157, 0.1)';
-    });
-    
-    uploadArea.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        uploadArea.style.borderColor = 'rgba(0, 255, 157, 0.3)';
-        uploadArea.style.background = 'rgba(0, 255, 157, 0.03)';
-    });
-    
-    uploadArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadArea.style.borderColor = 'rgba(0, 255, 157, 0.3)';
-        uploadArea.style.background = 'rgba(0, 255, 157, 0.03)';
+    if (!modalOverlay) {
+        modalOverlay = document.createElement('div');
+        modalOverlay.id = 'editArticleModalOverlay';
+        modalOverlay.className = 'modal-overlay';
         
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-            handleImageFile(file);
-        } else {
-            showAlert('Моля, качете само изображения!', 'error');
-        }
-    });
-    
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            handleImageFile(file);
-        }
-    });
-}
-
-function handleImageFile(file) {
-    if (file.size > 5 * 1024 * 1024) {
-        showAlert('Файлът е твърде голям! Максимален размер: 5MB', 'error');
-        return;
+        modalOverlay.innerHTML = `
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h3><i class="fas fa-newspaper"></i>Редактиране на новина</h3>
+                    <button class="modal-close-btn" onclick="closeEditArticleModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="editArticleModalForm" onsubmit="saveEditedArticle(event)" novalidate>
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editArticleTitle">
+                                <i class="fas fa-heading"></i> Заглавие
+                            </label>
+                            <input type="text" 
+                                   id="editArticleTitle" 
+                                   class="modal-form-control" 
+                                   placeholder="Въведете заглавие на новината"
+                                   required 
+                                   minlength="3" 
+                                   maxlength="200">
+                        </div>
+                        
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editArticleContent">
+                                <i class="fas fa-align-left"></i> Съдържание
+                            </label>
+                            <textarea id="editArticleContent" 
+                                      class="modal-form-control" 
+                                      placeholder="Въведете съдържание на новината"
+                                      required
+                                      rows="8"
+                                      style="resize: vertical; min-height: 150px;"></textarea>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="modal-btn modal-btn-outline" onclick="closeEditArticleModal()">
+                                <i class="fas fa-times"></i> <span>Отказ</span>
+                            </button>
+                            <button type="submit" class="modal-btn modal-btn-primary">
+                                <i class="fas fa-save"></i> <span>Запази промените</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modalOverlay);
+        
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeEditArticleModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeEditArticleModal();
+            }
+        });
     }
     
-    currentImageFile = file;
+    document.getElementById('editArticleTitle').value = article.title || '';
+    document.getElementById('editArticleContent').value = article.description || article.content || '';
     
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const preview = document.getElementById('imagePreview');
-        const previewContainer = document.getElementById('imagePreviewContainer');
-        const uploadArea = document.getElementById('fileUploadArea');
-        
-        preview.src = e.target.result;
-        preview.classList.add('active');
-        previewContainer.style.display = 'block';
-        uploadArea.style.display = 'none';
-        showAlert('Изображението е качено успешно!', 'success');
-    };
-    reader.readAsDataURL(file);
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => {
+        document.getElementById('editArticleTitle')?.focus();
+    }, 100);
 }
 
-function removeImage() {
-    currentImageFile = null;
-    document.getElementById('articleImage').value = '';
-    document.getElementById('imagePreview').classList.remove('active');
-    document.getElementById('imagePreviewContainer').style.display = 'none';
-    document.getElementById('fileUploadArea').style.display = 'flex';
-    showAlert('Изображението е премахнато', 'info');
+function closeEditArticleModal() {
+    const modalOverlay = document.getElementById('editArticleModalOverlay');
+    if (modalOverlay) {
+        modalOverlay.classList.remove('active');
+        
+        const form = document.getElementById('editArticleModalForm');
+        if (form) form.reset();
+        
+        document.body.style.overflow = '';
+        currentEditingArticleId = null;
+    }
+}
+
+async function saveEditedArticle(event) {
+    event.preventDefault();
+    
+    if (!currentEditingArticleId) return;
+    
+    const titleInput = document.getElementById('editArticleTitle');
+    const contentInput = document.getElementById('editArticleContent');
+    
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
+    
+    let hasError = false;
+    
+    if (title.length < 3) {
+        titleInput.classList.add('error');
+        showAlert('Заглавието трябва да е поне 3 символа', 'error');
+        hasError = true;
+        setTimeout(() => titleInput.classList.remove('error'), 500);
+    }
+    
+    if (content.length < 10) {
+        contentInput.classList.add('error');
+        showAlert('Съдържанието трябва да е поне 10 символа', 'error');
+        hasError = true;
+        setTimeout(() => contentInput.classList.remove('error'), 500);
+    }
+    
+    if (hasError) return;
+    
+    try {
+        await updateArticle(currentEditingArticleId, title, content);
+        closeEditArticleModal();
+        showAlert('Новината е обновена успешно!', 'success');
+    } catch (error) {
+        console.error('Error saving article:', error);
+        showAlert('Грешка при запазване на новината', 'error');
+    }
 }
 
 // ================ ПАГИНАЦИЯ ================
@@ -1337,7 +1637,6 @@ function loadUsers() {
             ? '<span class="badge badge-admin"><i class="fas fa-shield-alt"></i> Админ</span>'
             : '<span class="badge badge-user"><i class="fas fa-user"></i> Потребител</span>';
         
-        // Използваме username за показване
         const displayName = user.username || user.name;
         
         tbody.innerHTML += `
@@ -1346,8 +1645,8 @@ function loadUsers() {
                     <div class="user-info">
                         <div class="user-avatar">${user.initials || 'П'}</div>
                         <div>
-                            <div class="user-name">${displayName}</div>
-                            <div class="user-email">${user.email}</div>
+                            <div class="user-name">${escapeHtml(displayName)}</div>
+                            <div class="user-email">${escapeHtml(user.email)}</div>
                         </div>
                     </div>
                 </td>
@@ -1385,16 +1684,29 @@ function loadArticles() {
     }
     
     articlesToShow.forEach(article => {
+        const authorBubble = `
+            <div class="author-bubble">
+                <i class="fas fa-pen-fancy"></i>
+                <span class="author-name">${escapeHtml(article.author)}</span>
+            </div>
+        `;
+        
         tbody.innerHTML += `
             <tr>
-                <td><strong>${article.title}</strong></td>
+                <td><strong>${escapeHtml(article.title)}</strong></td>
+                <td>${authorBubble}</td>
                 <td>${formatDate(article.date)}</td>
-                <td>${article.views || 0}</td>
                 <td>
                     <div class="action-buttons">
-                        <button class="action-btn edit" onclick="editArticle(${article.id})"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn delete" onclick="confirmDelete('article', ${article.id})"><i class="fas fa-trash"></i></button>
-                        <button class="action-btn view" onclick="viewArticle(${article.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn view" onclick="viewArticle(${article.id})" title="Преглед">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn edit" onclick="showEditArticleModal(${article.id})" title="Редактиране">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete" onclick="confirmDelete('article', ${article.id})" title="Изтриване">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </div>
                 </td>
             </tr>
@@ -1429,13 +1741,13 @@ function loadPosts() {
         tbody.innerHTML += `
             <tr>
                 <td>
-                    <strong>${post.title}</strong>
-                    <div style="font-size: 12px; color: #b0b0d0; margin-top: 5px;">${post.content.substring(0, 60)}...</div>
+                    <strong>${escapeHtml(post.title)}</strong>
+                    <div style="font-size: 12px; color: #b0b0d0; margin-top: 5px;">${escapeHtml(post.content.substring(0, 60))}...</div>
                 </td>
                 <td>
                     <div class="user-info">
                         <div class="user-avatar" style="width: 32px; height: 32px; font-size: 12px;">${authorInitials}</div>
-                        <div>${post.author}</div>
+                        <div>${escapeHtml(post.author)}</div>
                     </div>
                 </td>
                 <td>${formatDate(post.createdAt)}</td>
@@ -1446,9 +1758,12 @@ function loadPosts() {
                 </td>
                 <td>
                     <div class="action-buttons">
-                        <button class="action-btn edit" onclick="editPost(${post.id})"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn delete" onclick="confirmDeletePost(${post.id})"><i class="fas fa-trash"></i></button>
-                        <button class="action-btn view" onclick="viewPost(${post.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn delete" onclick="confirmDeletePost(${post.id})" title="Изтрий">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="action-btn view" onclick="viewPost(${post.id})" title="Преглед">
+                            <i class="fas fa-eye"></i>
+                        </button>
                     </div>
                 </td>
             </tr>
@@ -1458,23 +1773,30 @@ function loadPosts() {
     updatePagination('posts', adminData.posts?.length || 0);
 }
 
+// ================ ФУНКЦИЯ ЗА ОБНОВЯВАНЕ НА ПОСТОВЕТЕ ================
+function refreshPosts() {
+    fetchPosts();
+}
+
 function getInitials(name) {
     if (!name) return 'П';
     return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
 }
 
-// ================ ФУНКЦИИ ЗА ПОСТОВЕ ================
-function editPost(id) {
-    const post = adminData.posts?.find(p => p.id === id);
-    if (post) {
-        showAlert(`Редактиране на пост: ${post.title}`, 'info');
-    }
+// ================ ПОМОЩНА ФУНКЦИЯ ЗА ЕСКЕЙПВАНЕ НА HTML ================
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
+// ================ ФУНКЦИИ ЗА ПОСТОВЕ ================
 function viewPost(id) {
     const post = adminData.posts?.find(p => p.id === id);
     if (post) {
-        showAlert(`Преглед на пост: ${post.title}`, 'info');
+        showAlert(`Пренасочване към пост: ${post.title}`, 'info');
+        window.location.href = `forum_details.html?id=${id}`;
     }
 }
 
@@ -1484,13 +1806,9 @@ function confirmDeletePost(id) {
     
     document.getElementById('modalMessage').textContent = `Сигурни ли сте, че искате да изтриете поста "${post.title}"?`;
     
-    document.getElementById('confirmActionBtn').onclick = () => {
-        adminData.posts = adminData.posts?.filter(p => p.id !== id) || [];
-        pagination.posts.page = 1;
-        loadPosts();
-        loadStatistics();
+    document.getElementById('confirmActionBtn').onclick = async () => {
         closeModal();
-        showAlert('Постът е изтрит успешно!', 'success');
+        await deletePost(id);
     };
     
     openModal();
@@ -1504,13 +1822,11 @@ function showAddArticleForm() {
 function clearArticleForm() {
     document.getElementById('articleTitle').value = '';
     document.getElementById('articleContent').value = '';
-    document.getElementById('articleCategory').value = 'update';
-    removeImage();
     currentEditingArticleId = null;
     document.getElementById('articleFormTitle').textContent = 'Добави нова новина';
 }
 
-function saveArticle(event) {
+async function saveArticle(event) {
     event.preventDefault();
     
     const title = document.getElementById('articleTitle').value;
@@ -1521,72 +1837,33 @@ function saveArticle(event) {
         return;
     }
     
-    showAlert('Запазване на новината...', 'pending');
-    
-    if (currentImageFile) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            saveArticleWithImage(e.target.result, title, content);
-        };
-        reader.readAsDataURL(currentImageFile);
-    } else {
-        saveArticleWithImage(null, title, content);
-    }
-}
-
-function saveArticleWithImage(imageData, title, content) {
-    if (currentEditingArticleId) {
-        const index = adminData.articles.findIndex(a => a.id === currentEditingArticleId);
-        if (index !== -1) {
-            adminData.articles[index] = {
-                ...adminData.articles[index],
-                title,
-                content,
-                image: imageData || adminData.articles[index].image
-            };
-            showAlert('Новината е обновена успешно!', 'success');
-        }
-    } else {
-        const newArticle = {
-            id: (adminData.articles?.length || 0) + 1,
-            title,
-            content,
-            image: imageData,
-            date: new Date().toISOString().split('T')[0],
-            views: 0
-        };
-        adminData.articles = [newArticle, ...(adminData.articles || [])];
-        showAlert('Новината е добавена успешно!', 'success');
+    if (!content) {
+        showAlert('Моля, попълнете съдържание!', 'error');
+        return;
     }
     
-    pagination.articles.page = 1;
-    loadArticles();
-    loadStatistics();
-    clearArticleForm();
-    document.querySelector('[data-section="articles"]').click();
-}
-
-function editArticle(id) {
-    const article = adminData.articles?.find(a => a.id === id);
-    if (article) {
-        document.getElementById('articleTitle').value = article.title;
-        document.getElementById('articleContent').value = article.content || '';
-        currentEditingArticleId = id;
-        
-        if (article.image) {
-            const preview = document.getElementById('imagePreview');
-            const previewContainer = document.getElementById('imagePreviewContainer');
-            const uploadArea = document.getElementById('fileUploadArea');
-            
-            preview.src = article.image;
-            preview.classList.add('active');
-            previewContainer.style.display = 'block';
-            uploadArea.style.display = 'none';
+    if (title.trim().length < 3) {
+        showAlert('Заглавието трябва да е поне 3 символа!', 'error');
+        return;
+    }
+    
+    if (content.trim().length < 10) {
+        showAlert('Съдържанието трябва да е поне 10 символа!', 'error');
+        return;
+    }
+    
+    try {
+        if (currentEditingArticleId) {
+            await updateArticle(currentEditingArticleId, title, content);
+        } else {
+            await createArticle(title, content);
         }
         
-        document.getElementById('articleFormTitle').textContent = 'Редактирай новина';
-        document.querySelector('[data-section="add-article"]').click();
-        showAlert(`Редактиране на новина: ${article.title}`, 'info');
+        clearArticleForm();
+        document.querySelector('[data-section="articles"]').click();
+        
+    } catch (error) {
+        console.error('Error saving article:', error);
     }
 }
 
@@ -1613,7 +1890,7 @@ async function confirmDelete(type, id) {
     document.getElementById('modalMessage').textContent = message;
 
     document.getElementById('confirmActionBtn').onclick = async () => {
-        showAlert('Изтриване...', 'pending');
+        closeModal();
         
         try {
             if (type === 'user') {
@@ -1633,14 +1910,10 @@ async function confirmDelete(type, id) {
                 loadUsers();
                 showAlert('Потребителят е изтрит успешно!', 'success');
             } else {
-                adminData.articles = adminData.articles?.filter(a => a.id !== id) || [];
-                pagination.articles.page = 1;
-                loadArticles();
-                showAlert('Новината е изтрита успешно!', 'success');
+                await deleteArticle(id);
             }
 
             loadStatistics();
-            closeModal();
 
         } catch (error) {
             showAlert(error.message, 'error');

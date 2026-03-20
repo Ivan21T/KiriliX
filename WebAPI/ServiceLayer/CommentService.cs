@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using DataLayer;
 using Business_Layer;
 using ServiceLayer.DTOs;
-using AutoMapper;
-
+using BusinessLayer;
 namespace ServiceLayer
 {
     public class CommentService

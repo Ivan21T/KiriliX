@@ -1,4 +1,5 @@
-﻿using Business_Layer;
+﻿using BusinessLayer;
+using DataLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,7 @@ namespace DataLayer
                 throw new Exception("Коментарът не е намерен!");
             }
             _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<Comment>> ReadAllAsync(bool useNavigationProperties = false, bool isReadOnly = false)

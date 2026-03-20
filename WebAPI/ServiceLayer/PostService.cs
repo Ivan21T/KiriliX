@@ -6,7 +6,7 @@ using ServiceLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using BusinessLayer;
 namespace ServiceLayer
 {
     public class PostService

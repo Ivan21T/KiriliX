@@ -32,12 +32,14 @@ public class Program
         builder.Services.AddScoped<OTPCodeContext>();
         builder.Services.AddScoped<PostContext>();
         builder.Services.AddScoped<CommentContext>();
+        builder.Services.AddScoped<NewsContext>();
 
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<OTPCodeService>();
         builder.Services.AddScoped<EmailService>();
         builder.Services.AddScoped<PostService>();
         builder.Services.AddScoped<CommentService>();
+        builder.Services.AddScoped<NewsService>();
 
         builder.Services.AddControllers();
 

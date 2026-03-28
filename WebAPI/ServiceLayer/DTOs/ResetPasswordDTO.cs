@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.DTOs
 {
-     public class ResetPasswordDTO
-    {
-        public string Email { get; set; }
-        public string NewPassword { get; set; }
-    }
+    public record ResetPasswordDTO(
+       string Email,
+       string NewPassword
+   );
 }

@@ -1,0 +1,26 @@
+﻿using AutoMapper.Configuration.Annotations;
+using ServiceLayer.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BusinessLayer;
+
+namespace ServiceLayer.Mapper
+{
+    public static class Mapper
+    {
+        public static ReadUserDTO ToReadUserDTO(User user)
+        {
+            return new ReadUserDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role,
+                CreatedAt = user.CreatedAt
+            };
+        }
+    }
+}

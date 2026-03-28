@@ -3,11 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const forgotPasswordSubmit = document.getElementById('forgotPasswordSubmit');
     const forgotEmailInput = document.getElementById('forgot-email');
 
-    // Check if all required elements exist
-    if (!forgotPasswordForm || !forgotPasswordSubmit || !forgotEmailInput) {
-        console.error('Required form elements not found!');
-        return;
-    }
 
     forgotPasswordForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -15,11 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const email = forgotEmailInput.value.trim();
         
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const gmailRegex = /^[^\s@]+@gmail\.com$/i;
 
-        // Validate email
         if (!email) {
             showAlert('Моля, въведете имейл адрес.', 'error');
             forgotEmailInput.focus();
@@ -32,11 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        if (!gmailRegex.test(email)) {
-            showAlert('Моля, въведете Gmail имейл адрес.', 'error');
-            forgotEmailInput.focus();
-            return;
-        }
 
         forgotPasswordSubmit.disabled = true;
         forgotPasswordSubmit.classList.add('loading');
@@ -47,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const offset = -(new Date().getTimezoneOffset());
             
-            const apiUrl = `${window.API_CONFIG?.USER || '/api/user'}/otp-code?email=${encodeURIComponent(email)}&offsetTime=${offset}`;
+            const apiUrl = `${window.API_CONFIG?.USER}/otp-code?email=${encodeURIComponent(email)}&offsetTime=${offset}`;
             
             const response = await fetch(apiUrl, {
                 method: 'GET',
@@ -72,12 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 sessionStorage.setItem('resetEmail', email);
 
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                
-                window.location.href = '../HTML/one_time_password.html';
+                setTimeout(() => {
+                    window.location.href = '../HTML/one_time_password.html';
+                }, 5000);
                 
             } else {
-
                 let errorMessage = 'Грешка при изпращане на линк за възстановяване.';
                 
                 try {
@@ -106,9 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
     forgotEmailInput.addEventListener('blur', function() {
         const email = this.value.trim();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const gmailRegex = /^[^\s@]+@gmail\.com$/i;
         
-        if (email && (!emailRegex.test(email) || !gmailRegex.test(email))) {
+        if (email && !emailRegex.test(email)) {
             this.style.borderColor = '#ff4757';
         } else if (email) {
             this.style.borderColor = '#2ed573';

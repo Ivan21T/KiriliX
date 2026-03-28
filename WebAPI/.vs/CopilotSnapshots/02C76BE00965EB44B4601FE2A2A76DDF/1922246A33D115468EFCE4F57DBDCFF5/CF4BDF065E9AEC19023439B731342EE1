@@ -1,0 +1,228 @@
+﻿using Business_Layer.Enums;
+using BusinessLayer;
+using DataLayer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ServiceLayer;
+using ServiceLayer.DTOs;
+
+namespace WebAPI.Controllers
+{
+    [Route("users")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly UserService _userService;
+        private readonly OTPCodeService _otpCodeService;
+        private readonly JwtService _jwtService;
+
+        public UserController(
+            UserService userService,
+            OTPCodeService otpCodeService,
+            JwtService jwtService)
+        {
+            _userService = userService;
+            _otpCodeService = otpCodeService;
+            _jwtService = jwtService;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUsers()
+        {
+            try
+            {
+                List<User> users = await _userService.GetAllUsersAsync();
+                var userResponses = users.Select(u => new
+                {
+                    u.Id,
+                    u.Username,
+                    u.Email,
+                    u.Role
+                });
+                return Ok(userResponses);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp([FromBody] SignUpRequestDTO request)
+        {
+            try
+            {
+                var user = new User
+                {
+                    Username = request.Username,
+                    Email = request.Email,
+                    Password = request.Password,
+                    Role = (Role)request.Role
+                };
+
+                await _userService.CreateUserAsync(user);
+                return Ok(new { message = "Потребителят е създаден успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
+        {
+            try
+            {
+                if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+                {
+                    return BadRequest(new { message = "Имейл и парола са задължителни!" });
+                }
+
+                User user = await _userService.SignIn(request.Email, request.Password);
+                var token = _jwtService.GenerateToken(user);
+
+                return Ok(new
+                {
+                    message = "Успешно влизане!",
+                    token = token,
+                    user = new ReadUserDTO(user.Id, user.Username, user.Email, user.Role)
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("current-user")]
+        [Authorize]
+        public IActionResult GetCurrentUser()
+        {
+            var userInfo = _jwtService.GetUserInfoFromToken(User);
+            if (userInfo == null)
+            {
+                return Unauthorized(new { message = "Не сте логнат" });
+            }
+
+            return Ok(userInfo);
+        }
+
+        [HttpGet("otp-code")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetOTPCode([FromQuery] string email, int offsetTime)
+        {
+            try
+            {
+                if (await _userService.GetUserByEmailForSignUp(email) == null)
+                {
+                    return BadRequest(new { message = "Потребителят не е намерен" });
+                }
+                await _otpCodeService.GenerateAndSendOTPAsync(email, offsetTime);
+
+                return Ok(new { message = "OTP кодът е изпратен успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("resend")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResendOTPCode([FromQuery] string email, int offsetTime)
+        {
+            try
+            {
+                await _otpCodeService.ResendAsync(email, offsetTime);
+                return Ok(new { message = "OTP кодът е препратен успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("verify")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyOTPCode([FromBody] CheckOtpDTO checkOtp)
+        {
+            try
+            {
+                if (await _otpCodeService.Verify(checkOtp))
+                {
+                    return Ok(new { message = "OTP кодът е валиден!" });
+                }
+                else
+                {
+                    return BadRequest(new { message = "OTP кодът е невалиден или изтекъл!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("reset-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        {
+            try
+            {
+                await _userService.ResetPassword(resetPasswordDTO);
+                return Ok(new { message = "Паролата е нулирана успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        {
+            try
+            {
+                await _userService.UpdateUserAsync(user);
+                return Ok(new { message = "Потребителят е обновен успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPatch("{id}")]
+        [Authorize]
+        public async Task<IActionResult> PatchUser(int id, [FromBody] Dictionary<string, object> updates)
+        {
+            try
+            {
+                if (updates == null || updates.Count == 0)
+                {
+                    return BadRequest(new { message = "Няма подадени полета за обновяване!" });
+                }
+
+                await _userService.PatchUserAsync(id, updates);
+                return Ok(new { message = "Потребителят е обновен успешно!" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+    }
+}

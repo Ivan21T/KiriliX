@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.DTOs
 {
-    public class LoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    public record SignUpRequestDTO(
+       string Username,
+       string Email,
+       string Password,
+       int Role
+   );
 }

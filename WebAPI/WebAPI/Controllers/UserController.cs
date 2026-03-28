@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ServiceLayer;
-using DataLayer;
-using ServiceLayer.DTOs;
+﻿using Business_Layer.Enums;
 using BusinessLayer;
+using DataLayer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ServiceLayer;
+using ServiceLayer.DTOs;
+using ServiceLayer.Mapper;
+
 namespace WebAPI.Controllers
 {
     [Route("users")]
@@ -11,29 +15,42 @@ namespace WebAPI.Controllers
     {
         private readonly UserService _userService;
         private readonly OTPCodeService _otpCodeService;
-        public UserController(UserService userService, OTPCodeService otpCodeService)
+        private readonly JwtService _jwtService;
+
+        public UserController(
+            UserService userService,
+            OTPCodeService otpCodeService,
+            JwtService jwtService)
         {
             _userService = userService;
             _otpCodeService = otpCodeService;
+            _jwtService = jwtService;
         }
+
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetUsers()
         {
             try
             {
                 List<User> users = await _userService.GetAllUsersAsync();
-                return Ok(users);
+                var userResponses = users.Select(u => Mapper.ToReadUserDTO(u));
+                return Ok(userResponses);
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromBody] User user)
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp([FromBody] SignUpRequestDTO request)
         {
             try
             {
+                var user = Mapper.ToUser(request);
+
                 await _userService.CreateUserAsync(user);
                 return Ok(new { message = "Потребителят е създаден успешно!" });
             }
@@ -41,10 +58,11 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
         }
+
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
             try
             {
@@ -54,10 +72,13 @@ namespace WebAPI.Controllers
                 }
 
                 User user = await _userService.SignIn(request.Email, request.Password);
+                var token = await _jwtService.GenerateTokenAsync(user);
+
                 return Ok(new
                 {
                     message = "Успешно влизане!",
-                    user = user
+                    token = token,
+                    user =Mapper.ToReadUserDTO(user)
                 });
             }
             catch (Exception ex)
@@ -65,44 +86,57 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("current-user")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userInfo = await _jwtService.GetUserInfoFromTokenAsync(User);
+            if (userInfo == null)
+            {
+                return Unauthorized(new { message = "Не сте логнат" });
+            }
+
+            return Ok(userInfo);
+        }
+
         [HttpGet("otp-code")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetOTPCode([FromQuery] string email, int offsetTime)
         {
             try
             {
-                if (await _userService.GetUserByEmail(email) == null)
+                if (await _userService.GetUserByEmailForSignUp(email) == null)
                 {
-                    return BadRequest();
+                    return BadRequest(new { message = "Потребителят не е намерен" });
                 }
-                var otpCode = await _otpCodeService.GenerateAndSendOTPAsync(email, offsetTime);
+                await _otpCodeService.GenerateAndSendOTPAsync(email, offsetTime);
 
-                return Ok(new
-                {
-                    message = "OTP кодът е изпратен успешно!"
-                });
+                return Ok(new { message = "OTP кодът е изпратен успешно!" });
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpGet("resend")]
+        [AllowAnonymous]
         public async Task<IActionResult> ResendOTPCode([FromQuery] string email, int offsetTime)
         {
             try
             {
-                var otpCode = await _otpCodeService.ResendAsync(email, offsetTime);
-                return Ok(new
-                {
-                    message = "OTP кодът е препратен успешно!"
-                });
+                await _otpCodeService.ResendAsync(email, offsetTime);
+                return Ok(new { message = "OTP кодът е препратен успешно!" });
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPost("verify")]
+        [AllowAnonymous]
         public async Task<IActionResult> VerifyOTPCode([FromBody] CheckOtpDTO checkOtp)
         {
             try
@@ -121,7 +155,9 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPost("reset-password")]
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
         {
             try
@@ -134,7 +170,9 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
             try
@@ -147,7 +185,9 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPatch("{id}")]
+        [Authorize]
         public async Task<IActionResult> PatchUser(int id, [FromBody] Dictionary<string, object> updates)
         {
             try

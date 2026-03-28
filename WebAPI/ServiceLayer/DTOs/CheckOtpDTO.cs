@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.DTOs
 {
-    public class CheckOtpDTO
-    {
-        public string Email { get; set; }
-        public string Code { get; set; }
-        public DateTime Time { get; set; }
-    }
+    public record CheckOtpDTO(
+        string Email,
+        string Code,
+        DateTime Time
+    );
 }

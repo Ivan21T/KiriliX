@@ -7,28 +7,37 @@ class Header extends HTMLElement {
         this.checkSession();
     }
 
-    checkSession() {
-        // Взимаме потребителя от sessionStorage
-        const userJson = sessionStorage.getItem('user');
-        
-        if (userJson && userJson !== 'undefined' && userJson !== 'null') {
-            try {
-                this.userData = JSON.parse(userJson);
+    async checkSession() {
+        try {
+            // Проверяваме сесията от сървъра
+            const response = await fetch('https://localhost:7090/users/current-user', {
+                credentials: 'include' // Важно за сесиите!
+            });
+            
+            if (response.ok) {
+                const user = await response.json();
                 this.isLoggedIn = true;
-                
-                // Генерираме първа буква ако я няма
-                if (this.userData && this.userData.name && !this.userData.firstLetter) {
-                    this.userData.firstLetter = this.userData.name.charAt(0).toUpperCase();
-                }
-            } catch (e) {
-                console.error('Грешка при парсване на user data:', e);
+                this.userData = {
+                    id: user.Id,
+                    name: user.Username,
+                    email: user.Email,
+                    role: user.Role,
+                    firstLetter: user.Username ? user.Username.charAt(0).toUpperCase() : 'U'
+                };
+            } else {
                 this.isLoggedIn = false;
                 this.userData = null;
-                sessionStorage.removeItem('user');
             }
-        } else {
+        } catch (error) {
+            console.log('Не е логнат или грешка:', error);
             this.isLoggedIn = false;
             this.userData = null;
+        }
+        
+        // Ако компонентът вече е рендериран, обновяваме UI
+        if (this.isConnected) {
+            this.render();
+            this.addEventListeners();
         }
     }
 
@@ -36,32 +45,20 @@ class Header extends HTMLElement {
         this.render();
         this.addEventListeners();
         
-        // Слушаме за промени в sessionStorage
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'user') {
-                this.checkSession();
-                this.render();
-                this.addEventListeners();
-            }
-        });
+        // Проверяваме сесията на всеки 30 секунди
+        this.sessionInterval = setInterval(() => {
+            this.checkSession();
+        }, 30000);
+    }
 
-        // Периодична проверка за промени
-        let lastUser = sessionStorage.getItem('user');
-        setInterval(() => {
-            const currentUser = sessionStorage.getItem('user');
-            if (currentUser !== lastUser) {
-                lastUser = currentUser;
-                this.checkSession();
-                this.render();
-                this.addEventListeners();
-            }
-        }, 500);
+    disconnectedCallback() {
+        // Почистваме интервала при премахване на компонента
+        if (this.sessionInterval) {
+            clearInterval(this.sessionInterval);
+        }
     }
 
     render() {
-        // Проверяваме сесията преди рендер
-        this.checkSession();
-        
         this.innerHTML = `
             <style>
                 :host {
@@ -405,7 +402,6 @@ class Header extends HTMLElement {
                         display: flex;
                     }
                     
-                    /* Максимално доближаване до хамбургер менюто */
                     .nav-actions {
                         margin-right: -10px;
                         gap: 0;
@@ -639,6 +635,23 @@ class Header extends HTMLElement {
             mobileDownloadBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.location.href = '../HTML/download.html';
+            });
+        }
+
+        // Logout button (ако имаш такъв)
+        const logoutBtn = this.querySelector('#logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await fetch('https://localhost:7090/users/logout', {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+                    window.location.href = '../HTML/index.html';
+                } catch (error) {
+                    console.error('Грешка при изход:', error);
+                }
             });
         }
     }

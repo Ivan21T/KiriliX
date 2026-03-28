@@ -260,8 +260,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "BusinessLayer.User",
+        "Name": "request",
+        "Type": "ServiceLayer.DTOs.SignUpRequestDTO",
         "IsRequired": true
       }
     ],
@@ -306,6 +306,16 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "GetCurrentUser",
+    "RelativePath": "users/current-user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "users/login",
     "HttpMethod": "POST",
@@ -314,7 +324,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ServiceLayer.DTOs.LoginRequest",
+        "Type": "ServiceLayer.DTOs.LoginRequestDTO",
         "IsRequired": true
       }
     ],

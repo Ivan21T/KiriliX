@@ -1,11 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const modeBtns = document.querySelectorAll('.mode-btn');
     const modeIndicator = document.getElementById('modeIndicator');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
 
+    const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
     modeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             const mode = btn.getAttribute('data-mode');
             
             modeBtns.forEach(b => b.classList.remove('active'));
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.querySelectorAll('.toggle-password').forEach(toggleBtn => {
-        toggleBtn.addEventListener('click', function() {
+        toggleBtn.addEventListener('click', async function() {
             const targetId = this.getAttribute('data-target');
             const passwordInput = document.getElementById(targetId);
             
@@ -72,11 +74,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) {
                 showAlert(data.message || 'Възникна грешка', 'error');
             } else {
+                authToken = data.token;
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
                 showAlert(data.message, 'success');
-                modeBtns[0].click();
-                sessionStorage.setItem("user", JSON.stringify(data.user))
-                this.reset();
-                window.location.href="../HTML/index.html"
+                await modeBtns[0].click();
+                await this.reset();
+                window.location.href = "../HTML/index.html";
             }
 
             submitBtn.classList.remove('loading');
@@ -90,70 +95,85 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('registerForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const username = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const password = document.getElementById('register-password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-        
-        if (!username || !email || !password || !confirmPassword) {
-            showAlert('Моля, попълнете всички полета!', 'error');
-            return;
+    e.preventDefault();
+    
+    const username = this.querySelector('input[type="text"]').value;
+    const email = this.querySelector('input[type="email"]').value;
+    const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    
+    if (!username || !email || !password || !confirmPassword) {
+        showAlert('Моля, попълнете всички полета!', 'error');
+        return;
+    }
+    
+    const allowedDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'protonmail.com', 'proton.me'];
+    const emailDomain = email.split('@')[1]?.toLowerCase();
+    
+    if (!emailDomain || !allowedDomains.includes(emailDomain)) {
+        showAlert('Моля, използвайте имейл адрес от Gmail, Yahoo, Outlook или ProtonMail!', 'error');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        showAlert('Паролите не съвпадат!', 'error');
+        return;
+    }
+    
+    if (!PASSWORD_REGEX.test(password)) {
+        showAlert('Паролата трябва да съдържа поне 8 символа, включително малка буква, голяма буква, цифра и специален символ!', 'error');
+        return;
+    }
+    
+    const submitBtn = document.getElementById('registerSubmit');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    showAlert('Създаване на акаунт...', 'pending');
+    
+    try {
+        const response = await fetch(API_CONFIG.USER, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+                role: 1
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            showAlert(data.message || 'Възникна грешка', 'error');
+        } else {
+            showAlert(data.message, 'success');
+            await modeBtns[0].click();
+            await this.reset();
         }
-        
-        if (password !== confirmPassword) {
-            showAlert('Паролите не съвпадат!', 'error');
-            return;
-        }
-        
-        if (password.length < 8) {
-            showAlert('Паролата трябва да е поне 8 символа!', 'error');
-            return;
-        }
-        
-        const submitBtn = document.getElementById('registerSubmit');
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
-        
-        showAlert('Създаване на акаунт...', 'pending');
-        
-        try {
-            const response = await fetch(API_CONFIG.USER, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username,
-                    email,
-                    password,
-                    role:1
-                })
-            });
 
-            const data = await response.json();
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
 
-            if (!response.ok) {
-                showAlert(data.message || 'Възникна грешка', 'error');
-            } else {
-                showAlert(data.message, 'success');
-                modeBtns[0].click();
-                this.reset();
-            }
+    } catch (error) {
+        showAlert('Грешка при връзка със сървъра', 'error');
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }
+});
 
-            submitBtn.classList.remove('loading');
-            submitBtn.disabled = false;
-
-        } catch (error) {
-            showAlert('Грешка при връзка със сървъра', 'error');
-            submitBtn.classList.remove('loading');
-            submitBtn.disabled = false;
-        }
-    });
-
-    document.querySelector('.forgot-password').addEventListener('click', function(e) {
+    document.querySelector('.forgot-password').addEventListener('click', async function(e) {
         e.preventDefault();
         window.location.href = "../HTML/forgot_password.html";
     });
 });
+
+async function logout() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    authToken = null;
+    window.location.href = "../HTML/login.html";
+}

@@ -85,3 +85,11 @@ C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debu
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.genruntimeconfig.cache
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\ref\WebAPI.dll
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\WebAPI.staticwebassets.runtime.json
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll

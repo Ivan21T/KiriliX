@@ -175,8 +175,8 @@ document.addEventListener("DOMContentLoaded", function() {
         showAlert('Проверяваме кода...', 'pending');
         
         try {
-            const apiUrl = `${window.API_CONFIG?.USER}/verify`;
-            
+            const apiUrl = `${window.API_CONFIG.USER}/verify`;
+            console.log(enteredCode)
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 },
                 body: JSON.stringify({
                     email: email,
-                    otpCode: enteredCode
+                    code: enteredCode
                 })
             });
             

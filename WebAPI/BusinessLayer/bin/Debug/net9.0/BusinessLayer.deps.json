@@ -18,6 +18,9 @@
         }
       },
       "AutoMapper/12.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
         "runtime": {
           "lib/netstandard2.1/AutoMapper.dll": {
             "assemblyVersion": "12.0.0.0",
@@ -55,7 +58,8 @@
       },
       "MailKit/4.14.1": {
         "dependencies": {
-          "MimeKit": "4.14.0"
+          "MimeKit": "4.14.0",
+          "System.Formats.Asn1": "8.0.1"
         },
         "runtime": {
           "lib/net8.0/MailKit.dll": {
@@ -64,9 +68,11 @@
           }
         }
       },
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.EntityFrameworkCore/9.0.11": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "9.0.11",
+          "Microsoft.EntityFrameworkCore.Analyzers": "9.0.11",
           "Microsoft.Extensions.Caching.Memory": "9.0.11",
           "Microsoft.Extensions.Logging": "9.0.11"
         },
@@ -85,6 +91,7 @@
           }
         }
       },
+      "Microsoft.EntityFrameworkCore.Analyzers/9.0.11": {},
       "Microsoft.Extensions.Caching.Abstractions/9.0.11": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.11"
@@ -186,6 +193,7 @@
           }
         }
       },
+      "System.Formats.Asn1/8.0.1": {},
       "System.Security.Cryptography.Pkcs/8.0.1": {
         "runtime": {
           "lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
@@ -245,6 +253,13 @@
       "path": "mailkit/4.14.1",
       "hashPath": "mailkit.4.14.1.nupkg.sha512"
     },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
+    },
     "Microsoft.EntityFrameworkCore/9.0.11": {
       "type": "package",
       "serviceable": true,
@@ -258,6 +273,13 @@
       "sha512": "sha512-MHcdHm7vF71MfqYC68Jx9YfDAjxcuClGBZJk5zcJDRhVO4HgX+QFsOqcAisKWb20aBeF0IN1YkSktnEUf/tmLQ==",
       "path": "microsoft.entityframeworkcore.abstractions/9.0.11",
       "hashPath": "microsoft.entityframeworkcore.abstractions.9.0.11.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Analyzers/9.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ccEk88YkXXWV+s5ZS+27UoY5YUVzgx8mq7kl+e05+AgJPGLhtmpQL26LxqBV1StJZEl2KaL8BxzABvXTXBAkoQ==",
+      "path": "microsoft.entityframeworkcore.analyzers/9.0.11",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.9.0.11.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/9.0.11": {
       "type": "package",
@@ -321,6 +343,13 @@
       "sha512": "sha512-g0LtsMC8DCTkc030C3UgVqbltOJmV5cz4AX8ASowz2ZA+lxopXSYtC1XXYmenxy606aWFLwi5Xy4cC/zyYjbjQ==",
       "path": "mimekit/4.14.0",
       "hashPath": "mimekit.4.14.0.nupkg.sha512"
+    },
+    "System.Formats.Asn1/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XqKba7Mm/koKSjKMfW82olQdmfbI5yqeoLV/tidRp7fbh5rmHAQ5raDI/7SU0swTzv+jgqtUGkzmFxuUg0it1A==",
+      "path": "system.formats.asn1/8.0.1",
+      "hashPath": "system.formats.asn1.8.0.1.nupkg.sha512"
     },
     "System.Security.Cryptography.Pkcs/8.0.1": {
       "type": "package",

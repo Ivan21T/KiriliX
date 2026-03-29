@@ -72,6 +72,13 @@ namespace WebAPI.Controllers
                 }
 
                 User user = await _userService.SignIn(request.Email, request.Password);
+                if(user.Role==Role.Admin)
+                {
+                    return Ok(new
+                    {
+                        user = Mapper.ToReadUserDTO(user)
+                    });
+                }
                 var token = await _jwtService.GenerateTokenAsync(user);
 
                 return Ok(new

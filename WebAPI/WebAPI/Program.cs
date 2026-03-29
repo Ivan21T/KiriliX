@@ -1,16 +1,18 @@
+using InfrastructureLayer;
 using Business_Layer;
 using DataLayer;
-using Microsoft.EntityFrameworkCore;
-using ServiceLayer;
+using DataLayer.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ServiceLayer;
 using System.Text;
 
 namespace WebAPI;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +56,8 @@ public class Program
         });
 
         // Register services
+        builder.Services.AddSingleton<IDbSeeder, DbSeeder>();
+
         builder.Services.AddScoped<UserContext>();
         builder.Services.AddScoped<OTPCodeContext>();
         builder.Services.AddScoped<PostContext>();
@@ -67,11 +71,18 @@ public class Program
         builder.Services.AddScoped<CommentService>();
         builder.Services.AddScoped<NewsService>();
         builder.Services.AddScoped<JwtService>();
+        builder.Services.AddScoped<AdminService>();
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
 
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var seeder = scope.ServiceProvider.GetRequiredService<IDbSeeder>();
+            await seeder.SeedDataAsync();
+        }
 
         if (app.Environment.IsDevelopment())
         {

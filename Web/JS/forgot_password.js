@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 showAlert(
-                    `Линк за възстановяване на паролата е изпратен на ${email}. Проверете пощата си.`,
+                    `Код за възстановяване на паролата е изпратен на ${email}. Проверете пощата си.`,
                     'success'
                 );
 

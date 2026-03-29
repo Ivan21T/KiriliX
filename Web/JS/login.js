@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
 
-    const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
     modeBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
@@ -70,18 +70,74 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
 
             const data = await response.json();
-
             if (!response.ok) {
                 showAlert(data.message || 'Възникна грешка', 'error');
             } else {
-                authToken = data.token;
-                localStorage.setItem('authToken', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                
-                showAlert(data.message, 'success');
-                await modeBtns[0].click();
-                await this.reset();
-                window.location.href = "../HTML/index.html";
+                if(data.user && data.user.role==0){
+                    await modeBtns[0].click();
+                    await this.reset();
+                    try {
+                            const loadingAlert = showAlert('Изпращане на линк с код за автентикация ...', 'pending');
+
+                            const offset = -(new Date().getTimezoneOffset());
+                            
+                            const apiUrl = `${window.API_CONFIG?.ADMIN}/otp-code?email=${encodeURIComponent(email)}&offsetTime=${offset}`;
+                            
+                            const response = await fetch(apiUrl, {
+                                method: 'GET',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+
+                            await new Promise(resolve => setTimeout(resolve, 1500));
+
+                            if (loadingAlert && loadingAlert.parentNode) {
+                                loadingAlert.classList.remove('show');
+                                setTimeout(() => loadingAlert.remove(), 300);
+                            }
+
+                            if (response.ok) {
+                                showAlert(
+                                    `Код за възстановяване на паролата е изпратен на ${email}. Проверете пощата си.`,
+                                    'success'
+                                );
+
+                                sessionStorage.setItem('adminEmail', email);
+
+                                setTimeout(() => {
+                                    window.location.href = '../HTML/admin_code.html';
+                                }, 5000);
+                                
+                            } else {
+                                let errorMessage = 'Грешка при изпращане на линк за възстановяване.';
+                                
+                                try {
+                                    const result = await response.json();
+                                    errorMessage = result.message || errorMessage;
+                                } catch (parseError) {
+                                    console.error('Error parsing response:', parseError);
+                                }
+                                
+                                showAlert(errorMessage, 'error');
+                                
+                            }
+                            
+                        } catch (error) {
+                            showAlert('Грешка при свързване със сървъра. Моля, опитайте отново.', 'error');
+                        }
+                }
+                else{
+                    authToken = data.token;
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    showAlert(data.message, 'success');
+                    await modeBtns[0].click();
+                    await this.reset();
+                    window.location.href = "../HTML/index.html";
+                }
             }
 
             submitBtn.classList.remove('loading');

@@ -1,64 +1,117 @@
-// Header custom web component WITHOUT Shadow DOM
 class Header extends HTMLElement {
     constructor() {
         super();
         this.isLoggedIn = false;
         this.userData = null;
+        this.isAdmin = false;
         this.checkSession();
+    }
+
+    // Декодиране на JWT токен (синхронна операция - няма нужда от async)
+    decodeJWT(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            
+            return JSON.parse(jsonPayload);
+        } catch (error) {
+            console.error('Error decoding JWT:', error);
+            return null;
+        }
+    }
+
+    // Извличане на потребителски данни директно от токена (синхронна)
+    extractUserFromToken(token) {
+        if (!token) return null;
+        
+        const decoded = this.decodeJWT(token);
+        if (!decoded) return null;
+        
+        // Проверка за изтичане на токена
+        const currentTime = Date.now() / 1000;
+        if (decoded.exp && decoded.exp < currentTime) {
+            return null;
+        }
+        
+        return {
+            id: decoded.Id || decoded.id || decoded.userId,
+            name: decoded.Username || decoded.username || decoded.name,
+            email: decoded.Email || decoded.email,
+            role: decoded.Role || decoded.role,
+            firstLetter: (decoded.Username || decoded.username || decoded.name || 'U').charAt(0).toUpperCase()
+        };
     }
 
     async checkSession() {
         try {
-            // Проверяваме сесията от сървъра
-            const response = await fetch('https://localhost:7090/users/current-user', {
-                credentials: 'include' // Важно за сесиите!
-            });
+            const token = localStorage.getItem('authToken');
             
-            if (response.ok) {
-                const user = await response.json();
+            if (!token) {
+                await this.clearSession();
+                if (this.isConnected) {
+                    await this.render();
+                    await this.addEventListeners();
+                }
+                return;
+            }
+            
+            // Извличане на данни директно от токена
+            const userData = this.extractUserFromToken(token);
+            
+            if (userData) {
                 this.isLoggedIn = true;
-                this.userData = {
-                    id: user.Id,
-                    name: user.Username,
-                    email: user.Email,
-                    role: user.Role,
-                    firstLetter: user.Username ? user.Username.charAt(0).toUpperCase() : 'U'
-                };
+                this.userData = userData;
+                this.isAdmin = (userData.role === 0 || userData.role === '0');
             } else {
-                this.isLoggedIn = false;
-                this.userData = null;
+                // Токенът е невалиден или изтекъл
+                await this.clearSession();
             }
         } catch (error) {
-            console.log('Не е логнат или грешка:', error);
-            this.isLoggedIn = false;
-            this.userData = null;
+            console.error('Session check error:', error);
+            await this.clearSession();
         }
         
-        // Ако компонентът вече е рендериран, обновяваме UI
         if (this.isConnected) {
-            this.render();
-            this.addEventListeners();
+            await this.render();
+            await this.addEventListeners();
         }
     }
 
-    connectedCallback() {
-        this.render();
-        this.addEventListeners();
+    async clearSession() {
+        this.isLoggedIn = false;
+        this.userData = null;
+        this.isAdmin = false;
+        localStorage.removeItem('authToken');
+        return Promise.resolve();
+    }
+
+    async connectedCallback() {
+        await this.render();
+        await this.addEventListeners();
         
-        // Проверяваме сесията на всеки 30 секунди
-        this.sessionInterval = setInterval(() => {
-            this.checkSession();
+        // Проверка на сесията на всеки 30 секунди за изтекъл токен
+        this.sessionInterval = setInterval(async () => {
+            await this.checkSession();
         }, 30000);
+        
+        // Слушаме само за промени в authToken
+        window.addEventListener('storage', async (e) => {
+            if (e.key === 'authToken') {
+                await this.checkSession();
+            }
+        });
     }
 
     disconnectedCallback() {
-        // Почистваме интервала при премахване на компонента
         if (this.sessionInterval) {
             clearInterval(this.sessionInterval);
         }
     }
 
-    render() {
+    async render() {
         this.innerHTML = `
             <style>
                 :host {
@@ -184,6 +237,17 @@ class Header extends HTMLElement {
                     width: 100%;
                 }
                 
+                .admin-link {
+                    background: linear-gradient(135deg, var(--neon-green), var(--purple));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: 600;
+                }
+                
+                .admin-link::after {
+                    background: linear-gradient(90deg, var(--neon-green), var(--purple));
+                }
+                
                 .nav-actions {
                     display: flex;
                     gap: 1rem;
@@ -281,6 +345,15 @@ class Header extends HTMLElement {
                     background: linear-gradient(135deg, var(--neon-green), #00ff9d);
                 }
                 
+                .btn-danger {
+                    background: linear-gradient(135deg, var(--neon-red), var(--red));
+                    color: var(--white);
+                }
+                
+                .desktop-logout-btn {
+                    display: inline-flex;
+                }
+                
                 .mobile-menu-toggle {
                     display: none;
                     flex-direction: column;
@@ -368,6 +441,12 @@ class Header extends HTMLElement {
                     border-bottom-color: var(--neon-green);
                 }
                 
+                .mobile-admin-link {
+                    background: linear-gradient(135deg, var(--neon-green), var(--purple));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                
                 .mobile-nav-actions {
                     display: flex;
                     flex-direction: column;
@@ -388,8 +467,11 @@ class Header extends HTMLElement {
                     font-size: 1.1rem;
                 }
                 
-                /* Responsive styles */
                 @media (max-width: 768px) {
+                    .desktop-logout-btn {
+                        display: none !important;
+                    }
+                    
                     .nav-links {
                         display: none;
                     }
@@ -513,16 +595,14 @@ class Header extends HTMLElement {
                         KiriliX
                     </a>
                     <div class="nav-links">
-                        <a href="../HTML/docs.html" class="nav-link">Документация</a>
-                        <a href="../HTML/news.html" class="nav-link">Новини</a>
-                        <a href="../HTML/forum.html" class="nav-link">Форум</a>
-                        <a href="../HTML/contact.html" class="nav-link">Контакти</a>
+                        ${await this.renderNavLinks()}
                     </div>
                     <div class="nav-actions">
                         <div id="user-section">
-                            ${this.isLoggedIn ? this.renderUserIcon() : this.renderLoginButton()}
+                            ${this.isLoggedIn ? await this.renderUserIcon() : await this.renderLoginButton()}
                         </div>
                         ${!this.isLoggedIn ? `<button class="btn btn-primary" id="download-btn">Изтегли</button>` : ''}
+                        ${this.isLoggedIn ? await this.renderLogoutButton() : ''}
                     </div>
                     <button class="mobile-menu-toggle" id="mobileMenuToggle">
                         <span></span>
@@ -533,22 +613,79 @@ class Header extends HTMLElement {
                 
                 <div class="mobile-menu" id="mobileMenu">
                     <div class="mobile-nav-links">
-                        <a href="../HTML/features.html" class="mobile-nav-link">Възможности</a>
-                        <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
-                        <a href="../HTML/forum.html" class="mobile-nav-link">Блог</a>
-                        <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
+                        ${await this.renderMobileNavLinks()}
                     </div>
                     <div class="mobile-nav-actions" id="mobileUserSection">
                         ${!this.isLoggedIn ? `
                             <button class="btn btn-outline mobile-login-btn">Вход</button>
                             <button class="btn btn-primary mobile-download-btn">Изтегли</button>
                         ` : `
+                            ${await this.renderMobileLogoutButton()}
                             <button class="btn btn-primary mobile-download-btn">Изтегли</button>
                         `}
                     </div>
                 </div>
             </header>
         `;
+        return Promise.resolve();
+    }
+
+    async renderNavLinks() {
+        if (this.isAdmin) {
+            return `
+                <a href="../HTML/index.html" class="nav-link">Начало</a>
+                <a href="../HTML/docs.html" class="nav-link">Документация</a>
+                <a href="../HTML/forum.html" class="nav-link">Форум</a>
+                <a href="../HTML/admin.html" class="nav-link admin-link">
+                    <i class="fas fa-user-shield"></i> Админ Панел
+                </a>
+                <a href="../HTML/contact.html" class="nav-link">Контакти</a>
+            `;
+        } else if (this.isLoggedIn) {
+            return `
+                <a href="../HTML/index.html" class="nav-link">Начало</a>
+                <a href="../HTML/docs.html" class="nav-link">Документация</a>
+                <a href="../HTML/forum.html" class="nav-link">Форум</a>
+                <a href="../HTML/profile.html" class="nav-link">Профил</a>
+                <a href="../HTML/contact.html" class="nav-link">Контакти</a>
+            `;
+        } else {
+            return `
+                <a href="../HTML/index.html" class="nav-link">Начало</a>
+                <a href="../HTML/docs.html" class="nav-link">Документация</a>
+                <a href="../HTML/forum.html" class="nav-link">Форум</a>
+                <a href="../HTML/contact.html" class="nav-link">Контакти</a>
+            `;
+        }
+    }
+
+    async renderMobileNavLinks() {
+        if (this.isAdmin) {
+            return `
+                <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
+                <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
+                <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
+                <a href="../HTML/admin.html" class="mobile-nav-link mobile-admin-link">
+                    <i class="fas fa-user-shield"></i> Админ Панел
+                </a>
+                <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
+            `;
+        } else if (this.isLoggedIn) {
+            return `
+                <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
+                <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
+                <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
+                <a href="../HTML/profile.html" class="mobile-nav-link">Профил</a>
+                <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
+            `;
+        } else {
+            return `
+                <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
+                <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
+                <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
+                <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
+            `;
+        }
     }
 
     getFirstLetter() {
@@ -558,7 +695,7 @@ class Header extends HTMLElement {
         return 'U';
     }
 
-    renderLoginButton() {
+    async renderLoginButton() {
         return `
             <button id="login-btn" class="btn btn-outline">
                 Вход
@@ -566,34 +703,68 @@ class Header extends HTMLElement {
         `;
     }
 
-    renderUserIcon() {
+    async renderLogoutButton() {
+        return `
+            <button id="logout-btn" class="btn btn-outline desktop-logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Изход
+            </button>
+        `;
+    }
+
+    async renderMobileLogoutButton() {
+        return `
+            <button id="mobile-logout-btn" class="btn btn-outline">
+                <i class="fas fa-sign-out-alt"></i> Изход
+            </button>
+        `;
+    }
+
+    async renderUserIcon() {
         const firstLetter = this.getFirstLetter();
         const name = this.userData?.name || 'Потребител';
         
         return `
-            <a href="../HTML/profile.html" class="user-avatar" title="${name}">
+            <a href="${this.isAdmin ? '../HTML/admin.html' : '../HTML/profile.html'}" class="user-avatar" title="${name}">
                 ${firstLetter}
             </a>
         `;
     }
 
-    addEventListeners() {
-        // Mobile menu toggle
+    async logout() {
+        try {
+            localStorage.removeItem('authToken');
+            await this.clearSession();
+            await this.render();
+            await this.addEventListeners();
+            window.location.href = '../HTML/index.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            localStorage.removeItem('authToken');
+            window.location.href = '../HTML/index.html';
+        }
+    }
+
+    async addEventListeners() {
         const toggle = this.querySelector('#mobileMenuToggle');
         const mobileMenu = this.querySelector('#mobileMenu');
         
         if (toggle && mobileMenu) {
-            toggle.addEventListener('click', () => {
-                toggle.classList.toggle('active');
+            const newToggle = toggle.cloneNode(true);
+            toggle.parentNode.replaceChild(newToggle, toggle);
+            
+            newToggle.addEventListener('click', () => {
+                newToggle.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
                 document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
         }
 
         // Close mobile menu when clicking links
-        const mobileLinks = this.querySelectorAll('.mobile-nav-link, .mobile-login-btn, .mobile-download-btn');
+        const mobileLinks = this.querySelectorAll('.mobile-nav-link, .mobile-login-btn, .mobile-download-btn, #mobile-logout-btn');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
+                const toggle = this.querySelector('#mobileMenuToggle');
+                const mobileMenu = this.querySelector('#mobileMenu');
                 if (toggle && mobileMenu) {
                     toggle.classList.remove('active');
                     mobileMenu.classList.remove('active');
@@ -638,26 +809,28 @@ class Header extends HTMLElement {
             });
         }
 
-        // Logout button (ако имаш такъв)
+        // Logout buttons
         const logoutBtn = this.querySelector('#logout-btn');
+        const mobileLogoutBtn = this.querySelector('#mobile-logout-btn');
+        
         if (logoutBtn) {
             logoutBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
-                try {
-                    await fetch('https://localhost:7090/users/logout', {
-                        method: 'POST',
-                        credentials: 'include'
-                    });
-                    window.location.href = '../HTML/index.html';
-                } catch (error) {
-                    console.error('Грешка при изход:', error);
-                }
+                await this.logout();
             });
         }
+        
+        if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await this.logout();
+            });
+        }
+        
+        return Promise.resolve();
     }
 }
 
-// Register the custom element
 if (!customElements.get('kirilix-header')) {
     customElements.define('kirilix-header', Header);
 }

@@ -1,44 +1,60 @@
 [
   {
     "ContainingType": "WebAPI.Controllers.AdminController",
-    "Method": "CreateUser",
-    "RelativePath": "admin/create-user",
+    "Method": "GetOTPCode",
+    "RelativePath": "admins/otp-code",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "offsetTime",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.AdminController",
+    "Method": "ResendOTPCode",
+    "RelativePath": "admins/resend",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "offsetTime",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.AdminController",
+    "Method": "VerifyOTPCode",
+    "RelativePath": "admins/verify",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "BusinessLayer.User",
+        "Name": "checkOtp",
+        "Type": "ServiceLayer.DTOs.CheckOtpDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebAPI.Controllers.AdminController",
-    "Method": "DeleteUser",
-    "RelativePath": "admin/delete-user/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebAPI.Controllers.AdminController",
-    "Method": "GetUsers",
-    "RelativePath": "admin/get-users",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

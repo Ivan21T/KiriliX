@@ -1,29 +1,29 @@
-
-﻿using System;
+using BusinessLayer;
+using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataLayer;
-using BusinessLayer;
+
 namespace ServiceLayer
 {
     public class AdminService
     {
         private readonly UserContext _userContext;
-        private readonly PostContext _postContext;
-        public AdminService(UserContext userContext, PostContext postContext)
+        public AdminService(UserContext userContext)
         {
             _userContext = userContext;
-            _postContext = postContext;
         }
-        public async Task<List<User>> GetAllUsersAsync(bool useNavigationalProperties = false, bool isReadOnly = false)
+        public async Task<User> GetUserByEmail(string email, bool useNavigationalProperties = false, bool isReadOnly = false)
         {
-            return await _userContext.ReadAllAsync(useNavigationalProperties, isReadOnly);
-        }
-        public async Task CreateUser(User user)
-        {
-            await _userContext.CreateAsync(user);
+            var users = await _userContext.ReadAllAsync(useNavigationalProperties, isReadOnly);
+            var user = users.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                throw new Exception("Невалиден имейл или несъществуващ потребител!");
+            }
+            return user;
         }
     }
 }

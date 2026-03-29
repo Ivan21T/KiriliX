@@ -1,6 +1,6 @@
 window.API_CONFIG = {
   USER: 'https://localhost:7090/users',
-  ADMIN:'https://localhost:7090/admin',
+  ADMIN:'https://localhost:7090/admins',
   POST:'https://localhost:7090/post',
   COMMENT:'https://localhost:7090/comment',
   NEWS:'https://localhost:7090/news'
@@ -31,4 +31,12 @@ const authFetch = async (url, options = {}) => {
     }
     
     return response;
+};
+const updateAuthToken = (newToken) => {
+    authToken = newToken;
+    if (newToken) {
+        localStorage.setItem('authToken', newToken);
+    } else {
+        localStorage.removeItem('authToken');
+    }
 };

@@ -1120,10 +1120,6 @@
 
     <script>
 
-        const userJson = sessionStorage.getItem('user');
-        if (!userJson || userJson === 'undefined' || userJson === 'null') {
-            window.location.href = 'login.html';
-        }
 
         let currentUser = null;
         let userPosts = [];

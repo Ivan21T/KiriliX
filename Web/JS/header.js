@@ -58,7 +58,6 @@ class Header extends HTMLElement {
                 return;
             }
             
-            // Извличане на данни директно от токена
             const userData = this.extractUserFromToken(token);
             
             if (userData) {
@@ -66,7 +65,6 @@ class Header extends HTMLElement {
                 this.userData = userData;
                 this.isAdmin = (userData.role === 0 || userData.role === '0');
             } else {
-                // Токенът е невалиден или изтекъл
                 await this.clearSession();
             }
         } catch (error) {

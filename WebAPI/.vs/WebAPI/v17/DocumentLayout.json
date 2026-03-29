@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\otpcodeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\servicelayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\servicelayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\rtt\\pictures\\kirilix\\webapi\\servicelayer\\adminservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -106,7 +106,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -115,6 +115,93 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Seeder.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\InfrastructureLayer\\Seeder.cs",
+              "RelativeDocumentMoniker": "InfrastructureLayer\\Seeder.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\InfrastructureLayer\\Seeder.cs",
+              "RelativeToolTip": "InfrastructureLayer\\Seeder.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwB0AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T09:42:23.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ServiceLayer.csproj",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj",
+              "RelativeDocumentMoniker": "ServiceLayer\\ServiceLayer.csproj",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj",
+              "RelativeToolTip": "ServiceLayer\\ServiceLayer.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-28T10:00:50.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "WebAPI\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwCUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-03T06:22:38.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Program.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Program.cs",
+              "RelativeToolTip": "WebAPI\\Program.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAQwEkAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T13:38:06.561Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\JwtService.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
+              "RelativeToolTip": "ServiceLayer\\JwtService.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAiwG4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T08:54:40.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Mapper.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\Mapper\\Mapper.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\Mapper\\Mapper.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\Mapper\\Mapper.cs",
+              "RelativeToolTip": "ServiceLayer\\Mapper\\Mapper.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T10:48:06.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\UserService.cs",
+              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
+              "RelativeToolTip": "ServiceLayer\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T14:42:46.828Z"
             },
             {
               "$type": "Document",
@@ -131,96 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Seeder.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\InfrastructureLayer\\Seeder.cs",
-              "RelativeDocumentMoniker": "InfrastructureLayer\\Seeder.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\InfrastructureLayer\\Seeder.cs",
-              "RelativeToolTip": "InfrastructureLayer\\Seeder.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwB0AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T09:42:23.653Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ServiceLayer.csproj",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj",
-              "RelativeDocumentMoniker": "ServiceLayer\\ServiceLayer.csproj",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj",
-              "RelativeToolTip": "ServiceLayer\\ServiceLayer.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-28T10:00:50.81Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCUAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-03T06:22:38.275Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\WebAPI\\Program.cs",
-              "RelativeToolTip": "WebAPI\\Program.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAQwEkAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-14T13:38:06.561Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "JwtService.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\JwtService.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
-              "RelativeToolTip": "ServiceLayer\\JwtService.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAiwG4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T08:54:40.985Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Mapper.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\Mapper\\Mapper.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\Mapper\\Mapper.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\Mapper\\Mapper.cs",
-              "RelativeToolTip": "ServiceLayer\\Mapper\\Mapper.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T10:48:06.206Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\UserService.cs",
-              "ToolTip": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
-              "RelativeToolTip": "ServiceLayer\\UserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T14:42:46.828Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "OTPCodeService.cs",
               "DocumentMoniker": "C:\\Users\\RTT\\Pictures\\KiriliX\\WebAPI\\ServiceLayer\\OTPCodeService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\OTPCodeService.cs",
@@ -228,8 +226,7 @@
               "RelativeToolTip": "ServiceLayer\\OTPCodeService.cs",
               "ViewState": "AgIAAEEAAAAAAAAAAAAmwE4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-28T14:26:41.236Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-28T14:26:41.236Z"
             },
             {
               "$type": "Document",

@@ -1,6 +1,6 @@
 ﻿using BCrypt.Net;
-using Business_Layer;
-using Business_Layer.Enums;
+using BusinessLayer;
+using BusinessLayer.Enums;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;

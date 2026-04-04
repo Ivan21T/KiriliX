@@ -189,3 +189,5 @@ C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\refint\WebAPI.dll
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.pdb
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.genruntimeconfig.cache
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\ref\WebAPI.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\InfrastructureLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\InfrastructureLayer.pdb

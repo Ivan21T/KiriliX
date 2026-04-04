@@ -1,4 +1,4 @@
-﻿using Business_Layer.Enums;
+﻿using BusinessLayer.Enums;
 using BusinessLayer;
 using DataLayer;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
             try
             {
                 List<User> users = await _userService.GetAllUsersAsync();
-                var userResponses = users.Select(u => Mapper.ToReadUserDTO(u));
+                var userResponses = users.Select(u => Mapper.UserToReadUserDTO(u));
                 return Ok(userResponses);
             }
             catch (Exception ex)
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var user = Mapper.ToUser(request);
+                var user = Mapper.SignUpRequestToUser(request);
 
                 await _userService.CreateUserAsync(user);
                 return Ok(new { message = "Потребителят е създаден успешно!" });
@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
                 {
                     return Ok(new
                     {
-                        user = Mapper.ToReadUserDTO(user)
+                        user = Mapper.UserToReadUserDTO(user)
                     });
                 }
                 var token = await _jwtService.GenerateTokenAsync(user);
@@ -85,7 +85,7 @@ namespace WebAPI.Controllers
                 {
                     message = "Успешно влизане!",
                     token = token,
-                    user =Mapper.ToReadUserDTO(user)
+                    user =Mapper.UserToReadUserDTO(user)
                 });
             }
             catch (Exception ex)
@@ -180,11 +180,11 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO user)
         {
             try
             {
-                await _userService.UpdateUserAsync(user);
+                await _userService.UpdateUserAsync(Mapper.UpdateUserDTOToUser(user));
                 return Ok(new { message = "Потребителят е обновен успешно!" });
             }
             catch (Exception ex)

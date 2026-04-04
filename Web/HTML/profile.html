@@ -110,7 +110,6 @@
             box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-red);
         }
 
-        /* Навигация */
         .profile-nav {
             max-width: 1200px;
             margin: 100px auto 20px;
@@ -169,47 +168,20 @@
             transform: translateX(-3px);
         }
 
-        /* Responsive навигация */
         @media (max-width: 768px) {
-            .profile-nav {
-                margin: 80px auto 15px;
-            }
-
-            .back-btn {
-                padding: 12px 24px;
-                font-size: 1rem;
-                gap: 10px;
-            }
-
-            .back-btn i {
-                font-size: 1.1rem;
-            }
+            .profile-nav { margin: 80px auto 15px; }
+            .back-btn { padding: 12px 24px; font-size: 1rem; gap: 10px; }
+            .back-btn i { font-size: 1.1rem; }
         }
 
         @media (max-width: 480px) {
-            .profile-nav {
-                margin: 70px auto 10px;
-                padding: 0 15px;
-            }
-
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 0.95rem;
-                gap: 8px;
-                width: 100%;
-                justify-content: center;
-            }
+            .profile-nav { margin: 70px auto 10px; padding: 0 15px; }
+            .back-btn { padding: 10px 20px; font-size: 0.95rem; gap: 8px; width: 100%; justify-content: center; }
         }
 
         @media (max-width: 360px) {
-            .profile-nav {
-                margin: 60px auto 10px;
-            }
-
-            .back-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
+            .profile-nav { margin: 60px auto 10px; }
+            .back-btn { padding: 8px 16px; font-size: 0.9rem; }
         }
 
         .profile-container {
@@ -264,9 +236,7 @@
             color: var(--dark);
             font-weight: 700;
             font-size: 64px;
-            box-shadow: 
-                0 0 30px var(--neon-green),
-                0 0 60px rgba(255, 0, 60, 0.3);
+            box-shadow: 0 0 30px var(--neon-green), 0 0 60px rgba(255, 0, 60, 0.3);
             position: relative;
             transition: var(--transition);
             border: 4px solid rgba(255, 255, 255, 0.1);
@@ -274,15 +244,10 @@
 
         .profile-avatar:hover {
             transform: scale(1.05);
-            box-shadow: 
-                0 0 40px var(--neon-green),
-                0 0 80px var(--neon-red);
+            box-shadow: 0 0 40px var(--neon-green), 0 0 80px var(--neon-red);
         }
 
-        .profile-info {
-            flex: 1;
-        }
-
+        .profile-info { flex: 1; }
         .profile-name {
             font-size: 2.8rem;
             font-weight: 700;
@@ -292,7 +257,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .profile-email {
             font-size: 1.2rem;
             color: #b0b0d0;
@@ -301,33 +265,11 @@
             align-items: center;
             gap: 10px;
         }
-
-        .profile-email i {
-            color: var(--neon-green);
-            font-size: 1.2rem;
-        }
-
-        .profile-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 255, 157, 0.1);
-            color: var(--neon-green);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: 1px solid rgba(0, 255, 157, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .profile-badge i {
-            font-size: 1rem;
-        }
+        .profile-email i { color: var(--neon-green); font-size: 1.2rem; }
 
         .profile-stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -375,7 +317,6 @@
             margin-bottom: 5px;
             text-shadow: 0 0 20px var(--neon-green);
         }
-
         .stat-label {
             color: #b0b0d0;
             font-size: 0.9rem;
@@ -419,9 +360,7 @@
             transition: var(--transition);
         }
 
-        .btn:hover::before {
-            left: 100%;
-        }
+        .btn:hover::before { left: 100%; }
 
         .btn-outline {
             border: 2px solid var(--neon-green);
@@ -430,7 +369,6 @@
             text-shadow: 0 0 5px var(--neon-green);
             box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
         }
-
         .btn-outline:hover {
             color: var(--dark);
             background: var(--neon-green);
@@ -445,7 +383,6 @@
             text-shadow: 0 0 5px var(--neon-red);
             box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
         }
-
         .btn-danger:hover {
             color: var(--dark);
             background: var(--neon-red);
@@ -460,7 +397,6 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
         }
-
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(0, 255, 157, 0.6);
@@ -475,7 +411,6 @@
             position: relative;
             display: inline-block;
         }
-
         .section-title::after {
             content: '';
             position: absolute;
@@ -532,21 +467,10 @@
 
         .post-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: 15px;
         }
-
-        .post-category {
-            background: rgba(0, 255, 157, 0.1);
-            color: var(--neon-green);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(0, 255, 157, 0.3);
-        }
-
         .post-date {
             color: #b0b0d0;
             font-size: 0.85rem;
@@ -554,11 +478,7 @@
             align-items: center;
             gap: 5px;
         }
-
-        .post-date i {
-            color: var(--neon-green);
-            font-size: 0.8rem;
-        }
+        .post-date i { color: var(--neon-green); font-size: 0.8rem; }
 
         .post-title {
             font-size: 1.4rem;
@@ -567,7 +487,6 @@
             color: var(--white);
             line-height: 1.4;
         }
-
         .post-excerpt {
             color: #b0b0d0;
             font-size: 0.95rem;
@@ -578,7 +497,6 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .post-footer {
             display: flex;
             justify-content: space-between;
@@ -586,12 +504,7 @@
             padding-top: 15px;
             border-top: 1px solid rgba(0, 255, 157, 0.1);
         }
-
-        .post-stats {
-            display: flex;
-            gap: 15px;
-        }
-
+        .post-stats { display: flex; gap: 15px; }
         .post-stat {
             display: flex;
             align-items: center;
@@ -599,15 +512,8 @@
             color: #b0b0d0;
             font-size: 0.85rem;
         }
-
-        .post-stat i {
-            color: var(--neon-green);
-        }
-
-        .post-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .post-stat i { color: var(--neon-green); }
+        .post-actions { display: flex; gap: 10px; }
 
         .post-action-btn {
             width: 35px;
@@ -621,15 +527,14 @@
             text-decoration: none;
             transition: var(--transition);
             border: 1px solid rgba(0, 255, 157, 0.1);
+            cursor: pointer;
         }
-
         .post-action-btn:hover {
             background: var(--neon-green);
             color: var(--dark);
             transform: scale(1.1);
             border-color: var(--neon-green);
         }
-
         .post-action-btn.delete:hover {
             background: var(--neon-red);
             color: var(--white);
@@ -643,26 +548,10 @@
             border-radius: 20px;
             border: 2px dashed rgba(0, 255, 157, 0.2);
         }
+        .empty-state i { font-size: 3rem; color: var(--white); opacity: 0.5; }
+        .empty-state h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--white); }
+        .empty-state p { color: #b0b0d0; margin-bottom: 30px; }
 
-        .empty-state i {
-            font-size: 5rem;
-            color: var(--neon-green);
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--white);
-        }
-
-        .empty-state p {
-            color: #b0b0d0;
-            margin-bottom: 30px;
-        }
-
-        /* Пагинация */
         .pagination {
             display: flex;
             justify-content: center;
@@ -671,7 +560,6 @@
             margin-top: 50px;
             flex-wrap: wrap;
         }
-
         .pagination-btn {
             min-width: 45px;
             height: 45px;
@@ -690,31 +578,20 @@
             padding: 0 15px;
             font-family: 'Inter', sans-serif;
         }
-
         .pagination-btn:hover:not(:disabled) {
             border-color: var(--neon-green);
             background: rgba(0, 255, 157, 0.1);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
         }
-
         .pagination-btn.active {
             background: var(--neon-green);
             color: var(--dark);
             border-color: var(--neon-green);
             box-shadow: 0 0 20px var(--neon-green);
         }
-
-        .pagination-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .pagination-dots {
-            color: var(--neon-green);
-            font-weight: 600;
-            padding: 0 5px;
-        }
+        .pagination-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .pagination-dots { color: var(--neon-green); font-weight: 600; padding: 0 5px; }
 
         .modal {
             display: none;
@@ -729,50 +606,42 @@
             justify-content: center;
             align-items: center;
         }
-
-        .modal.show {
-            display: flex;
-        }
-
+        .modal.show { display: flex; }
         .modal-content {
             background: var(--dark-secondary);
             border-radius: 20px;
             padding: 40px;
-            max-width: 450px;
+            max-width: 550px;
             width: 90%;
             border: 1px solid rgba(0, 255, 157, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 0, 60, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 255, 157, 0.3);
             position: relative;
         }
-
-        .modal-icon {
-            font-size: 4rem;
-            color: var(--neon-red);
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px var(--neon-red);
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .modal-icon { font-size: 3rem; color: var(--neon-green); text-align: center; margin-bottom: 20px; }
+        .modal-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 25px; color: var(--white); text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--neon-green); font-weight: 500; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 10px;
             color: var(--white);
-            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
         }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+        .form-group textarea { resize: vertical; min-height: 150px; }
+        .modal-actions { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
 
-        .modal-text {
-            color: #b0b0d0;
-            text-align: center;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
+        .modal.delete-modal .modal-icon { color: var(--neon-red); text-shadow: 0 0 30px var(--neon-red); }
+        .modal.delete-modal .modal-content { border-color: rgba(255, 0, 60, 0.3); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 0, 60, 0.3); }
 
         .loader {
             display: inline-block;
@@ -783,10 +652,7 @@
             border-top-color: var(--neon-green);
             animation: spin 1s ease-in-out infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .toast {
             position: fixed;
@@ -803,214 +669,61 @@
             z-index: 2000;
             backdrop-filter: blur(10px);
         }
+        .toast.show { transform: translateX(0); }
+        .toast.error { border-left-color: var(--neon-red); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--neon-red); }
 
-        .toast.show {
-            transform: translateX(0);
-        }
-
-        .toast.error {
-            border-left-color: var(--neon-red);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--neon-red);
-        }
-
-        /* Responsive дизайн */
         @media (max-width: 768px) {
-            .profile-container {
-                margin: 15px auto 40px;
-            }
-
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px 20px;
-            }
-
-            .profile-avatar {
-                width: 120px;
-                height: 120px;
-                font-size: 48px;
-            }
-
-            .profile-name {
-                font-size: 2.2rem;
-            }
-
-            .profile-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-
-            .stat-card {
-                padding: 20px;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-            }
-
-            .profile-actions {
-                justify-content: center;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .pagination-btn {
-                min-width: 40px;
-                height: 40px;
-                font-size: 0.9rem;
-            }
+            .profile-container { margin: 15px auto 40px; }
+            .profile-header { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .profile-avatar { width: 120px; height: 120px; font-size: 48px; }
+            .profile-name { font-size: 2.2rem; }
+            .profile-stats { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+            .stat-card { padding: 20px; }
+            .stat-number { font-size: 2rem; }
+            .profile-actions { justify-content: center; }
+            .posts-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.8rem; }
+            .pagination-btn { min-width: 40px; height: 40px; font-size: 0.9rem; }
+            .modal-content { padding: 30px 25px; }
         }
-
         @media (max-width: 480px) {
-            .profile-container {
-                padding: 0 15px;
-            }
-
-            .profile-header {
-                padding: 25px 15px;
-            }
-
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
-                font-size: 40px;
-            }
-
-            .profile-name {
-                font-size: 1.8rem;
-            }
-
-            .profile-email {
-                font-size: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .profile-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-actions {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .profile-actions .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .post-card {
-                padding: 20px;
-            }
-
-            .post-title {
-                font-size: 1.2rem;
-            }
-
-            .post-footer {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-
-            .post-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-
-            .empty-state {
-                padding: 50px 15px;
-            }
-
-            .empty-state i {
-                font-size: 4rem;
-            }
-
-            .empty-state h3 {
-                font-size: 1.4rem;
-            }
-
-            .pagination {
-                gap: 5px;
-            }
-
-            .pagination-btn {
-                min-width: 35px;
-                height: 35px;
-                font-size: 0.85rem;
-                padding: 0 8px;
-            }
-
-            .modal-content {
-                padding: 30px 20px;
-            }
-
-            .modal-title {
-                font-size: 1.5rem;
-            }
-
-            .modal-actions {
-                flex-direction: column;
-            }
-
-            .toast {
-                left: 20px;
-                right: 20px;
-                bottom: 20px;
-                transform: translateY(100px);
-            }
-
-            .toast.show {
-                transform: translateY(0);
-            }
+            .profile-container { padding: 0 15px; }
+            .profile-header { padding: 25px 15px; }
+            .profile-avatar { width: 100px; height: 100px; font-size: 40px; }
+            .profile-name { font-size: 1.8rem; }
+            .profile-email { font-size: 1rem; flex-wrap: wrap; justify-content: center; }
+            .profile-stats { grid-template-columns: 1fr; }
+            .profile-actions { flex-direction: column; width: 100%; }
+            .profile-actions .btn { width: 100%; justify-content: center; }
+            .posts-grid { grid-template-columns: 1fr; }
+            .post-card { padding: 20px; }
+            .post-title { font-size: 1.2rem; }
+            .post-footer { flex-direction: column; gap: 15px; align-items: flex-start; }
+            .post-actions { width: 100%; justify-content: flex-end; }
+            .empty-state { padding: 50px 15px; }
+            .empty-state i { font-size: 4rem; }
+            .empty-state h3 { font-size: 1.4rem; }
+            .pagination { gap: 5px; }
+            .pagination-btn { min-width: 35px; height: 35px; font-size: 0.85rem; padding: 0 8px; }
+            .modal-content { padding: 25px 20px; }
+            .modal-title { font-size: 1.5rem; }
+            .modal-actions { flex-direction: column; }
+            .toast { left: 20px; right: 20px; bottom: 20px; transform: translateY(100px); }
+            .toast.show { transform: translateY(0); }
         }
-
         @media (max-width: 360px) {
-            .profile-name {
-                font-size: 1.5rem;
-            }
-
-            .profile-email {
-                font-size: 0.9rem;
-            }
-
-            .profile-badge {
-                font-size: 0.8rem;
-                padding: 6px 15px;
-            }
-
-            .stat-number {
-                font-size: 1.8rem;
-            }
-
-            .stat-label {
-                font-size: 0.8rem;
-            }
-
-            .post-category {
-                font-size: 0.7rem;
-                padding: 4px 10px;
-            }
-
-            .post-date {
-                font-size: 0.75rem;
-            }
+            .profile-name { font-size: 1.5rem; }
+            .profile-email { font-size: 0.9rem; }
+            .stat-number { font-size: 1.8rem; }
+            .stat-label { font-size: 0.8rem; }
+            .post-date { font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="alert-container" id="alert-container"></div>
+    
     <div class="animated-bg">
         <div class="bg-element"></div>
         <div class="bg-element"></div>
@@ -1019,7 +732,6 @@
     </div>
     <div class="bulgarian-pattern"></div>
 
-    <!-- Навигация с бутон за назад -->
     <nav class="profile-nav">
         <a href="javascript:history.back()" class="back-btn" id="backBtn">
             <i class="fas fa-arrow-left"></i>
@@ -1028,7 +740,6 @@
     </nav>
 
     <main class="profile-container">
-        <!-- Профил информация -->
         <div class="profile-header fade-in">
             <div class="profile-avatar" id="profileAvatar">U</div>
             <div class="profile-info">
@@ -1054,7 +765,6 @@
             </div>
         </div>
 
-        <!-- Статистики -->
         <div class="profile-stats fade-in delay-1">
             <div class="stat-card">
                 <div class="stat-number" id="postsCount">0</div>
@@ -1065,39 +775,48 @@
                 <div class="stat-label">Коментара</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="likesCount">0</div>
-                <div class="stat-label">Харесвания</div>
-            </div>
-            <div class="stat-card">
                 <div class="stat-number" id="memberSince">2024</div>
                 <div class="stat-label">Член от</div>
             </div>
         </div>
 
-        <!-- Секция с публикации -->
         <div class="fade-in delay-2">
             <h2 class="section-title">
                 <i class="fas fa-newspaper" style="margin-right: 10px; color: var(--neon-green);"></i>
                 Моите публикации
             </h2>
-            
-            <div class="posts-grid" id="postsContainer">
-                <!-- Публикациите ще се зареждат тук -->
-            </div>
-
-            <!-- Пагинация -->
-            <div class="pagination" id="pagination">
-                <!-- Бутоните за пагинация ще се генерират тук -->
-            </div>
+            <div class="posts-grid" id="postsContainer"></div>
+            <div class="pagination" id="pagination"></div>
         </div>
     </main>
 
-    <!-- Модал за изтриване на профил -->
-    <div class="modal" id="deleteModal">
+    <!-- Модал за редактиране -->
+    <div class="modal" id="editPostModal">
         <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-exclamation-triangle"></i>
+            <div class="modal-icon"><i class="fas fa-edit"></i></div>
+            <h2 class="modal-title">Редактирай публикация</h2>
+            <div class="form-group">
+                <label>Заглавие</label>
+                <input type="text" id="editPostTitle" placeholder="Въведете заглавие">
             </div>
+            <div class="form-group">
+                <label>Съдържание</label>
+                <textarea id="editPostContent" placeholder="Въведете съдържание"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="cancelEditBtn">Отказ</button>
+                <button class="btn btn-primary" id="saveEditBtn">
+                    <span id="saveEditText">Запази</span>
+                    <span class="loader" id="saveEditLoader" style="display: none;"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модал за изтриване на профил -->
+    <div class="modal delete-modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
             <h2 class="modal-title">Изтриване на профил</h2>
             <p class="modal-text">
                 Сигурни ли сте, че искате да изтриете профила си?<br>
@@ -1113,115 +832,98 @@
         </div>
     </div>
 
-    <!-- Toast известия -->
-    <div class="toast" id="toast">
-        <span id="toastMessage"></span>
-    </div>
+    <div class="toast" id="toast"><span id="toastMessage"></span></div>
 
-    <script>
+<script src="../JS/config.js"></script>
+<script src="../JS/notification_system.js"></script>
+<script>
+    let currentUser = null;
+    let userPosts = [];
+    let currentPage = 1;
+    let postsPerPage = 6;
+    let totalPages = 1;
+    let currentEditPostId = null;
 
-
-        let currentUser = null;
-        let userPosts = [];
-        
-        // Пагинация променливи
-        let currentPage = 1;
-        let postsPerPage = 6; // Показваме по 6 публикации на страница
-        let totalPages = 1;
-
-        // Генерираме повече примерни публикации за тестване на пагинацията
-        const mockPosts = [];
-        
-        // Създаваме 25 примерни публикации
-        const categories = ['React', 'JavaScript', 'CSS', 'HTML', 'Vue', 'Angular', 'Node.js', 'Python', 'PHP', 'Java'];
-        const titles = [
-            'Как да оптимизираме React приложения',
-            'Въведение в Web Components',
-            'CSS Grid vs Flexbox',
-            'JavaScript Async/Await обяснено',
-            '10 съвета за чист код',
-            'TypeScript за начинаещи',
-            'Работа с REST API',
-            'GraphQL срещу REST',
-            'Най-добрите практики за сигурност',
-            'Оптимизация на бази данни',
-            'Модерен JavaScript през 2024',
-            'Webpack 5 пълно ръководство',
-            'Docker за уеб разработчици',
-            'CI/CD с GitHub Actions',
-            'Тестване на React компоненти',
-            'Next.js 14 новости',
-            'Tailwind CSS съвети и трикове',
-            'Анимации с CSS и JavaScript',
-            'PWA - Progressive Web Apps',
-            'Web Accessibility (a11y)',
-            'Микрофронтенд архитектура',
-            'WebSockets и real-time приложения',
-            'Монго DB за начинаещи',
-            'Serverless функции',
-            'Киберсигурност за уеб разработчици'
-        ];
-        
-        for (let i = 1; i <= 25; i++) {
-            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-            const randomTitle = titles[Math.floor(Math.random() * titles.length)] + ' - ' + i;
-            const randomLikes = Math.floor(Math.random() * 100) + 10;
-            const randomComments = Math.floor(Math.random() * 30) + 1;
-            const randomDay = Math.floor(Math.random() * 28) + 1;
-            const randomMonth = Math.floor(Math.random() * 12) + 1;
-            const date = `2024-${randomMonth.toString().padStart(2, '0')}-${randomDay.toString().padStart(2, '0')}`;
-            
-            mockPosts.push({
-                id: i,
-                title: randomTitle,
-                excerpt: `Научете най-добрите практики за ${randomCategory} и как да ги приложите в реални проекти. Това е примерна публикация номер ${i}...`,
-                category: randomCategory,
-                date: date,
-                likes: randomLikes,
-                comments: randomComments,
-                image: null
-            });
+    function checkAuthAndRedirect() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            showAlert('Моля, влезте в профила си', 'error');
+            setTimeout(() => window.location.href = '../HTML/login.html', 1000);
+            return false;
         }
-        
-        function loadUserData() {
-            try {
-                currentUser = JSON.parse(userJson);
-                
-                // Показваме потребителските данни
-                document.getElementById('profileName').textContent = currentUser.username || 'Потребител';
-                document.getElementById('profileEmail').textContent = currentUser.email || 'user@example.com';
-                
-                // Първа буква за аватара
-                const firstLetter = currentUser.username ? currentUser.username.charAt(0).toUpperCase() : 'U';
-                document.getElementById('profileAvatar').textContent = firstLetter;
-                
-                // Зареждаме статистики
-                document.getElementById('postsCount').textContent = mockPosts.length;
-                document.getElementById('commentsCount').textContent = '156';
-                document.getElementById('likesCount').textContent = '1,248';
-                
-                // Изчисляваме общия брой страници
-                totalPages = Math.ceil(mockPosts.length / postsPerPage);
-                
-                // Зареждаме първата страница с публикации
-                loadUserPosts(1);
-                
-            } catch (e) {
-                console.error('Грешка при зареждане на потребител:', e);
-                showToast('Грешка при зареждане на профила', true);
+        return true;
+    }
+
+    async function loadCurrentUser() {
+        try {
+            const response = await authFetch(`${window.API_CONFIG.USER}/current-user`);
+            if (response.status === 401) {
+                localStorage.removeItem('authToken');
+                showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
+                setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                return false;
             }
+            if (!response.ok) throw new Error('Грешка при зареждане на потребител');
+            
+            const user = await response.json();
+            currentUser = user;
+            
+            document.getElementById('profileName').textContent = currentUser.username || 'Потребител';
+            document.getElementById('profileEmail').textContent = currentUser.email || 'user@example.com';
+            const firstLetter = currentUser.username ? currentUser.username.charAt(0).toUpperCase() : 'U';
+            document.getElementById('profileAvatar').textContent = firstLetter;
+            
+            if (currentUser.createdAt) {
+                const joinYear = new Date(currentUser.createdAt).getFullYear();
+                document.getElementById('memberSince').textContent = joinYear;
+            }
+            return true;
+        } catch (error) {
+            console.error('Грешка:', error);
+            showAlert('Грешка при зареждане на профила', 'error');
+            return false;
         }
+    }
 
-        function loadUserPosts(page) {
-            const postsContainer = document.getElementById('postsContainer');
-            currentPage = page;
+    // Зареждане на постовете на потребителя от sessionStorage (forum_posts)
+    function loadUserPostsFromStorage(page = 1) {
+        const postsContainer = document.getElementById('postsContainer');
+        const paginationContainer = document.getElementById('pagination');
+        currentPage = page;
+        
+        try {
+            // Взимаме всички постове от sessionStorage
+            const allPostsJson = sessionStorage.getItem('forum_posts');
+            let allPosts = [];
             
-            // Изчисляваме кои публикации да покажем за текущата страница
-            const startIndex = (page - 1) * postsPerPage;
-            const endIndex = Math.min(startIndex + postsPerPage, mockPosts.length);
-            const postsForPage = mockPosts.slice(startIndex, endIndex);
+            if (allPostsJson) {
+                allPosts = JSON.parse(allPostsJson);
+                console.log('Заредени постове от sessionStorage:', allPosts.length);
+            } else {
+                console.log('Няма постове в sessionStorage');
+                allPosts = [];
+            }
             
-            if (mockPosts.length === 0) {
+            // Филтрираме само тези, където author.id съвпада с currentUser.id
+            userPosts = allPosts.filter(post => {
+                return post.author && post.author.id === currentUser.id;
+            });
+            
+            console.log(`Намерени ${userPosts.length} публикации за потребител ${currentUser.username}`);
+            
+            // Обновяваме статистиките
+            document.getElementById('postsCount').textContent = userPosts.length;
+            
+            // Общ брой коментари
+            const totalComments = userPosts.reduce((total, post) => {
+                return total + (post.comments ? post.comments.length : 0);
+            }, 0);
+            document.getElementById('commentsCount').textContent = totalComments;
+            
+            // Пагинация
+            totalPages = Math.ceil(userPosts.length / postsPerPage);
+            
+            if (userPosts.length === 0) {
                 postsContainer.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-newspaper"></i>
@@ -1233,35 +935,35 @@
                         </button>
                     </div>
                 `;
-                document.getElementById('pagination').style.display = 'none';
+                paginationContainer.style.display = 'none';
                 return;
             }
-
-            // Показваме публикациите
+            
+            // Показваме за текущата страница
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = Math.min(startIndex + postsPerPage, userPosts.length);
+            const postsForPage = userPosts.slice(startIndex, endIndex);
+            
             postsContainer.innerHTML = postsForPage.map(post => `
                 <div class="post-card">
                     <div class="post-header">
-                        <span class="post-category">${post.category}</span>
                         <span class="post-date">
                             <i class="far fa-calendar-alt"></i>
-                            ${new Date(post.date).toLocaleDateString('bg-BG')}
+                            ${post.createdAt ? new Date(post.createdAt).toLocaleDateString('bg-BG') : 'скоро'}
                         </span>
                     </div>
-                    <h3 class="post-title">${post.title}</h3>
-                    <p class="post-excerpt">${post.excerpt}</p>
+                    <h3 class="post-title">${escapeHtml(post.title) || 'Без заглавие'}</h3>
+                    <p class="post-excerpt">${escapeHtml(post.content || post.excerpt || '')}</p>
                     <div class="post-footer">
                         <div class="post-stats">
                             <span class="post-stat">
-                                <i class="far fa-heart"></i> ${post.likes}
-                            </span>
-                            <span class="post-stat">
-                                <i class="far fa-comment"></i> ${post.comments}
+                                <i class="far fa-comment"></i> ${post.comments ? post.comments.length : 0}
                             </span>
                         </div>
                         <div class="post-actions">
-                            <a href="edit-post.html?id=${post.id}" class="post-action-btn" title="Редактирай">
+                            <button class="post-action-btn" onclick="openEditModal(${post.id})" title="Редактирай">
                                 <i class="fas fa-edit"></i>
-                            </a>
+                            </button>
                             <button class="post-action-btn delete" onclick="deletePost(${post.id})" title="Изтрий">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -1270,222 +972,258 @@
                 </div>
             `).join('');
             
-            // Генерираме бутоните за пагинация
-            generatePagination();
-        }
-
-        function generatePagination() {
-            const paginationContainer = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
+            if (totalPages > 1) {
+                generatePagination();
+                paginationContainer.style.display = 'flex';
+            } else {
                 paginationContainer.style.display = 'none';
+            }
+            
+        } catch (error) {
+            console.error('Грешка при зареждане на публикации:', error);
+            postsContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Грешка при зареждане</h3>
+                    <p>Неуспешно зареждане на вашите публикации.</p>
+                    <button class="btn btn-primary" onclick="refreshPosts()">
+                        <i class="fas fa-sync-alt"></i>
+                        Опитай отново
+                    </button>
+                </div>
+            `;
+            paginationContainer.style.display = 'none';
+        }
+    }
+    
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function refreshPosts() {
+        loadUserPostsFromStorage(1);
+    }
+    
+    function generatePagination() {
+        const paginationContainer = document.getElementById('pagination');
+        let paginationHTML = '';
+        
+        paginationHTML += `<button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+        
+        const maxVisiblePages = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+        
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+        
+        if (startPage > 1) {
+            paginationHTML += `<button class="pagination-btn" onclick="changePage(1)">1</button>`;
+            if (startPage > 2) paginationHTML += `<span class="pagination-dots">...</span>`;
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            paginationHTML += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+        }
+        
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) paginationHTML += `<span class="pagination-dots">...</span>`;
+            paginationHTML += `<button class="pagination-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
+        }
+        
+        paginationHTML += `<button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+        
+        paginationContainer.innerHTML = paginationHTML;
+    }
+    
+    window.changePage = function(page) {
+        if (page < 1 || page > totalPages) return;
+        loadUserPostsFromStorage(page);
+        document.querySelector('.section-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    
+    window.openEditModal = function(postId) {
+        const post = userPosts.find(p => p.id === postId);
+        if (post) {
+            currentEditPostId = postId;
+            document.getElementById('editPostTitle').value = post.title || '';
+            document.getElementById('editPostContent').value = post.content || '';
+            document.getElementById('editPostModal').classList.add('show');
+        }
+    };
+    
+    async function saveEditPost() {
+        const title = document.getElementById('editPostTitle').value.trim();
+        const content = document.getElementById('editPostContent').value.trim();
+        
+        if (!title) { showAlert('Моля, въведете заглавие', 'error'); return; }
+        if (!content) { showAlert('Моля, въведете съдържание', 'error'); return; }
+        
+        const saveBtnText = document.getElementById('saveEditText');
+        const saveBtnLoader = document.getElementById('saveEditLoader');
+        const saveBtn = document.getElementById('saveEditBtn');
+        
+        saveBtnText.style.display = 'none';
+        saveBtnLoader.style.display = 'inline-block';
+        saveBtn.disabled = true;
+        
+        try {
+            const response = await authFetch(`${window.API_CONFIG.POST}/${currentEditPostId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, content })
+            });
+            
+            if (response.status === 401) {
+                localStorage.removeItem('authToken');
+                showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
+                setTimeout(() => window.location.href = '../HTML/login.html', 1500);
                 return;
             }
             
-            paginationContainer.style.display = 'flex';
+            if (!response.ok) throw new Error('Грешка при редактиране');
             
-            let paginationHTML = '';
+            showAlert('Публикацията е обновена успешно!', 'success');
             
-            // Бутон "Предишна"
-            paginationHTML += `
-                <button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-            `;
-            
-            // Логика за показване на страниците
-            const maxVisiblePages = 5; // Максимален брой видими страници
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-            
-            if (endPage - startPage + 1 < maxVisiblePages) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            // Обновяваме sessionStorage - взимаме актуалните данни
+            const postsResponse = await authFetch(`${window.API_CONFIG.POST}/all`);
+            if (postsResponse.ok) {
+                const updatedPosts = await postsResponse.json();
+                sessionStorage.setItem('forum_posts', JSON.stringify(updatedPosts));
             }
             
-            // Показваме първа страница ако не се вижда
-            if (startPage > 1) {
-                paginationHTML += `
-                    <button class="pagination-btn" onclick="changePage(1)">1</button>
-                `;
-                if (startPage > 2) {
-                    paginationHTML += `<span class="pagination-dots">...</span>`;
-                }
-            }
+            document.getElementById('editPostModal').classList.remove('show');
+            loadUserPostsFromStorage(currentPage);
             
-            // Показваме страниците
-            for (let i = startPage; i <= endPage; i++) {
-                paginationHTML += `
-                    <button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
-                        ${i}
-                    </button>
-                `;
-            }
-            
-            // Показваме последна страница ако не се вижда
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    paginationHTML += `<span class="pagination-dots">...</span>`;
-                }
-                paginationHTML += `
-                    <button class="pagination-btn" onclick="changePage(${totalPages})">${totalPages}</button>
-                `;
-            }
-            
-            // Бутон "Следваща"
-            paginationHTML += `
-                <button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            `;
-            
-            paginationContainer.innerHTML = paginationHTML;
+        } catch (error) {
+            console.error('Грешка при редактиране:', error);
+            showAlert('Грешка при редактиране на публикацията', 'error');
+        } finally {
+            saveBtnText.style.display = 'inline';
+            saveBtnLoader.style.display = 'none';
+            saveBtn.disabled = false;
         }
-
-        function changePage(page) {
-            if (page < 1 || page > totalPages) return;
-            loadUserPosts(page);
-            
-            // Скролваме до секцията с публикациите
-            document.querySelector('.section-title').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-
-        // Функция за показване на toast известия
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            if (isError) {
-                toast.classList.add('error');
-            } else {
-                toast.classList.remove('error');
-            }
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Функция за изтриване на публикация
-        window.deletePost = function(postId) {
-            if (confirm('Сигурни ли сте, че искате да изтриете тази публикация?')) {
-                // В реално приложение - API заявка
-                showToast('Публикацията е изтрита успешно!');
+    }
+    
+    window.deletePost = async function(postId) {
+        if (confirm('Сигурни ли сте, че искате да изтриете тази публикация?')) {
+            try {
+                const response = await authFetch(`${window.API_CONFIG.POST}/${postId}`, { method: 'DELETE' });
                 
-                // Намираме индекса на публикацията
-                const postIndex = mockPosts.findIndex(p => p.id === postId);
-                if (postIndex !== -1) {
-                    mockPosts.splice(postIndex, 1);
-                    
-                    // Обновяваме броя на публикациите
-                    document.getElementById('postsCount').textContent = mockPosts.length;
-                    
-                    // Преизчисляваме страниците
-                    totalPages = Math.ceil(mockPosts.length / postsPerPage);
-                    
-                    // Ако текущата страница е празна, отиваме на предишната
-                    if (currentPage > totalPages) {
-                        currentPage = totalPages;
-                    }
-                    
-                    // Презареждаме публикациите
-                    loadUserPosts(currentPage);
+                if (response.status === 401) {
+                    localStorage.removeItem('authToken');
+                    showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
+                    setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                    return;
                 }
+                
+                if (!response.ok) throw new Error('Грешка при изтриване');
+                
+                showAlert('Публикацията е изтрита успешно!', 'success');
+                
+                // Обновяваме sessionStorage
+                const postsResponse = await authFetch(`${window.API_CONFIG.POST}/all`);
+                if (postsResponse.ok) {
+                    const updatedPosts = await postsResponse.json();
+                    sessionStorage.setItem('forum_posts', JSON.stringify(updatedPosts));
+                }
+                
+                loadUserPostsFromStorage(1);
+                
+            } catch (error) {
+                console.error('Грешка при изтриване:', error);
+                showAlert('Грешка при изтриване на публикацията', 'error');
             }
-        };
-
-        // Логаут
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            sessionStorage.removeItem('user');
-            sessionStorage.removeItem('token');
-            showToast('Успешен изход!');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
-        });
-
-        // Редактиране на профил
-        document.getElementById('editProfileBtn').addEventListener('click', () => {
-            window.location.href = 'edit_profile.html';
-        });
-
-        // Изтриване на профил - показване на модал
-        const deleteModal = document.getElementById('deleteModal');
-        const deleteAccountBtn = document.getElementById('deleteAccountBtn');
-        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-        const deleteBtnText = document.getElementById('deleteBtnText');
-        const deleteLoader = document.getElementById('deleteLoader');
-
-        deleteAccountBtn.addEventListener('click', () => {
-            deleteModal.classList.add('show');
-        });
-
-        cancelDeleteBtn.addEventListener('click', () => {
-            deleteModal.classList.remove('show');
-        });
-
+        }
+    };
+    
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+        localStorage.removeItem('authToken');
+        showAlert('Успешен изход!', 'success');
+        setTimeout(() => window.location.href = '../HTML/index.html', 1500);
+    });
+    
+    document.getElementById('editProfileBtn')?.addEventListener('click', () => {
+        window.location.href = 'edit_profile.html';
+    });
+    
+    document.getElementById('cancelEditBtn')?.addEventListener('click', () => {
+        document.getElementById('editPostModal').classList.remove('show');
+        currentEditPostId = null;
+    });
+    
+    document.getElementById('saveEditBtn')?.addEventListener('click', saveEditPost);
+    
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const deleteBtnText = document.getElementById('deleteBtnText');
+    const deleteLoader = document.getElementById('deleteLoader');
+    
+    if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener('click', () => deleteModal?.classList.add('show'));
+    }
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener('click', () => deleteModal?.classList.remove('show'));
+    }
+    if (confirmDeleteBtn) {
         confirmDeleteBtn.addEventListener('click', async () => {
-            // Показваме loader
             deleteBtnText.style.display = 'none';
             deleteLoader.style.display = 'inline-block';
             confirmDeleteBtn.disabled = true;
-
+            
             try {
-                // Симулираме API заявка
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                const response = await authFetch(`${window.API_CONFIG.USER}/current-user`, { method: 'DELETE' });
+                if (response.status === 401) {
+                    localStorage.removeItem('authToken');
+                    showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
+                    setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                    return;
+                }
+                if (!response.ok) throw new Error('Грешка при изтриване');
                 
-                // Изтриваме потребителя
-                sessionStorage.removeItem('user');
-                sessionStorage.removeItem('token');
-                
-                showToast('Профилът е изтрит успешно!');
-                
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
+                localStorage.removeItem('authToken');
+                showAlert('Профилът е изтрит успешно!', 'success');
+                setTimeout(() => window.location.href = '../HTML/index.html', 1500);
                 
             } catch (error) {
-                showToast('Грешка при изтриване на профила', true);
-                
-                // Връщаме бутона в нормално състояние
+                showAlert('Грешка при изтриване на профила', 'error');
                 deleteBtnText.style.display = 'inline';
                 deleteLoader.style.display = 'none';
                 confirmDeleteBtn.disabled = false;
-                deleteModal.classList.remove('show');
+                deleteModal?.classList.remove('show');
             }
         });
-
-        // Затваряне на модала при клик извън него
-        window.addEventListener('click', (e) => {
-            if (e.target === deleteModal) {
-                deleteModal.classList.remove('show');
-            }
-        });
-
-        // Бутон за назад - алтернативен линк ако няма история
-        document.getElementById('backBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (document.referrer) {
-                history.back();
-            } else {
-                window.location.href = 'index.html';
-            }
-        });
-
-        loadUserData();
-
-        setInterval(() => {
-            const currentUser = sessionStorage.getItem('user');
-            if (!currentUser || currentUser === 'undefined' || currentUser === 'null') {
-                window.location.href = 'login.html';
-            }
-        }, 1000);
-    </script>
+    }
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === deleteModal) deleteModal?.classList.remove('show');
+        if (e.target === document.getElementById('editPostModal')) {
+            document.getElementById('editPostModal').classList.remove('show');
+            currentEditPostId = null;
+        }
+    });
+    
+    document.getElementById('backBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (document.referrer) history.back();
+        else window.location.href = '../HTML/index.html';
+    });
+    
+    async function init() {
+        if (!checkAuthAndRedirect()) return;
+        const userLoaded = await loadCurrentUser();
+        if (userLoaded && currentUser) {
+            loadUserPostsFromStorage(1);
+        }
+    }
+    
+    init();
+</script>
 </body>
 </html>

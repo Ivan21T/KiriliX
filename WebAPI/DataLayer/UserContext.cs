@@ -57,7 +57,9 @@ namespace DataLayer
             {
                 throw new Exception("Потребителят не е намерен!");
             }
-            _context.Entry(existingUser).CurrentValues.SetValues(item);
+            existingUser.Email=item.Email;
+            existingUser.Username=item.Username;
+            existingUser.Password=item.Password;
 
             await _context.SaveChangesAsync();
         }

@@ -1,4 +1,4 @@
-﻿using Business_Layer;
+﻿using BusinessLayer;
 using DataLayer;
 using Org.BouncyCastle.Asn1.Mozilla;
 using ServiceLayer.DTOs;
@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLayer;
 namespace ServiceLayer
 {
     public class OTPCodeService

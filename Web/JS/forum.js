@@ -1,11 +1,12 @@
-const user = JSON.parse(sessionStorage.getItem('user'));
-
+// State management
+let currentUser = null;
 const threadsPerPage = 8;
 let currentPage = 1;
 let filteredThreads = [];
 let currentSort = "newest";
 let allThreads = [];
 
+// DOM Elements
 const newThreadModal = document.getElementById('newThreadModal');
 const modalClose = document.getElementById('modalClose');
 const cancelThreadBtn = document.getElementById('cancelThreadBtn');
@@ -19,15 +20,107 @@ const titleCounter = document.getElementById('titleCounter');
 const questionCounter = document.getElementById('questionCounter');
 
 // Loader functionality
-window.addEventListener('load', function() {
+window.addEventListener('load', async function() {
     const loader = document.getElementById('loader');
-    setTimeout(() => {
+    
+    // Load current user from token first
+    await loadCurrentUser();
+    
+    setTimeout(async () => {
         loader.classList.add('hidden');
-        loadPosts();
+        await loadPosts();
         renderPagination();
         initModal();
     }, 1000);
 });
+
+// Update forum statistics
+function updateStatistics(threadsCount) {
+    const totalThreadsElement = document.getElementById('totalThreadsCount');
+    if (totalThreadsElement) {
+        totalThreadsElement.textContent = threadsCount;
+    }
+}
+
+// Calculate today's statistics from posts and comments
+function calculateTodayStats(posts) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    let todayPosts = 0;
+    let todayReplies = 0;
+    
+    posts.forEach(post => {
+        // Check if post is from today
+        const postDate = new Date(post.createdAt);
+        postDate.setHours(0, 0, 0, 0);
+        
+        if (postDate.getTime() === today.getTime()) {
+            todayPosts++;
+        }
+        
+        // Check comments
+        if (post.comments && post.comments.length > 0) {
+            post.comments.forEach(comment => {
+                const commentDate = new Date(comment.createdAt);
+                commentDate.setHours(0, 0, 0, 0);
+                
+                if (commentDate.getTime() === today.getTime()) {
+                    todayReplies++;
+                }
+            });
+        }
+    });
+    
+    // Update the HTML
+    const todayPostsElement = document.getElementById('todayPostsCount');
+    const todayRepliesElement = document.getElementById('todayRepliesCount');
+    
+    if (todayPostsElement) {
+        todayPostsElement.textContent = todayPosts;
+    }
+    
+    if (todayRepliesElement) {
+        todayRepliesElement.textContent = todayReplies;
+    }
+}
+
+// Load current user from JWT token
+async function loadCurrentUser() {
+    const authToken = localStorage.getItem('authToken');
+    
+    if (!authToken) {
+        console.log('No auth token found');
+        currentUser = null;
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${window.API_CONFIG.USER}/current-user`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            currentUser = await response.json();
+            console.log('User loaded from token:', currentUser);
+            
+            // Save to sessionStorage for other pages
+            sessionStorage.setItem('user', JSON.stringify(currentUser));
+        } else if (response.status === 401) {
+            // Token expired or invalid
+            localStorage.removeItem('authToken');
+            sessionStorage.removeItem('user');
+            currentUser = null;
+        }
+    } catch (error) {
+        console.error('Error loading current user:', error);
+        currentUser = null;
+    }
+}
 
 function initModal() {
     if (threadTitle) {
@@ -44,9 +137,16 @@ function initModal() {
 }
 
 function showModal() {
+    // Check if user is logged in before showing modal
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken || !currentUser) {
+        showAlert('Трябва да сте логнат, за да създадете нова тема!', 'error');
+        return;
+    }
+    
     newThreadModal.classList.add('active');
     document.body.classList.add('modal-open');
-    threadTitle.focus();
+    if (threadTitle) threadTitle.focus();
 }
 
 function hideModal() {
@@ -81,6 +181,13 @@ document.addEventListener('keydown', function(e) {
 
 if (submitThreadBtn) {
     submitThreadBtn.addEventListener('click', async function() {
+        // Double-check authentication before submitting
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken || !currentUser) {
+            showAlert('Трябва да сте логнат, за да публикувате тема!', 'error');
+            return;
+        }
+        
         if (!threadTitle.value.trim()) {
             showAlert('Моля, въведете заглавие на темата', 'error');
             threadTitle.focus();
@@ -101,13 +208,15 @@ if (submitThreadBtn) {
                 title: threadTitle.value,
                 content: threadQuestion.value,
                 createdAt: new Date().toISOString(),
-                author: user
+                authorId: currentUser.id,
+                author: currentUser
             };
             
-            const response = await fetch(`${API_CONFIG.POST}`, {
+            const response = await fetch(`${window.API_CONFIG.POST}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
                 },
                 body: JSON.stringify(newPost)
             });
@@ -116,10 +225,15 @@ if (submitThreadBtn) {
             
             if (response.ok) {
                 hideModal();
-                showAlert(result.message, 'success');
+                showAlert(result.message || 'Темата е публикувана успешно!', 'success');
                 await refreshPosts();
+            } else if (response.status === 401) {
+                showAlert('Сесията ви е изтекла. Моля, влезте отново!', 'error');
+                localStorage.removeItem('authToken');
+                sessionStorage.removeItem('user');
+                currentUser = null;
             } else {
-                showAlert(result.message, 'error');
+                showAlert(result.message || 'Възникна грешка', 'error');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -152,21 +266,35 @@ if (mobileMenuToggle && mobileMenu) {
 function formatDate(utcDateString) {
     if (!utcDateString) return 'Неизвестна дата';
     
-    const utcDate = new Date(utcDateString);
+    // Parse date - add 'Z' if missing to treat as UTC
+    let dateString = utcDateString;
+    if (!dateString.endsWith('Z') && !dateString.includes('+')) {
+        dateString = dateString + 'Z';
+    }
+    
+    const utcDate = new Date(dateString);
+    
+    // Check if date is valid
+    if (isNaN(utcDate.getTime())) return 'Невалидна дата';
+    
     const now = new Date();
     
-    const localDate = new Date(utcDate.getTime() + (now.getTimezoneOffset() * 60000));
-    
-    const diffTime = Math.abs(now - localDate);
+    // Calculate difference in milliseconds
+    const diffTime = now - utcDate;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     const diffMinutes = Math.floor(diffTime / (1000 * 60));
+    const diffSeconds = Math.floor(diffTime / 1000);
     
+    // For very recent posts
+    if (diffSeconds < 60) {
+        return 'Току-що';
+    }
+    
+    // For posts from today
     if (diffDays === 0) {
         if (diffHours === 0) {
-            if (diffMinutes === 0) {
-                return 'Току-що';
-            } else if (diffMinutes === 1) {
+            if (diffMinutes === 1) {
                 return 'Преди 1 минута';
             }
             return `Преди ${diffMinutes} минути`;
@@ -174,41 +302,67 @@ function formatDate(utcDateString) {
             return 'Преди 1 час';
         }
         return `Преди ${diffHours} часа`;
-    } else if (diffDays === 1) {
+    }
+    
+    // For posts from yesterday
+    if (diffDays === 1) {
         return 'Преди 1 ден';
-    } else if (diffDays < 7) {
+    }
+    
+    // For posts from last week
+    if (diffDays < 7) {
         return `Преди ${diffDays} дни`;
-    } else if (diffDays < 30) {
+    }
+    
+    // For posts from last month
+    if (diffDays < 30) {
         const weeks = Math.floor(diffDays / 7);
         if (weeks === 1) {
             return 'Преди 1 седмица';
         }
         return `Преди ${weeks} седмици`;
-    } else if (diffDays < 365) {
+    }
+    
+    // For posts from last year
+    if (diffDays < 365) {
         const months = Math.floor(diffDays / 30);
         if (months === 1) {
             return 'Преди 1 месец';
         }
         return `Преди ${months} месеца`;
-    } else {
-        const years = Math.floor(diffDays / 365);
-        if (years === 1) {
-            return 'Преди 1 година';
-        }
-        return `Преди ${years} години`;
     }
+    
+    // For older posts
+    const years = Math.floor(diffDays / 365);
+    if (years === 1) {
+        return 'Преди 1 година';
+    }
+    return `Преди ${years} години`;
 }
 
-// Функция за зареждане на постове от API
+// Load posts from API and save to sessionStorage
 async function loadPosts() {
     try {
         const loader = document.getElementById('loader');
         if (loader) loader.classList.remove('hidden');
 
+        // Check if we have posts in sessionStorage
+        const storedPosts = sessionStorage.getItem('forum_posts');
+        
+        if (storedPosts) {
+            console.log('Loading posts from sessionStorage');
+            const posts = JSON.parse(storedPosts);
+            processPostsData(posts);
+            if (loader) loader.classList.add('hidden');
+            return;
+        }
+        
+        console.log('Fetching fresh posts from API');
+        
         const useNavigationalProperties = true;
         const isReadOnly = true;
         
-        const response = await fetch(`${API_CONFIG.POST}?useNavigationalProperties=${useNavigationalProperties}&isReadOnly=${isReadOnly}`, {
+        const response = await fetch(`${window.API_CONFIG.POST}?useNavigationalProperties=${useNavigationalProperties}&isReadOnly=${isReadOnly}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -222,47 +376,9 @@ async function loadPosts() {
 
         const posts = await response.json();
         
-        // Трансформираме постовете към формата, който очаква renderThreads
-        allThreads = posts.map((post, index) => {
-            const authorName = post.author?.username || 'Анонимен';
-            
-            // По-добра обработка на инициалите
-            let authorInitials = 'АН';
-            if (authorName !== 'Анонимен') {
-                const nameParts = authorName.split(' ');
-                if (nameParts.length >= 2) {
-                    authorInitials = (nameParts[0][0] + nameParts[1][0]).toUpperCase();
-                } else {
-                    authorInitials = authorName.substring(0, 2).toUpperCase();
-                }
-            }
-            
-            const repliesCount = post.replies?.length || 0;
-            const datePosted = post.createdAt ? formatDate(post.createdAt) : 'Неизвестна дата';
-            
-            // Запазваме пълния content за проверка на дължината
-            const preview = post.content 
-                ? post.content.substring(0, 100) + (post.content.length > 100 ? '...' : '')
-                : 'Няма съдържание';
-            
-            return {
-                id: post.id || index + 1,
-                title: post.title || 'Без заглавие',
-                preview: preview,
-                content: post.content, // Запазваме пълния content
-                author: authorName,
-                authorInitials: authorInitials,
-                replies: repliesCount,
-                date: datePosted,
-                createdAt: post.createdAt,
-                authorId: post.author?.id
-            };
-        });
-
-        filteredThreads = [...allThreads];
+        sessionStorage.setItem('forum_posts', JSON.stringify(posts));
         
-        renderThreads();
-        renderPagination();
+        processPostsData(posts);
         
     } catch (error) {
         console.error('Error loading posts:', error);
@@ -274,7 +390,68 @@ async function loadPosts() {
 }
 
 async function refreshPosts() {
+    // Clear sessionStorage and reload fresh data
+    sessionStorage.removeItem('forum_posts');
     await loadPosts();
+}
+
+function processPostsData(posts) {
+    // Transform posts to the format expected by renderThreads
+    allThreads = posts.map((post, index) => {
+        let authorName = post.author?.username || 'Анонимен';
+        // Check if author is admin (role === 0)
+        if (post.author?.role === 0) {
+            authorName = 'Админ';
+        }
+        
+        // Better handling of author initials
+        let authorInitials = 'АН';
+        // Special handling for Admin
+        if (authorName === 'Админ') {
+            authorInitials = 'АД';
+        } else if (authorName !== 'Анонимен') {
+            const nameParts = authorName.split(' ');
+            if (nameParts.length >= 2) {
+                authorInitials = (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+            } else {
+                authorInitials = authorName.substring(0, 2).toUpperCase();
+            }
+        }
+        
+        // Count comments properly from the comments array
+        const repliesCount = post.comments?.length || 0;
+        const datePosted = post.createdAt ? formatDate(post.createdAt) : 'Неизвестна дата';
+        
+        // Keep full content for length checking
+        const preview = post.content 
+            ? post.content.substring(0, 100) + (post.content.length > 100 ? '...' : '')
+            : 'Няма съдържание';
+        
+        return {
+            id: post.id || index + 1,
+            title: post.title || 'Без заглавие',
+            preview: preview,
+            content: post.content,
+            author: authorName,
+            authorInitials: authorInitials,
+            replies: repliesCount,
+            date: datePosted,
+            createdAt: post.createdAt,
+            authorId: post.author?.id,
+            comments: post.comments || []
+        };
+    });
+
+    filteredThreads = [...allThreads];
+    
+    // Update the statistics with real thread count
+    updateStatistics(allThreads.length);
+    
+    // Calculate and update today's statistics
+    calculateTodayStats(posts);
+    
+    renderThreads();
+    renderPagination();
 }
 
 function sortThreads(threads, sortType) {
@@ -319,20 +496,20 @@ function renderThreads() {
             html += `
                 <div class="thread-item" data-thread-id="${thread.id}">
                     <h3 class="thread-title">
-                        <a href="forum_details.html?id=${thread.id}" class="thread-title-link">${thread.title}</a>
+                        <a href="forum_details.html?id=${thread.id}" class="thread-title-link">${escapeHtml(thread.title)}</a>
                     </h3>
                     <p class="thread-preview">
-                        ${thread.preview}
+                        ${escapeHtml(thread.preview)}
                         ${hasFullContent ? '<span class="read-more-link" data-thread-id="' + thread.id + '">Вижте повече...</span>' : ''}
                     </p>
                     <div class="thread-meta">
                         <div class="thread-author">
-                            <div class="author-avatar">${thread.authorInitials}</div>
-                            <span>${thread.author}</span>
+                            <div class="author-avatar">${escapeHtml(thread.authorInitials)}</div>
+                            <span>${escapeHtml(thread.author)}</span>
                         </div>
                         <div class="thread-info">
                             <span><i class="far fa-comment"></i> ${thread.replies} ${thread.replies === 1 ? 'отговор' : 'отговора'}</span>
-                            <span><i class="far fa-clock"></i> ${thread.date}</span>
+                            <span><i class="far fa-clock"></i> ${escapeHtml(thread.date)}</span>
                         </div>
                     </div>
                 </div>
@@ -359,7 +536,6 @@ function renderThreads() {
     
     document.querySelectorAll('.thread-item').forEach(item => {
         item.addEventListener('click', function(e) {
-            // Проверка дали не е кликнато върху линк или "Вижте повече"
             if (!e.target.classList.contains('read-more-link') && 
                 !e.target.classList.contains('thread-title-link') &&
                 e.target.tagName !== 'A') {
@@ -370,16 +546,22 @@ function renderThreads() {
             }
         });
         
-        // Добавяне на курсор поинтър за по-добро UX
         item.style.cursor = 'pointer';
     });
     
-    // Добавяне на анимация
     document.querySelectorAll('.thread-item').forEach(el => {
         el.classList.add('fade-in');
     });
     
     updatePaginationInfo();
+}
+
+// Helper function to escape HTML
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function renderPagination() {
@@ -488,7 +670,7 @@ if (mobileSearchInput) {
     });
 }
 
-// Hover ефекти
+// Hover effects
 document.querySelectorAll('.thread-item, .quick-link').forEach(item => {
     item.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-3px)';
@@ -501,7 +683,7 @@ document.querySelectorAll('.thread-item, .quick-link').forEach(item => {
     });
 });
 
-// Intersection Observer за анимации
+// Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -519,7 +701,7 @@ document.querySelectorAll('.thread-item, .sidebar-widget').forEach(el => {
     observer.observe(el);
 });
 
-// Ripple ефект за бутони
+// Ripple effect for buttons
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', function(e) {
         const ripple = document.createElement('span');
@@ -541,7 +723,7 @@ document.querySelectorAll('.btn').forEach(button => {
     });
 });
 
-// Допълнителни CSS стилове
+// Additional CSS styles
 const additionalStyles = document.createElement('style');
 additionalStyles.textContent = `
     .read-more-link {

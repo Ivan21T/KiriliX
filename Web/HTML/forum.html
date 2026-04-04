@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiriliX | Форум на българската общност</title>
+    <title>KiriliX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/notification.css">
     <link rel="stylesheet" href="../CSS/forum.css">
 </head>
 <body>
+
     <div class="loader" id="loader">
         <div class="loader-container">
             <div class="loader-circle"></div>
@@ -26,8 +28,10 @@
     </div>
     
     <div class="bulgarian-pattern"></div>
-    
+
     <kirilix-header></kirilix-header>
+    
+    <div style="margin-top: 6%;" class="alert-container" id="alert-container"></div>
 
     <div class="modal" id="newThreadModal">
         <div class="modal-content">
@@ -91,7 +95,7 @@
             
             <div class="forum-stats fade-in delay-3">
                 <div class="stat-card">
-                    <div class="stat-number">5,892</div>
+                    <div class="stat-number" id="totalThreadsCount">0</div>
                     <div class="stat-label">Теми</div>
                 </div>
             </div>
@@ -157,9 +161,8 @@
                 Нова тема
             </button>
             
-            <!-- ПРЕМАХНАХ "ФИЛТРИРАЙ ТЕМИ" - ТОВА Е НОВИЯТ ВИД -->
             
-            <div class="sidebar-widget fade-in delay-2">
+           <div class="sidebar-widget fade-in delay-2">
                 <div class="widget-header">
                     <i class="fas fa-chart-line"></i>
                     Статистики
@@ -167,29 +170,24 @@
                 <div class="widget-body">
                     <div class="quick-links">
                         <div class="quick-link">
-                            <i class="fas fa-user-plus"></i>
-                            <span>Нови потребители днес: 12</span>
-                        </div>
-                        <div class="quick-link">
                             <i class="fas fa-comment"></i>
-                            <span>Нови отговори днес: 47</span>
+                            <span>Нови отговори днес: <span id="todayRepliesCount">0</span></span>
                         </div>
                         <div class="quick-link">
                             <i class="fas fa-file-alt"></i>
-                            <span>Нови теми днес: 8</span>
-                        </div>
-                        <div class="quick-link">
-                            <i class="fas fa-star"></i>
-                            <span>Най-активен потребител: Иван П.</span>
+                            <span>Нови теми днес: <span id="todayPostsCount">0</span></span>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </aside>
     </div>
 
     <kirilix-footer></kirilix-footer>
 
+
+    <script src="../JS/notification_system.js"></script>
     <script src="../JS/config.js"></script>
     <script type="module" src="../JS/header.js"></script>
     <script type="module" src="../JS/footer.js"></script>

@@ -352,6 +352,12 @@ class Header extends HTMLElement {
                     display: inline-flex;
                 }
                 
+                /* Скриваме десктоп бутоните за вход и изтегляне на мобилни устройства */
+                .desktop-login-btn,
+                .desktop-download-btn {
+                    display: inline-flex;
+                }
+                
                 .mobile-menu-toggle {
                     display: none;
                     flex-direction: column;
@@ -465,8 +471,15 @@ class Header extends HTMLElement {
                     font-size: 1.1rem;
                 }
                 
+                /* Мобилен медиен запрос - скриваме десктоп бутоните за вход и изтегляне */
                 @media (max-width: 768px) {
                     .desktop-logout-btn {
+                        display: none !important;
+                    }
+                    
+                    /* Скриваме бутоните за вход и изтегляне в навигационната лента */
+                    .desktop-login-btn,
+                    .desktop-download-btn {
                         display: none !important;
                     }
                     
@@ -492,11 +505,6 @@ class Header extends HTMLElement {
                         height: 35px;
                         font-size: 16px;
                         margin-right: -15px;
-                    }
-                    
-                    .btn-outline, .btn-primary {
-                        padding: 0.6rem 1.2rem;
-                        font-size: 0.9rem;
                     }
                 }
                 
@@ -599,7 +607,7 @@ class Header extends HTMLElement {
                         <div id="user-section">
                             ${this.isLoggedIn ? await this.renderUserIcon() : await this.renderLoginButton()}
                         </div>
-                        ${!this.isLoggedIn ? `<button class="btn btn-primary" id="download-btn">Изтегли</button>` : ''}
+                        ${!this.isLoggedIn ? `<button class="btn btn-primary desktop-download-btn" id="download-btn">Изтегли</button>` : ''}
                         ${this.isLoggedIn ? await this.renderLogoutButton() : ''}
                     </div>
                     <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -644,7 +652,7 @@ class Header extends HTMLElement {
                 <a href="../HTML/index.html" class="nav-link">Начало</a>
                 <a href="../HTML/docs.html" class="nav-link">Документация</a>
                 <a href="../HTML/forum.html" class="nav-link">Форум</a>
-                <a href="../HTML/profile.html" class="nav-link">Профил</a>
+                <a href="../HTML/news.html" class="nav-link">Новини</a>
                 <a href="../HTML/contact.html" class="nav-link">Контакти</a>
             `;
         } else {
@@ -668,19 +676,12 @@ class Header extends HTMLElement {
                 </a>
                 <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
             `;
-        } else if (this.isLoggedIn) {
+            } else {
             return `
                 <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
                 <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
                 <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
-                <a href="../HTML/profile.html" class="mobile-nav-link">Профил</a>
-                <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
-            `;
-        } else {
-            return `
-                <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
-                <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
-                <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
+                <a href="../HTML/news.html" class="mobile-nav-link">Новини</a>
                 <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
             `;
         }
@@ -695,7 +696,7 @@ class Header extends HTMLElement {
 
     async renderLoginButton() {
         return `
-            <button id="login-btn" class="btn btn-outline">
+            <button id="login-btn" class="btn btn-outline desktop-login-btn">
                 Вход
             </button>
         `;
@@ -757,7 +758,6 @@ class Header extends HTMLElement {
             });
         }
 
-        // Close mobile menu when clicking links
         const mobileLinks = this.querySelectorAll('.mobile-nav-link, .mobile-login-btn, .mobile-download-btn, #mobile-logout-btn');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -771,7 +771,6 @@ class Header extends HTMLElement {
             });
         });
 
-        // Login buttons
         const loginBtn = this.querySelector('#login-btn');
         const mobileLoginBtn = this.querySelector('.mobile-login-btn');
         
@@ -789,7 +788,6 @@ class Header extends HTMLElement {
             });
         }
         
-        // Download buttons
         const downloadBtn = this.querySelector('#download-btn');
         const mobileDownloadBtn = this.querySelector('.mobile-download-btn');
         
@@ -807,7 +805,6 @@ class Header extends HTMLElement {
             });
         }
 
-        // Logout buttons
         const logoutBtn = this.querySelector('#logout-btn');
         const mobileLogoutBtn = this.querySelector('#mobile-logout-btn');
         

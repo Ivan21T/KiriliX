@@ -293,7 +293,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "BusinessLayer.User",
+        "Type": "ServiceLayer.DTOs.UpdateUserDTO",
         "IsRequired": true
       }
     ],

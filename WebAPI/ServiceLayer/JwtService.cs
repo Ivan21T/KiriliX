@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using ServiceLayer.DTOs;
-using Business_Layer.Enums;
+using BusinessLayer.Enums;
 
 namespace ServiceLayer
 {

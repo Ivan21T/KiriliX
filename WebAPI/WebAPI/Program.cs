@@ -1,5 +1,5 @@
 using InfrastructureLayer;
-using Business_Layer;
+using BusinessLayer;
 using DataLayer;
 using DataLayer.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

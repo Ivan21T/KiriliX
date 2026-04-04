@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Business_Layer;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.DTOs;
@@ -33,6 +32,18 @@ namespace ServiceLayer
             catch (Exception ex)
             {
                 throw new Exception($"Грешка при взимане на публикациите: {ex.Message}", ex);
+            }
+        }
+        public async Task<List<Post>> GetPostsByUserIdAsync(int userId, bool useNavigationalProperties = false, bool isReadOnly = false)
+        {
+            try
+            {
+                var posts = await _postContext.ReadAllAsync(useNavigationalProperties, isReadOnly);
+                return posts.FindAll(p => p.Author.Id == userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Грешка при взимане на публикациите за потребител с ID {userId}: {ex.Message}", ex);
             }
         }
 

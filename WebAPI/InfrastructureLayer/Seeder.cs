@@ -1,7 +1,7 @@
 ﻿using DataLayer.Repositories;
 using DataLayer;
 using BusinessLayer;
-using Business_Layer.Enums;
+using BusinessLayer.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 

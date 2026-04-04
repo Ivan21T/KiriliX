@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
-using Business_Layer;
-using ServiceLayer.DTOs;
 using BusinessLayer;
+using ServiceLayer.DTOs;
 namespace ServiceLayer
 {
     public class CommentService

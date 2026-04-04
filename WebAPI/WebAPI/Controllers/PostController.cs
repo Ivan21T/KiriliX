@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.DTOs;
-using Business_Layer;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPosts([FromQuery] bool useNavigationalProperties = true, [FromQuery] bool isReadOnly = false)
+        public async Task<IActionResult> GetPosts([FromQuery] bool useNavigationalProperties = false, [FromQuery] bool isReadOnly = false)
         {
             try
             {
@@ -35,7 +34,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPostById(int id, [FromQuery] bool useNavigationalProperties = true, [FromQuery] bool isReadOnly = false)
+        public async Task<IActionResult> GetPostById(int id, [FromQuery] bool useNavigationalProperties = false, [FromQuery] bool isReadOnly = false)
         {
             try
             {
@@ -51,7 +50,6 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] Post post)
         {

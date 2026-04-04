@@ -2,9 +2,8 @@
 using BCrypt.Net;
 using ServiceLayer.DTOs;
 using Microsoft.EntityFrameworkCore;
-using Business_Layer;
-using System.Security.Cryptography;
 using BusinessLayer;
+using System.Security.Cryptography;
 namespace ServiceLayer
 {
     public class UserService
@@ -60,6 +59,7 @@ namespace ServiceLayer
         }
         public async Task UpdateUserAsync(User user, bool useNavigationalProperties = false)
         {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             await _userContext.UpdateAsync(user, useNavigationalProperties);
         }
         public async Task<User> SignIn(string email, string password)

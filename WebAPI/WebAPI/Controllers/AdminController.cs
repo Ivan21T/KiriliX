@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
                     { 
                         message = "Успешно влизане!",
                         token = token,
-                        user=Mapper.ToReadUserDTO(user)
+                        user=Mapper.UserToReadUserDTO(user)
                     });
                 }
                 else

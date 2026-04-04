@@ -50,6 +50,19 @@ namespace WebAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet("author/{authorId}")]
+        public async Task<IActionResult> GetPostsByAuthorId(int authorId, [FromQuery] bool useNavigationalProperties = false, [FromQuery] bool isReadOnly = false)
+        {
+            try
+            {
+                List<Post> posts = await _postService.GetPostsByUserIdAsync(authorId, useNavigationalProperties, isReadOnly);
+                return Ok(posts);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] Post post)
         {

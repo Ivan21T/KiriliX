@@ -7,12 +7,12 @@ window.addEventListener('load', function() {
     const postId = urlParams.get('id');
     
     if (!postId || postId.trim() === '') {
-        showError('Липсващ ID', 'Моля, посочете ID на публикацията в URL адреса.<br>Пример: post_details.html?id=123');
+        showAlert('Моля, посочете ID на публикацията в URL адреса.<br>Пример: post_details.html?id=123', 'error');
         return;
     }
     
     if (isNaN(postId) || parseInt(postId) <= 0) {
-        showError('Невалидно ID', 'Посоченото ID не е валидно число.<br>Моля, проверете URL адреса.');
+        showAlert('Посоченото ID не е валидно число.<br>Моля, проверете URL адреса.', 'error');
         return;
     }
     
@@ -25,7 +25,6 @@ window.addEventListener('load', function() {
 
 async function loadCurrentUser() {
     try {
-        // Първо проверяваме в sessionStorage
         const sessionUser = sessionStorage.getItem('user');
         
         if (sessionUser) {
@@ -34,7 +33,6 @@ async function loadCurrentUser() {
             return;
         }
         
-        // Ако няма в sessionStorage, проверяваме в localStorage за токен
         const token = localStorage.getItem('authToken');
         
         if (!token) {
@@ -43,7 +41,6 @@ async function loadCurrentUser() {
             return;
         }
         
-        // Ако има токен, fetch-ваме от API
         console.log('Няма потребител в sessionStorage, зареждам от API...');
         const response = await fetch(`${API_CONFIG.USER}/current-user`, {
             headers: {
@@ -53,7 +50,6 @@ async function loadCurrentUser() {
         
         if (response.ok) {
             currentUser = await response.json();
-            // Запазваме в sessionStorage за следващи пъти
             sessionStorage.setItem('user', JSON.stringify(currentUser));
             console.log('Потребител зареден от API:', currentUser.username, 'Роля:', currentUser.role);
         } else {
@@ -69,6 +65,7 @@ async function loadCurrentUser() {
 
 async function loadPostDetails(postId) {
     try {
+        showAlert('Зареждане на публикацията...', 'pending');
         document.getElementById('loader').classList.remove('hidden');
         
         const response = await fetch(`${API_CONFIG.POST}/${postId}?useNavigationalProperties=true`);
@@ -122,10 +119,14 @@ async function loadPostDetails(postId) {
         
         displayComments(post.comments || []);
         
+        // Премахване на pending съобщението
+        const pendingAlert = document.querySelector('.alert-message.pending');
+        if (pendingAlert) pendingAlert.remove();
+        
     } catch (error) {
         console.error('Грешка при зареждане на публикация:', error);
         document.getElementById('loader').classList.add('hidden');
-        showError('Грешка при зареждане', error.message);
+        showAlert(error.message, 'error');
     }
 }
 
@@ -161,7 +162,6 @@ function displayComments(comments) {
                 authorInitials = getInitials(comment.author.username) || getInitials(comment.author.email) || '??';
             }
             
-            // Проверка дали текущият потребител може да изтрие коментара
             if (currentUser && (currentUser.id === commentAuthorId || currentUser.role === 0)) {
                 canDelete = true;
             }
@@ -209,12 +209,12 @@ function displayComments(comments) {
 
 async function deleteComment(commentId) {
     if (!commentId) {
-        showToast('Грешка: Невалиден ID на коментар', 'error');
+        showAlert('Невалиден ID на коментар', 'error');
         return;
     }
     
     if (!currentUser) {
-        showToast('Трябва да сте влезли в профила си, за да изтриете коментар', 'warning');
+        showAlert('Трябва да сте влезли в профила си, за да изтриете коментар', 'warning');
         return;
     }
     
@@ -248,13 +248,13 @@ async function deleteComment(commentId) {
             throw new Error(errorMessage);
         }
         
-        showToast('Коментарът беше изтрит успешно!', 'success');
+        showAlert('Коментарът беше изтрит успешно!', 'success');
         
         await loadPostDetails(currentPostId);
         
     } catch (error) {
         console.error('Грешка при изтриване на коментар:', error);
-        showToast(error.message || 'Грешка при изтриване на коментар', 'error');
+        showAlert(error.message || 'Грешка при изтриване на коментар', 'error');
         
         const deleteBtn = document.querySelector(`.comment-item[data-comment-id="${commentId}"] .delete-comment-btn`);
         if (deleteBtn) {
@@ -291,22 +291,22 @@ async function submitComment() {
     const submitBtn = document.getElementById('submitCommentBtn');
     
     if (!content) {
-        showToast('Моля, въведете съдържание на коментара', 'warning');
+        showAlert('Моля, въведете съдържание на коментара', 'warning');
         return;
     }
     
     if (!currentUser) {
-        showToast('Трябва да сте влезли в профила си, за да коментирате', 'warning');
+        showAlert('Трябва да сте влезли в профила си, за да коментирате', 'warning');
         return;
     }
     
     if (!currentPostId) {
-        showToast('Грешка: Няма заредена публикация', 'error');
+        showAlert('Няма заредена публикация', 'error');
         return;
     }
     
     if (!currentPost) {
-        showToast('Грешка: Няма информация за публикацията', 'error');
+        showAlert('Няма информация за публикацията', 'error');
         return;
     }
     
@@ -339,7 +339,7 @@ async function submitComment() {
             throw new Error(errorData.message || 'Грешка при изпращане на коментар');
         }
         
-        showToast('Коментарът беше добавен успешно!', 'success');
+        showAlert('Коментарът беше добавен успешно!', 'success');
         
         contentInput.value = '';
         
@@ -347,7 +347,7 @@ async function submitComment() {
         
     } catch (error) {
         console.error('Грешка при изпращане на коментар:', error);
-        showToast(error.message || 'Грешка при изпращане на коментар', 'error');
+        showAlert(error.message || 'Грешка при изпращане на коментар', 'error');
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Публикувай';
@@ -378,74 +378,6 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function showToast(message, type = 'info') {
-    const oldToast = document.querySelector('.toast-message');
-    if (oldToast) oldToast.remove();
-    
-    const toast = document.createElement('div');
-    toast.className = `toast-message toast-${type}`;
-    
-    let icon = 'info-circle';
-    if (type === 'success') icon = 'check-circle';
-    if (type === 'error') icon = 'exclamation-circle';
-    if (type === 'warning') icon = 'exclamation-triangle';
-    
-    toast.innerHTML = `
-        <div class="toast-content">
-            <i class="fas fa-${icon}"></i>
-            <span>${escapeHtml(message)}</span>
-        </div>
-        <button class="toast-close">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateX(0)';
-    }, 100);
-    
-    setTimeout(() => {
-        toast.style.transform = 'translateX(150%)';
-        setTimeout(() => toast.remove(), 400);
-    }, 5000);
-    
-    const closeBtn = toast.querySelector('.toast-close');
-    closeBtn.addEventListener('click', () => {
-        toast.style.transform = 'translateX(150%)';
-        setTimeout(() => toast.remove(), 400);
-    });
-}
-
-function showError(title, message) {
-    document.getElementById('loader').classList.add('hidden');
-    
-    document.getElementById('forumHeader').style.display = 'none';
-    document.getElementById('forumContent').style.display = 'none';
-    document.getElementById('commentsSection').style.display = 'none';
-    
-    const container = document.getElementById('mainContainer');
-    
-    let errorContainer = document.querySelector('.error-container');
-    if (errorContainer) {
-        errorContainer.remove();
-    }
-    
-    errorContainer = document.createElement('div');
-    errorContainer.className = 'error-container';
-    errorContainer.innerHTML = `
-        <i class="fas fa-exclamation-triangle"></i>
-        <h2>${escapeHtml(title || 'Грешка')}</h2>
-        <p>${escapeHtml(message || 'Възникна неочаквана грешка')}</p>
-        <a href="forum.html" class="btn btn-primary">
-            <i class="fas fa-arrow-left"></i>
-            Обратно към форума
-        </a>
-    `;
-    
-    container.appendChild(errorContainer);
-}
 
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', function(e) {

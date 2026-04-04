@@ -258,6 +258,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebAPI.Controllers.PostController",
+    "Method": "GetPostsByAuthorId",
+    "RelativePath": "post/author/{authorId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "authorId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "useNavigationalProperties",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "isReadOnly",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "GetUsers",
     "RelativePath": "users",

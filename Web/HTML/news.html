@@ -1183,13 +1183,6 @@
                     return;
                 }
                 
-                // Ако няма в sessionStorage, фетчваме от API
-                console.log('Няма в sessionStorage, фетчвам от API...');
-                
-                if (typeof API_CONFIG === 'undefined') {
-                    throw new Error('API_CONFIG не е зареден!');
-                }
-
                 const response = await fetch(API_CONFIG.NEWS, {
                     method: 'GET',
                     headers: {
@@ -1243,7 +1236,7 @@
         }
 
         function goToNewsDetail(newsId, slug) {
-            window.location.href = `news_details.html/${newsId}`;
+            window.location.href = `news_details.html?id=${newsId}`;
         }
 
         function goToAuthorProfile(authorId) {
@@ -1408,23 +1401,6 @@
             loader.classList.add('hidden');
         });
 
-        // Мобилно меню
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
-            });
-        }
-
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
-                if (mobileMenu) mobileMenu.classList.remove('active');
-            });
-        });
 
         window.loadNews = loadNews;
         window.goToNewsDetail = goToNewsDetail;

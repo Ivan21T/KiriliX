@@ -642,6 +642,7 @@ class Header extends HTMLElement {
                 <a href="../HTML/index.html" class="nav-link">Начало</a>
                 <a href="../HTML/docs.html" class="nav-link">Документация</a>
                 <a href="../HTML/forum.html" class="nav-link">Форум</a>
+                <a href="../HTML/news.html" class="nav-link">Новини</a>
                 <a href="../HTML/admin.html" class="nav-link admin-link">
                     <i class="fas fa-user-shield"></i> Админ Панел
                 </a>
@@ -660,6 +661,7 @@ class Header extends HTMLElement {
                 <a href="../HTML/index.html" class="nav-link">Начало</a>
                 <a href="../HTML/docs.html" class="nav-link">Документация</a>
                 <a href="../HTML/forum.html" class="nav-link">Форум</a>
+                <a href="../HTML/news.html" class="nav-link">Новини</a>
                 <a href="../HTML/contact.html" class="nav-link">Контакти</a>
             `;
         }
@@ -671,6 +673,7 @@ class Header extends HTMLElement {
                 <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
                 <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
                 <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
+                <a href="../HTML/news.html" class="mobile-nav-link">Новини</a>
                 <a href="../HTML/admin.html" class="mobile-nav-link mobile-admin-link">
                     <i class="fas fa-user-shield"></i> Админ Панел
                 </a>

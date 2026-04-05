@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\businesslayer\\news.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\news.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\webapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -167,19 +171,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\PostController.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\PostController.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAgwD4AAABAAAAAAAAAAA==",
+              "Title": "News.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\News.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\News.cs",
+              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\News.cs",
+              "RelativeToolTip": "BusinessLayer\\News.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAIwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T15:17:49.796Z",
+              "WhenOpened": "2026-04-04T18:35:48.331Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "PostController.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Controllers\\PostController.cs",
+              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
+              "RelativeToolTip": "WebAPI\\Controllers\\PostController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAgwEQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T15:17:49.796Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "PostService.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\PostService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\PostService.cs",
@@ -187,12 +203,11 @@
               "RelativeToolTip": "ServiceLayer\\PostService.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAASwCkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T02:39:07.48Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T02:39:07.48Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "OTPCodeService.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\OTPCodeService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\OTPCodeService.cs",
@@ -204,7 +219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\UserController.cs",
@@ -216,7 +231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CommentService.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\CommentService.cs",
@@ -228,7 +243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Seeder.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\Seeder.cs",
               "RelativeDocumentMoniker": "InfrastructureLayer\\Seeder.cs",
@@ -240,7 +255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "UserContext.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\UserContext.cs",
@@ -252,7 +267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\UserService.cs",
@@ -264,7 +279,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\User.cs",
               "RelativeDocumentMoniker": "BusinessLayer\\User.cs",
@@ -276,7 +291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Mapper.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\Mapper\\Mapper.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\Mapper\\Mapper.cs",
@@ -288,7 +303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "NewsContext.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\NewsContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\NewsContext.cs",
@@ -300,7 +315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "LoginRequestDTO.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\LoginRequestDTO.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\LoginRequestDTO.cs",
@@ -312,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "CheckOtpDTO.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CheckOtpDTO.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\CheckOtpDTO.cs",
@@ -324,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "NewsController.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\NewsController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\NewsController.cs",
@@ -336,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "ServiceLayer.csproj",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj",
               "RelativeDocumentMoniker": "ServiceLayer\\ServiceLayer.csproj",
@@ -348,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "CommentController.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\CommentController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\CommentController.cs",
@@ -360,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "AdminService.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\AdminService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\AdminService.cs",
@@ -372,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "EmailService.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\EmailService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\EmailService.cs",
@@ -384,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "WebAPI.http",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\WebAPI.http",
               "RelativeDocumentMoniker": "WebAPI\\WebAPI.http",
@@ -396,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\appsettings.json",
               "RelativeDocumentMoniker": "WebAPI\\appsettings.json",
@@ -408,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "OTPCodeContext.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\OTPCodeContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\OTPCodeContext.cs",
@@ -420,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "OTPCode.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\OTPCode.cs",
               "RelativeDocumentMoniker": "BusinessLayer\\OTPCode.cs",
@@ -432,7 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "CommentContext.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\CommentContext.cs",
@@ -444,7 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "Post.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\Business Layer\\Post.cs",
               "RelativeDocumentMoniker": "Business Layer\\Post.cs",
@@ -456,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "20260311173655_update_v9.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260311173655_update_v9.cs",
               "RelativeDocumentMoniker": "DataLayer\\Migrations\\20260311173655_update_v9.cs",
@@ -468,7 +483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Comment.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\Business Layer\\Comment.cs",
               "RelativeDocumentMoniker": "Business Layer\\Comment.cs",
@@ -480,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "20260311173302_update_v8.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260311173302_update_v8.cs",
               "RelativeDocumentMoniker": "DataLayer\\Migrations\\20260311173302_update_v8.cs",
@@ -492,7 +507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "PostContext.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\PostContext.cs",
@@ -504,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "20260311161306_update_v7.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260311161306_update_v7.cs",
               "RelativeDocumentMoniker": "DataLayer\\Migrations\\20260311161306_update_v7.cs",
@@ -516,7 +531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "News.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\Business Layer\\News.cs",
               "RelativeDocumentMoniker": "Business Layer\\News.cs",
@@ -528,7 +543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\Business Layer\\User.cs",
               "RelativeDocumentMoniker": "Business Layer\\User.cs",
@@ -540,7 +555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "20260203140144_uptdate_v2.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260203140144_uptdate_v2.cs",
               "RelativeDocumentMoniker": "DataLayer\\Migrations\\20260203140144_uptdate_v2.cs",
@@ -552,7 +567,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "KirilixDbContext.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\KirilixDbContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\KirilixDbContext.cs",
@@ -564,7 +579,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "OTPCode.cs",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\Business Layer\\OTPCode.cs",
               "RelativeDocumentMoniker": "Business Layer\\OTPCode.cs",
@@ -576,7 +591,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "DataLayer.csproj",
               "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
               "RelativeDocumentMoniker": "DataLayer\\DataLayer.csproj",

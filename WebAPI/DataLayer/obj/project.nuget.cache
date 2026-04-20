@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9EHJK5SICsY=",
+  "dgSpecHash": "QRbBZfvOxY0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
+  "projectFilePath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ivan_\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\ivan_\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
@@ -62,5 +62,18 @@
     "C:\\Users\\ivan_\\.nuget\\packages\\system.text.json\\9.0.11\\system.text.json.9.0.11.nupkg.sha512",
     "C:\\Users\\ivan_\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'MailKit' 4.14.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "projectPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\DataLayer.csproj",
+      "libraryId": "MailKit",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

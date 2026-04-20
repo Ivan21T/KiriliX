@@ -390,6 +390,22 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "DeleteAsync",
+    "RelativePath": "users/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "GetCurrentUser",
     "RelativePath": "users/current-user",
     "HttpMethod": "GET",

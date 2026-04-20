@@ -259,7 +259,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Функция за опресняване на потребителските данни
     async function refreshUser() {
         try {
             const token = localStorage.getItem('authToken');
@@ -284,7 +283,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const user = await response.json();
             currentUser = user;
             
-            // Обновяване на UI
             const profileNameEl = document.getElementById('profileName');
             const profileEmailEl = document.getElementById('profileEmail');
             
@@ -662,9 +660,11 @@ document.addEventListener("DOMContentLoaded", function() {
     if (deleteAccountBtn) {
         deleteAccountBtn.addEventListener('click', () => deleteModal?.classList.add('show'));
     }
+    
     if (cancelDeleteBtn) {
         cancelDeleteBtn.addEventListener('click', () => deleteModal?.classList.remove('show'));
     }
+    
     if (confirmDeleteBtn) {
         confirmDeleteBtn.addEventListener('click', async () => {
             deleteBtnText.style.display = 'none';
@@ -674,28 +674,45 @@ document.addEventListener("DOMContentLoaded", function() {
             try {
                 const token = localStorage.getItem('authToken');
                 
-                const response = await fetch(`${window.API_CONFIG.USER}/current-user`, { 
+                if (!currentUser || !currentUser.id) {
+                    await refreshUser();
+                }
+                
+                if (!currentUser || !currentUser.id) {
+                    throw new Error('Не може да се идентифицира потребителя');
+                }
+                
+                const response = await fetch(`${window.API_CONFIG.USER}/${currentUser.id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                        'Cache-Control': 'no-cache'
+                        'Cache-Control': 'no-cache',
+                        'Content-Type': 'application/json'
                     }
                 });
                 
                 if (response.status === 401) {
                     localStorage.removeItem('authToken');
-                    showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
                     setTimeout(() => window.location.href = '../HTML/login.html', 1500);
                     return;
                 }
-                if (!response.ok) throw new Error('Грешка при изтриване');
+                
+                if (response.status === 404) {
+                    throw new Error('Потребителят не беше намерен');
+                }
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Грешка при изтриване на профила');
+                }
                 
                 localStorage.removeItem('authToken');
                 showAlert('Профилът е изтрит успешно!', 'success');
-                setTimeout(() => window.location.href = '../HTML/index.html', 1500);
+                setTimeout(() => window.location.href = '../HTML/index.html', 2000);
                 
             } catch (error) {
-                showAlert('Грешка при изтриване на профила', 'error');
+                console.error('Грешка при изтриване на профила:', error);
+                showAlert(error.message || 'Грешка при изтриване на профила', 'error');
                 deleteBtnText.style.display = 'inline';
                 deleteLoader.style.display = 'none';
                 confirmDeleteBtn.disabled = false;

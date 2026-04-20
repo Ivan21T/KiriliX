@@ -2956,11 +2956,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\WebAPI.csproj",
       "packagesPath": "C:\\Users\\ivan_\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2982,11 +2982,11 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\InfrastructureLayer.csproj": {
-              "projectPath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\InfrastructureLayer.csproj"
+            "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\InfrastructureLayer.csproj": {
+              "projectPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\InfrastructureLayer.csproj"
             },
-            "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj": {
-              "projectPath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj"
+            "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj": {
+              "projectPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\ServiceLayer.csproj"
             }
           }
         }
@@ -3046,5 +3046,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'MailKit' 4.14.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "libraryId": "MailKit",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

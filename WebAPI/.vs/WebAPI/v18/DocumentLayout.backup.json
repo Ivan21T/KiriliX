@@ -1,74 +1,82 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\datalayer\\commentcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\commentcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\businesslayer\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\datalayer\\postcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\postcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\businesslayer\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\businesslayer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\webapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\servicelayer\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\webapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260420091915_update_v11.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DataLayer\\Migrations\\20260420091915_update_v11.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6B528C34-629C-4922-9224-5B6802CC9359}|InfrastructureLayer\\InfrastructureLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\infrastructurelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6B528C34-629C-4922-9224-5B6802CC9359}|InfrastructureLayer\\InfrastructureLayer.csproj|solutionrelative:infrastructurelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\servicelayer\\dtos\\createpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\dtos\\createpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\webapi\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\servicelayer\\dtos\\signuprequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\dtos\\signuprequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\businesslayer\\enums\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\enums\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\datalayer\\commentcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\commentcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\businesslayer\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\datalayer\\postcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\postcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\businesslayer\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\businesslayer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91C68518-B0F0-422A-A67B-D07B87D74982}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\webapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\servicelayer\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\webapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B528C34-629C-4922-9224-5B6802CC9359}|InfrastructureLayer\\InfrastructureLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\infrastructurelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6B528C34-629C-4922-9224-5B6802CC9359}|InfrastructureLayer\\InfrastructureLayer.csproj|solutionrelative:infrastructurelayer\\mapper\\mapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\servicelayer\\dtos\\createpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8093C6CA-8604-4320-8191-024BBE6A91E5}|ServiceLayer\\ServiceLayer.csproj|solutionrelative:servicelayer\\dtos\\createpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\webapi\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D6B33C5-CEE1-20B5-A207-99CBB61F699C}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\github\\kirilix\\webapi\\datalayer\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\datalayer\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\usercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|c:\\users\\ivan_\\documents\\github\\kirilix\\webapi\\datalayer\\migrations\\20260420091915_update_v11.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57059270-CB2E-4EE5-8778-4FB0FD198C54}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\migrations\\20260420091915_update_v11.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,7 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -94,169 +102,89 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostContext.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\PostContext.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
-              "RelativeToolTip": "DataLayer\\PostContext.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Enums\\Role.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Enums\\Role.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Enums\\Role.cs",
+              "RelativeToolTip": "BusinessLayer\\Enums\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T11:13:45.024Z",
+              "WhenOpened": "2026-04-20T14:30:00.72Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CommentContext.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
-              "RelativeDocumentMoniker": "DataLayer\\CommentContext.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
-              "RelativeToolTip": "DataLayer\\CommentContext.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAIA2wCIAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "SignUpRequestDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\SignUpRequestDTO.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\SignUpRequestDTO.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\SignUpRequestDTO.cs",
+              "RelativeToolTip": "ServiceLayer\\DTOs\\SignUpRequestDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T10:51:36.719Z",
+              "WhenOpened": "2026-04-20T13:32:24.713Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "20260420091915_update_v11.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260420091915_update_v11.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Migrations\\20260420091915_update_v11.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260420091915_update_v11.cs",
+              "RelativeToolTip": "DataLayer\\Migrations\\20260420091915_update_v11.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T09:19:15.763Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "JwtService.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\JwtService.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
-              "RelativeToolTip": "ServiceLayer\\JwtService.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAuwFUAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T09:55:49.261Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Comment.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Comment.cs",
-              "RelativeDocumentMoniker": "BusinessLayer\\Comment.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Comment.cs",
-              "RelativeToolTip": "BusinessLayer\\Comment.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T09:23:02.129Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CommentController.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\CommentController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\CommentController.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\CommentController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\CommentController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAADwvyYAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T09:22:51.465Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "20260420091915_update_v11.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260420091915_update_v11.cs",
-              "RelativeDocumentMoniker": "DataLayer\\Migrations\\20260420091915_update_v11.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\Migrations\\20260420091915_update_v11.cs",
-              "RelativeToolTip": "DataLayer\\Migrations\\20260420091915_update_v11.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T09:19:15.763Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Post.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Post.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Post.cs",
               "RelativeDocumentMoniker": "BusinessLayer\\Post.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Post.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Post.cs",
               "RelativeToolTip": "BusinessLayer\\Post.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAUwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:22:51.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:22:51.503Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\User.cs",
-              "RelativeDocumentMoniker": "BusinessLayer\\User.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\User.cs",
-              "RelativeToolTip": "BusinessLayer\\User.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAywBUAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:22:41.662Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CommentService.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\CommentService.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
-              "RelativeToolTip": "ServiceLayer\\CommentService.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAgwBYAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T10:51:20.068Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAwwGYAAAANAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\UserController.cs*",
+              "RelativeToolTip": "WebAPI\\Controllers\\UserController.cs*",
+              "ViewState": "AgIAANwAAAAAAAAAAAApwOcAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T07:01:37.517Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\AdminController.cs",
               "RelativeToolTip": "WebAPI\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAwwFEAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAkwFsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T07:47:27.189Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Mapper.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\Mapper\\Mapper.cs",
-              "RelativeDocumentMoniker": "InfrastructureLayer\\Mapper\\Mapper.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\Mapper\\Mapper.cs",
-              "RelativeToolTip": "InfrastructureLayer\\Mapper\\Mapper.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAwwCQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T09:05:22.13Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 1,
               "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
               "RelativeDocumentMoniker": "ServiceLayer\\UserService.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs",
-              "RelativeToolTip": "ServiceLayer\\UserService.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAADwv4EAAAAeAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\UserService.cs*",
+              "RelativeToolTip": "ServiceLayer\\UserService.cs*",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAowI4AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T07:48:28.585Z",
               "EditorCaption": ""
@@ -264,54 +192,146 @@
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\PostController.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\PostController.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAGsAAAAAAAAAAAAAAA==",
+              "Title": "CommentController.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\CommentController.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Controllers\\CommentController.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\CommentController.cs",
+              "RelativeToolTip": "WebAPI\\Controllers\\CommentController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvyYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:01:36.499Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T09:22:51.465Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "NewsController.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\NewsController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\NewsController.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\NewsController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\NewsController.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAowFkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Comment.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Comment.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\Comment.cs",
+              "RelativeToolTip": "BusinessLayer\\Comment.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:57:33.158Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T09:23:02.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CommentContext.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\CommentContext.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\CommentContext.cs",
+              "RelativeToolTip": "DataLayer\\CommentContext.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAnwCIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T10:51:36.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\JwtService.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\JwtService.cs",
+              "RelativeToolTip": "ServiceLayer\\JwtService.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAuwFUAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T09:55:49.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PostContext.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\PostContext.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\PostContext.cs",
+              "RelativeToolTip": "DataLayer\\PostContext.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T11:13:45.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\User.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\User.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\User.cs",
+              "RelativeToolTip": "BusinessLayer\\User.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAywBUAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:22:41.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CommentService.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\CommentService.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\CommentService.cs",
+              "RelativeToolTip": "ServiceLayer\\CommentService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAgwBYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T10:51:20.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Mapper.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\Mapper\\Mapper.cs",
+              "RelativeDocumentMoniker": "InfrastructureLayer\\Mapper\\Mapper.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\InfrastructureLayer\\Mapper\\Mapper.cs",
+              "RelativeToolTip": "InfrastructureLayer\\Mapper\\Mapper.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAwwCQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T09:05:22.13Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "CreatePostDTO.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CreatePostDTO.cs",
-              "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\CreatePostDTO.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CreatePostDTO.cs",
-              "RelativeToolTip": "ServiceLayer\\DTOs\\CreatePostDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Title": "PostController.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Controllers\\PostController.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\PostController.cs",
+              "RelativeToolTip": "WebAPI\\Controllers\\PostController.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAGsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:23:54.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:01:36.499Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
+              "Title": "NewsController.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\NewsController.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Controllers\\NewsController.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\WebAPI\\Controllers\\NewsController.cs",
+              "RelativeToolTip": "WebAPI\\Controllers\\NewsController.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAowFkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:57:33.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CreatePostDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CreatePostDTO.cs",
+              "RelativeDocumentMoniker": "ServiceLayer\\DTOs\\CreatePostDTO.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\ServiceLayer\\DTOs\\CreatePostDTO.cs",
+              "RelativeToolTip": "ServiceLayer\\DTOs\\CreatePostDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T07:23:54.685Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "UserContext.cs",
-              "DocumentMoniker": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
+              "DocumentMoniker": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
               "RelativeDocumentMoniker": "DataLayer\\UserContext.cs",
-              "ToolTip": "C:\\Users\\ivan_\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0438\\GitHub\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
+              "ToolTip": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\DataLayer\\UserContext.cs",
               "RelativeToolTip": "DataLayer\\UserContext.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAkwEYAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T07:47:55.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T07:47:55.757Z"
             }
           ]
         }

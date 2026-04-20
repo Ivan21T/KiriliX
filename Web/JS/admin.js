@@ -7,8 +7,10 @@ const adminData = {
 // ================ СЪСТОЯНИЕ ================
 let currentEditingArticleId = null;
 let currentEditingUserId = null;
+let currentEditingPostId = null;
 let currentAction = null;
 let currentUser = null;
+let currentUserId = null;
 
 // Пагинация
 const pagination = {
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('logoutBtn').addEventListener('click', function() {
         if (confirm('Сигурни ли сте?')) {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
             showAlert('Излизане от системата...', 'info');
             setTimeout(() => window.location.href = '../HTML/login.html', 500);
         }
@@ -97,6 +100,7 @@ async function loadCurrentUser() {
         const response = await authFetch(`${window.API_CONFIG.USER}/current-user`);
         if (response.status === 401) {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
             showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
             setTimeout(() => window.location.href = '../HTML/login.html', 1500);
             return false;
@@ -105,6 +109,7 @@ async function loadCurrentUser() {
         
         const user = await response.json();
         currentUser = user;
+        currentUserId = user.id;
         
         if (user.role !== 0) {
             showAlert('Нямате администраторски права!', 'error');
@@ -230,7 +235,6 @@ async function createArticle(title, description) {
         adminData.articles = [articleToAdd, ...(adminData.articles || [])];
         pagination.articles.page = 1;
         
-        // Обновяваме списъка от сървъра за синхронизация
         const refreshResponse = await authFetch(`${window.API_CONFIG.NEWS}`, {
             method: 'GET'
         });
@@ -287,7 +291,6 @@ async function updateArticle(id, title, description) {
             throw new Error(errorData.message || `Грешка при обновяване! Status: ${response.status}`);
         }
 
-        // Обновяваме списъка от сървъра за синхронизация
         const refreshResponse = await authFetch(`${window.API_CONFIG.NEWS}`, {
             method: 'GET'
         });
@@ -329,7 +332,6 @@ async function deleteArticle(id) {
             throw new Error(errorData.message || `Грешка при изтриване! Status: ${response.status}`);
         }
 
-        // Обновяваме списъка от сървъра за синхронизация
         const refreshResponse = await authFetch(`${window.API_CONFIG.NEWS}`, {
             method: 'GET'
         });
@@ -403,6 +405,67 @@ async function fetchPosts() {
     }
 }
 
+async function updatePost(id, title, content) {
+    try {
+        showAlert('Обновяване на пост...', 'pending');
+        
+        const post = adminData.posts.find(p => p.id === id);
+        if (!post) throw new Error('Постът не е намерен');
+        
+        if (currentUserId !== post.authorId) {
+            throw new Error('Нямате права да редактирате този пост!');
+        }
+        
+        const updates = {};
+        if (post.title !== title) updates.title = title;
+        if (post.content !== content) updates.content = content;
+        
+        if (Object.keys(updates).length === 0) {
+            showAlert('Няма направени промени', 'info');
+            return true;
+        }
+        
+        const response = await authFetch(`${window.API_CONFIG.POST}/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updates)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Грешка при обновяване! Status: ${response.status}`);
+        }
+
+        const refreshResponse = await authFetch(`${window.API_CONFIG.POST}?useNavigationalProperties=true&isReadOnly=true`, {
+            method: 'GET'
+        });
+        
+        if (refreshResponse.ok) {
+            const freshPosts = await refreshResponse.json();
+            adminData.posts = freshPosts.map(post => ({
+                id: post.id,
+                title: post.title,
+                content: post.content,
+                author: post.author?.username,
+                authorId: post.author?.id,
+                createdAt: post.createdAt,
+                comments: post.comments?.length,
+            }));
+        }
+        
+        loadPosts();
+        showAlert('Постът е обновен успешно!', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('Error updating post:', error);
+        showAlert('Грешка при обновяване на пост: ' + error.message, 'error');
+        throw error;
+    }
+}
+
 async function deletePost(id) {
     try {
         showAlert('Изтриване на пост...', 'pending');
@@ -416,7 +479,6 @@ async function deletePost(id) {
             throw new Error(errorData.message || `Грешка при изтриване! Status: ${response.status}`);
         }
 
-        // Обновяваме списъка от сървъра за синхронизация
         const refreshResponse = await authFetch(`${window.API_CONFIG.POST}?useNavigationalProperties=true&isReadOnly=true`, {
             method: 'GET'
         });
@@ -759,7 +821,7 @@ function showEditUserModal(id) {
                             </label>
                             <input type="password" id="editModalPassword" class="modal-form-control"
                                    placeholder="Оставете празно за да запазите старата"
-                                   minlength="6" oninput="checkEditPasswordStrength(this.value)">
+                                   minlength="6">
                             <small class="password-hint">Ако полето остане празно, паролата няма да се промени</small>
                         </div>
                         <div class="modal-form-group">
@@ -817,10 +879,6 @@ function closeEditUserModal() {
     }
 }
 
-function checkEditPasswordStrength(password) {
-    if (!password) return;
-}
-
 async function saveEditedUser(event) {
     event.preventDefault();
     
@@ -861,6 +919,9 @@ async function saveEditedUser(event) {
     
     if (hasError) return;
     
+    const originalUser = adminData.users.find(u => u.id === currentEditingUserId);
+    
+    // Проверка за дублиране на потребителско име
     const existingUserWithSameName = adminData.users?.find(u => 
         u.id !== currentEditingUserId && (u.username || u.name).toLowerCase() === username.toLowerCase()
     );
@@ -872,6 +933,7 @@ async function saveEditedUser(event) {
         return;
     }
     
+    // Проверка за дублиране на имейл
     const existingUserWithSameEmail = adminData.users?.find(u => 
         u.id !== currentEditingUserId && u.email.toLowerCase() === email.toLowerCase()
     );
@@ -886,17 +948,27 @@ async function saveEditedUser(event) {
     showAlert('Запазване на промените...', 'pending');
     
     try {
+        // Създаваме обект само с променените полета
         const updates = {};
-        const originalUser = adminData.users.find(u => u.id === currentEditingUserId);
-        const originalUsername = originalUser.username || originalUser.name;
         
-        if (username !== originalUsername) updates.username = username;
-        if (email !== originalUser.email) updates.email = email;
-        if (password) updates.password = password;
+        if (username !== (originalUser.username || originalUser.name)) {
+            updates.username = username;
+        }
+        
+        if (email !== originalUser.email) {
+            updates.email = email;
+        }
+        
+        if (password) {
+            updates.password = password;
+        }
         
         const roleValue = role === 'admin' ? 0 : 1;
         const originalRoleValue = originalUser.role === 'admin' ? 0 : 1;
-        if (roleValue !== originalRoleValue) updates.role = roleValue;
+        if (roleValue !== originalRoleValue) {
+            // Изпращаме ролята като число - сървърът ще го конвертира до Role enum
+            updates.role = roleValue;
+        }
         
         if (Object.keys(updates).length === 0) {
             showAlert('Няма промени за запазване', 'info');
@@ -904,6 +976,9 @@ async function saveEditedUser(event) {
             return;
         }
         
+        console.log('Sending updates:', updates); // За дебъг
+        
+        // Използваме PATCH метода
         const response = await authFetch(`${window.API_CONFIG.USER}/${currentEditingUserId}`, {
             method: 'PATCH',
             headers: {
@@ -912,11 +987,16 @@ async function saveEditedUser(event) {
             body: JSON.stringify(updates)
         });
         
-        const result = await response.json();
+        if (response.status === 404) {
+            throw new Error('Потребителят не е намерен');
+        }
         
-        if (!response.ok) throw new Error(result.message || 'Грешка при редактиране на потребител');
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || 'Грешка при редактиране на потребител');
+        }
         
-        // Обновяваме списъка с потребители от сървъра
+        // Презареждаме списъка с потребители
         const usersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
             method: 'GET'
         });
@@ -984,7 +1064,7 @@ function showAddUserModal() {
                             </label>
                             <input type="password" id="modalPassword" class="modal-form-control"
                                    placeholder="Минимум 6 символа"
-                                   required minlength="6" oninput="checkPasswordStrength(this.value)">
+                                   required minlength="6">
                         </div>
                         <div class="modal-form-group">
                             <label class="modal-form-label" for="modalRole">
@@ -1035,10 +1115,6 @@ function closeAddUserModal() {
     }
 }
 
-function checkPasswordStrength(password) {
-    if (!password) return;
-}
-
 async function saveNewUser(event) {
     event.preventDefault();
     
@@ -1077,52 +1153,47 @@ async function saveNewUser(event) {
     
     if (hasError) return;
     
-    // Проверка за съществуващ потребител от API
-    const usersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
-        method: 'GET'
-    });
+    // Проверка за съществуващ потребител с това име
+    if (adminData.users?.some(u => (u.username || u.name).toLowerCase() === username.toLowerCase())) {
+        usernameInput.classList.add('error');
+        showAlert('Потребител с това име вече съществува', 'error');
+        setTimeout(() => usernameInput.classList.remove('error'), 500);
+        return;
+    }
     
-    if (usersResponse.ok) {
-        const existingUsers = await usersResponse.json();
-        if (existingUsers.some(u => (u.username || '').toLowerCase() === username.toLowerCase())) {
-            usernameInput.classList.add('error');
-            showAlert('Потребител с това име вече съществува', 'error');
-            setTimeout(() => usernameInput.classList.remove('error'), 500);
-            return;
-        }
-        
-        if (existingUsers.some(u => (u.email || '').toLowerCase() === email.toLowerCase())) {
-            emailInput.classList.add('error');
-            showAlert('Потребител с този имейл вече съществува', 'error');
-            setTimeout(() => emailInput.classList.remove('error'), 500);
-            return;
-        }
+    // Проверка за съществуващ потребител с този имейл
+    if (adminData.users?.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        emailInput.classList.add('error');
+        showAlert('Потребител с този имейл вече съществува', 'error');
+        setTimeout(() => emailInput.classList.remove('error'), 500);
+        return;
     }
     
     showAlert('Създаване на потребител...', 'pending');
     
     try {
-        const utcTimestamp = new Date().toISOString();
+        // Използваме SignUp метода от контролера: [HttpPost] с SignUpRequestDTO
+        const signUpData = {
+            username: username,
+            email: email,
+            password: password,
+            role: role === 'admin' ? 0 : 1
+        };
         
-        const response = await authFetch(`${window.API_CONFIG.ADMIN}/create-user`, {
+        const response = await authFetch(`${window.API_CONFIG.USER}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password,
-                role: role === 'admin' ? 0 : 1,
-                createdAt: utcTimestamp
-            })
+            body: JSON.stringify(signUpData)
         });
         
-        const result = await response.json();
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || 'Грешка при създаване на потребител');
+        }
         
-        if (!response.ok) throw new Error(result.message || 'Грешка при създаване на потребител');
-        
-        // Обновяваме списъка с потребители от сървъра
+        // Презареждаме списъка с потребители
         const freshUsersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
             method: 'GET'
         });
@@ -1273,6 +1344,143 @@ async function saveEditedArticle(event) {
     } catch (error) {
         console.error('Error saving article:', error);
         showAlert('Грешка при запазване на новината', 'error');
+    }
+}
+
+// ================ МОДАЛ ЗА РЕДАКТИРАНЕ НА ПОСТ ================
+function showEditPostModal(id) {
+    const post = adminData.posts?.find(p => p.id === id);
+    if (!post) return;
+    
+    if (currentUserId !== post.authorId) {
+        showAlert('Само авторът на поста може да го редактира!', 'error');
+        return;
+    }
+    
+    currentEditingPostId = id;
+    
+    let modalOverlay = document.getElementById('editPostModalOverlay');
+    
+    if (!modalOverlay) {
+        modalOverlay = document.createElement('div');
+        modalOverlay.id = 'editPostModalOverlay';
+        modalOverlay.className = 'modal-overlay';
+        
+        modalOverlay.innerHTML = `
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h3><i class="fas fa-edit"></i>Редактиране на пост</h3>
+                    <button class="modal-close-btn" onclick="closeEditPostModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPostModalForm" onsubmit="saveEditedPost(event)" novalidate>
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editPostTitle">
+                                <i class="fas fa-heading"></i> Заглавие
+                            </label>
+                            <input type="text" id="editPostTitle" class="modal-form-control"
+                                   placeholder="Въведете заглавие на поста"
+                                   required minlength="3" maxlength="200">
+                        </div>
+                        <div class="modal-form-group">
+                            <label class="modal-form-label" for="editPostContent">
+                                <i class="fas fa-align-left"></i> Съдържание
+                            </label>
+                            <textarea id="editPostContent" class="modal-form-control"
+                                      placeholder="Въведете съдържание на поста"
+                                      required rows="10"
+                                      style="resize: vertical; min-height: 200px;"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="modal-btn modal-btn-outline" onclick="closeEditPostModal()">
+                                <i class="fas fa-times"></i> <span>Отказ</span>
+                            </button>
+                            <button type="submit" class="modal-btn modal-btn-primary">
+                                <i class="fas fa-save"></i> <span>Запази промените</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modalOverlay);
+        
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) closeEditPostModal();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeEditPostModal();
+        });
+    }
+    
+    document.getElementById('editPostTitle').value = post.title || '';
+    document.getElementById('editPostContent').value = post.content || '';
+    
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => document.getElementById('editPostTitle')?.focus(), 100);
+}
+
+function closeEditPostModal() {
+    const modalOverlay = document.getElementById('editPostModalOverlay');
+    if (modalOverlay) {
+        modalOverlay.classList.remove('active');
+        const form = document.getElementById('editPostModalForm');
+        if (form) form.reset();
+        document.body.style.overflow = '';
+        currentEditingPostId = null;
+    }
+}
+
+async function saveEditedPost(event) {
+    event.preventDefault();
+    
+    if (!currentEditingPostId) return;
+    
+    const titleInput = document.getElementById('editPostTitle');
+    const contentInput = document.getElementById('editPostContent');
+    
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
+    
+    let hasError = false;
+    
+    if (title.length < 3) {
+        titleInput.classList.add('error');
+        showAlert('Заглавието трябва да е поне 3 символа', 'error');
+        hasError = true;
+        setTimeout(() => titleInput.classList.remove('error'), 500);
+    }
+    
+    if (content.length < 10) {
+        contentInput.classList.add('error');
+        showAlert('Съдържанието трябва да е поне 10 символа', 'error');
+        hasError = true;
+        setTimeout(() => contentInput.classList.remove('error'), 500);
+    }
+    
+    if (hasError) return;
+    
+    const saveBtn = document.querySelector('#editPostModalForm button[type="submit"]');
+    const originalBtnText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Запазване...';
+    saveBtn.disabled = true;
+    
+    try {
+        await updatePost(currentEditingPostId, title, content);
+        closeEditPostModal();
+        showAlert('Публикацията е обновена успешно!', 'success');
+    } catch (error) {
+        console.error('Грешка при редактиране:', error);
+        showAlert(error.message || 'Грешка при редактиране на публикацията', 'error');
+    } finally {
+        saveBtn.innerHTML = originalBtnText;
+        saveBtn.disabled = false;
     }
 }
 
@@ -1530,6 +1738,8 @@ function loadPosts() {
     }
     
     postsToShow.forEach(post => {
+        const isAuthor = currentUserId === post.authorId;
+        
         tbody.innerHTML += `
             <tr>
                 <td>
@@ -1552,6 +1762,11 @@ function loadPosts() {
                         <button class="action-btn view" onclick="viewPost(${post.id})" title="Преглед">
                             <i class="fas fa-eye"></i>
                         </button>
+                        ${isAuthor ? `
+                        <button class="action-btn edit" onclick="showEditPostModal(${post.id})" title="Редактиране">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        ` : ''}
                         <button class="action-btn delete" onclick="confirmDelete('post', ${post.id})" title="Изтрий">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -1629,6 +1844,13 @@ async function confirmDelete(type, id) {
     if (type === 'user') {
         const user = adminData.users?.find(u => u.id === id);
         const displayName = user?.username || user?.name;
+        
+        // Не позволяваме изтриване на собствения акаунт
+        if (user && user.id === currentUserId) {
+            showAlert('Не можете да изтриете собствения си акаунт!', 'error');
+            return;
+        }
+        
         message = `Сигурни ли сте, че искате да изтриете потребителя ${displayName}?`;
     } else if (type === 'article') {
         const article = adminData.articles?.find(a => a.id === id);
@@ -1645,14 +1867,21 @@ async function confirmDelete(type, id) {
         
         try {
             if (type === 'user') {
-                const response = await authFetch(`${window.API_CONFIG.ADMIN}/delete-user/${id}`, {
+                // Използваме authFetch за DELETE заявката
+                const response = await authFetch(`${window.API_CONFIG.USER}/${id}`, {
                     method: 'DELETE'
                 });
-
-                const result = await response.json();
-                if (!response.ok) throw new Error(result.message || 'Грешка при изтриване на потребителя');
-
-                // Обновяваме списъка с потребители от сървъра
+                
+                if (response.status === 404) {
+                    throw new Error('Потребителят не е намерен');
+                }
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || 'Грешка при изтриване на потребителя');
+                }
+                
+                // Презареждаме списъка с потребители
                 const usersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
                     method: 'GET'
                 });
@@ -1679,14 +1908,14 @@ async function confirmDelete(type, id) {
             } else if (type === 'post') {
                 await deletePost(id);
             }
-
+            
             loadStatistics();
-
+            
         } catch (error) {
             showAlert(error.message, 'error');
         }
     };
-
+    
     openModal();
 }
 

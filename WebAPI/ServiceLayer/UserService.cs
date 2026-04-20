@@ -1,10 +1,11 @@
-﻿using DataLayer;
-using BCrypt.Net;
-using ServiceLayer.DTOs;
-using Microsoft.EntityFrameworkCore;
+﻿using BCrypt.Net;
 using BusinessLayer;
-using System.Security.Cryptography;
 using BusinessLayer.Enums;
+using DataLayer;
+using Microsoft.EntityFrameworkCore;
+using ServiceLayer.DTOs;
+using System.Security.Cryptography;
+using System.Text.Json;
 namespace ServiceLayer
 {
     public class UserService
@@ -126,7 +127,41 @@ namespace ServiceLayer
                         user.Password = BCrypt.Net.BCrypt.HashPassword(update.Value?.ToString() ?? user.Password);
                         break;
                     case "role":
-                        user.Role = (Role)update.Value;
+                        if (update.Value is Role roleValue)
+                        {
+                            user.Role = roleValue;
+                        }
+                        else if (update.Value is string roleString)
+                        {
+                            user.Role = Enum.Parse<Role>(roleString, true);
+                        }
+                        else if (update.Value is int roleInt)
+                        {
+                            user.Role = (Role)roleInt;
+                        }
+                        else if (update.Value is long roleLong)  
+                        {
+                            user.Role = (Role)roleLong;
+                        }
+                        else if (update.Value is JsonElement jsonElement)  
+                        {
+                            if (jsonElement.ValueKind == JsonValueKind.Number)
+                            {
+                                user.Role = (Role)jsonElement.GetInt32();
+                            }
+                            else if (jsonElement.ValueKind == JsonValueKind.String)
+                            {
+                                user.Role = Enum.Parse<Role>(jsonElement.GetString(), true);
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Невалидна стойност за роля: {update.Value}");
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"Невалидна стойност за роля: {update.Value}. Тип: {update.Value?.GetType()}");
+                        }
                         break;
                     default:
                         throw new ArgumentException($"Полето '{update.Key}' не може да бъде обновено!");

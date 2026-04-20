@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
                 }
 
                 User user = await _userService.SignIn(request.Email, request.Password);
-                if(user.Role==Role.Admin)
+                if (user.Role == Role.Admin)
                 {
                     return Ok(new
                     {
@@ -85,7 +85,7 @@ namespace WebAPI.Controllers
                 {
                     message = "Успешно влизане!",
                     token = token,
-                    user =Mapper.UserToReadUserDTO(user)
+                    user = Mapper.UserToReadUserDTO(user)
                 });
             }
             catch (Exception ex)
@@ -214,6 +214,20 @@ namespace WebAPI.Controllers
             catch (ArgumentException ex)
             {
                 return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            try
+            {
+                await _userService.DeleteAsync(id);
+                return Ok(new { message = "Потребителят е изтрит успешно!" });
             }
             catch (Exception ex)
             {

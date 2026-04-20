@@ -27,6 +27,10 @@ namespace DataLayer
             {
                 query = query.AsNoTrackingWithIdentityResolution();
             }
+            if (useNavigationProperties)
+            {
+                query=query.Include(u=>u.Posts).Include(u=>u.Comments);
+            }
             User user = await query.FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
@@ -40,6 +44,10 @@ namespace DataLayer
             if (isReadOnly)
             {
                 query = query.AsNoTrackingWithIdentityResolution();
+            }
+            if (useNavigationProperties)
+            {
+                query=query.Include(u=>u.Posts).Include(u=>u.Comments);
             }
             return await query.ToListAsync();
         }
@@ -60,6 +68,39 @@ namespace DataLayer
             existingUser.Email=item.Email;
             existingUser.Username=item.Username;
             existingUser.Password=item.Password;
+            existingUser.Role=item.Role;
+
+            if (useNavigationalProperties)
+            {
+                List<Post> postsToUpdate = new List<Post>();
+                List<Comment> commentsToUpdate = new List<Comment>();
+                foreach (var comment in item.Comments)
+                {
+                    var existingComment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == comment.Id);
+                    if (existingComment != null)
+                    {
+                        commentsToUpdate.Add(existingComment);
+                    }
+                    else
+                    {
+                        commentsToUpdate.Add(comment);
+                    }
+                }
+                foreach (var post in item.Posts)
+                {
+                    var existingPost = await _context.Posts.FirstOrDefaultAsync(p => p.Id == post.Id);
+                    if (existingPost != null)
+                    {
+                        postsToUpdate.Add(existingPost);
+                    }
+                    else
+                    {
+                        postsToUpdate.Add(post);
+                    }
+                }
+                existingUser.Posts = postsToUpdate;
+                existingUser.Comments = commentsToUpdate;
+            }
 
             await _context.SaveChangesAsync();
         }

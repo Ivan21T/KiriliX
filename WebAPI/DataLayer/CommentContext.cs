@@ -28,7 +28,7 @@ namespace DataLayer
             {
                 item.Author = user;
             }
-            var post = await _context.Posts.FindAsync(item.Post.Id);
+            var post = await _context.Posts.FindAsync(item.PostId);
             if (post!=null)
             {
                 item.Post = post;
@@ -82,9 +82,32 @@ namespace DataLayer
             return comment;
         }
 
-        public Task UpdateAsync(Comment entity, bool useNavigationProperties = false)
+        public async Task UpdateAsync(Comment entity, bool useNavigationProperties = false)
         {
-            throw new NotImplementedException();
+            var existingComment = await _context.Comments.FindAsync(entity.Id);
+            existingComment.Content = entity.Content;
+            if (useNavigationProperties)
+            {
+                var user = await _context.Users.FindAsync(entity.Author.Id);
+                if (user != null)
+                {
+                    existingComment.Author = user;
+                }
+                else
+                {
+                    existingComment.Author = entity.Author;
+                }
+                var post = await _context.Posts.FindAsync(entity.Post.Id);
+                if (post != null)
+                {
+                    existingComment.Post = post;
+                }
+                else
+                {
+                    existingComment.Post = entity.Post;
+                }
+            }
+            await _context.SaveChangesAsync();
         }
     }
 }

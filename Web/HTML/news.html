@@ -570,8 +570,12 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
         }
         
+        .author-link:hover {
+            color: var(--cyan);
+        }
 
         .news-excerpt {
             color: #b0b0d0;
@@ -1049,16 +1053,16 @@
     </style>
 </head>
 <body>
+    <div class="animated-bg"></div>
+    <div class="bulgarian-border"></div>
+
     <div class="loader" id="loader">
         <div class="loader-container">
             <div class="loader-circle"></div>
-            <div class="loader-letter" id="loaderLetter">Н</div>
+            <div class="loader-letter">K</div>
         </div>
         <div class="loader-text">Зареждане на новините</div>
     </div>
-    
-    <div class="animated-bg"></div>
-    
 
     <kirilix-header></kirilix-header>
 
@@ -1107,10 +1111,8 @@
     <script src="../JS/footer.js" type="module"></script>
     <script src="../JS/config.js"></script>
     <script>
-        // Конфигурация
         const newsPerPage = 5;
         
-        // Състояние
         let allNews = [];
         let filteredNews = [];
         let currentPage = 1;
@@ -1118,7 +1120,6 @@
         let isLoading = false;
         let error = null;
 
-        // Елементи
         const newsListEl = document.getElementById('newsList');
         const paginationEl = document.getElementById('pagination');
         const paginationInfoEl = document.getElementById('paginationInfo');
@@ -1126,87 +1127,87 @@
         const totalNewsCountEl = document.getElementById('totalNewsCount');
         const loader = document.getElementById('loader');
 
-        // Функция за нормализиране на новините
         function normalizeNews(data) {
             let newsArray = [];
             
             if (Array.isArray(data)) {
                 newsArray = data;
+            } else if (data.$values && Array.isArray(data.$values)) {
+                newsArray = data.$values;
             } else if (data.data && Array.isArray(data.data)) {
                 newsArray = data.data;
-            } else if (data.news && Array.isArray(data.news)) {
-                newsArray = data.news;
             } else {
-                throw new Error('Неочакван формат на данните');
+                console.error('Неочакван формат:', data);
+                return [];
             }
             
             return newsArray.map(item => ({
                 id: item.id,
                 title: item.title || 'Без заглавие',
-                excerpt: item.excerpt || item.content || item.description || 'Няма съдържание',
-                fullContent: item.content || item.full_content || item.excerpt || 'Няма съдържание',
-                date: formatDate(item.created_at || item.date || item.published_at || new Date().toISOString()),
-                author: item.author || item.author_name || 'Екип на KiriliX',
-                authorId: item.author_id || item.user_id || 1,
-                slug: item.slug || item.id
+                excerpt: item.description || item.content || 'Няма съдържание',
+                fullContent: item.content || item.description || 'Няма съдържание',
+                date: formatDate(item.publishedAt),
+                author: 'Екип на KiriliX',
+                authorId: 1
             }));
         }
 
         function formatDate(dateString) {
+            if (!dateString) return 'Невалидна дата';
             const date = new Date(dateString);
             if (isNaN(date.getTime())) return 'Невалидна дата';
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('bg-BG', options);
+            return date.toLocaleDateString('bg-BG', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
         }
 
         function updateStats() {
             totalNewsCountEl.textContent = allNews.length;
         }
 
-        // Основна функция за зареждане на новини
         async function loadNews() {
             isLoading = true;
             error = null;
+            renderNews();
             
             try {
-                // Първо провери в sessionStorage
-                const savedNews = sessionStorage.getItem('kirilixNews');
+                const token = localStorage.getItem('authToken');
+                const headers = {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                };
                 
-                if (savedNews) {
-                    console.log('Зареждане от sessionStorage');
-                    allNews = JSON.parse(savedNews);
-                    filteredNews = [...allNews];
-                    updateStats();
-                    renderNews();
-                    renderPagination();
-                    isLoading = false;
-                    return;
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
                 }
                 
-                const response = await fetch(API_CONFIG.NEWS, {
+                const response = await fetch(window.API_CONFIG.NEWS, {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    }
+                    headers: headers
                 });
+                
+                if (response.status === 401) {
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('user');
+                    window.location.href = '../HTML/login.html';
+                    return;
+                }
                 
                 if (!response.ok) {
                     throw new Error(`Грешка ${response.status}: ${response.statusText}`);
                 }
                 
                 const data = await response.json();
+                console.log('Получени данни:', data);
+                
                 allNews = normalizeNews(data);
                 filteredNews = [...allNews];
-                
-                // Запази в sessionStorage
-                sessionStorage.setItem('kirilixNews', JSON.stringify(allNews));
-                console.log(`Запазени ${allNews.length} новини в sessionStorage`);
-                
                 updateStats();
                 
             } catch (err) {
-                console.error('Грешка:', err);
+                console.error('Грешка при зареждане:', err);
                 error = err.message;
                 allNews = [];
                 filteredNews = [];
@@ -1225,8 +1226,7 @@
             } else {
                 filteredNews = allNews.filter(news => 
                     news.title.toLowerCase().includes(term) ||
-                    news.excerpt.toLowerCase().includes(term) ||
-                    news.author.toLowerCase().includes(term)
+                    news.excerpt.toLowerCase().includes(term)
                 );
             }
             
@@ -1235,13 +1235,9 @@
             renderPagination();
         }
 
-        function goToNewsDetail(newsId, slug) {
+        window.goToNewsDetail = function(newsId) {
             window.location.href = `news_details.html?id=${newsId}`;
-        }
-
-        function goToAuthorProfile(authorId) {
-            window.location.href = `profile.html?id=${authorId}`;
-        }
+        };
 
         function renderNews() {
             if (isLoading) {
@@ -1260,7 +1256,7 @@
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Грешка при зареждане</h3>
                         <p>${error}</p>
-                        <button class="retry-btn" onclick="loadNews()">
+                        <button class="retry-btn" onclick="location.reload()">
                             <i class="fas fa-redo"></i> Опитай отново
                         </button>
                     </div>
@@ -1294,17 +1290,15 @@
                 
                 html += `
                     <div class="news-item fade-in" style="animation-delay: ${index * 0.1}s">
-                        <h2 class="news-title" onclick="goToNewsDetail(${news.id}, '${news.slug}')">${escapeHtml(news.title)}</h2>
+                        <h2 class="news-title" onclick="goToNewsDetail(${news.id})">${escapeHtml(news.title)}</h2>
                         <div class="news-meta">
                             <span><i class="far fa-calendar-alt"></i> ${escapeHtml(news.date)}</span>
-                            <span class="author-link" onclick="goToAuthorProfile(${news.authorId})">
-                                <i class="far fa-user"></i> ${escapeHtml(news.author)}
-                            </span>
+                            <span><i class="far fa-user"></i> ${escapeHtml(news.author)}</span>
                         </div>
                         <div class="news-excerpt">
                             ${escapeHtml(excerpt)}
                             ${news.excerpt.length > maxExcerptLength ? 
-                                `<span class="read-more" onclick="goToNewsDetail(${news.id}, '${news.slug}')">Виж повече...</span>` 
+                                `<span class="read-more" onclick="goToNewsDetail(${news.id})">Виж повече...</span>` 
                                 : ''}
                         </div>
                     </div>
@@ -1316,6 +1310,7 @@
         }
 
         function escapeHtml(text) {
+            if (!text) return '';
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
@@ -1396,15 +1391,13 @@
         });
 
         window.addEventListener('load', async function() {
-            await new Promise(resolve => setTimeout(resolve, 800));
             await loadNews();
-            loader.classList.add('hidden');
+            if (loader) {
+                setTimeout(() => loader.classList.add('hidden'), 500);
+            }
         });
 
-
         window.loadNews = loadNews;
-        window.goToNewsDetail = goToNewsDetail;
-        window.goToAuthorProfile = goToAuthorProfile;
     </script>
 </body>
 </html>

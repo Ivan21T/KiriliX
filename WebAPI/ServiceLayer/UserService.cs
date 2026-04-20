@@ -4,6 +4,7 @@ using ServiceLayer.DTOs;
 using Microsoft.EntityFrameworkCore;
 using BusinessLayer;
 using System.Security.Cryptography;
+using BusinessLayer.Enums;
 namespace ServiceLayer
 {
     public class UserService
@@ -123,6 +124,9 @@ namespace ServiceLayer
                         break;
                     case "password":
                         user.Password = BCrypt.Net.BCrypt.HashPassword(update.Value?.ToString() ?? user.Password);
+                        break;
+                    case "role":
+                        user.Role = (Role)update.Value;
                         break;
                     default:
                         throw new ArgumentException($"Полето '{update.Key}' не може да бъде обновено!");

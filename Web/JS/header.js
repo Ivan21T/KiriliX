@@ -7,42 +7,79 @@ class Header extends HTMLElement {
         this.checkSession();
     }
 
-    // Декодиране на JWT токен (синхронна операция - няма нужда от async)
-    decodeJWT(token) {
+    // Функция за зареждане на потребител от API
+    async loadCurrentUser() {
+        const authToken = localStorage.getItem('authToken');
+        
+        if (!authToken) {
+            console.log('No auth token found');
+            return null;
+        }
+        
         try {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
+            const apiUrl = window.API_CONFIG?.USER || 'https://localhost:7090/users';
+            const response = await fetch(`${apiUrl}/current-user`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             
-            return JSON.parse(jsonPayload);
+            if (response.ok) {
+                const user = await response.json();
+                console.log('User loaded from API:', user);
+                
+                return {
+                    id: user.Id || user.id || user.userId,
+                    name: user.Username || user.username || user.name,
+                    email: user.Email || user.email,
+                    role: user.Role || user.role,
+                    createdAt: user.CreatedAt || user.createdAt || user.createdAtDate
+                };
+            } else if (response.status === 401) {
+                console.log('Token expired or invalid');
+                localStorage.removeItem('authToken');
+                return null;
+            } else {
+                console.log('Failed to load user, status:', response.status);
+                return null;
+            }
         } catch (error) {
-            console.error('Error decoding JWT:', error);
+            console.error('Error loading current user:', error);
             return null;
         }
     }
-
-    // Извличане на потребителски данни директно от токена (синхронна)
-    extractUserFromToken(token) {
-        if (!token) return null;
+    
+    // Функция за изчисляване на възрастта на профила в години
+    calculateAccountAge(createdAt) {
+        if (!createdAt) return null;
         
-        const decoded = this.decodeJWT(token);
-        if (!decoded) return null;
-        
-        // Проверка за изтичане на токена
-        const currentTime = Date.now() / 1000;
-        if (decoded.exp && decoded.exp < currentTime) {
+        try {
+            const creationDate = new Date(createdAt);
+            const currentDate = new Date();
+            const ageInMilliseconds = currentDate - creationDate;
+            const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+            
+            return ageInYears;
+        } catch (error) {
+            console.error('Error calculating account age:', error);
             return null;
         }
+    }
+    
+    getAvatarImage(createdAt) {
+        if (!createdAt) return '../Assets/Images/bronze_logo.png';
         
-        return {
-            id: decoded.Id || decoded.id || decoded.userId,
-            name: decoded.Username || decoded.username || decoded.name,
-            email: decoded.Email || decoded.email,
-            role: decoded.Role || decoded.role,
-            firstLetter: (decoded.Username || decoded.username || decoded.name || 'U').charAt(0).toUpperCase()
-        };
+        const accountAge = this.calculateAccountAge(createdAt);
+        
+        if (accountAge < 2) {
+            return '../Assets/Images/bronze_logo.png';
+        } else if (accountAge >= 2 && accountAge < 5) {
+            return '../Assets/Images/silver_logo.png';
+        } else {
+            return '../Assets/Images/gold_logo.png';
+        }
     }
 
     async checkSession() {
@@ -58,12 +95,12 @@ class Header extends HTMLElement {
                 return;
             }
             
-            const userData = this.extractUserFromToken(token);
+            const userData = await this.loadCurrentUser();
             
             if (userData) {
                 this.isLoggedIn = true;
                 this.userData = userData;
-                this.isAdmin = (userData.role === 0 || userData.role === '0');
+                this.isAdmin = (userData.role == 0);
             } else {
                 await this.clearSession();
             }
@@ -90,12 +127,10 @@ class Header extends HTMLElement {
         await this.render();
         await this.addEventListeners();
         
-        // Проверка на сесията на всеки 30 секунди за изтекъл токен
         this.sessionInterval = setInterval(async () => {
             await this.checkSession();
         }, 30000);
         
-        // Слушаме само за промени в authToken
         window.addEventListener('storage', async (e) => {
             if (e.key === 'authToken') {
                 await this.checkSession();
@@ -110,6 +145,8 @@ class Header extends HTMLElement {
     }
 
     async render() {
+        const avatarUrl = this.userData?.createdAt ? this.getAvatarImage(this.userData.createdAt) : '../images/avatars/default-avatar.svg';
+        
         this.innerHTML = `
             <style>
                 :host {
@@ -260,25 +297,20 @@ class Header extends HTMLElement {
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
-                    background: linear-gradient(135deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: var(--dark);
-                    font-weight: 700;
-                    font-size: 16px;
+                    object-fit: cover;
                     cursor: pointer;
                     position: relative;
                     box-shadow: 
                         0 0 10px var(--neon-green),
                         0 0 20px rgba(255, 0, 60, 0.3);
                     transition: var(--transition);
-                    text-decoration: none;
+                    border: 2px solid transparent;
                 }
                 
                 .user-avatar:hover {
                     transform: scale(1.1);
                     box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-red);
+                    border-color: var(--neon-green);
                 }
                 
                 .btn {
@@ -352,7 +384,6 @@ class Header extends HTMLElement {
                     display: inline-flex;
                 }
                 
-                /* Скриваме десктоп бутоните за вход и изтегляне на мобилни устройства */
                 .desktop-login-btn,
                 .desktop-download-btn {
                     display: inline-flex;
@@ -418,6 +449,10 @@ class Header extends HTMLElement {
                     display: flex;
                 }
                 
+                .logo.hidden {
+                    display: none !important;
+                }
+                
                 .mobile-nav-links {
                     display: flex;
                     flex-direction: column;
@@ -471,13 +506,11 @@ class Header extends HTMLElement {
                     font-size: 1.1rem;
                 }
                 
-                /* Мобилен медиен запрос - скриваме десктоп бутоните за вход и изтегляне */
                 @media (max-width: 768px) {
                     .desktop-logout-btn {
                         display: none !important;
                     }
                     
-                    /* Скриваме бутоните за вход и изтегляне в навигационната лента */
                     .desktop-login-btn,
                     .desktop-download-btn {
                         display: none !important;
@@ -503,7 +536,6 @@ class Header extends HTMLElement {
                     .user-avatar {
                         width: 35px;
                         height: 35px;
-                        font-size: 16px;
                         margin-right: -15px;
                     }
                 }
@@ -539,7 +571,6 @@ class Header extends HTMLElement {
                     .user-avatar {
                         width: 34px;
                         height: 34px;
-                        font-size: 18px;
                         margin-right: -22px;
                     }
                 }
@@ -571,7 +602,6 @@ class Header extends HTMLElement {
                     .user-avatar {
                         width: 32px;
                         height: 32px;
-                        font-size: 16px;
                         margin-right: -28px;
                     }
                 }
@@ -605,7 +635,8 @@ class Header extends HTMLElement {
                     </div>
                     <div class="nav-actions">
                         <div id="user-section">
-                            ${this.isLoggedIn ? await this.renderUserIcon() : await this.renderLoginButton()}
+                            ${this.isLoggedIn && !this.isAdmin ? `<img src="${avatarUrl}" alt="Profile" class="user-avatar" id="user-avatar" title="${this.userData?.name || 'Потребител'}">` : ''}
+                            ${!this.isLoggedIn ? await this.renderLoginButton() : ''}
                         </div>
                         ${!this.isLoggedIn ? `<button class="btn btn-primary desktop-download-btn" id="download-btn">Изтегли</button>` : ''}
                         ${this.isLoggedIn ? await this.renderLogoutButton() : ''}
@@ -648,14 +679,6 @@ class Header extends HTMLElement {
                 </a>
                 <a href="../HTML/contact.html" class="nav-link">Контакти</a>
             `;
-        } else if (this.isLoggedIn) {
-            return `
-                <a href="../HTML/index.html" class="nav-link">Начало</a>
-                <a href="../HTML/docs.html" class="nav-link">Документация</a>
-                <a href="../HTML/forum.html" class="nav-link">Форум</a>
-                <a href="../HTML/news.html" class="nav-link">Новини</a>
-                <a href="../HTML/contact.html" class="nav-link">Контакти</a>
-            `;
         } else {
             return `
                 <a href="../HTML/index.html" class="nav-link">Начало</a>
@@ -679,7 +702,7 @@ class Header extends HTMLElement {
                 </a>
                 <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
             `;
-            } else {
+        } else {
             return `
                 <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
                 <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
@@ -688,13 +711,6 @@ class Header extends HTMLElement {
                 <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
             `;
         }
-    }
-
-    getFirstLetter() {
-        if (this.userData?.name) {
-            return this.userData.name.charAt(0).toUpperCase();
-        }
-        return 'U';
     }
 
     async renderLoginButton() {
@@ -718,17 +734,6 @@ class Header extends HTMLElement {
             <button id="mobile-logout-btn" class="btn btn-outline">
                 <i class="fas fa-sign-out-alt"></i> Изход
             </button>
-        `;
-    }
-
-    async renderUserIcon() {
-        const firstLetter = this.getFirstLetter();
-        const name = this.userData?.name || 'Потребител';
-        
-        return `
-            <a href="${this.isAdmin ? '../HTML/admin.html' : '../HTML/profile.html'}" class="user-avatar" title="${name}">
-                ${firstLetter}
-            </a>
         `;
     }
 
@@ -757,7 +762,10 @@ class Header extends HTMLElement {
             newToggle.addEventListener('click', () => {
                 newToggle.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                const isOpen = mobileMenu.classList.contains('active');
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+                const logo = this.querySelector('.logo');
+                if (logo) logo.classList.toggle('hidden', isOpen);
             });
         }
 
@@ -770,6 +778,8 @@ class Header extends HTMLElement {
                     toggle.classList.remove('active');
                     mobileMenu.classList.remove('active');
                     document.body.style.overflow = '';
+                    const logo = this.querySelector('.logo');
+                    if (logo) logo.classList.remove('hidden');
                 }
             });
         });
@@ -822,6 +832,14 @@ class Header extends HTMLElement {
             mobileLogoutBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
                 await this.logout();
+            });
+        }
+        
+        const userAvatar = this.querySelector('#user-avatar');
+        if (userAvatar) {
+            userAvatar.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = '../HTML/profile.html';
             });
         }
         

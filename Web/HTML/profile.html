@@ -3,11 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>KiriliX</title>
+    <title>KiriliX - Моят профил</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/profile.css">
     <link rel="stylesheet" href="../CSS/notification.css">
+    <style>
+        /* Добавени стилове за аватар изображение */
+        .profile-avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            transition: var(--transition);
+        }
+        
+        .profile-avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+            border-color: var(--neon-red);
+        }
+        
+        .account-age-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .newbie-badge {
+            background: linear-gradient(135deg, #00ff9d20, #00ff9d40);
+            color: #00ff9d;
+            border: 1px solid #00ff9d;
+        }
+        
+        .regular-badge {
+            background: linear-gradient(135deg, #00f3ff20, #00f3ff40);
+            color: #00f3ff;
+            border: 1px solid #00f3ff;
+        }
+        
+        .veteran-badge {
+            background: linear-gradient(135deg, #ff003c20, #ff003c40);
+            color: #ff003c;
+            border: 1px solid #ff003c;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-avatar-img {
+                width: 90px;
+                height: 90px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-avatar-img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -30,13 +89,14 @@
 
     <main class="profile-container">
         <div class="profile-header fade-in">
-            <div class="profile-avatar" id="profileAvatar">U</div>
+            <img class="profile-avatar-img" id="profileAvatarImg" src="../images/avatars/default-avatar.svg" alt="Profile Avatar">
             <div class="profile-info">
                 <h1 class="profile-name" id="profileName">Зареждане...</h1>
                 <div class="profile-email">
                     <i class="fas fa-envelope"></i>
                     <span id="profileEmail">зареждане...</span>
                 </div>
+                <div id="accountAgeBadge" class="account-age-badge"></div>
                 <div class="profile-actions">
                     <button class="btn btn-outline" id="editProfileBtn">
                         <i class="fas fa-edit"></i>
@@ -120,9 +180,8 @@
         </div>
     </div>
 
-
-<script src="../JS/config.js"></script>
-<script src="../JS/notification_system.js"></script>
-<script src="../JS/profile.js"></script>
+    <script src="../JS/config.js"></script>
+    <script src="../JS/notification_system.js"></script>
+    <script src="../JS/profile.js"></script>
 </body>
 </html>

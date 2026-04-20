@@ -23,16 +23,40 @@ window.addEventListener('load', function() {
     loadPostDetails(currentPostId);
 });
 
+// Функция за изчисляване на възрастта на профила в години
+function calculateAccountAge(createdAt) {
+    if (!createdAt) return null;
+    
+    try {
+        const creationDate = new Date(createdAt);
+        const currentDate = new Date();
+        const ageInMilliseconds = currentDate - creationDate;
+        const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+        
+        return ageInYears;
+    } catch (error) {
+        console.error('Error calculating account age:', error);
+        return null;
+    }
+}
+
+// Функция която директно връща URL на снимка според възрастта на профила
+function getAvatarImage(createdAt) {
+    if (!createdAt) return '../Assets/Images/bronze_logo.png';
+    
+    const accountAge = calculateAccountAge(createdAt);
+    
+    if (accountAge < 2) {
+        return '../Assets/Images/bronze_logo.png';
+    } else if (accountAge >= 2 && accountAge < 5) {
+        return '../Assets/Images/silver_logo.png';
+    } else {
+        return '../Assets/Images/gold_logo.png';
+    }
+}
+
 async function loadCurrentUser() {
     try {
-        const sessionUser = sessionStorage.getItem('user');
-        
-        if (sessionUser) {
-            currentUser = JSON.parse(sessionUser);
-            console.log('Потребител зареден от sessionStorage:', currentUser.username, 'Роля:', currentUser.role);
-            return;
-        }
-        
         const token = localStorage.getItem('authToken');
         
         if (!token) {
@@ -41,8 +65,8 @@ async function loadCurrentUser() {
             return;
         }
         
-        console.log('Няма потребител в sessionStorage, зареждам от API...');
-        const response = await fetch(`${API_CONFIG.USER}/current-user`, {
+        console.log('Зареждам потребител от API...');
+        const response = await fetch(`${window.API_CONFIG.USER}/current-user`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -50,8 +74,11 @@ async function loadCurrentUser() {
         
         if (response.ok) {
             currentUser = await response.json();
-            sessionStorage.setItem('user', JSON.stringify(currentUser));
             console.log('Потребител зареден от API:', currentUser.username, 'Роля:', currentUser.role);
+        } else if (response.status === 401) {
+            console.log('Токенът е изтекъл или е невалиден');
+            localStorage.removeItem('authToken');
+            currentUser = null;
         } else {
             console.log('Неуспешно зареждане на потребител от API');
             currentUser = null;
@@ -68,7 +95,7 @@ async function loadPostDetails(postId) {
         showAlert('Зареждане на публикацията...', 'pending');
         document.getElementById('loader').classList.remove('hidden');
         
-        const response = await fetch(`${API_CONFIG.POST}/${postId}?useNavigationalProperties=true`);
+        const response = await fetch(`${window.API_CONFIG.POST}/${postId}?useNavigationalProperties=true`);
         
         if (!response.ok) {
             if (response.status === 404) {
@@ -92,15 +119,21 @@ async function loadPostDetails(postId) {
         document.getElementById('forumTitle').textContent = post.title || 'Без заглавие';
         
         let authorName = 'Неизвестен автор';
-        let authorInitials = '--';
+        let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
         
         if (post.author) {
             authorName = post.author.username || 'Неизвестен автор';
-            authorInitials = getInitials(post.author.username) || getInitials(post.author.email) || '??';
+            authorAvatarUrl = getAvatarImage(post.author.createdAt);
         }
         
         document.getElementById('forumAuthor').textContent = authorName;
-        document.getElementById('forumAuthorAvatar').textContent = authorInitials;
+        
+        const authorAvatarImg = document.getElementById('forumAuthorAvatar');
+        if (authorAvatarImg) {
+            authorAvatarImg.src = authorAvatarUrl;
+            authorAvatarImg.alt = authorName;
+            authorAvatarImg.style.display = 'block';
+        }
         
         let dateText = 'Неизвестна дата';
         if (post.createdAt) {
@@ -144,7 +177,7 @@ function displayComments(comments) {
     
     let commentsHtml = '';
     comments.forEach(comment => {
-        let authorInitials = '--';
+        let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
         let authorName = 'Неизвестен потребител';
         let isAdmin = false;
         let canDelete = false;
@@ -156,10 +189,10 @@ function displayComments(comments) {
             if (comment.author.role === 0) {
                 authorName = 'Администратор';
                 isAdmin = true;
-                authorInitials = 'A';
+                authorAvatarUrl = '../Assets/Images/gold_logo.png';
             } else {
                 authorName = comment.author.username || 'Неизвестен потребител';
-                authorInitials = getInitials(comment.author.username) || getInitials(comment.author.email) || '??';
+                authorAvatarUrl = getAvatarImage(comment.author.createdAt);
             }
             
             if (currentUser && (currentUser.id === commentAuthorId || currentUser.role === 0)) {
@@ -183,7 +216,7 @@ function displayComments(comments) {
             <li class="comment-item" data-comment-id="${comment.id || ''}" data-comment-author-id="${commentAuthorId || ''}" style="list-style: none;">
                 <div class="comment-header">
                     <div class="comment-author">
-                        <div class="comment-author-avatar">${authorInitials}</div>
+                        <img class="comment-author-avatar" src="${authorAvatarUrl}" alt="${escapeHtml(authorName)}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                         <div class="comment-author-info">
                             <h5>${escapeHtml(authorName)} ${isAdmin ? '<span class="admin-badge">Админ</span>' : ''}</h5>
                             <p>${escapeHtml(dateText)}</p>
@@ -229,7 +262,7 @@ async function deleteComment(commentId) {
         }
         
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`${API_CONFIG.COMMENT}/${commentId}`, {
+        const response = await fetch(`${window.API_CONFIG.COMMENT}/${commentId}`, {
             method: 'DELETE',
             headers: token ? {
                 'Authorization': `Bearer ${token}`,
@@ -272,10 +305,7 @@ function formatDeviceDate(date) {
     const options = { 
         day: 'numeric', 
         month: 'long', 
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
+        year: 'numeric'
     };
     
     try {
@@ -317,13 +347,13 @@ async function submitComment() {
         const commentData = {
             content: content,
             author: currentUser,
-            post: currentPost
+            postId: currentPost.id
         };
         
         console.log('Изпращам коментар:', commentData);
         
         const token = localStorage.getItem('authToken');
-        const response = await fetch(API_CONFIG.COMMENT, {
+        const response = await fetch(window.API_CONFIG.COMMENT, {
             method: 'POST',
             headers: token ? {
                 'Authorization': `Bearer ${token}`,
@@ -354,30 +384,12 @@ async function submitComment() {
     }
 }
 
-function getInitials(name) {
-    if (!name || typeof name !== 'string') return '??';
-    
-    name = name.trim();
-    if (name === '') return '??';
-    
-    if (name.includes('@')) {
-        return name.charAt(0).toUpperCase();
-    }
-    
-    const parts = name.split(' ').filter(p => p.length > 0);
-    if (parts.length >= 2) {
-        return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
-    }
-    return name.charAt(0).toUpperCase();
-}
-
 function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
-
 
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', function(e) {

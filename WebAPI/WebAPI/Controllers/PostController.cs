@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer;
+using InfrastructureLayer.Mapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BusinessLayer;
 namespace WebAPI.Controllers
 {
     [Route("post")]
@@ -84,6 +86,45 @@ namespace WebAPI.Controllers
             {
                 await _postService.DeleteAsync(id);
                 return Ok(new { message = "Публикацията е изтрита успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePost(int id, [FromBody] Post post)
+        {
+            try
+            {
+                await _postService.UpdatePostAsync(post);
+                return Ok(new { message = "Публикацията е обновена успешно!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchPost(int id, [FromBody] Dictionary<string, object> updates)
+        {
+            try
+            {
+                if (updates == null || updates.Count == 0)
+                {
+                    return BadRequest(new { message = "Няма подадени полета за обновяване!" });
+                }
+
+                await _postService.PatchPostAsync(id, updates);
+                return Ok(new { message = "Публикацията е обновена успешно!" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {

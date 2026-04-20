@@ -196,9 +196,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                 if (updates.email) {
                     currentUser.email = updates.email;
                 }
-                
-                // Обновяваме sessionStorage за съвместимост с други страници
-                sessionStorage.setItem('user', JSON.stringify(currentUser));
 
                 setTimeout(() => {
                     window.location.href = 'profile.html';
@@ -227,5 +224,5 @@ document.addEventListener("DOMContentLoaded", async function() {
         if (!token) {
             window.location.href = '../HTML/login.html';
         }
-    }, 5000); // Проверка на всеки 5 секунди вместо всяка секунда
+    }, 5000); // Проверка на всеки 5 секунди
 });

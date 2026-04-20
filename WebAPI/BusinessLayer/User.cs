@@ -3,6 +3,7 @@ using BusinessLayer;
 using BusinessLayer.Enums;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace BusinessLayer
@@ -17,7 +18,6 @@ namespace BusinessLayer
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
         public string Password { get; set; }
         [Required]
         public Role Role { get;set; }
@@ -27,15 +27,5 @@ namespace BusinessLayer
         public List<Comment> Comments { get; set; } = new List<Comment>();
         [Required]
         public DateTime CreatedAt { get; set; }
-        public User()
-        {
-        }
-        public User(string username, string name, string email, string password,Role role)
-        {
-            Username = username;
-            Email = email;
-            Password = password;
-            Role = role;
-        }
     }
 }

@@ -1,6 +1,6 @@
 // State management
 let currentUser = null;
-const threadsPerPage = 8;
+const threadsPerPage = 6;
 let currentPage = 1;
 let filteredThreads = [];
 let currentSort = "newest";
@@ -18,6 +18,38 @@ const threadTitle = document.getElementById('threadTitle');
 const threadQuestion = document.getElementById('threadQuestion');
 const titleCounter = document.getElementById('titleCounter');
 const questionCounter = document.getElementById('questionCounter');
+
+// Функция за изчисляване на възрастта на профила в години
+function calculateAccountAge(createdAt) {
+    if (!createdAt) return null;
+    
+    try {
+        const creationDate = new Date(createdAt);
+        const currentDate = new Date();
+        const ageInMilliseconds = currentDate - creationDate;
+        const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
+        
+        return ageInYears;
+    } catch (error) {
+        console.error('Error calculating account age:', error);
+        return null;
+    }
+}
+
+// Функция която директно връща URL на снимка според възрастта на профила
+function getAvatarImage(createdAt) {
+    if (!createdAt) return '../Assets/Images/bronze_logo.png';
+    
+    const accountAge = calculateAccountAge(createdAt);
+    
+    if (accountAge < 2) {
+        return '../Assets/Images/bronze_logo.png';
+    } else if (accountAge >= 2 && accountAge < 5) {
+        return '../Assets/Images/silver_logo.png';
+    } else {
+        return '../Assets/Images/gold_logo.png';
+    }
+}
 
 // Loader functionality
 window.addEventListener('load', async function() {
@@ -107,13 +139,9 @@ async function loadCurrentUser() {
         if (response.ok) {
             currentUser = await response.json();
             console.log('User loaded from token:', currentUser);
-            
-            // Save to sessionStorage for other pages
-            sessionStorage.setItem('user', JSON.stringify(currentUser));
         } else if (response.status === 401) {
             // Token expired or invalid
             localStorage.removeItem('authToken');
-            sessionStorage.removeItem('user');
             currentUser = null;
         }
     } catch (error) {
@@ -230,7 +258,6 @@ if (submitThreadBtn) {
             } else if (response.status === 401) {
                 showAlert('Сесията ви е изтекла. Моля, влезте отново!', 'error');
                 localStorage.removeItem('authToken');
-                sessionStorage.removeItem('user');
                 currentUser = null;
             } else {
                 showAlert(result.message || 'Възникна грешка', 'error');
@@ -340,22 +367,11 @@ function formatDate(utcDateString) {
     return `Преди ${years} години`;
 }
 
-// Load posts from API and save to sessionStorage
+// Load posts from API only (no sessionStorage)
 async function loadPosts() {
     try {
         const loader = document.getElementById('loader');
         if (loader) loader.classList.remove('hidden');
-
-        // Check if we have posts in sessionStorage
-        const storedPosts = sessionStorage.getItem('forum_posts');
-        
-        if (storedPosts) {
-            console.log('Loading posts from sessionStorage');
-            const posts = JSON.parse(storedPosts);
-            processPostsData(posts);
-            if (loader) loader.classList.add('hidden');
-            return;
-        }
         
         console.log('Fetching fresh posts from API');
         
@@ -376,8 +392,6 @@ async function loadPosts() {
 
         const posts = await response.json();
         
-        sessionStorage.setItem('forum_posts', JSON.stringify(posts));
-        
         processPostsData(posts);
         
     } catch (error) {
@@ -390,8 +404,6 @@ async function loadPosts() {
 }
 
 async function refreshPosts() {
-    // Clear sessionStorage and reload fresh data
-    sessionStorage.removeItem('forum_posts');
     await loadPosts();
 }
 
@@ -404,18 +416,12 @@ function processPostsData(posts) {
             authorName = 'Админ';
         }
         
-        // Better handling of author initials
-        let authorInitials = 'АН';
-        // Special handling for Admin
+        // Get avatar image URL based on account age
+        let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
         if (authorName === 'Админ') {
-            authorInitials = 'АД';
-        } else if (authorName !== 'Анонимен') {
-            const nameParts = authorName.split(' ');
-            if (nameParts.length >= 2) {
-                authorInitials = (nameParts[0][0] + nameParts[1][0]).toUpperCase();
-            } else {
-                authorInitials = authorName.substring(0, 2).toUpperCase();
-            }
+            authorAvatarUrl = '../Assets/Images/gold_logo.png';
+        } else if (post.author?.createdAt) {
+            authorAvatarUrl = getAvatarImage(post.author.createdAt);
         }
         
         // Count comments properly from the comments array
@@ -433,7 +439,7 @@ function processPostsData(posts) {
             preview: preview,
             content: post.content,
             author: authorName,
-            authorInitials: authorInitials,
+            authorAvatarUrl: authorAvatarUrl,
             replies: repliesCount,
             date: datePosted,
             createdAt: post.createdAt,
@@ -504,7 +510,7 @@ function renderThreads() {
                     </p>
                     <div class="thread-meta">
                         <div class="thread-author">
-                            <div class="author-avatar">${escapeHtml(thread.authorInitials)}</div>
+                            <img class="author-avatar" src="${thread.authorAvatarUrl}" alt="${escapeHtml(thread.author)}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
                             <span>${escapeHtml(thread.author)}</span>
                         </div>
                         <div class="thread-info">
@@ -814,6 +820,22 @@ additionalStyles.textContent = `
     
     .fade-in {
         animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .author-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid var(--neon-green);
+        box-shadow: 0 0 8px rgba(0, 255, 157, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .thread-author:hover .author-avatar {
+        transform: scale(1.1);
+        border-color: var(--neon-red);
+        box-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
     }
 `;
 document.head.appendChild(additionalStyles);

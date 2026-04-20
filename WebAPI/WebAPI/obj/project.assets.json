@@ -1230,7 +1230,8 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "BusinessLayer": "1.0.0",
-          "DataLayer": "1.0.0"
+          "DataLayer": "1.0.0",
+          "ServiceLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/InfrastructureLayer.dll": {}

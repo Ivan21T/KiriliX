@@ -3,15 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiriliX</title>
+    <title>KiriliX - Детайли на тема</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/notification.css">
     <link rel="stylesheet" href="../CSS/forum_details.css">
+    <style>
+        .author-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            transition: var(--transition);
+        }
+        
+        .author-avatar-large:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 157, 0.5);
+            border-color: var(--neon-red);
+        }
+        
+        .comment-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+        
+        .forum-author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-details h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+        
+        .author-details p {
+            margin: 5px 0 0;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .author-avatar-large {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .comment-author-avatar {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .author-avatar-large {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .comment-author-avatar {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-
 
     <div class="alert-container" id="alert-container"></div>
     
@@ -45,7 +113,7 @@
             
             <div class="forum-detail-meta">
                 <div class="forum-author-info">
-                    <div class="author-avatar-large" id="forumAuthorAvatar">--</div>
+                    <img class="author-avatar-large" id="forumAuthorAvatar" src="../Assets/Images/bronze_logo.png" alt="Author Avatar">
                     <div class="author-details">
                         <h4 id="forumAuthor">Зареждане...</h4>
                         <p id="forumDate">Зареждане...</p>
@@ -92,6 +160,7 @@
             <ul class="comments-list" id="commentsList"></ul>
         </section>
     </main>
+    
     <script src="../JS/notification_system.js"></script>
     <script src="../JS/config.js"></script>
     <script src="../JS/forum_details.js"></script>

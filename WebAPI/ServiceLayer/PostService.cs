@@ -60,10 +60,39 @@ namespace ServiceLayer
                 throw new Exception($"Грешка при взимане на публикация с ID {id}: {ex.Message}", ex);
             }
         }
+        public async Task UpdatePostAsync(Post post)
+        {
+            await _postContext.UpdateAsync(post);
+        }
 
         public async Task DeleteAsync(int id)
         {
             await _postContext.DeleteAsync(id);
+        }
+        public async Task PatchPostAsync(int id, Dictionary<string,object> updates)
+        {
+            var post = await _postContext.ReadAsync(id);
+            if (post == null)
+            {
+                throw new KeyNotFoundException("Публикацията не е намерена!");
+            }
+
+            foreach (var update in updates)
+            {
+                switch (update.Key.ToLower())
+                {
+                    case "title":
+                        post.Title = update.Value?.ToString() ?? post.Title;
+                        break;
+                    case "content":
+                        post.Content = update.Value?.ToString() ?? post.Content;
+                        break;
+                    default:
+                        throw new ArgumentException($"Полето '{update.Key}' не може да бъде обновено!");
+                }
+            }
+
+            await _postContext.UpdateAsync(post);
         }
     }
 }

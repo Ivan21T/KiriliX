@@ -34,3 +34,5 @@ C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\InfrastructureL
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\InfrastructureLayer\obj\Debug\net9.0\refint\InfrastructureLayer.dll
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\InfrastructureLayer\obj\Debug\net9.0\InfrastructureLayer.pdb
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\InfrastructureLayer\obj\Debug\net9.0\ref\InfrastructureLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\InfrastructureLayer\bin\Debug\net9.0\ServiceLayer.dll
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\InfrastructureLayer\bin\Debug\net9.0\ServiceLayer.pdb

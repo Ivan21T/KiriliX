@@ -13,11 +13,13 @@ namespace ServiceLayer
     {
         private readonly string _secretKey;
         private readonly int _expirationHours;
+        private readonly UserService _userService; // Добавете това
 
-        public JwtService(IConfiguration configuration)
+        public JwtService(IConfiguration configuration, UserService userService) // Променете конструктора
         {
             _secretKey = configuration["Jwt:SecretKey"];
             _expirationHours = int.Parse(configuration["Jwt:ExpirationHours"]);
+            _userService = userService; // Добавете това
         }
 
         public async Task<string> GenerateTokenAsync(User user)
@@ -32,10 +34,7 @@ namespace ServiceLayer
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim(ClaimTypes.Name, user.Username),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.Role, user.Role.ToString()),
-                        new Claim("CreatedAt", user.CreatedAt.ToString("o"))
+                        // Премахваме всички останали claims - само ID остава
                     }),
                     Expires = DateTime.UtcNow.AddHours(_expirationHours),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -72,40 +71,25 @@ namespace ServiceLayer
                 }
             });
         }
-
         public async Task<ReadUserDTO> GetUserInfoFromTokenAsync(ClaimsPrincipal principal)
         {
-            return await Task.Run(() =>
-            {
-                if (principal == null) return null;
+            if (principal == null) return null;
 
-                var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var username = principal.FindFirst(ClaimTypes.Name)?.Value;
-                var email = principal.FindFirst(ClaimTypes.Email)?.Value;
-                var roleStr = principal.FindFirst(ClaimTypes.Role)?.Value;
-                var createdAtStr = principal.FindFirst("CreatedAt")?.Value;
+            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim)) return null;
 
-                if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(username) ||
-                    string.IsNullOrEmpty(email) || string.IsNullOrEmpty(roleStr))
-                    return null;
+            var userId = int.Parse(userIdClaim);
 
-                if (!Enum.TryParse<Role>(roleStr, out var role))
-                    return null;
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null) return null;
 
-                DateTime? createdAt = null;
-                if (!string.IsNullOrEmpty(createdAtStr))
-                {
-                    createdAt = DateTime.Parse(createdAtStr, null, System.Globalization.DateTimeStyles.RoundtripKind);
-                }
-
-                return new ReadUserDTO(
-                    Id: int.Parse(userId),
-                    Username: username,
-                    Email: email,
-                    Role: role,
-                    CreatedAt:(DateTime)createdAt
-                );
-            });
+            return new ReadUserDTO(
+                Id: user.Id,
+                Username: user.Username,
+                Email: user.Email,
+                Role: user.Role,
+                CreatedAt: user.CreatedAt
+            );
         }
     }
 }

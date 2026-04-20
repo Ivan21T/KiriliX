@@ -77,7 +77,6 @@ C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debu
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.build.endpoints.json
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\swae.build.ex.cache
-C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.csproj.Up2Date
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.dll
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\refint\WebAPI.dll
@@ -191,3 +190,4 @@ C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\WebAPI.genruntimeco
 C:\Users\RTT\Pictures\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\ref\WebAPI.dll
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\InfrastructureLayer.dll
 C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\bin\Debug\net9.0\InfrastructureLayer.pdb
+C:\Users\ivan_\OneDrive\Документи\GitHub\KiriliX\WebAPI\WebAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

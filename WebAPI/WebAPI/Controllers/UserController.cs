@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.DTOs;
-using ServiceLayer.Mapper;
+using InfrastructureLayer.Mapper;
 
 namespace WebAPI.Controllers
 {

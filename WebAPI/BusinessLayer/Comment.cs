@@ -19,5 +19,6 @@ namespace BusinessLayer
         public User Author { get; set; }
         [JsonIgnore]
         public Post Post { get; set; }
+        public int PostId { get; set; }
     }
 }

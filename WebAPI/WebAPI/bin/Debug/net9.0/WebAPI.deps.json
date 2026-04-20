@@ -537,7 +537,8 @@
       "InfrastructureLayer/1.0.0": {
         "dependencies": {
           "BusinessLayer": "1.0.0",
-          "DataLayer": "1.0.0"
+          "DataLayer": "1.0.0",
+          "ServiceLayer": "1.0.0"
         },
         "runtime": {
           "InfrastructureLayer.dll": {

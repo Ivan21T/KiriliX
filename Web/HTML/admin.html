@@ -11,49 +11,8 @@
 </head>
 <body>
     <div class="alert-container" id="alert-container"></div>
-    <div class="animated-bg"></div>
     
-    <header>
-        <div class="bulgarian-border"></div>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">K</div>
-                KiriliX
-            </a>
-            <div class="nav-links">
-                <a href="#" class="nav-link">Начало</a>
-                <a href="#" class="nav-link">Форум</a>
-                <a href="#" class="nav-link">Документация</a>
-                <a href="#" class="nav-link">Новини</a>
-                <a href="#" class="nav-link active"><i class="fas fa-user-shield"></i> Админ</a>
-            </div>
-            <div class="nav-actions">
-                <button class="btn btn-outline" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Изход
-                </button>
-            </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-        
-        <div class="mobile-menu" id="mobileMenu">
-            <div class="mobile-nav-links">
-                <a href="#" class="mobile-nav-link">Начало</a>
-                <a href="#" class="mobile-nav-link">Форум</a>
-                <a href="#" class="mobile-nav-link">Документация</a>
-                <a href="#" class="mobile-nav-link">Новини</a>
-                <a href="#" class="mobile-nav-link active">Админ</a>
-            </div>
-            <div class="mobile-nav-actions">
-                <button class="btn btn-outline">
-                    <i class="fas fa-sign-out-alt"></i> Изход
-                </button>
-            </div>
-        </div>
-    </header>
+    <kirilix-header></kirilix-header>
 
     <main class="admin-container">
         <!-- Статистики -->
@@ -109,6 +68,7 @@
                             <tr>
                                 <th>Потребител</th>
                                 <th>Роля</th>
+                                <th>Дата</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
@@ -151,8 +111,7 @@
                     <table class="admin-table">
                         <thead>
                             <tr>
-                                <th>Заглавие</th>
-                                <th>Автор</th>
+                                <th>Заглавие</th>   
                                 <th>Дата</th>
                                 <th>Действия</th>
                             </tr>
@@ -180,7 +139,6 @@
             </div>
         </section>
 
-        <!-- Секция Постове от форума -->
         <section id="posts-section" class="admin-section">
             <div class="section-header">
                 <h2 class="section-title">Постове от форума</h2>
@@ -207,7 +165,6 @@
                     </table>
                 </div>
                 
-                <!-- Пагинация за постове -->
                 <div class="pagination-wrapper" id="postsPagination">
                     <div class="pagination-info" id="postsPaginationInfo"></div>
                     <div class="pagination-controls">
@@ -266,6 +223,7 @@
     
     <kirilix-footer></kirilix-footer>
     
+    <script type="module" src="../JS/header.js"></script>
     <script type="module" src="../JS/footer.js"></script>
     <script src="../JS/notification_system.js"></script>
     <script src="../JS/config.js"></script>

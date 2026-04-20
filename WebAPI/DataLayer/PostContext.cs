@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,7 +60,7 @@ namespace DataLayer
             return query.ToListAsync();
         }
 
-        public Task<Post> ReadAsync(int id, bool useNavigationProperties = false, bool isReadOnly = false)
+        public async Task<Post> ReadAsync(int id, bool useNavigationProperties = false, bool isReadOnly = false)
         {
             IQueryable<Post> query = _context.Posts;
             if (useNavigationProperties)
@@ -74,7 +74,7 @@ namespace DataLayer
             {
                 query = query.AsNoTrackingWithIdentityResolution();
             }
-            var post=query.FirstOrDefaultAsync(u => u.Id == id);
+            var post = await query.FirstOrDefaultAsync(u => u.Id == id);
             if (post == null)
             {
                 throw new Exception("Публикацията не е намерена!");

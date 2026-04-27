@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiriliX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/docs.css">
+</head>
+
+<body>
+    <div class="animated-bg">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+    <kirilix-header></kirilix-header>
+
+    <div class="docs-hero">
+    </div>
+
+    <div class="container">
+        <div class="accordion-section" id="docsSection">
+            <div class="accordion-header" onclick="toggleSection('docsSection')">
+                <h2>
+                    <i class="fas fa-book"></i>
+                    Документация
+                </h2>
+                <i class="fas fa-chevron-down accordion-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="docs-grid">
+                    <a href="../assets/Documentation/KIRILIX.pdf" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                        <div class="doc-card" style="height: 100%;">
+                            <i class="fas fa-file-pdf doc-icon"></i>
+                            <h3>Официална документация</h3>
+                            <p>Пълно ръководство за синтаксиса, типовете данни и функциите на KiriliX (PDF формат).</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-section" id="examplesSection">
+            <div class="accordion-header" onclick="toggleSection('examplesSection')">
+                <h2>
+                    <i class="fas fa-code-branch"></i>
+                    Примери & Файлове
+                </h2>
+                <i class="fas fa-chevron-down accordion-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <h3 style="margin-bottom: 1rem; color: var(--neon-green);">Примерни файлове</h3>
+                <div class="example-buttons">
+                    <a href="../assets/Examples/01_types_and_vars.bg" download class="example-file-btn" style="text-decoration: none;"><i class="fas fa-file-code"></i> 01_types_and_vars.bg</a>
+                    <a href="../assets/Examples/02_math_and_logic.bg" download class="example-file-btn" style="text-decoration: none;"><i class="fas fa-file-code"></i> 02_math_and_logic.bg</a>
+                    <a href="../assets/Examples/03_control_flow.bg" download class="example-file-btn" style="text-decoration: none;"><i class="fas fa-file-code"></i> 03_control_flow.bg</a>
+                    <a href="../assets/Examples/04_functions.bg" download class="example-file-btn" style="text-decoration: none;"><i class="fas fa-file-code"></i> 04_functions.bg</a>
+                    <a href="../assets/Examples/05_arrays.bg" download class="example-file-btn" style="text-decoration: none;"><i class="fas fa-file-code"></i> 05_arrays.bg</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-section" id="versionsSection">
+            <div class="accordion-header" onclick="toggleSection('versionsSection')">
+                <h2>
+                    <i class="fas fa-tags"></i>
+                    Версии на езика
+                </h2>
+                <i class="fas fa-chevron-down accordion-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="version-timeline">
+                    <div class="version-item">
+                        <div class="version-number">v1.0.0 KiriliX Atila</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-section" id="githubSection">
+            <div class="accordion-header" onclick="toggleSection('githubSection')">
+                <h2>
+                    <i class="fab fa-github"></i>
+                    GitHub & Отворен код
+                </h2>
+                <i class="fas fa-chevron-down accordion-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="github-content">
+                    <button class="github-btn" id="githubLinkBtn">
+                        <i class="fab fa-github"></i> github.com
+                    </button>
+                    <p style="margin-top: 1.5rem; color: #b0b0d0;">
+                        Присъедини се към разработката на KiriliX. Свободен и отворен проект<br>
+                        за българската програмистка общност.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <kirilix-footer></kirilix-footer>
+
+    <script src="../JS/docs.js"></script>
+    <script src="../JS/header.js" type="module"></script>
+    <script src="../JS/footer.js" type="module"></script>
+</body>
+
+</html>

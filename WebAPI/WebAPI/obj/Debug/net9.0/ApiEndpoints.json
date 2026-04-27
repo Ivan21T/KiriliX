@@ -60,7 +60,7 @@
   {
     "ContainingType": "WebAPI.Controllers.CommentController",
     "Method": "CreateComment",
-    "RelativePath": "comment",
+    "RelativePath": "comments",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -76,7 +76,7 @@
   {
     "ContainingType": "WebAPI.Controllers.CommentController",
     "Method": "GetCommentById",
-    "RelativePath": "comment/{id}",
+    "RelativePath": "comments/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -95,6 +95,22 @@
         "Name": "isReadOnly",
         "Type": "System.Boolean",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.CommentController",
+    "Method": "DeleteComment",
+    "RelativePath": "comments/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -181,7 +197,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "GetPosts",
-    "RelativePath": "post",
+    "RelativePath": "posts",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -202,7 +218,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "CreatePost",
-    "RelativePath": "post",
+    "RelativePath": "posts",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -218,7 +234,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "GetPostById",
-    "RelativePath": "post/{id}",
+    "RelativePath": "posts/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -244,7 +260,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "DeletePost",
-    "RelativePath": "post/{id}",
+    "RelativePath": "posts/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -260,7 +276,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "UpdatePost",
-    "RelativePath": "post/{id}",
+    "RelativePath": "posts/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -281,7 +297,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "PatchPost",
-    "RelativePath": "post/{id}",
+    "RelativePath": "posts/{id}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -302,7 +318,7 @@
   {
     "ContainingType": "WebAPI.Controllers.PostController",
     "Method": "GetPostsByAuthorId",
-    "RelativePath": "post/author/{authorId}",
+    "RelativePath": "posts/author/{authorId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

@@ -4,7 +4,6 @@ const adminData = {
     posts: []
 };
 
-// ================ СЪСТОЯНИЕ ================
 let currentEditingArticleId = null;
 let currentEditingUserId = null;
 let currentEditingPostId = null;
@@ -12,7 +11,6 @@ let currentAction = null;
 let currentUser = null;
 let currentUserId = null;
 
-// Пагинация
 const pagination = {
     users: { page: 1, pageSize: 10, total: 0 },
     articles: { page: 1, pageSize: 10, total: 0 },
@@ -59,7 +57,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 });
 
-// ================ МОБИЛНО МЕНЮ ================
 function initMobileMenu() {
     const toggle = document.getElementById('mobileMenuToggle');
     const menu = document.getElementById('mobileMenu');
@@ -72,7 +69,6 @@ function initMobileMenu() {
     });
 }
 
-// ================ НАВИГАЦИЯ ================
 function initNavigation() {
     const navBtns = document.querySelectorAll('.admin-nav-btn');
     const sections = document.querySelectorAll('.admin-section');
@@ -125,7 +121,6 @@ async function loadCurrentUser() {
     }
 } 
 
-// ================ API ФУНКЦИИ ЗА ПОТРЕБИТЕЛИ ================
 async function getUsers() {
     try {
         const response = await authFetch(`${window.API_CONFIG.USER}`, {
@@ -156,8 +151,6 @@ async function getUsers() {
         return [];
     }
 }
-
-// ================ API ФУНКЦИИ ЗА НОВИНИ ================
 
 async function fetchArticles() {
     try {
@@ -218,12 +211,10 @@ async function createArticle(title, description) {
 
         const newArticle = await response.json();
         
-        if (!newArticle || !newArticle.id) {
-            throw new Error('Сървърът не върна валидни данни за новата новина');
-        }
+        let articleId = newArticle.id;
         
         const articleToAdd = {
-            id: newArticle.id,
+            id: articleId,
             title: newArticle.title || title,
             description: newArticle.description || description,
             content: newArticle.description || description,
@@ -368,8 +359,6 @@ async function deleteArticle(id) {
         return true;
     }
 }
-
-// ================ API ФУНКЦИИ ЗА ПОСТОВЕ ================
 
 async function fetchPosts() {
     try {
@@ -518,7 +507,6 @@ async function deletePost(id) {
     }
 }
 
-// ================ РЕСПОНСИВ МОДАЛНИ СТИЛОВЕ ================
 function addResponsiveModalStyles() {
     if (document.getElementById('responsiveModalStyles')) return;
     
@@ -771,12 +759,58 @@ function addResponsiveModalStyles() {
             .modal-close-btn { padding: 12px; }
             .modal-select { background-size: 20px; }
         }
+        select.modal-form-control,
+        select.modal-select,
+        #usersPageSize,
+        #articlesPageSize,
+        #postsPageSize {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(0, 255, 157, 0.3) !important;
+            border-radius: 8px !important;
+            padding: 12px 16px !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: none !important;
+        }
+
+        select.modal-form-control option,
+        select.modal-select option,
+        #usersPageSize option,
+        #articlesPageSize option,
+        #postsPageSize option {
+            background-color: #1a1a2e !important;
+            color: #ffffff !important;
+            padding: 10px !important;
+        }
+
+        select.modal-form-control:focus,
+        select.modal-select:focus,
+        #usersPageSize:focus,
+        #articlesPageSize:focus,
+        #postsPageSize:focus {
+            outline: none !important;
+            border-color: var(--neon-green) !important;
+            box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.1) !important;
+        }
+
+        .pagination-controls select {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(0, 255, 157, 0.3) !important;
+            border-radius: 6px !important;
+            padding: 8px 12px !important;
+            font-size: 14px !important;
+            background-image: none !important;
+        }
     `;
     
     document.head.appendChild(style);
 }
 
-// ================ МОДАЛ ЗА РЕДАКТИРАНЕ НА ПОТРЕБИТЕЛ ================
 function showEditUserModal(id) {
     const user = adminData.users?.find(u => u.id === id);
     if (!user) return;
@@ -896,23 +930,23 @@ async function saveEditedUser(event) {
     
     let hasError = false;
     
-    if (username.length < 3) {
+    if (username.length < window.Validation.USERNAME_MIN_LENGTH) {
         usernameInput.classList.add('error');
-        showAlert('Потребителското име трябва да е поне 3 символа', 'error');
+        showAlert(`Потребителското име трябва да е поне ${window.Validation.USERNAME_MIN_LENGTH} символа`, 'error');
         hasError = true;
         setTimeout(() => usernameInput.classList.remove('error'), 500);
     }
     
-    if (!isValidEmail(email)) {
+    if (!window.Validation.isValidEmailDomain(email)) {
         emailInput.classList.add('error');
-        showAlert('Моля, въведете валиден имейл адрес', 'error');
+        showAlert('Моля, използвайте валиден имейл адрес (напр. gmail.com)', 'error');
         hasError = true;
         setTimeout(() => emailInput.classList.remove('error'), 500);
     }
     
-    if (password && password.length < 6) {
+    if (password && !window.Validation.isValidPassword(password)) {
         passwordInput.classList.add('error');
-        showAlert('Паролата трябва да е поне 6 символа', 'error');
+        showAlert('Паролата трябва да съдържа поне 8 символа, главна буква, малка буква, цифра и специален символ!', 'error');
         hasError = true;
         setTimeout(() => passwordInput.classList.remove('error'), 500);
     }
@@ -920,8 +954,7 @@ async function saveEditedUser(event) {
     if (hasError) return;
     
     const originalUser = adminData.users.find(u => u.id === currentEditingUserId);
-    
-    // Проверка за дублиране на потребителско име
+
     const existingUserWithSameName = adminData.users?.find(u => 
         u.id !== currentEditingUserId && (u.username || u.name).toLowerCase() === username.toLowerCase()
     );
@@ -932,8 +965,7 @@ async function saveEditedUser(event) {
         setTimeout(() => usernameInput.classList.remove('error'), 500);
         return;
     }
-    
-    // Проверка за дублиране на имейл
+
     const existingUserWithSameEmail = adminData.users?.find(u => 
         u.id !== currentEditingUserId && u.email.toLowerCase() === email.toLowerCase()
     );
@@ -948,7 +980,7 @@ async function saveEditedUser(event) {
     showAlert('Запазване на промените...', 'pending');
     
     try {
-        // Създаваме обект само с променените полета
+        
         const updates = {};
         
         if (username !== (originalUser.username || originalUser.name)) {
@@ -966,7 +998,7 @@ async function saveEditedUser(event) {
         const roleValue = role === 'admin' ? 0 : 1;
         const originalRoleValue = originalUser.role === 'admin' ? 0 : 1;
         if (roleValue !== originalRoleValue) {
-            // Изпращаме ролята като число - сървърът ще го конвертира до Role enum
+            
             updates.role = roleValue;
         }
         
@@ -975,10 +1007,7 @@ async function saveEditedUser(event) {
             closeEditUserModal();
             return;
         }
-        
-        console.log('Sending updates:', updates); // За дебъг
-        
-        // Използваме PATCH метода
+
         const response = await authFetch(`${window.API_CONFIG.USER}/${currentEditingUserId}`, {
             method: 'PATCH',
             headers: {
@@ -995,8 +1024,7 @@ async function saveEditedUser(event) {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.message || 'Грешка при редактиране на потребител');
         }
-        
-        // Презареждаме списъка с потребители
+
         const usersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
             method: 'GET'
         });
@@ -1024,7 +1052,6 @@ async function saveEditedUser(event) {
     }
 }
 
-// ================ МОДАЛ ЗА ДОБАВЯНЕ НА ПОТРЕБИТЕЛ ================
 function showAddUserModal() {
     let modalOverlay = document.getElementById('addUserModalOverlay');
     
@@ -1130,38 +1157,36 @@ async function saveNewUser(event) {
     
     let hasError = false;
     
-    if (username.length < 3) {
+    if (username.length < window.Validation.USERNAME_MIN_LENGTH) {
         usernameInput.classList.add('error');
-        showAlert('Потребителското име трябва да е поне 3 символа', 'error');
+        showAlert(`Потребителското име трябва да е поне ${window.Validation.USERNAME_MIN_LENGTH} символа`, 'error');
         hasError = true;
         setTimeout(() => usernameInput.classList.remove('error'), 500);
     }
     
-    if (!isValidEmail(email)) {
+    if (!window.Validation.isValidEmailDomain(email)) {
         emailInput.classList.add('error');
-        showAlert('Моля, въведете валиден имейл адрес', 'error');
+        showAlert('Моля, използвайте валиден имейл адрес (напр. gmail.com)', 'error');
         hasError = true;
         setTimeout(() => emailInput.classList.remove('error'), 500);
     }
     
-    if (password.length < 6) {
+    if (!window.Validation.isValidPassword(password)) {
         passwordInput.classList.add('error');
-        showAlert('Паролата трябва да е поне 6 символа', 'error');
+        showAlert('Паролата трябва да съдържа поне 8 символа, главна буква, малка буква, цифра и специален символ!', 'error');
         hasError = true;
         setTimeout(() => passwordInput.classList.remove('error'), 500);
     }
     
     if (hasError) return;
-    
-    // Проверка за съществуващ потребител с това име
+
     if (adminData.users?.some(u => (u.username || u.name).toLowerCase() === username.toLowerCase())) {
         usernameInput.classList.add('error');
         showAlert('Потребител с това име вече съществува', 'error');
         setTimeout(() => usernameInput.classList.remove('error'), 500);
         return;
     }
-    
-    // Проверка за съществуващ потребител с този имейл
+
     if (adminData.users?.some(u => u.email.toLowerCase() === email.toLowerCase())) {
         emailInput.classList.add('error');
         showAlert('Потребител с този имейл вече съществува', 'error');
@@ -1172,7 +1197,7 @@ async function saveNewUser(event) {
     showAlert('Създаване на потребител...', 'pending');
     
     try {
-        // Използваме SignUp метода от контролера: [HttpPost] с SignUpRequestDTO
+        
         const signUpData = {
             username: username,
             email: email,
@@ -1192,8 +1217,7 @@ async function saveNewUser(event) {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.message || 'Грешка при създаване на потребител');
         }
-        
-        // Презареждаме списъка с потребители
+
         const freshUsersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
             method: 'GET'
         });
@@ -1223,7 +1247,6 @@ async function saveNewUser(event) {
     }
 }
 
-// ================ МОДАЛ ЗА РЕДАКТИРАНЕ НА НОВИНА ================
 function showEditArticleModal(id) {
     const article = adminData.articles?.find(a => a.id === id);
     if (!article) return;
@@ -1321,16 +1344,16 @@ async function saveEditedArticle(event) {
     
     let hasError = false;
     
-    if (title.length < 3) {
+    if (title.length < window.Validation.TITLE_MIN_LENGTH) {
         titleInput.classList.add('error');
-        showAlert('Заглавието трябва да е поне 3 символа', 'error');
+        showAlert(`Заглавието трябва да е поне ${window.Validation.TITLE_MIN_LENGTH} символа`, 'error');
         hasError = true;
         setTimeout(() => titleInput.classList.remove('error'), 500);
     }
     
-    if (content.length < 10) {
+    if (content.length < window.Validation.CONTENT_MIN_LENGTH) {
         contentInput.classList.add('error');
-        showAlert('Съдържанието трябва да е поне 10 символа', 'error');
+        showAlert(`Съдържанието трябва да е поне ${window.Validation.CONTENT_MIN_LENGTH} символа`, 'error');
         hasError = true;
         setTimeout(() => contentInput.classList.remove('error'), 500);
     }
@@ -1347,7 +1370,6 @@ async function saveEditedArticle(event) {
     }
 }
 
-// ================ МОДАЛ ЗА РЕДАКТИРАНЕ НА ПОСТ ================
 function showEditPostModal(id) {
     const post = adminData.posts?.find(p => p.id === id);
     if (!post) return;
@@ -1450,16 +1472,16 @@ async function saveEditedPost(event) {
     
     let hasError = false;
     
-    if (title.length < 3) {
+    if (title.length < window.Validation.TITLE_MIN_LENGTH) {
         titleInput.classList.add('error');
-        showAlert('Заглавието трябва да е поне 3 символа', 'error');
+        showAlert(`Заглавието трябва да е поне ${window.Validation.TITLE_MIN_LENGTH} символа`, 'error');
         hasError = true;
         setTimeout(() => titleInput.classList.remove('error'), 500);
     }
     
-    if (content.length < 10) {
+    if (content.length < window.Validation.CONTENT_MIN_LENGTH) {
         contentInput.classList.add('error');
-        showAlert('Съдържанието трябва да е поне 10 символа', 'error');
+        showAlert(`Съдържанието трябва да е поне ${window.Validation.CONTENT_MIN_LENGTH} символа`, 'error');
         hasError = true;
         setTimeout(() => contentInput.classList.remove('error'), 500);
     }
@@ -1484,7 +1506,6 @@ async function saveEditedPost(event) {
     }
 }
 
-// ================ ПАГИНАЦИЯ ================
 function initPaginationControls() {
     const usersPageSize = document.getElementById('usersPageSize');
     if (usersPageSize) {
@@ -1618,14 +1639,12 @@ function updatePagination(type, totalItems) {
     container.appendChild(nextBtn);
 }
 
-// ================ СТАТИСТИКИ ================
 function loadStatistics() {
     document.getElementById('totalUsers').textContent = adminData.users?.length || 0;
     document.getElementById('totalArticles').textContent = adminData.articles?.length || 0;
     document.getElementById('totalPosts').textContent = adminData.posts?.length || 0;
 }
 
-// ================ ЗАРЕЖДАНЕ НА ПОТРЕБИТЕЛИ ================
 function loadUsers() {
     const tbody = document.getElementById('usersTableBody');
     if (!tbody) return;
@@ -1676,7 +1695,6 @@ function loadUsers() {
     updatePagination('users', adminData.users?.length || 0);
 }
 
-// ================ ЗАРЕЖДАНЕ НА НОВИНИ ================
 function loadArticles() {
     const tbody = document.getElementById('articlesTableBody');
     if (!tbody) return;
@@ -1719,7 +1737,6 @@ function loadArticles() {
     updatePagination('articles', adminData.articles?.length || 0);
 }
 
-// ================ ЗАРЕЖДАНЕ НА ПОСТОВЕ ================
 function loadPosts() {
     const tbody = document.getElementById('postsTableBody');
     if (!tbody) return;
@@ -1779,7 +1796,6 @@ function loadPosts() {
     updatePagination('posts', adminData.posts?.length || 0);
 }
 
-// ================ ПОМОЩНИ ФУНКЦИИ ================
 function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
@@ -1787,7 +1803,6 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// ================ ФУНКЦИИ ЗА ПОСТОВЕ ================
 function viewPost(id) {
     const post = adminData.posts?.find(p => p.id === id);
     if (post) {
@@ -1795,7 +1810,6 @@ function viewPost(id) {
     }
 }
 
-// ================ ФУНКЦИИ ЗА НОВИНИ ================
 function showAddArticleForm() {
     document.querySelector('[data-section="add-article"]').click();
 }
@@ -1815,8 +1829,8 @@ async function saveArticle(event) {
     
     if (!title) { showAlert('Моля, попълнете заглавие!', 'error'); return; }
     if (!content) { showAlert('Моля, попълнете съдържание!', 'error'); return; }
-    if (title.trim().length < 3) { showAlert('Заглавието трябва да е поне 3 символа!', 'error'); return; }
-    if (content.trim().length < 10) { showAlert('Съдържанието трябва да е поне 10 символа!', 'error'); return; }
+    if (title.trim().length < window.Validation.TITLE_MIN_LENGTH) { showAlert(`Заглавието трябва да е поне ${window.Validation.TITLE_MIN_LENGTH} символа!`, 'error'); return; }
+    if (content.trim().length < window.Validation.CONTENT_MIN_LENGTH) { showAlert(`Съдържанието трябва да е поне ${window.Validation.CONTENT_MIN_LENGTH} символа!`, 'error'); return; }
     
     try {
         if (currentEditingArticleId) {
@@ -1837,15 +1851,13 @@ function viewArticle(id) {
     window.location.href = `news_details.html?id=${id}`;
 }
 
-// ================ ПОТВЪРЖДЕНИЕ ЗА ИЗТРИВАНЕ ================
 async function confirmDelete(type, id) {
     let message = '';
 
     if (type === 'user') {
         const user = adminData.users?.find(u => u.id === id);
         const displayName = user?.username || user?.name;
-        
-        // Не позволяваме изтриване на собствения акаунт
+
         if (user && user.id === currentUserId) {
             showAlert('Не можете да изтриете собствения си акаунт!', 'error');
             return;
@@ -1867,7 +1879,7 @@ async function confirmDelete(type, id) {
         
         try {
             if (type === 'user') {
-                // Използваме authFetch за DELETE заявката
+                
                 const response = await authFetch(`${window.API_CONFIG.USER}/${id}`, {
                     method: 'DELETE'
                 });
@@ -1880,8 +1892,7 @@ async function confirmDelete(type, id) {
                     const errorData = await response.json().catch(() => ({}));
                     throw new Error(errorData.message || 'Грешка при изтриване на потребителя');
                 }
-                
-                // Презареждаме списъка с потребители
+
                 const usersResponse = await authFetch(`${window.API_CONFIG.USER}`, {
                     method: 'GET'
                 });
@@ -1919,7 +1930,6 @@ async function confirmDelete(type, id) {
     openModal();
 }
 
-// ================ МОДАЛ ================
 function openModal() {
     document.getElementById('confirmModal').classList.add('active');
 }
@@ -1928,7 +1938,6 @@ function closeModal() {
     document.getElementById('confirmModal').classList.remove('active');
 }
 
-// ================ ПОМОЩНИ ФУНКЦИИ ================
 function formatDate(dateStr) {
     if (!dateStr) return 'Няма дата';
     const date = new Date(dateStr);

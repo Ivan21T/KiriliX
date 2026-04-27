@@ -176,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
         
         try {
             const apiUrl = `${window.API_CONFIG.USER}/verify`;
-            console.log(enteredCode)
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {

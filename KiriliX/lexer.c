@@ -878,7 +878,7 @@ char *yytext;
 #line 1 "lexer.l"
 #line 2 "lexer.l"
 #include "ast.h"
-#include "parser.h" // Генериран от Bison
+#include "parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1290,7 +1290,7 @@ case 21:
 YY_RULE_SETUP
 #line 55 "lexer.l"
 { 
-                            // Махаме кавичките
+                            
                             yylval.sval = strdup(yytext + 1);
                             yylval.sval[strlen(yylval.sval) - 1] = '\0';
                             return TOK_STR_LIT; 

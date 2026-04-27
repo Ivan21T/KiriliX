@@ -24,7 +24,7 @@
         function displayNews(news) {
             const formattedDate = formatDate(news.publishedAt);
             
-            document.title = `${news.title} | KiriliX Новини`;
+
             document.getElementById('loadingIndicator').style.display = 'none';
             document.getElementById('errorIndicator').style.display = 'none';
             document.getElementById('newsTextContainer').style.display = 'block';

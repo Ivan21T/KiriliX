@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const forgotPasswordSubmit = document.getElementById('forgotPasswordSubmit');
     const forgotEmailInput = document.getElementById('forgot-email');
 
-
     forgotPasswordForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
             forgotEmailInput.focus();
             return;
         }
-        
 
         forgotPasswordSubmit.disabled = true;
         forgotPasswordSubmit.classList.add('loading');

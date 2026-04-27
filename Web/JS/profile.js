@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let currentUser = null;
     let userPosts = [];
     let currentPage = 1;
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function calculateAccountAge(createdAt) {
         if (!createdAt) return null;
-        
+
         try {
             const creationDate = new Date(createdAt);
             const currentDate = new Date();
@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
             return null;
         }
     }
-    
+
     function getAvatarImage(createdAt) {
         if (!createdAt) return '../Assets/Images/bronze_logo.png';
-        
+
         const accountAge = calculateAccountAge(createdAt);
-        
+
         if (accountAge < 2) {
             return '../Assets/Images/bronze_logo.png';
         } else if (accountAge >= 2 && accountAge < 5) {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function customConfirm(message, onConfirm, onCancel) {
         const modalOverlay = document.createElement('div');
         modalOverlay.className = 'custom-confirm-overlay';
-        
+
         modalOverlay.innerHTML = `
             <div class="custom-confirm-modal">
                 <div class="custom-confirm-icon">
@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(modalOverlay);
-        
+
         if (!document.getElementById('custom-confirm-styles')) {
             const style = document.createElement('style');
             style.id = 'custom-confirm-styles';
@@ -233,24 +233,24 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
             document.head.appendChild(style);
         }
-        
+
         const confirmBtn = modalOverlay.querySelector('.confirm-btn');
         const cancelBtn = modalOverlay.querySelector('.cancel-btn');
-        
+
         function closeModal() {
             modalOverlay.remove();
         }
-        
+
         confirmBtn.addEventListener('click', () => {
             closeModal();
             if (onConfirm) onConfirm();
         });
-        
+
         cancelBtn.addEventListener('click', () => {
             closeModal();
             if (onCancel) onCancel();
         });
-        
+
         modalOverlay.addEventListener('click', (e) => {
             if (e.target === modalOverlay) {
                 closeModal();
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const token = localStorage.getItem('authToken');
             if (!token) return null;
-            
+
             const response = await fetch(`${window.API_CONFIG.USER}/current-user`, {
                 method: 'GET',
                 headers: {
@@ -271,33 +271,33 @@ document.addEventListener("DOMContentLoaded", function() {
                     'Content-Type': 'application/json'
                 }
             });
-            
+
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
                 window.location.href = '../HTML/login.html';
                 return null;
             }
-            
+
             if (!response.ok) return null;
-            
+
             const user = await response.json();
             currentUser = user;
-            
+
             const profileNameEl = document.getElementById('profileName');
             const profileEmailEl = document.getElementById('profileEmail');
-            
+
             if (profileNameEl) profileNameEl.textContent = currentUser.username || 'Потребител';
             if (profileEmailEl) profileEmailEl.textContent = currentUser.email || 'user@example.com';
-            
+
             const avatarUrl = getAvatarImage(currentUser.createdAt);
             const profileAvatarImg = document.getElementById('profileAvatarImg');
             if (profileAvatarImg) profileAvatarImg.src = avatarUrl;
-            
+
             if (currentUser.createdAt) {
                 const memberSinceEl = document.getElementById('memberSince');
                 if (memberSinceEl) memberSinceEl.textContent = new Date(currentUser.createdAt).getFullYear();
             }
-            
+
             return user;
         } catch (error) {
             console.error('Грешка при refresh:', error);
@@ -309,14 +309,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const postsContainer = document.getElementById('postsContainer');
         const paginationContainer = document.getElementById('pagination');
         currentPage = page;
-        
+
         try {
             if (!silent) {
                 showLoadingState(postsContainer);
             }
-            
+
             const token = localStorage.getItem('authToken');
-            
+
             const response = await fetch(
                 `${window.API_CONFIG.POST}/author/${currentUser.id}?useNavigationalProperties=true&isReadOnly=false`,
                 {
@@ -327,24 +327,24 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             );
-            
+
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
                 showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
                 setTimeout(() => window.location.href = '../HTML/login.html', 1500);
                 return;
             }
-            
+
             if (!response.ok) throw new Error('Грешка при зареждане на публикации');
-            
+
             const newUserPosts = await response.json();
             userPosts = newUserPosts;
-            
+
             const postsCountEl = document.getElementById('postsCount');
             if (postsCountEl) {
                 postsCountEl.textContent = userPosts.length;
             }
-            
+
             const totalComments = userPosts.reduce((total, post) => {
                 return total + (post.comments ? post.comments.length : 0);
             }, 0);
@@ -352,9 +352,9 @@ document.addEventListener("DOMContentLoaded", function() {
             if (commentsCountEl) {
                 commentsCountEl.textContent = totalComments;
             }
-            
+
             totalPages = Math.ceil(userPosts.length / postsPerPage);
-            
+
             if (userPosts.length === 0) {
                 postsContainer.innerHTML = `
                     <div class="empty-state">
@@ -370,11 +370,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (paginationContainer) paginationContainer.style.display = 'none';
                 return;
             }
-            
+
             const startIndex = (page - 1) * postsPerPage;
             const endIndex = Math.min(startIndex + postsPerPage, userPosts.length);
             const postsForPage = userPosts.slice(startIndex, endIndex);
-            
+
             postsContainer.innerHTML = postsForPage.map(post => `
                 <div class="post-card">
                     <div class="post-header">
@@ -405,14 +405,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                 </div>
             `).join('');
-            
+
             if (totalPages > 1) {
                 generatePagination();
                 if (paginationContainer) paginationContainer.style.display = 'flex';
             } else {
                 if (paginationContainer) paginationContainer.style.display = 'none';
             }
-            
+
         } catch (error) {
             console.error('Грешка при зареждане на публикации:', error);
             if (!silent) {
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
-    
+
     function showLoadingState(container) {
         if (!container) return;
         container.innerHTML = `
@@ -441,65 +441,65 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         `;
     }
-    
+
     function escapeHtml(text) {
         if (!text) return '';
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-    
-    window.refreshPosts = function() {
+
+    window.refreshPosts = function () {
         loadUserPosts(1, false);
         showAlert('Публикациите са обновени', 'success');
     };
-    
+
     function generatePagination() {
         const paginationContainer = document.getElementById('pagination');
         if (!paginationContainer) return;
-        
+
         let paginationHTML = '';
-        
+
         paginationHTML += `<button class="pagination-btn" onclick="window.changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
-        
+
         const maxVisiblePages = 5;
         let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
         let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-        
+
         if (endPage - startPage + 1 < maxVisiblePages) {
             startPage = Math.max(1, endPage - maxVisiblePages + 1);
         }
-        
+
         if (startPage > 1) {
             paginationHTML += `<button class="pagination-btn" onclick="window.changePage(1)">1</button>`;
             if (startPage > 2) paginationHTML += `<span class="pagination-dots">...</span>`;
         }
-        
+
         for (let i = startPage; i <= endPage; i++) {
             paginationHTML += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="window.changePage(${i})">${i}</button>`;
         }
-        
+
         if (endPage < totalPages) {
             if (endPage < totalPages - 1) paginationHTML += `<span class="pagination-dots">...</span>`;
             paginationHTML += `<button class="pagination-btn" onclick="window.changePage(${totalPages})">${totalPages}</button>`;
         }
-        
+
         paginationHTML += `<button class="pagination-btn" onclick="window.changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
-        
+
         paginationContainer.innerHTML = paginationHTML;
     }
-    
-    window.changePage = function(page) {
+
+    window.changePage = function (page) {
         if (page < 1 || page > totalPages) return;
         loadUserPosts(page, false);
         document.querySelector('.section-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
-    
-    window.viewPost = function(postId) {
+
+    window.viewPost = function (postId) {
         window.location.href = `forum_details.html?id=${postId}`;
     };
-    
-    window.openEditModal = function(postId) {
+
+    window.openEditModal = function (postId) {
         const post = userPosts.find(p => p.id === postId);
         if (post) {
             currentEditPostId = postId;
@@ -508,75 +508,75 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('editPostModal').classList.add('show');
         }
     };
-    
+
     async function saveEditPost() {
         const title = document.getElementById('editPostTitle').value.trim();
         const content = document.getElementById('editPostContent').value.trim();
-        
-        if (!title) { showAlert('Моля, въведете заглавие', 'error'); return; }
-        if (!content) { showAlert('Моля, въведете съдържание', 'error'); return; }
-        
+
+        if (!title || title.length < window.Validation.TITLE_MIN_LENGTH) { showAlert(`Заглавието трябва да е поне ${window.Validation.TITLE_MIN_LENGTH} символа`, 'error'); return; }
+        if (!content || content.length < window.Validation.CONTENT_MIN_LENGTH) { showAlert(`Съдържанието трябва да е поне ${window.Validation.CONTENT_MIN_LENGTH} символа`, 'error'); return; }
+
         const saveBtnText = document.getElementById('saveEditText');
         const saveBtnLoader = document.getElementById('saveEditLoader');
         const saveBtn = document.getElementById('saveEditBtn');
-        
+
         saveBtnText.style.display = 'none';
         saveBtnLoader.style.display = 'inline-block';
         saveBtn.disabled = true;
-        
+
         try {
             const token = localStorage.getItem('authToken');
-            
+
             const originalPost = userPosts.find(p => p.id === currentEditPostId);
             const updates = {};
-            
+
             if (originalPost.title !== title) {
                 updates.title = title;
             }
-            
+
             if (originalPost.content !== content) {
                 updates.content = content;
             }
-            
+
             if (Object.keys(updates).length === 0) {
                 showAlert('Няма направени промени', 'info');
                 document.getElementById('editPostModal').classList.remove('show');
                 return;
             }
-            
+
             const response = await fetch(`${window.API_CONFIG.POST}/${currentEditPostId}`, {
                 method: 'PATCH',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(updates)
             });
-            
+
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
                 showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
                 setTimeout(() => window.location.href = '../HTML/login.html', 1500);
                 return;
             }
-            
+
             if (response.status === 404) {
                 showAlert('Публикацията не беше намерена', 'error');
                 document.getElementById('editPostModal').classList.remove('show');
                 return;
             }
-            
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Грешка при редактиране');
             }
-            
+
             const result = await response.json();
             showAlert(result.message || 'Публикацията е обновена успешно!', 'success');
-            
+
             document.getElementById('editPostModal').classList.remove('show');
             await loadUserPosts(currentPage, false);
-            
+
         } catch (error) {
             console.error('Грешка при редактиране:', error);
             showAlert(error.message || 'Грешка при редактиране на публикацията', 'error');
@@ -586,41 +586,40 @@ document.addEventListener("DOMContentLoaded", function() {
             saveBtn.disabled = false;
         }
     }
-    
-    window.deletePost = async function(postId) {
+
+    window.deletePost = async function (postId) {
         customConfirm('Сигурни ли сте, че искате да изтриете тази публикация?', async () => {
             try {
                 const token = localStorage.getItem('authToken');
-                
-                const response = await fetch(`${window.API_CONFIG.POST}/${postId}`, { 
+
+                const response = await fetch(`${window.API_CONFIG.POST}/${postId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Cache-Control': 'no-cache'
                     }
                 });
-                
+
                 if (response.status === 401) {
                     localStorage.removeItem('authToken');
                     showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
                     setTimeout(() => window.location.href = '../HTML/login.html', 1500);
                     return;
                 }
-                
+
                 if (!response.ok) throw new Error('Грешка при изтриване');
-                
+
                 showAlert('Публикацията е изтрита успешно!', 'success');
                 await loadUserPosts(1, false);
-                
+
             } catch (error) {
                 console.error('Грешка при изтриване:', error);
                 showAlert('Грешка при изтриване на публикацията', 'error');
             }
         }, () => {
-            console.log('Изтриването е отказано');
         });
     };
-    
+
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
@@ -629,14 +628,14 @@ document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => window.location.href = '../HTML/index.html', 1500);
         });
     }
-    
+
     const editProfileBtn = document.getElementById('editProfileBtn');
     if (editProfileBtn) {
         editProfileBtn.addEventListener('click', () => {
             window.location.href = 'edit_profile.html';
         });
     }
-    
+
     const cancelEditBtn = document.getElementById('cancelEditBtn');
     if (cancelEditBtn) {
         cancelEditBtn.addEventListener('click', () => {
@@ -644,44 +643,44 @@ document.addEventListener("DOMContentLoaded", function() {
             currentEditPostId = null;
         });
     }
-    
+
     const saveEditBtn = document.getElementById('saveEditBtn');
     if (saveEditBtn) {
         saveEditBtn.addEventListener('click', saveEditPost);
     }
-    
+
     const deleteModal = document.getElementById('deleteModal');
     const deleteAccountBtn = document.getElementById('deleteAccountBtn');
     const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
     const deleteBtnText = document.getElementById('deleteBtnText');
     const deleteLoader = document.getElementById('deleteLoader');
-    
+
     if (deleteAccountBtn) {
         deleteAccountBtn.addEventListener('click', () => deleteModal?.classList.add('show'));
     }
-    
+
     if (cancelDeleteBtn) {
         cancelDeleteBtn.addEventListener('click', () => deleteModal?.classList.remove('show'));
     }
-    
+
     if (confirmDeleteBtn) {
         confirmDeleteBtn.addEventListener('click', async () => {
             deleteBtnText.style.display = 'none';
             deleteLoader.style.display = 'inline-block';
             confirmDeleteBtn.disabled = true;
-            
+
             try {
                 const token = localStorage.getItem('authToken');
-                
+
                 if (!currentUser || !currentUser.id) {
                     await refreshUser();
                 }
-                
+
                 if (!currentUser || !currentUser.id) {
                     throw new Error('Не може да се идентифицира потребителя');
                 }
-                
+
                 const response = await fetch(`${window.API_CONFIG.USER}/${currentUser.id}`, {
                     method: 'DELETE',
                     headers: {
@@ -690,26 +689,26 @@ document.addEventListener("DOMContentLoaded", function() {
                         'Content-Type': 'application/json'
                     }
                 });
-                
+
                 if (response.status === 401) {
                     localStorage.removeItem('authToken');
                     setTimeout(() => window.location.href = '../HTML/login.html', 1500);
                     return;
                 }
-                
+
                 if (response.status === 404) {
                     throw new Error('Потребителят не беше намерен');
                 }
-                
+
                 if (!response.ok) {
                     const errorData = await response.json();
                     throw new Error(errorData.message || 'Грешка при изтриване на профила');
                 }
-                
+
                 localStorage.removeItem('authToken');
                 showAlert('Профилът е изтрит успешно!', 'success');
                 setTimeout(() => window.location.href = '../HTML/index.html', 2000);
-                
+
             } catch (error) {
                 console.error('Грешка при изтриване на профила:', error);
                 showAlert(error.message || 'Грешка при изтриване на профила', 'error');
@@ -720,7 +719,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
+
     window.addEventListener('click', (e) => {
         if (e.target === deleteModal) deleteModal?.classList.remove('show');
         const editPostModal = document.getElementById('editPostModal');
@@ -729,25 +728,24 @@ document.addEventListener("DOMContentLoaded", function() {
             currentEditPostId = null;
         }
     });
-    
+
     const backBtn = document.getElementById('backBtn');
     if (backBtn) {
-        backBtn.addEventListener('click', function(e) {
+        backBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            if (document.referrer) history.back();
-            else window.location.href = '../HTML/index.html';
+            window.location.href = '../HTML/index.html';
         });
     }
-    
+
     async function init() {
         if (!checkAuthAndRedirect()) return;
-        
+
         const user = await refreshUser();
-        
+
         if (user) {
             await loadUserPosts(1, false);
         }
     }
-    
+
     init();
 });

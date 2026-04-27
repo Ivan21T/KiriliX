@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
 
-    const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
-
     modeBtns.forEach(btn => {
         btn.addEventListener('click', async () => {
             const mode = btn.getAttribute('data-mode');
@@ -163,10 +161,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
     
-    const allowedDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'protonmail.com', 'proton.me'];
-    const emailDomain = email.split('@')[1]?.toLowerCase();
+    if (username.length < window.Validation.USERNAME_MIN_LENGTH) {
+        showAlert(`Потребителското име трябва да е поне ${window.Validation.USERNAME_MIN_LENGTH} символа!`, 'error');
+        return;
+    }
     
-    if (!emailDomain || !allowedDomains.includes(emailDomain)) {
+    if (!window.Validation.isValidEmailDomain(email)) {
         showAlert('Моля, използвайте имейл адрес от Gmail, Yahoo, Outlook или ProtonMail!', 'error');
         return;
     }
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
     
-    if (!PASSWORD_REGEX.test(password)) {
+    if (!window.Validation.isValidPassword(password)) {
         showAlert('Паролата трябва да съдържа поне 8 символа, включително малка буква, голяма буква, цифра и специален символ!', 'error');
         return;
     }

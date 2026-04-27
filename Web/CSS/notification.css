@@ -2,7 +2,7 @@
     --danger: #d63031;
     --success: #00b894;
     --pending: rgb(243, 150, 38);
-    --info: #0984e3;  /* Added info color */
+    --info: #0984e3;  
 }
 
 .alert-container {
@@ -52,7 +52,7 @@
     border-left: 4px solid var(--pending);
 }
 
-.alert-message.info {  /* Added info styles */
+.alert-message.info {  
     background-color: white;
     color: var(--info);
     border-left: 4px solid var(--info);

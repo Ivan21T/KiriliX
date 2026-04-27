@@ -13,13 +13,13 @@ namespace ServiceLayer
     {
         private readonly string _secretKey;
         private readonly int _expirationHours;
-        private readonly UserService _userService; // Добавете това
+        private readonly UserService _userService; 
 
-        public JwtService(IConfiguration configuration, UserService userService) // Променете конструктора
+        public JwtService(IConfiguration configuration, UserService userService) 
         {
             _secretKey = configuration["Jwt:SecretKey"];
             _expirationHours = int.Parse(configuration["Jwt:ExpirationHours"]);
-            _userService = userService; // Добавете това
+            _userService = userService; 
         }
 
         public async Task<string> GenerateTokenAsync(User user)
@@ -34,7 +34,6 @@ namespace ServiceLayer
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        // Премахваме всички останали claims - само ID остава
                     }),
                     Expires = DateTime.UtcNow.AddHours(_expirationHours),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

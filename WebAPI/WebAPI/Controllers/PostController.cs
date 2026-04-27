@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace WebAPI.Controllers
 {
-    [Route("post")]
+    [Route("posts")]
     [ApiController]
     public class PostController : ControllerBase
     {

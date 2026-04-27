@@ -270,7 +270,6 @@ body {
     100% { content: '.'; }
 }
 
-/* Forum Specific Styles */
 .forum-hero {
     padding: 12rem 2rem 5rem;
     max-width: 1400px;
@@ -590,7 +589,6 @@ body {
     padding: 1.5rem;
 }
 
-/* Търсачка за проблеми */
 .search-widget {
     margin-bottom: 2rem;
 }
@@ -627,7 +625,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Пагинация */
 .pagination {
     display: flex;
     justify-content: center;
@@ -746,7 +743,6 @@ body {
     color: var(--neon-green);
 }
 
-/* Common Buttons */
 .btn {
     padding: 0.8rem 1.8rem;
     border-radius: 10px;
@@ -809,7 +805,6 @@ body {
     background: linear-gradient(135deg, var(--neon-green), #00ff9d);
 }
 
-/* Модален прозорец */
 .modal {
     display: none;
     position: fixed;
@@ -991,7 +986,6 @@ body {
     background: linear-gradient(135deg, #00ff9d, #00ff9d);
 }
 
-/* Мобилни елементи, които се показват само на телефони и таблети */
 .mobile-actions {
     display: none;
     margin-bottom: 2rem;
@@ -1001,7 +995,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1030,7 +1023,6 @@ body {
     animation-delay: 0.6s;
 }
 
-/* Responsive Styles */
 @media (max-width: 1200px) {
     .forum-content {
         grid-template-columns: 1fr;
@@ -1118,8 +1110,7 @@ body {
         padding: 0 1rem;
         font-size: 0.9rem;
     }
-    
-    /* Мобилни настройки */
+
     .mobile-actions {
         display: block;
     }

@@ -97,7 +97,6 @@
             z-index: -1;
         }
 
-        /* Навигация */
         .edit-nav {
             max-width: 500px;
             margin: 100px auto 20px;
@@ -207,7 +206,6 @@
             font-size: 1.1rem;
         }
 
-        /* Формуляр */
         .edit-form {
             display: flex;
             flex-direction: column;
@@ -279,7 +277,6 @@
             cursor: pointer;
         }
 
-        /* Действия */
         .form-actions {
             display: flex;
             gap: 20px;

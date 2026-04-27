@@ -46,8 +46,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
         
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
-        if (!passwordRegex.test(password)) {
+        if (!window.Validation.isValidPassword(password)) {
             showAlert('Паролата трябва да съдържа поне 8 символа, главна буква, малка буква, цифра и специален символ!', 'error');
             return;
         }

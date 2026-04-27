@@ -567,14 +567,14 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    64,    64,    65,    69,    73,    80,    81,    82,    83,
-      84,    85,    86,    87,    88,    92,    93,    97,    98,   110,
-     111,   112,   113,   114,   115,   116,   120,   124,   131,   138,
-     139,   143,   151,   162,   165,   168,   174,   180,   183,   186,
-     189,   192,   195,   201,   202,   206,   210,   211,   212,   213,
-     214,   215,   216,   217,   218,   219,   220,   221,   222,   223,
-     224,   225,   226,   227,   228,   229,   230,   231,   232,   233,
-     234,   235,   236,   240,   247,   248,   252,   257
+       0,    63,    63,    64,    68,    72,    79,    80,    81,    82,
+      83,    84,    85,    86,    87,    91,    92,    96,    97,   109,
+     110,   111,   112,   113,   114,   115,   119,   123,   130,   137,
+     138,   142,   150,   161,   164,   167,   173,   179,   182,   185,
+     188,   191,   194,   200,   201,   205,   209,   210,   211,   212,
+     213,   214,   215,   216,   217,   218,   219,   220,   221,   222,
+     223,   224,   225,   226,   227,   228,   229,   230,   231,   232,
+     233,   234,   235,   239,   246,   247,   251,   256
 };
 #endif
 
@@ -1333,19 +1333,19 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: stmt_list  */
-#line 64 "parser.y"
+#line 63 "parser.y"
               { *((ASTNode**)root) = (yyvsp[0].node); }
 #line 1339 "parser.tab.c"
     break;
 
   case 3: /* program: %empty  */
-#line 65 "parser.y"
-                        { *((ASTNode**)root) = NULL; }
+#line 64 "parser.y"
+       { *((ASTNode**)root) = NULL; }
 #line 1345 "parser.tab.c"
     break;
 
   case 4: /* stmt_list: stmt  */
-#line 69 "parser.y"
+#line 68 "parser.y"
          {
         (yyval.node) = create_block();
         block_add_stmt((yyval.node), (yyvsp[0].node));
@@ -1354,7 +1354,7 @@ yyreduce:
     break;
 
   case 5: /* stmt_list: stmt_list stmt  */
-#line 73 "parser.y"
+#line 72 "parser.y"
                      {
         (yyval.node) = (yyvsp[-1].node);
         block_add_stmt((yyval.node), (yyvsp[0].node));
@@ -1363,79 +1363,79 @@ yyreduce:
     break;
 
   case 6: /* stmt: var_decl TOK_SEMI  */
-#line 80 "parser.y"
+#line 79 "parser.y"
                       { (yyval.node) = (yyvsp[-1].node); }
 #line 1369 "parser.tab.c"
     break;
 
   case 7: /* stmt: expr TOK_SEMI  */
-#line 81 "parser.y"
+#line 80 "parser.y"
                     { (yyval.node) = (yyvsp[-1].node); }
 #line 1375 "parser.tab.c"
     break;
 
   case 8: /* stmt: func_decl  */
-#line 82 "parser.y"
+#line 81 "parser.y"
                 { (yyval.node) = (yyvsp[0].node); }
 #line 1381 "parser.tab.c"
     break;
 
   case 9: /* stmt: if_stmt  */
-#line 83 "parser.y"
+#line 82 "parser.y"
               { (yyval.node) = (yyvsp[0].node); }
 #line 1387 "parser.tab.c"
     break;
 
   case 10: /* stmt: while_stmt  */
-#line 84 "parser.y"
+#line 83 "parser.y"
                  { (yyval.node) = (yyvsp[0].node); }
 #line 1393 "parser.tab.c"
     break;
 
   case 11: /* stmt: for_stmt  */
-#line 85 "parser.y"
+#line 84 "parser.y"
                { (yyval.node) = (yyvsp[0].node); }
 #line 1399 "parser.tab.c"
     break;
 
   case 12: /* stmt: return_stmt TOK_SEMI  */
-#line 86 "parser.y"
+#line 85 "parser.y"
                            { (yyval.node) = (yyvsp[-1].node); }
 #line 1405 "parser.tab.c"
     break;
 
   case 13: /* stmt: print_stmt TOK_SEMI  */
-#line 87 "parser.y"
+#line 86 "parser.y"
                           { (yyval.node) = (yyvsp[-1].node); }
 #line 1411 "parser.tab.c"
     break;
 
   case 14: /* stmt: block  */
-#line 88 "parser.y"
+#line 87 "parser.y"
             { (yyval.node) = (yyvsp[0].node); }
 #line 1417 "parser.tab.c"
     break;
 
   case 15: /* block: TOK_LBRACE stmt_list TOK_RBRACE  */
-#line 92 "parser.y"
+#line 91 "parser.y"
                                     { (yyval.node) = (yyvsp[-1].node); }
 #line 1423 "parser.tab.c"
     break;
 
   case 16: /* block: TOK_LBRACE TOK_RBRACE  */
-#line 93 "parser.y"
+#line 92 "parser.y"
                             { (yyval.node) = create_block(); }
 #line 1429 "parser.tab.c"
     break;
 
   case 17: /* type: base_type  */
-#line 97 "parser.y"
+#line 96 "parser.y"
               { (yyval.vtype) = (yyvsp[0].vtype); }
 #line 1435 "parser.tab.c"
     break;
 
   case 18: /* type: base_type TOK_LBRACKET TOK_RBRACKET  */
-#line 98 "parser.y"
+#line 97 "parser.y"
                                           {
         if ((yyvsp[-2].vtype) == VAL_INT) (yyval.vtype) = VAL_INT_ARRAY;
         else if ((yyvsp[-2].vtype) == VAL_FLOAT) (yyval.vtype) = VAL_FLOAT_ARRAY;
@@ -1449,49 +1449,49 @@ yyreduce:
     break;
 
   case 19: /* base_type: TOK_TYPE_INT  */
-#line 110 "parser.y"
+#line 109 "parser.y"
                  { (yyval.vtype) = VAL_INT; }
 #line 1455 "parser.tab.c"
     break;
 
   case 20: /* base_type: TOK_TYPE_FLOAT  */
-#line 111 "parser.y"
+#line 110 "parser.y"
                      { (yyval.vtype) = VAL_FLOAT; }
 #line 1461 "parser.tab.c"
     break;
 
   case 21: /* base_type: TOK_TYPE_STRING  */
-#line 112 "parser.y"
+#line 111 "parser.y"
                       { (yyval.vtype) = VAL_STRING; }
 #line 1467 "parser.tab.c"
     break;
 
   case 22: /* base_type: TOK_TYPE_BOOL  */
-#line 113 "parser.y"
+#line 112 "parser.y"
                     { (yyval.vtype) = VAL_BOOL; }
 #line 1473 "parser.tab.c"
     break;
 
   case 23: /* base_type: TOK_TYPE_CHAR  */
-#line 114 "parser.y"
+#line 113 "parser.y"
                     { (yyval.vtype) = VAL_CHAR; }
 #line 1479 "parser.tab.c"
     break;
 
   case 24: /* base_type: TOK_TYPE_VOID  */
-#line 115 "parser.y"
+#line 114 "parser.y"
                     { (yyval.vtype) = VAL_VOID; }
 #line 1485 "parser.tab.c"
     break;
 
   case 25: /* base_type: TOK_TYPE_DYNAMIC  */
-#line 116 "parser.y"
+#line 115 "parser.y"
                        { (yyval.vtype) = VAL_DYNAMIC; }
 #line 1491 "parser.tab.c"
     break;
 
   case 26: /* var_decl: type TOK_IDENTIFIER  */
-#line 120 "parser.y"
+#line 119 "parser.y"
                         {
         (yyval.node) = create_var_decl((yyvsp[-1].vtype), (yyvsp[0].sval), NULL);
         free((yyvsp[0].sval));
@@ -1500,7 +1500,7 @@ yyreduce:
     break;
 
   case 27: /* var_decl: type TOK_IDENTIFIER TOK_ASSIGN expr  */
-#line 124 "parser.y"
+#line 123 "parser.y"
                                           {
         (yyval.node) = create_var_decl((yyvsp[-3].vtype), (yyvsp[-2].sval), (yyvsp[0].node));
         free((yyvsp[-2].sval));
@@ -1509,7 +1509,7 @@ yyreduce:
     break;
 
   case 28: /* func_decl: TOK_FUNC type TOK_IDENTIFIER TOK_LPAREN params TOK_RPAREN block  */
-#line 131 "parser.y"
+#line 130 "parser.y"
                                                                     {
         (yyval.node) = create_func_decl((yyvsp[-5].vtype), (yyvsp[-4].sval), (yyvsp[-2].plist).count, (yyvsp[-2].plist).names, (yyvsp[-2].plist).types, (yyvsp[0].node));
         free((yyvsp[-4].sval));
@@ -1518,19 +1518,19 @@ yyreduce:
     break;
 
   case 29: /* params: param_list  */
-#line 138 "parser.y"
+#line 137 "parser.y"
                { (yyval.plist) = (yyvsp[0].plist); }
 #line 1524 "parser.tab.c"
     break;
 
   case 30: /* params: %empty  */
-#line 139 "parser.y"
-                        { (yyval.plist).count = 0; (yyval.plist).names = NULL; (yyval.plist).types = NULL; }
+#line 138 "parser.y"
+       { (yyval.plist).count = 0; (yyval.plist).names = NULL; (yyval.plist).types = NULL; }
 #line 1530 "parser.tab.c"
     break;
 
   case 31: /* param_list: type TOK_IDENTIFIER  */
-#line 143 "parser.y"
+#line 142 "parser.y"
                         {
         (yyval.plist).count = 1;
         (yyval.plist).names = (char**)malloc(sizeof(char*));
@@ -1543,7 +1543,7 @@ yyreduce:
     break;
 
   case 32: /* param_list: param_list TOK_COMMA type TOK_IDENTIFIER  */
-#line 151 "parser.y"
+#line 150 "parser.y"
                                                {
         (yyval.plist).count = (yyvsp[-3].plist).count + 1;
         (yyval.plist).names = (char**)realloc((yyvsp[-3].plist).names, (yyval.plist).count * sizeof(char*));
@@ -1556,7 +1556,7 @@ yyreduce:
     break;
 
   case 33: /* if_stmt: TOK_IF TOK_LPAREN expr TOK_RPAREN block  */
-#line 162 "parser.y"
+#line 161 "parser.y"
                                             {
         (yyval.node) = create_if((yyvsp[-2].node), (yyvsp[0].node), NULL);
     }
@@ -1564,7 +1564,7 @@ yyreduce:
     break;
 
   case 34: /* if_stmt: TOK_IF TOK_LPAREN expr TOK_RPAREN block TOK_ELSE block  */
-#line 165 "parser.y"
+#line 164 "parser.y"
                                                              {
         (yyval.node) = create_if((yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
     }
@@ -1572,7 +1572,7 @@ yyreduce:
     break;
 
   case 35: /* if_stmt: TOK_IF TOK_LPAREN expr TOK_RPAREN block TOK_ELSE if_stmt  */
-#line 168 "parser.y"
+#line 167 "parser.y"
                                                                {
         (yyval.node) = create_if((yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
     }
@@ -1580,7 +1580,7 @@ yyreduce:
     break;
 
   case 36: /* while_stmt: TOK_WHILE TOK_LPAREN expr TOK_RPAREN block  */
-#line 174 "parser.y"
+#line 173 "parser.y"
                                                {
         (yyval.node) = create_while((yyvsp[-2].node), (yyvsp[0].node));
     }
@@ -1588,7 +1588,7 @@ yyreduce:
     break;
 
   case 37: /* for_stmt: TOK_FOR TOK_LPAREN var_decl TOK_SEMI expr TOK_SEMI expr TOK_RPAREN block  */
-#line 180 "parser.y"
+#line 179 "parser.y"
                                                                              {
         (yyval.node) = create_for((yyvsp[-6].node), (yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
     }
@@ -1596,7 +1596,7 @@ yyreduce:
     break;
 
   case 38: /* for_stmt: TOK_FOR TOK_LPAREN expr TOK_SEMI expr TOK_SEMI expr TOK_RPAREN block  */
-#line 183 "parser.y"
+#line 182 "parser.y"
                                                                            {
         (yyval.node) = create_for((yyvsp[-6].node), (yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
     }
@@ -1604,7 +1604,7 @@ yyreduce:
     break;
 
   case 39: /* for_stmt: TOK_FOR TOK_LPAREN TOK_SEMI expr TOK_SEMI expr TOK_RPAREN block  */
-#line 186 "parser.y"
+#line 185 "parser.y"
                                                                       {
         (yyval.node) = create_for(NULL, (yyvsp[-4].node), (yyvsp[-2].node), (yyvsp[0].node));
     }
@@ -1612,7 +1612,7 @@ yyreduce:
     break;
 
   case 40: /* for_stmt: TOK_FOR TOK_LPAREN var_decl TOK_SEMI expr TOK_SEMI TOK_RPAREN block  */
-#line 189 "parser.y"
+#line 188 "parser.y"
                                                                           {
         (yyval.node) = create_for((yyvsp[-5].node), (yyvsp[-3].node), NULL, (yyvsp[0].node));
     }
@@ -1620,7 +1620,7 @@ yyreduce:
     break;
 
   case 41: /* for_stmt: TOK_FOR TOK_LPAREN expr TOK_SEMI expr TOK_SEMI TOK_RPAREN block  */
-#line 192 "parser.y"
+#line 191 "parser.y"
                                                                       {
         (yyval.node) = create_for((yyvsp[-5].node), (yyvsp[-3].node), NULL, (yyvsp[0].node));
     }
@@ -1628,7 +1628,7 @@ yyreduce:
     break;
 
   case 42: /* for_stmt: TOK_FOR TOK_LPAREN TOK_SEMI expr TOK_SEMI TOK_RPAREN block  */
-#line 195 "parser.y"
+#line 194 "parser.y"
                                                                  {
         (yyval.node) = create_for(NULL, (yyvsp[-3].node), NULL, (yyvsp[0].node));
     }
@@ -1636,187 +1636,187 @@ yyreduce:
     break;
 
   case 43: /* return_stmt: TOK_RETURN expr  */
-#line 201 "parser.y"
+#line 200 "parser.y"
                     { (yyval.node) = create_return((yyvsp[0].node)); }
 #line 1642 "parser.tab.c"
     break;
 
   case 44: /* return_stmt: TOK_RETURN  */
-#line 202 "parser.y"
+#line 201 "parser.y"
                  { (yyval.node) = create_return(create_null_node()); }
 #line 1648 "parser.tab.c"
     break;
 
   case 45: /* print_stmt: TOK_PRINT TOK_LPAREN expr TOK_RPAREN  */
-#line 206 "parser.y"
+#line 205 "parser.y"
                                          { (yyval.node) = create_print((yyvsp[-1].node)); }
 #line 1654 "parser.tab.c"
     break;
 
   case 46: /* expr: TOK_INT_LIT  */
-#line 210 "parser.y"
+#line 209 "parser.y"
                 { (yyval.node) = create_int_node((yyvsp[0].ival)); }
 #line 1660 "parser.tab.c"
     break;
 
   case 47: /* expr: TOK_FLOAT_LIT  */
-#line 211 "parser.y"
+#line 210 "parser.y"
                     { (yyval.node) = create_float_node((yyvsp[0].fval)); }
 #line 1666 "parser.tab.c"
     break;
 
   case 48: /* expr: TOK_CHAR_LIT  */
-#line 212 "parser.y"
+#line 211 "parser.y"
                    { (yyval.node) = create_char_node((char)(yyvsp[0].ival)); }
 #line 1672 "parser.tab.c"
     break;
 
   case 49: /* expr: TOK_STR_LIT  */
-#line 213 "parser.y"
+#line 212 "parser.y"
                   { (yyval.node) = create_string_node((yyvsp[0].sval)); free((yyvsp[0].sval)); }
 #line 1678 "parser.tab.c"
     break;
 
   case 50: /* expr: TOK_TRUE  */
-#line 214 "parser.y"
+#line 213 "parser.y"
                { (yyval.node) = create_bool_node(true); }
 #line 1684 "parser.tab.c"
     break;
 
   case 51: /* expr: TOK_FALSE  */
-#line 215 "parser.y"
+#line 214 "parser.y"
                 { (yyval.node) = create_bool_node(false); }
 #line 1690 "parser.tab.c"
     break;
 
   case 52: /* expr: TOK_NULL  */
-#line 216 "parser.y"
+#line 215 "parser.y"
                { (yyval.node) = create_null_node(); }
 #line 1696 "parser.tab.c"
     break;
 
   case 53: /* expr: TOK_IDENTIFIER  */
-#line 217 "parser.y"
+#line 216 "parser.y"
                      { (yyval.node) = create_var_access((yyvsp[0].sval)); free((yyvsp[0].sval)); }
 #line 1702 "parser.tab.c"
     break;
 
   case 54: /* expr: TOK_IDENTIFIER TOK_ASSIGN expr  */
-#line 218 "parser.y"
+#line 217 "parser.y"
                                      { (yyval.node) = create_assign((yyvsp[-2].sval), (yyvsp[0].node)); free((yyvsp[-2].sval)); }
 #line 1708 "parser.tab.c"
     break;
 
   case 55: /* expr: func_call  */
-#line 219 "parser.y"
+#line 218 "parser.y"
                 { (yyval.node) = (yyvsp[0].node); }
 #line 1714 "parser.tab.c"
     break;
 
   case 56: /* expr: expr TOK_PLUS expr  */
-#line 220 "parser.y"
+#line 219 "parser.y"
                          { (yyval.node) = create_binop(OP_PLUS, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1720 "parser.tab.c"
     break;
 
   case 57: /* expr: expr TOK_MINUS expr  */
-#line 221 "parser.y"
+#line 220 "parser.y"
                           { (yyval.node) = create_binop(OP_MINUS, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1726 "parser.tab.c"
     break;
 
   case 58: /* expr: expr TOK_MUL expr  */
-#line 222 "parser.y"
+#line 221 "parser.y"
                         { (yyval.node) = create_binop(OP_MUL, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1732 "parser.tab.c"
     break;
 
   case 59: /* expr: expr TOK_DIV expr  */
-#line 223 "parser.y"
+#line 222 "parser.y"
                         { (yyval.node) = create_binop(OP_DIV, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1738 "parser.tab.c"
     break;
 
   case 60: /* expr: expr TOK_MOD expr  */
-#line 224 "parser.y"
+#line 223 "parser.y"
                         { (yyval.node) = create_binop(OP_MOD, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1744 "parser.tab.c"
     break;
 
   case 61: /* expr: expr TOK_EQ expr  */
-#line 225 "parser.y"
+#line 224 "parser.y"
                        { (yyval.node) = create_binop(OP_EQ, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1750 "parser.tab.c"
     break;
 
   case 62: /* expr: expr TOK_NEQ expr  */
-#line 226 "parser.y"
+#line 225 "parser.y"
                         { (yyval.node) = create_binop(OP_NEQ, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1756 "parser.tab.c"
     break;
 
   case 63: /* expr: expr TOK_LT expr  */
-#line 227 "parser.y"
+#line 226 "parser.y"
                        { (yyval.node) = create_binop(OP_LT, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1762 "parser.tab.c"
     break;
 
   case 64: /* expr: expr TOK_GT expr  */
-#line 228 "parser.y"
+#line 227 "parser.y"
                        { (yyval.node) = create_binop(OP_GT, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1768 "parser.tab.c"
     break;
 
   case 65: /* expr: expr TOK_LE expr  */
-#line 229 "parser.y"
+#line 228 "parser.y"
                        { (yyval.node) = create_binop(OP_LE, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1774 "parser.tab.c"
     break;
 
   case 66: /* expr: expr TOK_GE expr  */
-#line 230 "parser.y"
+#line 229 "parser.y"
                        { (yyval.node) = create_binop(OP_GE, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1780 "parser.tab.c"
     break;
 
   case 67: /* expr: expr TOK_AND expr  */
-#line 231 "parser.y"
+#line 230 "parser.y"
                         { (yyval.node) = create_binop(OP_AND, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1786 "parser.tab.c"
     break;
 
   case 68: /* expr: expr TOK_OR expr  */
-#line 232 "parser.y"
+#line 231 "parser.y"
                        { (yyval.node) = create_binop(OP_OR, (yyvsp[-2].node), (yyvsp[0].node)); }
 #line 1792 "parser.tab.c"
     break;
 
   case 69: /* expr: TOK_LPAREN expr TOK_RPAREN  */
-#line 233 "parser.y"
+#line 232 "parser.y"
                                  { (yyval.node) = (yyvsp[-1].node); }
 #line 1798 "parser.tab.c"
     break;
 
   case 70: /* expr: TOK_LBRACKET args TOK_RBRACKET  */
-#line 234 "parser.y"
+#line 233 "parser.y"
                                      { (yyval.node) = create_array_literal((yyvsp[-1].alist).args, (yyvsp[-1].alist).count); }
 #line 1804 "parser.tab.c"
     break;
 
   case 71: /* expr: expr TOK_LBRACKET expr TOK_RBRACKET  */
-#line 235 "parser.y"
+#line 234 "parser.y"
                                           { (yyval.node) = create_array_access((yyvsp[-3].node), (yyvsp[-1].node)); }
 #line 1810 "parser.tab.c"
     break;
 
   case 72: /* expr: expr TOK_LBRACKET expr TOK_RBRACKET TOK_ASSIGN expr  */
-#line 236 "parser.y"
+#line 235 "parser.y"
                                                           { (yyval.node) = create_array_assign((yyvsp[-5].node), (yyvsp[-3].node), (yyvsp[0].node)); }
 #line 1816 "parser.tab.c"
     break;
 
   case 73: /* func_call: TOK_IDENTIFIER TOK_LPAREN args TOK_RPAREN  */
-#line 240 "parser.y"
+#line 239 "parser.y"
                                               {
         (yyval.node) = create_func_call((yyvsp[-3].sval), (yyvsp[-1].alist).count, (yyvsp[-1].alist).args);
         free((yyvsp[-3].sval));
@@ -1825,19 +1825,19 @@ yyreduce:
     break;
 
   case 74: /* args: arg_list  */
-#line 247 "parser.y"
+#line 246 "parser.y"
              { (yyval.alist) = (yyvsp[0].alist); }
 #line 1831 "parser.tab.c"
     break;
 
   case 75: /* args: %empty  */
-#line 248 "parser.y"
-                        { (yyval.alist).count = 0; (yyval.alist).args = NULL; }
+#line 247 "parser.y"
+      { (yyval.alist).count = 0; (yyval.alist).args = NULL; }
 #line 1837 "parser.tab.c"
     break;
 
   case 76: /* arg_list: expr  */
-#line 252 "parser.y"
+#line 251 "parser.y"
          {
         (yyval.alist).count = 1;
         (yyval.alist).args = (ASTNode**)malloc(sizeof(ASTNode*));
@@ -1847,7 +1847,7 @@ yyreduce:
     break;
 
   case 77: /* arg_list: arg_list TOK_COMMA expr  */
-#line 257 "parser.y"
+#line 256 "parser.y"
                               {
         (yyval.alist).count = (yyvsp[-2].alist).count + 1;
         (yyval.alist).args = (ASTNode**)realloc((yyvsp[-2].alist).args, (yyval.alist).count * sizeof(ASTNode*));
@@ -2050,6 +2050,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 264 "parser.y"
+#line 263 "parser.y"
 
 

@@ -1,4 +1,4 @@
-// State management
+
 let currentUser = null;
 const threadsPerPage = 6;
 let currentPage = 1;
@@ -6,7 +6,6 @@ let filteredThreads = [];
 let currentSort = "newest";
 let allThreads = [];
 
-// DOM Elements
 const newThreadModal = document.getElementById('newThreadModal');
 const modalClose = document.getElementById('modalClose');
 const cancelThreadBtn = document.getElementById('cancelThreadBtn');
@@ -19,16 +18,15 @@ const threadQuestion = document.getElementById('threadQuestion');
 const titleCounter = document.getElementById('titleCounter');
 const questionCounter = document.getElementById('questionCounter');
 
-// Функция за изчисляване на възрастта на профила в години
 function calculateAccountAge(createdAt) {
     if (!createdAt) return null;
-    
+
     try {
         const creationDate = new Date(createdAt);
         const currentDate = new Date();
         const ageInMilliseconds = currentDate - creationDate;
         const ageInYears = ageInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
-        
+
         return ageInYears;
     } catch (error) {
         console.error('Error calculating account age:', error);
@@ -36,12 +34,11 @@ function calculateAccountAge(createdAt) {
     }
 }
 
-// Функция която директно връща URL на снимка според възрастта на профила
 function getAvatarImage(createdAt) {
     if (!createdAt) return '../Assets/Images/bronze_logo.png';
-    
+
     const accountAge = calculateAccountAge(createdAt);
-    
+
     if (accountAge < 2) {
         return '../Assets/Images/bronze_logo.png';
     } else if (accountAge >= 2 && accountAge < 5) {
@@ -51,13 +48,11 @@ function getAvatarImage(createdAt) {
     }
 }
 
-// Loader functionality
-window.addEventListener('load', async function() {
+window.addEventListener('load', async function () {
     const loader = document.getElementById('loader');
-    
-    // Load current user from token first
+
     await loadCurrentUser();
-    
+
     setTimeout(async () => {
         loader.classList.add('hidden');
         await loadPosts();
@@ -66,7 +61,6 @@ window.addEventListener('load', async function() {
     }, 1000);
 });
 
-// Update forum statistics
 function updateStatistics(threadsCount) {
     const totalThreadsElement = document.getElementById('totalThreadsCount');
     if (totalThreadsElement) {
@@ -74,59 +68,54 @@ function updateStatistics(threadsCount) {
     }
 }
 
-// Calculate today's statistics from posts and comments
 function calculateTodayStats(posts) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     let todayPosts = 0;
     let todayReplies = 0;
-    
+
     posts.forEach(post => {
-        // Check if post is from today
+
         const postDate = new Date(post.createdAt);
         postDate.setHours(0, 0, 0, 0);
-        
+
         if (postDate.getTime() === today.getTime()) {
             todayPosts++;
         }
-        
-        // Check comments
+
         if (post.comments && post.comments.length > 0) {
             post.comments.forEach(comment => {
                 const commentDate = new Date(comment.createdAt);
                 commentDate.setHours(0, 0, 0, 0);
-                
+
                 if (commentDate.getTime() === today.getTime()) {
                     todayReplies++;
                 }
             });
         }
     });
-    
-    // Update the HTML
+
     const todayPostsElement = document.getElementById('todayPostsCount');
     const todayRepliesElement = document.getElementById('todayRepliesCount');
-    
+
     if (todayPostsElement) {
         todayPostsElement.textContent = todayPosts;
     }
-    
+
     if (todayRepliesElement) {
         todayRepliesElement.textContent = todayReplies;
     }
 }
 
-// Load current user from JWT token
 async function loadCurrentUser() {
     const authToken = localStorage.getItem('authToken');
-    
+
     if (!authToken) {
-        console.log('No auth token found');
         currentUser = null;
         return;
     }
-    
+
     try {
         const response = await fetch(`${window.API_CONFIG.USER}/current-user`, {
             method: 'GET',
@@ -135,12 +124,11 @@ async function loadCurrentUser() {
                 'Content-Type': 'application/json'
             }
         });
-        
+
         if (response.ok) {
             currentUser = await response.json();
-            console.log('User loaded from token:', currentUser);
         } else if (response.status === 401) {
-            // Token expired or invalid
+
             localStorage.removeItem('authToken');
             currentUser = null;
         }
@@ -152,26 +140,26 @@ async function loadCurrentUser() {
 
 function initModal() {
     if (threadTitle) {
-        threadTitle.addEventListener('input', function() {
+        threadTitle.addEventListener('input', function () {
             titleCounter.textContent = this.value.length + '/120';
         });
     }
-    
+
     if (threadQuestion) {
-        threadQuestion.addEventListener('input', function() {
+        threadQuestion.addEventListener('input', function () {
             questionCounter.textContent = this.value.length;
         });
     }
 }
 
 function showModal() {
-    // Check if user is logged in before showing modal
+
     const authToken = localStorage.getItem('authToken');
     if (!authToken || !currentUser) {
         showAlert('Трябва да сте логнат, за да създадете нова тема!', 'error');
         return;
     }
-    
+
     newThreadModal.classList.add('active');
     document.body.classList.add('modal-open');
     if (threadTitle) threadTitle.focus();
@@ -180,7 +168,7 @@ function showModal() {
 function hideModal() {
     newThreadModal.classList.remove('active');
     document.body.classList.remove('modal-open');
-    
+
     if (newThreadForm) {
         newThreadForm.reset();
         titleCounter.textContent = '0/120';
@@ -194,44 +182,44 @@ if (modalClose) modalClose.addEventListener('click', hideModal);
 if (cancelThreadBtn) cancelThreadBtn.addEventListener('click', hideModal);
 
 if (newThreadModal) {
-    newThreadModal.addEventListener('click', function(e) {
+    newThreadModal.addEventListener('click', function (e) {
         if (e.target === this) {
             hideModal();
         }
     });
 }
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && newThreadModal.classList.contains('active')) {
         hideModal();
     }
 });
 
 if (submitThreadBtn) {
-    submitThreadBtn.addEventListener('click', async function() {
-        // Double-check authentication before submitting
+    submitThreadBtn.addEventListener('click', async function () {
+
         const authToken = localStorage.getItem('authToken');
         if (!authToken || !currentUser) {
             showAlert('Трябва да сте логнат, за да публикувате тема!', 'error');
             return;
         }
-        
-        if (!threadTitle.value.trim()) {
-            showAlert('Моля, въведете заглавие на темата', 'error');
+
+        if (!threadTitle.value.trim() || threadTitle.value.trim().length < window.Validation.TITLE_MIN_LENGTH) {
+            showAlert(`Моля, въведете заглавие с поне ${window.Validation.TITLE_MIN_LENGTH} символа`, 'error');
             threadTitle.focus();
             return;
         }
-        
-        if (!threadQuestion.value.trim()) {
-            showAlert('Моля, въведете въпрос/съдържание', 'error');
+
+        if (!threadQuestion.value.trim() || threadQuestion.value.trim().length < window.Validation.CONTENT_MIN_LENGTH) {
+            showAlert(`Моля, въведете съдържание с поне ${window.Validation.CONTENT_MIN_LENGTH} символа`, 'error');
             threadQuestion.focus();
             return;
         }
-        
+
         try {
             submitThreadBtn.disabled = true;
             submitThreadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Зареждане...';
-            
+
             const newPost = {
                 title: threadTitle.value,
                 content: threadQuestion.value,
@@ -239,7 +227,7 @@ if (submitThreadBtn) {
                 authorId: currentUser.id,
                 author: currentUser
             };
-            
+
             const response = await fetch(`${window.API_CONFIG.POST}`, {
                 method: 'POST',
                 headers: {
@@ -248,9 +236,9 @@ if (submitThreadBtn) {
                 },
                 body: JSON.stringify(newPost)
             });
-            
+
             const result = await response.json();
-            
+
             if (response.ok) {
                 hideModal();
                 showAlert(result.message || 'Темата е публикувана успешно!', 'success');
@@ -276,7 +264,7 @@ const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
 
 if (mobileMenuToggle && mobileMenu) {
-    mobileMenuToggle.addEventListener('click', function() {
+    mobileMenuToggle.addEventListener('click', function () {
         this.classList.toggle('active');
         mobileMenu.classList.toggle('active');
     });
@@ -292,33 +280,28 @@ if (mobileMenuToggle && mobileMenu) {
 
 function formatDate(utcDateString) {
     if (!utcDateString) return 'Неизвестна дата';
-    
-    // Parse date - add 'Z' if missing to treat as UTC
+
     let dateString = utcDateString;
     if (!dateString.endsWith('Z') && !dateString.includes('+')) {
         dateString = dateString + 'Z';
     }
-    
+
     const utcDate = new Date(dateString);
-    
-    // Check if date is valid
+
     if (isNaN(utcDate.getTime())) return 'Невалидна дата';
-    
+
     const now = new Date();
-    
-    // Calculate difference in milliseconds
+
     const diffTime = now - utcDate;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     const diffMinutes = Math.floor(diffTime / (1000 * 60));
     const diffSeconds = Math.floor(diffTime / 1000);
-    
-    // For very recent posts
+
     if (diffSeconds < 60) {
         return 'Току-що';
     }
-    
-    // For posts from today
+
     if (diffDays === 0) {
         if (diffHours === 0) {
             if (diffMinutes === 1) {
@@ -330,18 +313,15 @@ function formatDate(utcDateString) {
         }
         return `Преди ${diffHours} часа`;
     }
-    
-    // For posts from yesterday
+
     if (diffDays === 1) {
         return 'Преди 1 ден';
     }
-    
-    // For posts from last week
+
     if (diffDays < 7) {
         return `Преди ${diffDays} дни`;
     }
-    
-    // For posts from last month
+
     if (diffDays < 30) {
         const weeks = Math.floor(diffDays / 7);
         if (weeks === 1) {
@@ -349,8 +329,7 @@ function formatDate(utcDateString) {
         }
         return `Преди ${weeks} седмици`;
     }
-    
-    // For posts from last year
+
     if (diffDays < 365) {
         const months = Math.floor(diffDays / 30);
         if (months === 1) {
@@ -358,8 +337,7 @@ function formatDate(utcDateString) {
         }
         return `Преди ${months} месеца`;
     }
-    
-    // For older posts
+
     const years = Math.floor(diffDays / 365);
     if (years === 1) {
         return 'Преди 1 година';
@@ -367,17 +345,14 @@ function formatDate(utcDateString) {
     return `Преди ${years} години`;
 }
 
-// Load posts from API only (no sessionStorage)
 async function loadPosts() {
     try {
         const loader = document.getElementById('loader');
         if (loader) loader.classList.remove('hidden');
-        
-        console.log('Fetching fresh posts from API');
-        
+
         const useNavigationalProperties = true;
         const isReadOnly = true;
-        
+
         const response = await fetch(`${window.API_CONFIG.POST}?useNavigationalProperties=${useNavigationalProperties}&isReadOnly=${isReadOnly}`, {
             method: 'GET',
             headers: {
@@ -391,9 +366,9 @@ async function loadPosts() {
         }
 
         const posts = await response.json();
-        
+
         processPostsData(posts);
-        
+
     } catch (error) {
         console.error('Error loading posts:', error);
         showAlert('Възникна грешка при зареждане на темите', 'error');
@@ -408,31 +383,28 @@ async function refreshPosts() {
 }
 
 function processPostsData(posts) {
-    // Transform posts to the format expected by renderThreads
+
     allThreads = posts.map((post, index) => {
         let authorName = post.author?.username || 'Анонимен';
-        // Check if author is admin (role === 0)
+
         if (post.author?.role === 0) {
             authorName = 'Админ';
         }
-        
-        // Get avatar image URL based on account age
+
         let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
         if (authorName === 'Админ') {
             authorAvatarUrl = '../Assets/Images/gold_logo.png';
         } else if (post.author?.createdAt) {
             authorAvatarUrl = getAvatarImage(post.author.createdAt);
         }
-        
-        // Count comments properly from the comments array
+
         const repliesCount = post.comments?.length || 0;
         const datePosted = post.createdAt ? formatDate(post.createdAt) : 'Неизвестна дата';
-        
-        // Keep full content for length checking
-        const preview = post.content 
+
+        const preview = post.content
             ? post.content.substring(0, 100) + (post.content.length > 100 ? '...' : '')
             : 'Няма съдържание';
-        
+
         return {
             id: post.id || index + 1,
             title: post.title || 'Без заглавие',
@@ -449,21 +421,19 @@ function processPostsData(posts) {
     });
 
     filteredThreads = [...allThreads];
-    
-    // Update the statistics with real thread count
+
     updateStatistics(allThreads.length);
-    
-    // Calculate and update today's statistics
+
     calculateTodayStats(posts);
-    
+
     renderThreads();
     renderPagination();
 }
 
 function sortThreads(threads, sortType) {
     const sortedThreads = [...threads];
-    
-    switch(sortType) {
+
+    switch (sortType) {
         case "newest":
             return sortedThreads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         case "oldest":
@@ -478,15 +448,15 @@ function sortThreads(threads, sortType) {
 function renderThreads() {
     const container = document.getElementById('threadsContainer');
     if (!container) return;
-    
+
     const startIndex = (currentPage - 1) * threadsPerPage;
     const endIndex = startIndex + threadsPerPage;
-    
+
     const sortedThreads = sortThreads(filteredThreads, currentSort);
     const threadsToShow = sortedThreads.slice(startIndex, endIndex);
-    
+
     let html = `<div class="thread-header">Всички теми (${filteredThreads.length})</div>`;
-    
+
     if (threadsToShow.length === 0) {
         html += `
             <div class="thread-item" style="text-align: center; padding: 3rem 2rem;">
@@ -498,7 +468,7 @@ function renderThreads() {
     } else {
         threadsToShow.forEach(thread => {
             const hasFullContent = thread.content && thread.content.length > 100;
-            
+
             html += `
                 <div class="thread-item" data-thread-id="${thread.id}">
                     <h3 class="thread-title">
@@ -522,27 +492,27 @@ function renderThreads() {
             `;
         });
     }
-    
+
     container.innerHTML = html;
-    
+
     document.querySelectorAll('.read-more-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             const threadId = this.getAttribute('data-thread-id');
             window.location.href = `forum_details.html?id=${threadId}`;
         });
     });
-    
+
     document.querySelectorAll('.thread-title-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.stopPropagation();
         });
     });
-    
+
     document.querySelectorAll('.thread-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            if (!e.target.classList.contains('read-more-link') && 
+        item.addEventListener('click', function (e) {
+            if (!e.target.classList.contains('read-more-link') &&
                 !e.target.classList.contains('thread-title-link') &&
                 e.target.tagName !== 'A') {
                 const threadId = this.getAttribute('data-thread-id');
@@ -551,18 +521,17 @@ function renderThreads() {
                 }
             }
         });
-        
+
         item.style.cursor = 'pointer';
     });
-    
+
     document.querySelectorAll('.thread-item').forEach(el => {
         el.classList.add('fade-in');
     });
-    
+
     updatePaginationInfo();
 }
 
-// Helper function to escape HTML
 function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
@@ -573,16 +542,16 @@ function escapeHtml(text) {
 function renderPagination() {
     const pagination = document.getElementById('pagination');
     if (!pagination) return;
-    
+
     const totalPages = Math.ceil(filteredThreads.length / threadsPerPage);
-    
+
     if (totalPages <= 1) {
         pagination.innerHTML = '';
         return;
     }
-    
+
     let html = '';
-    
+
     html += `
         <li class="page-item">
             <a class="page-link prev ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">
@@ -590,7 +559,7 @@ function renderPagination() {
             </a>
         </li>
     `;
-    
+
     for (let i = 1; i <= totalPages; i++) {
         if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
             html += `
@@ -606,7 +575,7 @@ function renderPagination() {
             `;
         }
     }
-    
+
     html += `
         <li class="page-item">
             <a class="page-link next ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">
@@ -614,11 +583,11 @@ function renderPagination() {
             </a>
         </li>
     `;
-    
+
     pagination.innerHTML = html;
-    
+
     document.querySelectorAll('.page-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             if (!this.classList.contains('disabled')) {
                 const page = parseInt(this.getAttribute('data-page'));
@@ -636,11 +605,11 @@ function renderPagination() {
 function updatePaginationInfo() {
     const infoElement = document.getElementById('paginationInfo');
     if (!infoElement) return;
-    
+
     const startThread = filteredThreads.length === 0 ? 0 : (currentPage - 1) * threadsPerPage + 1;
     const endThread = Math.min(currentPage * threadsPerPage, filteredThreads.length);
-    
-    infoElement.innerHTML = filteredThreads.length === 0 
+
+    infoElement.innerHTML = filteredThreads.length === 0
         ? 'Няма намерени теми'
         : `Показване на теми ${startThread} - ${endThread} от общо ${filteredThreads.length}`;
 }
@@ -650,13 +619,13 @@ function performSearch(searchTerm) {
         filteredThreads = [...allThreads];
     } else {
         const searchLower = searchTerm.toLowerCase();
-        filteredThreads = allThreads.filter(thread => 
+        filteredThreads = allThreads.filter(thread =>
             thread.title.toLowerCase().includes(searchLower) ||
             thread.preview.toLowerCase().includes(searchLower) ||
             thread.author.toLowerCase().includes(searchLower)
         );
     }
-    
+
     currentPage = 1;
     renderThreads();
     renderPagination();
@@ -664,38 +633,36 @@ function performSearch(searchTerm) {
 
 const desktopSearchInput = document.getElementById('desktopProblemSearch');
 if (desktopSearchInput) {
-    desktopSearchInput.addEventListener('input', function() {
+    desktopSearchInput.addEventListener('input', function () {
         performSearch(this.value.toLowerCase().trim());
     });
 }
 
 const mobileSearchInput = document.getElementById('mobileProblemSearch');
 if (mobileSearchInput) {
-    mobileSearchInput.addEventListener('input', function() {
+    mobileSearchInput.addEventListener('input', function () {
         performSearch(this.value.toLowerCase().trim());
     });
 }
 
-// Hover effects
 document.querySelectorAll('.thread-item, .quick-link').forEach(item => {
-    item.addEventListener('mouseenter', function() {
+    item.addEventListener('mouseenter', function () {
         this.style.transform = 'translateY(-3px)';
         this.style.boxShadow = '0 10px 20px rgba(0, 255, 157, 0.1)';
     });
-    
-    item.addEventListener('mouseleave', function() {
+
+    item.addEventListener('mouseleave', function () {
         this.style.transform = 'translateY(0)';
         this.style.boxShadow = 'none';
     });
 });
 
-// Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver(function(entries) {
+const observer = new IntersectionObserver(function (entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('fade-in');
@@ -707,29 +674,27 @@ document.querySelectorAll('.thread-item, .sidebar-widget').forEach(el => {
     observer.observe(el);
 });
 
-// Ripple effect for buttons
 document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', function(e) {
+    button.addEventListener('click', function (e) {
         const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const x = e.clientX - rect.left - size / 2;
         const y = e.clientY - rect.top - size / 2;
-        
+
         ripple.style.width = ripple.style.height = size + 'px';
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
         ripple.classList.add('ripple');
-        
+
         this.appendChild(ripple);
-        
+
         setTimeout(() => {
             ripple.remove();
         }, 600);
     });
 });
 
-// Additional CSS styles
 const additionalStyles = document.createElement('style');
 additionalStyles.textContent = `
     .read-more-link {

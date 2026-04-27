@@ -389,7 +389,6 @@
             background: rgba(10, 10, 20, 0.8);
         }
 
-        /* ОБНОВЕН TOGGLE-PASSWORD СТИЛ */
         .toggle-password {
             position: absolute;
             right: 1rem;
@@ -543,8 +542,7 @@
             .auth-card {
                 padding: 2rem;
             }
-            
-            
+
             .logo-text {
                 font-size: 2rem;
             }

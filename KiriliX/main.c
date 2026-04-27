@@ -36,7 +36,6 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    printf("Парсването успешно. Стартиране на интерпретатора...\n");
     
     Env* global_env = create_env(NULL);
     init_stdlib(global_env);
@@ -45,7 +44,6 @@ int main(int argc, char** argv) {
     
     ASTNode* main_func = env_get_func(global_env, "главна");
     if (main_func) {
-        printf("--- ИЗПЪЛНЕНИЕ: главна() ---\n");
         ASTNode* call_main = create_func_call("главна", 0, NULL);
         eval(call_main, global_env);
         free_ast(call_main);

@@ -7,12 +7,10 @@ class Header extends HTMLElement {
         this.checkSession();
     }
 
-    // Функция за зареждане на потребител от API
     async loadCurrentUser() {
         const authToken = localStorage.getItem('authToken');
         
         if (!authToken) {
-            console.log('No auth token found');
             return null;
         }
         
@@ -28,7 +26,6 @@ class Header extends HTMLElement {
             
             if (response.ok) {
                 const user = await response.json();
-                console.log('User loaded from API:', user);
                 
                 return {
                     id: user.Id || user.id || user.userId,
@@ -38,11 +35,9 @@ class Header extends HTMLElement {
                     createdAt: user.CreatedAt || user.createdAt || user.createdAtDate
                 };
             } else if (response.status === 401) {
-                console.log('Token expired or invalid');
                 localStorage.removeItem('authToken');
                 return null;
             } else {
-                console.log('Failed to load user, status:', response.status);
                 return null;
             }
         } catch (error) {
@@ -50,8 +45,7 @@ class Header extends HTMLElement {
             return null;
         }
     }
-    
-    // Функция за изчисляване на възрастта на профила в години
+
     calculateAccountAge(createdAt) {
         if (!createdAt) return null;
         
@@ -638,7 +632,7 @@ class Header extends HTMLElement {
                             ${this.isLoggedIn && !this.isAdmin ? `<img src="${avatarUrl}" alt="Profile" class="user-avatar" id="user-avatar" title="${this.userData?.name || 'Потребител'}">` : ''}
                             ${!this.isLoggedIn ? await this.renderLoginButton() : ''}
                         </div>
-                        ${!this.isLoggedIn ? `<button class="btn btn-primary desktop-download-btn" id="download-btn">Изтегли</button>` : ''}
+                        ${!this.isLoggedIn ? `<a href="KiriliX.zip" download class="btn btn-primary desktop-download-btn" id="download-btn" style="text-decoration: none;">Изтегли</a>` : ''}
                         ${this.isLoggedIn ? await this.renderLogoutButton() : ''}
                     </div>
                     <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -655,10 +649,10 @@ class Header extends HTMLElement {
                     <div class="mobile-nav-actions" id="mobileUserSection">
                         ${!this.isLoggedIn ? `
                             <button class="btn btn-outline mobile-login-btn">Вход</button>
-                            <button class="btn btn-primary mobile-download-btn">Изтегли</button>
+                            <a href="KiriliX.zip" download class="btn btn-primary mobile-download-btn" style="text-decoration: none;">Изтегли</a>
                         ` : `
                             ${await this.renderMobileLogoutButton()}
-                            <button class="btn btn-primary mobile-download-btn">Изтегли</button>
+                            <a href="KiriliX.zip" download class="btn btn-primary mobile-download-btn" style="text-decoration: none;">Изтегли</a>
                         `}
                     </div>
                 </div>
@@ -798,23 +792,6 @@ class Header extends HTMLElement {
             mobileLoginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.location.href = '../HTML/login.html';
-            });
-        }
-        
-        const downloadBtn = this.querySelector('#download-btn');
-        const mobileDownloadBtn = this.querySelector('.mobile-download-btn');
-        
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.location.href = '../HTML/download.html';
-            });
-        }
-        
-        if (mobileDownloadBtn) {
-            mobileDownloadBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.location.href = '../HTML/download.html';
             });
         }
 

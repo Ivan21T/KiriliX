@@ -26,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* Декоративни елементи */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -43,7 +42,6 @@
             background: linear-gradient(90deg, var(--white) 33%, var(--neon-green) 33%, var(--neon-green) 66%, var(--neon-red) 66%);
         }
 
-        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -170,14 +168,12 @@
             display: none;
         }
 
-        /* Главен контейнер */
         .admin-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 7rem 2rem 3rem;
         }
 
-        /* Заглавие и статистики */
         .admin-header {
             display: flex;
             justify-content: space-between;
@@ -223,7 +219,6 @@
             margin-top: 0.3rem;
         }
 
-        /* Навигация в админ панела */
         .admin-nav {
             display: flex;
             gap: 0.5rem;
@@ -258,7 +253,6 @@
             background: rgba(0, 255, 157, 0.05);
         }
 
-        /* Секции */
         .admin-section {
             display: none;
             animation: fadeIn 0.3s ease;
@@ -288,7 +282,6 @@
             color: var(--white);
         }
 
-        /* Таблици */
         .admin-table-container {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -426,7 +419,6 @@
             border-color: var(--purple);
         }
 
-        /* ПАГИНАЦИЯ - ПРАВИЛНА */
         .pagination-wrapper {
             display: flex;
             justify-content: space-between;
@@ -506,7 +498,6 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Форма за новини */
         .admin-form {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -565,7 +556,6 @@
             padding-right: 2.5rem;
         }
 
-        /* File upload */
         .file-upload {
             display: flex;
             flex-direction: column;
@@ -601,7 +591,6 @@
             display: none;
         }
 
-        /* Autocomplete */
         .autocomplete-suggestions {
             position: absolute;
             top: 100%;
@@ -631,7 +620,6 @@
             background: rgba(0, 255, 157, 0.1);
         }
 
-        /* PREVIEW НА ИЗОБРАЖЕНИЕ */
         .image-preview-container {
             margin-top: 1rem;
             border-radius: 10px;
@@ -668,7 +656,6 @@
             color: rgba(0, 255, 157, 0.3);
         }
 
-        /* Статистики */
         .user-stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -698,7 +685,6 @@
             color: var(--neon-green);
         }
 
-        /* Footer */
         .footer {
             background: rgba(10, 10, 20, 0.95);
             border-top: 1px solid rgba(0, 255, 157, 0.1);
@@ -800,7 +786,6 @@
             color: var(--neon-green);
         }
 
-        /* Модал */
         .modal {
             display: none;
             position: fixed;
@@ -847,7 +832,6 @@
             margin-top: 2rem;
         }
 
-        /* Медия заявки - РЕСПОНСИВ */
         @media (max-width: 1024px) {
             .footer-content {
                 grid-template-columns: 1fr 1fr;
@@ -1011,7 +995,7 @@
                 font-size: 0.9rem;
             }
         }
-        /* ================ МОДАЛ ЗА ДОБАВЯНЕ НА ПОТРЕБИТЕЛ ================ */
+        
 .modal-overlay {
     display: none;
     position: fixed;
@@ -1106,7 +1090,6 @@
     box-shadow: 0 0 15px #00ff9d66;
 }
 
-/* Select стрелка */
 .modal-select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300ff9d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
@@ -1165,7 +1148,6 @@
     color: #ff003c;
 }
 
-/* Индикатор за сила на паролата */
 .password-strength {
     margin-top: 0.5rem;
     height: 4px;
@@ -1195,7 +1177,6 @@
     background: #00ff9d; 
 }
 
-/* Анимация при грешка */
 @keyframes shake {
     0%,100%{transform:translateX(0)}
     20%,60%{transform:translateX(-5px)}
@@ -1207,7 +1188,6 @@
     animation: shake 0.5s;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     .modal-window {
         padding: 1.5rem;

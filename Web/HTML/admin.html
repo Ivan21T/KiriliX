@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>KiriliX | Администраторски панел</title>
+    <title>KiriliX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/notification.css">
@@ -15,7 +15,7 @@
     <kirilix-header></kirilix-header>
 
     <main class="admin-container">
-        <!-- Статистики -->
+        
         <div class="admin-header">
             <h1 class="admin-title">Администраторски панел</h1>
             <div class="admin-stats">
@@ -34,7 +34,6 @@
             </div>
         </div>
 
-        <!-- Навигация -->
         <div class="admin-nav">
             <button class="admin-nav-btn active" data-section="users">
                 <i class="fas fa-users"></i> Потребители
@@ -50,7 +49,6 @@
             </button>
         </div>
 
-        <!-- Секция Потребители -->
         <section id="users-section" class="admin-section active">
             <div class="section-header">
                 <h2 class="section-title">Регистрирани потребители</h2>
@@ -75,8 +73,7 @@
                         <tbody id="usersTableBody"></tbody>
                     </table>
                 </div>
-                
-                <!-- Пагинация за потребители -->
+
                 <div class="pagination-wrapper" id="usersPagination">
                     <div class="pagination-info" id="usersPaginationInfo"></div>
                     <div class="pagination-controls">
@@ -95,7 +92,6 @@
             </div>
         </section>
 
-        <!-- Секция Новини -->
         <section id="articles-section" class="admin-section">
             <div class="section-header">
                 <h2 class="section-title">Новини и статии</h2>
@@ -119,8 +115,7 @@
                         <tbody id="articlesTableBody"></tbody>
                     </table>
                 </div>
-                
-                <!-- Пагинация за новини -->
+
                 <div class="pagination-wrapper" id="articlesPagination">
                     <div class="pagination-info" id="articlesPaginationInfo"></div>
                     <div class="pagination-controls">
@@ -183,7 +178,6 @@
             </div>
         </section>
 
-        <!-- Секция Добави новина -->
         <section id="add-article-section" class="admin-section">
             <div class="section-header">
                 <h2 class="section-title" id="articleFormTitle">Добави нова новина</h2>
@@ -228,5 +222,5 @@
     <script type="module" src="../JS/footer.js"></script>
     <script src="../JS/config.js"></script>
     <script src="../JS/admin.js"></script>
-</body>
+    </body>
 </html>

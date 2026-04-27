@@ -15,6 +15,8 @@ extern int yylineno;
 
 %%
 
+\xEF\xBB\xBF { }
+
 "цяло"      { return TOK_TYPE_INT; }
 "дробно"    { return TOK_TYPE_FLOAT; }
 "текст"     { return TOK_TYPE_STRING; }

@@ -157,7 +157,7 @@ static Value eval_binop(ASTNode* node, Env* env) {
     Value left = eval(node->as.binop.left, env);
     Value res = make_null();
     
-    // Short-circuit логика за AND и OR
+    
     if (node->as.binop.op == OP_AND) {
         if (left.type == VAL_BOOL && !left.data.b) {
             res.type = VAL_BOOL; res.data.b = false; return res;
@@ -170,7 +170,7 @@ static Value eval_binop(ASTNode* node, Env* env) {
     
     Value right = eval(node->as.binop.right, env);
     
-    // Type coercion за числа
+    
     if (left.type == VAL_INT && right.type == VAL_FLOAT) {
         left.type = VAL_FLOAT;
         left.data.f = (float)left.data.i;

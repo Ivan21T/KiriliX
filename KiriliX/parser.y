@@ -244,7 +244,7 @@ func_call:
 
 args:
     arg_list { $$ = $1; }
-    | /* празнo */ { $$.count = 0; $$.args = NULL; }
+    | { $$.count = 0; $$.args = NULL; }
     ;
 
 arg_list:

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DataLayer;
+﻿using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.DTOs;
 using System;

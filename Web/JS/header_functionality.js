@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         header.addEventListener('header-download-click', function() {
-            console.log('Download clicked!');
         });
         
         const links = [
@@ -21,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
         
         header.addEventListener('header-logout-click', function() {
             localStorage.removeItem('userData');
-            console.log('User logged out');
         });
     }
 });

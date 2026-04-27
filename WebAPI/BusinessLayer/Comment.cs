@@ -16,6 +16,7 @@ namespace BusinessLayer
         public string Content { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
+        public int AuthorId { get; set; }
         public User Author { get; set; }
         [JsonIgnore]
         public Post Post { get; set; }

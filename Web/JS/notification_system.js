@@ -1,5 +1,10 @@
 function showAlert(message, type) {
-    const alertContainer = document.getElementById('alert-container');
+    let alertContainer = document.getElementById('alert-container');
+    if (!alertContainer) {
+        alertContainer = document.createElement('div');
+        alertContainer.id = 'alert-container';
+        document.body.appendChild(alertContainer);
+    }
 
     const existingPending = alertContainer.querySelector('.alert-message.pending');
     if (existingPending) existingPending.remove();
@@ -28,7 +33,13 @@ function showAlert(message, type) {
     setTimeout(() => alert.classList.add('show'), 10);
 
     setTimeout(() => {
-        alert.classList.remove('show');
-        setTimeout(() => alert.remove(), 300);
+        if (alert.parentNode) {
+            alert.classList.remove('show');
+            setTimeout(() => {
+                if (alert.parentNode) alert.remove();
+            }, 300);
+        }
     }, type === 'pending' ? 10000 : 5000);
+
+    return alert;
 }

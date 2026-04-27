@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiriliX - Правна информация</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/legal.css">
+</head>
+
+<body>
+    <div class="animated-bg"></div>
+
+    <kirilix-header></kirilix-header>
+    
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <main class="container">
+        <section class="page-hero">
+            <h1>Правна информация</h1>
+            <p>Условия за ползване, политика за поверителност и лицензионни споразумения.</p>
+        </section>
+
+        <div class="legal-content">
+            <div class="legal-section">
+                <h2><i class="fas fa-file-contract"></i> 1. Условия за ползване</h2>
+                <p>
+                    Използвайки езика за програмиране KiriliX и свързаните с него услуги и ресурси, вие се съгласявате с настоящите Условия за ползване. KiriliX се предоставя "такъв, какъвто е", без изрични или подразбиращи се гаранции.
+                </p>
+                <p>
+                    Ние си запазваме правото да правим промени в синтаксиса, функциите и общите условия по всяко време без предварително уведомление.
+                </p>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-shield-alt"></i> 2. Политика за поверителност</h2>
+                <p>
+                    Ние ценим вашата поверителност. Този уебсайт и форумът на KiriliX могат да събират основна информация като:
+                </p>
+                <ul>
+                    <li>Регистрационни данни за потребителски профил във форума.</li>
+                    <li>IP адреси за защита от злонамерен трафик.</li>
+                    <li>Основна статистика за посещенията с цел подобряване на платформата.</li>
+                </ul>
+                <p>
+                    Ние никога няма да продаваме вашите лични данни на трети страни.
+                </p>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-balance-scale"></i> 3. Лиценз (Open Source)</h2>
+                <p>
+                    Интерпретаторът и основният код на езика KiriliX са проект с отворен код. Можете свободно да разпространявате, променяте и използвате езика както за лични, така и за образователни цели.
+                </p>
+                <p>
+                    Всякакви модификации по официалния интерпретатор е препоръчително да бъдат споделяни с общността, за да подпомогнем развитието на първия български език за програмиране.
+                </p>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-envelope-open-text"></i> 4. Контакти по правни въпроси</h2>
+                <p>
+                    Ако имате въпроси относно нашите условия за ползване, лицензиране или политики за поверителност, моля, свържете се с нас на: 
+                    <a href="mailto:it.kirilix@gmail.com" style="color: var(--neon-green); text-decoration: none;">it.kirilix@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <kirilix-footer></kirilix-footer>
+
+    <script type="module" src="../JS/header.js"></script>
+    <script type="module" src="../JS/footer.js"></script>
+    <script src="../JS/header_functionality.js"></script>
+    <script src="../JS/notification_system.js"></script>
+</body>
+
+</html>

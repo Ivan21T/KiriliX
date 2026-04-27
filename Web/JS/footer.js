@@ -42,40 +42,26 @@ class Footer extends HTMLElement {
                             </div>
                         </div>
                         <div class="footer-section">
-                            <h3 class="footer-title">Ресурси</h3>
+                            <h3 class="footer-title">Страници</h3>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fas fa-book"></i> Документация</a></li>
-                                <li><a href="#"><i class="fas fa-graduation-cap"></i> Уроци</a></li>
-                                <li><a href="#"><i class="fas fa-blog"></i> Блог</a></li>
-                                <li><a href="#"><i class="fas fa-comments"></i> Форум</a></li>
+                                <li><a href="index.html"><i class="fas fa-home"></i> Начало</a></li>
+                                <li><a href="docs.html"><i class="fas fa-book"></i> Документация</a></li>
+                                <li><a href="news.html"><i class="fas fa-blog"></i> Новини</a></li>
+                                <li><a href="forum.html"><i class="fas fa-comments"></i> Форум</a></li>
                             </ul>
                         </div>
                         <div class="footer-section">
-                            <h3 class="footer-title">Общност</h3>
+                            <h3 class="footer-title">За нас</h3>
                             <ul class="footer-links">
-                                <li><a href="#"><i class="fas fa-calendar-alt"></i> Събития</a></li>
-                                <li><a href="#"><i class="fas fa-code"></i> Разработчици</a></li>
-                                <li><a href="#"><i class="fas fa-handshake"></i> Партньорства</a></li>
-                                <li><a href="#"><i class="fas fa-envelope"></i> Контакти</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-section">
-                            <h3 class="footer-title">Компания</h3>
-                            <ul class="footer-links">
-                                <li><a href="#"><i class="fas fa-info-circle"></i> За нас</a></li>
-                                <li><a href="#"><i class="fas fa-briefcase"></i> Кариери</a></li>
-                                <li><a href="#"><i class="fas fa-newspaper"></i> Прес</a></li>
-                                <li><a href="#"><i class="fas fa-balance-scale"></i> Правна информация</a></li>
+                                <li><a href="contact.html"><i class="fas fa-envelope"></i> Контакти</a></li>
+                                <li><a href="faq.html"><i class="fas fa-question-circle"></i> ЧЗВ</a></li>
+                                <li><a href="legal.html"><i class="fas fa-balance-scale"></i> Правна информация</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="footer-bottom">
                         <div class="footer-copyright">
-                            &copy; ${this.currentYear} KiriliX. Всички права запазени.
-                        </div>
-                        <div class="footer-badge">
-                            <i class="fas fa-heart"></i>
-                            <span>Създадено с любов в България</span>
+                            &copy; ${this.currentYear} KiriliX. Всички права са запазени.
                         </div>
                     </div>
                 </div>
@@ -116,7 +102,7 @@ class Footer extends HTMLElement {
 
             .footer-content {
                 display: grid;
-                grid-template-columns: 2fr 1fr 1fr 1fr;
+                grid-template-columns: 2fr 1fr 1fr;
                 gap: 4rem;
                 margin-bottom: 4rem;
             }
@@ -397,7 +383,7 @@ class Footer extends HTMLElement {
                 }
             }
         `;
-        
+
         this.shadowRoot.appendChild(style);
     }
 
@@ -405,8 +391,10 @@ class Footer extends HTMLElement {
         const links = this.shadowRoot.querySelectorAll('.footer-links a, .social-link');
         links.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
                 const href = link.getAttribute('href');
+                if (href === '#' || !href) {
+                    e.preventDefault();
+                }
                 this.dispatchEvent(new CustomEvent('footer-link-click', {
                     detail: { href },
                     bubbles: true,
@@ -415,7 +403,6 @@ class Footer extends HTMLElement {
             });
         });
     }
-
 
     updateCopyrightYear(year) {
         this.currentYear = year || new Date().getFullYear();
@@ -428,11 +415,11 @@ class Footer extends HTMLElement {
     animateElements() {
         const sections = this.shadowRoot.querySelectorAll('.footer-section');
         const bottom = this.shadowRoot.querySelector('.footer-bottom');
-        
+
         sections.forEach((section, index) => {
             section.classList.add('fade-in', `delay-${index}`);
         });
-        
+
         if (bottom) {
             bottom.classList.add('fade-in', 'delay-3');
         }
@@ -441,11 +428,11 @@ class Footer extends HTMLElement {
     setTheme(primaryColor = '#00ff9d', secondaryColor = '#ff003c', bgColor = 'rgba(10, 10, 20, 0.95)') {
         const style = this.shadowRoot.querySelector('style');
         let css = style.textContent;
-        
+
         css = css.replace(/#00ff9d/g, primaryColor);
         css = css.replace(/#ff003c/g, secondaryColor);
         css = css.replace(/rgba\(10, 10, 20, 0\.95\)/g, bgColor);
-        
+
         style.textContent = css;
     }
 
@@ -468,10 +455,10 @@ class Footer extends HTMLElement {
         if (sectionEl) {
             const linksList = sectionEl.querySelector('.footer-links');
             if (linksList) {
-                linksList.innerHTML = links.map(link => 
+                linksList.innerHTML = links.map(link =>
                     `<li><a href="${link.url}"><i class="${link.icon}"></i> ${link.text}</a></li>`
                 ).join('');
-                
+
                 this.addEventListeners();
             }
         }

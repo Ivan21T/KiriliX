@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         })
                     };
 
-
                     showAlert('Изпращаме вашето съобщение...', 'pending');
 
                     emailjs.send(
@@ -36,8 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            
-            // Add click effect to social links
             const socialLinks = document.querySelectorAll('.social-link-contact');
             socialLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -46,8 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showAlert(`Пренасочваме ви към нашата ${platform} страница!`, 'info');
                 });
             });
-            
-            // Add hover effect to contact details
+
             const contactDetails = document.querySelectorAll('.contact-detail');
             contactDetails.forEach(detail => {
                 detail.addEventListener('mouseenter', function() {

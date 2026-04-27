@@ -16,7 +16,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString("SQLiteConnection");
         builder.Services.AddDbContext<KirilixDbContext>(options =>
             options.UseSqlite(connectionString));
 
@@ -43,7 +43,6 @@ public class Program
             };
         });
 
-        // CORS - allow all
         builder.Services.AddCors(options =>
         {
             options.AddDefaultPolicy(policy =>
@@ -55,7 +54,6 @@ public class Program
             });
         });
 
-        // Register services
         builder.Services.AddSingleton<IDbSeeder, DbSeeder>();
 
         builder.Services.AddScoped<UserContext>();

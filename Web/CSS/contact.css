@@ -1047,7 +1047,6 @@
             animation-delay: 0.6s;
         }
 
-        /* Responsive Styles */
         @media (max-width: 1200px) {
             .nav-container, .contact-hero, .contact-content, .footer-container {
                 padding-left: 1.5rem;
@@ -1288,9 +1287,7 @@
                 font-size: 1.2rem;
             }
         }
-        /* ================================
-   NOTIFICATION CONTAINER
-================================ */
+        
 .notification-container {
     position: fixed;
     top: 20px;

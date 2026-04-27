@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакти | KiriliX - Български език за програмиране</title>
+    <title>KiriliX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/contact.css">
 </head>
-<body>    
-   <kirilix-header></kirilix-header>
+
+<body>
+    <kirilix-header></kirilix-header>
     <div class="notification-container" id="notificationContainer"></div>
     <main>
         <section class="contact-hero">
@@ -33,9 +35,9 @@
                     <p class="contact-text">
                         Попълнете формата по-долу и ние ще се свържем с вас в рамките на 24 часа.
                     </p>
-                    
+
                     <form class="contact-form" id="contactForm">
-                         <div class="form-group">
+                        <div class="form-group">
                             <label class="form-label">Заглавие</label>
                             <input id="title" type="text" class="form-input" placeholder="Заглавие" required>
                         </div>
@@ -44,30 +46,31 @@
                             <label class="form-label">Име</label>
                             <input id="name" type="text" class="form-input" placeholder="Вашето име" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label">Имейл</label>
                             <input id="email" type="email" class="form-input" placeholder="ваш@имейл.com" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label">Съобщение</label>
-                            <textarea id="message" class="form-textarea" placeholder="Напишете вашето съобщение тук..." required></textarea>
+                            <textarea id="message" class="form-textarea" placeholder="Напишете вашето съобщение тук..."
+                                required></textarea>
                         </div>
-                        
+
                         <button type="submit" class="form-submit">
                             <i class="fas fa-paper-plane"></i>
                             Изпрати съобщение
                         </button>
                     </form>
                 </div>
-                
+
                 <div class="contact-info">
-                    <h2 class="section-title">Нашият контакт</h2>
+                    <h2 class="section-title">Контакти</h2>
                     <p class="contact-text">
-                        Свържете се с нас по телефона или имейл за бърза обратна връзка. Отговаряме на всички запитвания в рамките на един работен ден.
+                        Свържете се с нас по телефона или имейл за бърза обратна връзка.
                     </p>
-                    
+
                     <div class="contact-details">
                         <div class="contact-detail">
                             <div class="detail-icon">
@@ -80,7 +83,7 @@
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="contact-detail">
                             <div class="detail-icon">
                                 <i class="fas fa-envelope"></i>
@@ -92,22 +95,8 @@
                                 </p>
                             </div>
                         </div>
-                        
-                        <div class="contact-detail">
-                            <div class="detail-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="detail-content">
-                                <h3 class="detail-title">Адрес</h3>
-                                <p class="detail-text">
-                                    ул. "Кирил и Методий" 24<br>
-                                    София 1000, България<br>
-                                    Офис: Понеделник - Петък, 9:00 - 18:00
-                                </p>
-                            </div>
-                        </div>
                     </div>
-                    
+
                     <div class="social-contact">
                         <h3 class="social-title">Следвайте ни</h3>
                         <div class="social-links-contact">
@@ -141,4 +130,5 @@
     <script src="../JS/notification_system.js"></script>
     <script src="../JS/contact.js"></script>
 </body>
+
 </html>

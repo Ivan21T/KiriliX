@@ -1,5 +1,8 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include "ast.h"
 #include "env.h"
 #include "interpreter.h"
@@ -9,6 +12,10 @@ extern int yyparse(void* root);
 extern FILE* yyin;
 
 int main(int argc, char** argv) {
+#ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
     if (argc < 2) {
         printf("Употреба: %s <файл.bg>\n", argv[0]);
         return 1;

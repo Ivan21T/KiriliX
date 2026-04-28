@@ -11,7 +11,7 @@ namespace ServiceLayer
     public class EmailService
     {
         private readonly string _fromEmail = "it.kirilix@gmail.com";
-        private readonly string _password = "nstj khpm pjvb jypj"; 
+        private readonly string _password = "skjl xfzh txhl kutq"; 
         private readonly string _smtpServer = "smtp.gmail.com";
         private readonly int _port = 587;
 

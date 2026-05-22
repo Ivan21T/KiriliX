@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiriliX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/news.css">
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="bulgarian-border"></div>
+
+    <kirilix-header></kirilix-header>
+
+    <section class="news-hero">
+        <div class="news-hero-content">
+            <div class="news-hero-badge fade-in">
+                <i class="fas fa-newspaper"></i>
+                Актуални новини
+            </div>
+            <h1 class="news-hero-title fade-in delay-1">
+                Новини от <span>KiriliX</span>
+            </h1>
+            <p class="news-hero-description fade-in delay-2">
+                Всички новини на едно място - обновления, събития и съобщения
+            </p>
+            
+            <div class="news-stats fade-in delay-3">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalNewsCount">0</div>
+                    <div class="stat-label">Новини</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="news-content">
+        <div class="search-container fade-in">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="newsSearch" placeholder="Търсене по заглавие, съдържание или автор...">
+        </div>
+        
+        <div class="news-list" id="newsList">
+            <div class="no-results">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>Зареждане на новините...</h3>
+            </div>
+        </div>
+        
+        <nav class="pagination" id="pagination"></nav>
+        <div class="pagination-info" id="paginationInfo"></div>
+    </div>
+
+    <kirilix-footer></kirilix-footer>
+
+    <script src="JS/header.js" type="module"></script>
+    <script src="JS/footer.js" type="module"></script>
+    <script src="JS/config.js"></script>
+    <script src="JS/news.js"></script>
+    </body>
+</html>

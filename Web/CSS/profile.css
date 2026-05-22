@@ -709,4 +709,59 @@
             .stat-label { font-size: 0.8rem; }
             .post-date { font-size: 0.75rem; }
         }
-  
+                .profile-avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            transition: var(--transition);
+        }
+        
+        .profile-avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+            border-color: var(--neon-red);
+        }
+        
+        .account-age-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .newbie-badge {
+            background: linear-gradient(135deg, #00ff9d20, #00ff9d40);
+            color: #00ff9d;
+            border: 1px solid #00ff9d;
+        }
+        
+        .regular-badge {
+            background: linear-gradient(135deg, #00f3ff20, #00f3ff40);
+            color: #00f3ff;
+            border: 1px solid #00f3ff;
+        }
+        
+        .veteran-badge {
+            background: linear-gradient(135deg, #ff003c20, #ff003c40);
+            color: #ff003c;
+            border: 1px solid #ff003c;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-avatar-img {
+                width: 90px;
+                height: 90px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-avatar-img {
+                width: 70px;
+                height: 70px;
+            }
+        }

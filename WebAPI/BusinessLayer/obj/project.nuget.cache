@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RKDaE/W0tm8=",
+  "dgSpecHash": "c4mz0crvNQo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj",
+  "projectFilePath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ivan_\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ivan_\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj": {}
+    "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj": {
+    "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj",
         "projectName": "BusinessLayer",
-        "projectPath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj",
+        "projectPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\ivan_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ivan_\\OneDrive\\Документи\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\obj\\",
+        "outputPath": "C:\\Users\\ivan_\\Documents\\GitHub\\KiriliX\\WebAPI\\BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

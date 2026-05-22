@@ -24,7 +24,7 @@ namespace DataLayer
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=../DataLayer/Kirilix.db");
+                optionsBuilder.UseSqlServer("Server=SQL1004.site4now.net;Initial Catalog=db_ac9a4e_ittashev;User Id=db_ac9a4e_ittashev_admin;Password=Ii123456#;Encrypt=True;TrustServerCertificate=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }

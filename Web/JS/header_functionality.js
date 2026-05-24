@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (header) {
         header.addEventListener('header-login-click', function() {
             localStorage.setItem('returnUrl', window.location.href);
-            window.location.href = "../HTML/login.html";
+            window.location.href = "login.html";
         });
         
         header.addEventListener('header-download-click', function() {
@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const links = [
             { url: '#', text: 'Възможности' },
             { url: '#', text: 'Документация' },
-            { url: '../HTML/forum.html', text: 'Блог' },
-            { url: '../HTML/contact.html', text: 'Контакти' }
+            { url: 'forum.html', text: 'Блог' },
+            { url: 'contact.html', text: 'Контакти' }
         ];
         header.updateNavigation(links);
         

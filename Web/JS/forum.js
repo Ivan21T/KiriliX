@@ -31,14 +31,14 @@ function calculateAccountAge(createdAt) {
 }
 
 function getAvatarImage(createdAt) {
-    if (!createdAt) return '../Assets/Images/bronze_logo.png';
+    if (!createdAt) return 'Assets/Images/bronze_logo.png';
     const accountAge = calculateAccountAge(createdAt);
     if (accountAge < 2) {
-        return '../Assets/Images/bronze_logo.png';
+        return 'Assets/Images/bronze_logo.png';
     } else if (accountAge >= 2 && accountAge < 5) {
-        return '../Assets/Images/silver_logo.png';
+        return 'Assets/Images/silver_logo.png';
     } else {
-        return '../Assets/Images/gold_logo.png';
+        return 'Assets/Images/gold_logo.png';
     }
 }
 
@@ -322,9 +322,9 @@ function processPostsData(posts) {
         if (post.author?.role === 0) {
             authorName = 'Админ';
         }
-        let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
+        let authorAvatarUrl = 'Assets/Images/bronze_logo.png';
         if (authorName === 'Админ') {
-            authorAvatarUrl = '../Assets/Images/gold_logo.png';
+            authorAvatarUrl = 'Assets/Images/gold_logo.png';
         } else if (post.author?.createdAt) {
             authorAvatarUrl = getAvatarImage(post.author.createdAt);
         }

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!token) {
             showAlert('Моля, влезте в профила си', 'error');
             setTimeout(() => {
-                window.location.href = '../HTML/login.html';
+                window.location.href = 'login.html';
             }, 1000);
             return false;
         }
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const token = localStorage.getItem('authToken');
 
             if (!token) {
-                window.location.href = '../HTML/login.html';
+                window.location.href = 'login.html';
                 return false;
             }
 
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 localStorage.removeItem('authToken');
                 showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
                 setTimeout(() => {
-                    window.location.href = '../HTML/login.html';
+                    window.location.href = 'login.html';
                 }, 1500);
                 return false;
             }
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!userLoaded || !currentUser) {
         showAlert('Неуспешно зареждане на профила', 'error');
         setTimeout(() => {
-            window.location.href = '../HTML/login.html';
+            window.location.href = 'login.html';
         }, 1500);
         return;
     }
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 localStorage.removeItem('authToken');
                 showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
                 setTimeout(() => {
-                    window.location.href = '../HTML/login.html';
+                    window.location.href = 'login.html';
                 }, 1500);
                 return;
             }
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     setInterval(() => {
         const token = localStorage.getItem('authToken');
         if (!token) {
-            window.location.href = '../HTML/login.html';
+            window.location.href = 'login.html';
         }
     }, 5000);
 });

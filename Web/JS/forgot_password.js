@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 sessionStorage.setItem('resetEmail', email);
 
                 setTimeout(() => {
-                    window.location.href = '../HTML/one_time_password.html';
+                    window.location.href = 'one_time_password.html';
                 }, 5000);
                 
             } else {

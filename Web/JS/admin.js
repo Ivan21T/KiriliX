@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const token = localStorage.getItem('authToken');
     if (!token) {
         showAlert('Моля, влезте като администратор!', 'error');
-        setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+        setTimeout(() => window.location.href = 'login.html', 1500);
         return;
     }
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             localStorage.removeItem('authToken');
             localStorage.removeItem('user');
             showAlert('Излизане от системата...', 'info');
-            setTimeout(() => window.location.href = '../HTML/login.html', 500);
+            setTimeout(() => window.location.href = 'login.html', 500);
         }
     });
 });
@@ -98,7 +98,7 @@ async function loadCurrentUser() {
             localStorage.removeItem('authToken');
             localStorage.removeItem('user');
             showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
-            setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+            setTimeout(() => window.location.href = 'login.html', 1500);
             return false;
         }
         if (!response.ok) throw new Error('Грешка при зареждане на потребител');
@@ -109,7 +109,7 @@ async function loadCurrentUser() {
         
         if (user.role !== 0) {
             showAlert('Нямате администраторски права!', 'error');
-            setTimeout(() => window.location.href = '../HTML/index.html', 1500);
+            setTimeout(() => window.location.href = 'index.html', 1500);
             return false;
         }
         
@@ -129,7 +129,7 @@ async function getUsers() {
 
         if (response.status === 401) {
             showAlert('Сесията е изтекла. Моля, влезте отново.', 'error');
-            setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+            setTimeout(() => window.location.href = 'login.html', 1500);
             return [];
         }
 

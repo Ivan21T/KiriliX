@@ -1,9 +1,9 @@
 window.API_CONFIG = {
-    USER: 'https://localhost:7090/users',
-    ADMIN: 'https://localhost:7090/admins',
-    POST: 'https://localhost:7090/posts',
-    COMMENT: 'https://localhost:7090/comments',
-    NEWS: 'https://localhost:7090/news'
+    USER: 'http://ittashev-001-site1.rtempurl.com/users',
+    ADMIN: 'http://ittashev-001-site1.rtempurl.com/admins',
+    POST: 'http://ittashev-001-site1.rtempurl.com/posts',
+    COMMENT: 'http://ittashev-001-site1.rtempurl.com/comments',
+    NEWS: 'http://ittashev-001-site1.rtempurl.com/news'
 };
 
 window.Validation = {
@@ -44,7 +44,7 @@ const authFetch = async (url, options = {}) => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('user');
         authToken = null;
-        window.location.href = '../HTML/login.html';
+        window.location.href = 'login.html';
     }
 
     return response;

@@ -15,7 +15,7 @@ class Header extends HTMLElement {
         }
         
         try {
-            const apiUrl = window.API_CONFIG?.USER || 'https://localhost:7090/users';
+            const apiUrl = window.API_CONFIG.USER;
             const response = await fetch(`${apiUrl}/current-user`, {
                 method: 'GET',
                 headers: {
@@ -63,16 +63,16 @@ class Header extends HTMLElement {
     }
     
     getAvatarImage(createdAt) {
-        if (!createdAt) return '../Assets/Images/bronze_logo.png';
+        if (!createdAt) return 'Assets/Images/bronze_logo.png';
         
         const accountAge = this.calculateAccountAge(createdAt);
         
         if (accountAge < 2) {
-            return '../Assets/Images/bronze_logo.png';
+            return 'Assets/Images/bronze_logo.png';
         } else if (accountAge >= 2 && accountAge < 5) {
-            return '../Assets/Images/silver_logo.png';
+            return 'Assets/Images/silver_logo.png';
         } else {
-            return '../Assets/Images/gold_logo.png';
+            return 'Assets/Images/gold_logo.png';
         }
     }
 
@@ -139,7 +139,7 @@ class Header extends HTMLElement {
     }
 
     async render() {
-        const avatarUrl = this.userData?.createdAt ? this.getAvatarImage(this.userData.createdAt) : '../images/avatars/default-avatar.svg';
+        const avatarUrl = this.userData?.createdAt ? this.getAvatarImage(this.userData.createdAt) : 'images/avatars/default-avatar.svg';
         
         this.innerHTML = `
             <style>
@@ -620,7 +620,7 @@ class Header extends HTMLElement {
             <header>
                 <div class="bulgarian-border"></div>
                 <div class="nav-container">
-                    <a href="../HTML/index.html" class="logo">
+                    <a href="index.html" class="logo">
                         <div class="logo-icon">K</div>
                         KiriliX
                     </a>
@@ -664,22 +664,22 @@ class Header extends HTMLElement {
     async renderNavLinks() {
         if (this.isAdmin) {
             return `
-                <a href="../HTML/index.html" class="nav-link">Начало</a>
-                <a href="../HTML/docs.html" class="nav-link">Документация</a>
-                <a href="../HTML/forum.html" class="nav-link">Форум</a>
-                <a href="../HTML/news.html" class="nav-link">Новини</a>
-                <a href="../HTML/admin.html" class="nav-link admin-link">
+                <a href="index.html" class="nav-link">Начало</a>
+                <a href="docs.html" class="nav-link">Документация</a>
+                <a href="forum.html" class="nav-link">Форум</a>
+                <a href="news.html" class="nav-link">Новини</a>
+                <a href="admin.html" class="nav-link admin-link">
                     <i class="fas fa-user-shield"></i> Админ Панел
                 </a>
-                <a href="../HTML/contact.html" class="nav-link">Контакти</a>
+                <a href="contact.html" class="nav-link">Контакти</a>
             `;
         } else {
             return `
-                <a href="../HTML/index.html" class="nav-link">Начало</a>
-                <a href="../HTML/docs.html" class="nav-link">Документация</a>
-                <a href="../HTML/forum.html" class="nav-link">Форум</a>
-                <a href="../HTML/news.html" class="nav-link">Новини</a>
-                <a href="../HTML/contact.html" class="nav-link">Контакти</a>
+                <a href="index.html" class="nav-link">Начало</a>
+                <a href="docs.html" class="nav-link">Документация</a>
+                <a href="forum.html" class="nav-link">Форум</a>
+                <a href="news.html" class="nav-link">Новини</a>
+                <a href="contact.html" class="nav-link">Контакти</a>
             `;
         }
     }
@@ -687,22 +687,22 @@ class Header extends HTMLElement {
     async renderMobileNavLinks() {
         if (this.isAdmin) {
             return `
-                <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
-                <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
-                <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
-                <a href="../HTML/news.html" class="mobile-nav-link">Новини</a>
-                <a href="../HTML/admin.html" class="mobile-nav-link mobile-admin-link">
+                <a href="index.html" class="mobile-nav-link">Начало</a>
+                <a href="docs.html" class="mobile-nav-link">Документация</a>
+                <a href="forum.html" class="mobile-nav-link">Форум</a>
+                <a href="news.html" class="mobile-nav-link">Новини</a>
+                <a href="admin.html" class="mobile-nav-link mobile-admin-link">
                     <i class="fas fa-user-shield"></i> Админ Панел
                 </a>
-                <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
+                <a href="contact.html" class="mobile-nav-link">Контакти</a>
             `;
         } else {
             return `
-                <a href="../HTML/index.html" class="mobile-nav-link">Начало</a>
-                <a href="../HTML/docs.html" class="mobile-nav-link">Документация</a>
-                <a href="../HTML/forum.html" class="mobile-nav-link">Форум</a>
-                <a href="../HTML/news.html" class="mobile-nav-link">Новини</a>
-                <a href="../HTML/contact.html" class="mobile-nav-link">Контакти</a>
+                <a href="index.html" class="mobile-nav-link">Начало</a>
+                <a href="docs.html" class="mobile-nav-link">Документация</a>
+                <a href="forum.html" class="mobile-nav-link">Форум</a>
+                <a href="news.html" class="mobile-nav-link">Новини</a>
+                <a href="contact.html" class="mobile-nav-link">Контакти</a>
             `;
         }
     }
@@ -737,11 +737,11 @@ class Header extends HTMLElement {
             await this.clearSession();
             await this.render();
             await this.addEventListeners();
-            window.location.href = '../HTML/index.html';
+            window.location.href = 'index.html';
         } catch (error) {
             console.error('Logout error:', error);
             localStorage.removeItem('authToken');
-            window.location.href = '../HTML/index.html';
+            window.location.href = 'index.html';
         }
     }
 
@@ -784,14 +784,14 @@ class Header extends HTMLElement {
         if (loginBtn) {
             loginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                window.location.href = '../HTML/login.html';
+                window.location.href = 'login.html';
             });
         }
         
         if (mobileLoginBtn) {
             mobileLoginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                window.location.href = '../HTML/login.html';
+                window.location.href = 'login.html';
             });
         }
 
@@ -816,7 +816,7 @@ class Header extends HTMLElement {
         if (userAvatar) {
             userAvatar.addEventListener('click', (e) => {
                 e.preventDefault();
-                window.location.href = '../HTML/profile.html';
+                window.location.href = 'profile.html';
             });
         }
         

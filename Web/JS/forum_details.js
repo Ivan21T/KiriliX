@@ -40,14 +40,14 @@ function calculateAccountAge(createdAt) {
 }
 
 function getAvatarImage(createdAt) {
-    if (!createdAt) return '../Assets/Images/bronze_logo.png';
+    if (!createdAt) return 'Assets/Images/bronze_logo.png';
     const accountAge = calculateAccountAge(createdAt);
     if (accountAge < 2) {
-        return '../Assets/Images/bronze_logo.png';
+        return 'Assets/Images/bronze_logo.png';
     } else if (accountAge >= 2 && accountAge < 5) {
-        return '../Assets/Images/silver_logo.png';
+        return 'Assets/Images/silver_logo.png';
     } else {
-        return '../Assets/Images/gold_logo.png';
+        return 'Assets/Images/gold_logo.png';
     }
 }
 
@@ -108,14 +108,14 @@ async function loadPostDetails(postId) {
         document.getElementById('forumTitle').textContent = post.title || 'Без заглавие';
 
         let authorName = 'Неизвестен автор';
-        let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
+        let authorAvatarUrl = 'Assets/Images/bronze_logo.png';
         let isAdmin = false;
 
         if (post.author) {
             if (post.author.role === 0) {
                 authorName = 'Администратор';
                 isAdmin = true;
-                authorAvatarUrl = '../Assets/Images/gold_logo.png';
+                authorAvatarUrl = 'Assets/Images/gold_logo.png';
             } else {
                 authorName = post.author.username || 'Неизвестен автор';
                 authorAvatarUrl = getAvatarImage(post.author.createdAt);
@@ -178,7 +178,7 @@ function displayComments(comments) {
 
     let commentsHtml = '';
     comments.forEach(comment => {
-        let authorAvatarUrl = '../Assets/Images/bronze_logo.png';
+        let authorAvatarUrl = 'Assets/Images/bronze_logo.png';
         let authorName = 'Неизвестен потребител';
         let isAdmin = false;
         let canDelete = false;
@@ -189,7 +189,7 @@ function displayComments(comments) {
             if (comment.author.role === 0) {
                 authorName = 'Администратор';
                 isAdmin = true;
-                authorAvatarUrl = '../Assets/Images/gold_logo.png';
+                authorAvatarUrl = 'Assets/Images/gold_logo.png';
             } else {
                 authorName = comment.author.username || 'Неизвестен потребител';
                 authorAvatarUrl = getAvatarImage(comment.author.createdAt);

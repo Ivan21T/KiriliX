@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem('authToken', result.token);
                 localStorage.setItem('user', JSON.stringify(result.user));
                 showAlert(result.message, 'success');
-                window.location.href = "../HTML/admin.html";
+                window.location.href = "admin.html";
             } else {
                 showAlert(result.message || 'Въведеният код не е правилен. Моля, опитайте отново.', 'error');
                 

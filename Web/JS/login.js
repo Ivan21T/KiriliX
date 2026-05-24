@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                                 sessionStorage.setItem('adminEmail', email);
 
                                 setTimeout(() => {
-                                    window.location.href = '../HTML/admin_code.html';
+                                    window.location.href = 'admin_code.html';
                                 }, 5000);
                                 
                             } else {
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     showAlert(data.message, 'success');
                     await modeBtns[0].click();
                     await this.reset();
-                    window.location.href = "../HTML/index.html";
+                    window.location.href = "index.html";
                 }
             }
 
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.querySelector('.forgot-password').addEventListener('click', async function(e) {
         e.preventDefault();
-        window.location.href = "../HTML/forgot_password.html";
+        window.location.href = "forgot_password.html";
     });
 });
 
@@ -231,5 +231,5 @@ async function logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     authToken = null;
-    window.location.href = "../HTML/login.html";
+    window.location.href = "login.html";
 }

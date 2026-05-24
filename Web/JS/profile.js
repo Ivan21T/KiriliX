@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const token = localStorage.getItem('authToken');
         if (!token) {
             showAlert('Моля, влезте в профила си', 'error');
-            setTimeout(() => window.location.href = '../HTML/login.html', 1000);
+            setTimeout(() => window.location.href = 'login.html', 1000);
             return false;
         }
         return true;
@@ -32,16 +32,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getAvatarImage(createdAt) {
-        if (!createdAt) return '../Assets/Images/bronze_logo.png';
+        if (!createdAt) return 'Assets/Images/bronze_logo.png';
 
         const accountAge = calculateAccountAge(createdAt);
 
         if (accountAge < 2) {
-            return '../Assets/Images/bronze_logo.png';
+            return 'Assets/Images/bronze_logo.png';
         } else if (accountAge >= 2 && accountAge < 5) {
-            return '../Assets/Images/silver_logo.png';
+            return 'Assets/Images/silver_logo.png';
         } else {
-            return '../Assets/Images/gold_logo.png';
+            return 'Assets/Images/gold_logo.png';
         }
     }
 
@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
-                window.location.href = '../HTML/login.html';
+                window.location.href = 'login.html';
                 return null;
             }
 
@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
                 showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
-                setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                setTimeout(() => window.location.href = 'login.html', 1500);
                 return;
             }
 
@@ -556,7 +556,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.status === 401) {
                 localStorage.removeItem('authToken');
                 showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
-                setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                setTimeout(() => window.location.href = 'login.html', 1500);
                 return;
             }
 
@@ -603,7 +603,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (response.status === 401) {
                     localStorage.removeItem('authToken');
                     showAlert('Сесията ви е изтекла. Моля, влезте отново.', 'error');
-                    setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                    setTimeout(() => window.location.href = 'login.html', 1500);
                     return;
                 }
 
@@ -625,7 +625,7 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('authToken');
             showAlert('Успешен изход!', 'success');
-            setTimeout(() => window.location.href = '../HTML/index.html', 1500);
+            setTimeout(() => window.location.href = 'index.html', 1500);
         });
     }
 
@@ -692,7 +692,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (response.status === 401) {
                     localStorage.removeItem('authToken');
-                    setTimeout(() => window.location.href = '../HTML/login.html', 1500);
+                    setTimeout(() => window.location.href = 'login.html', 1500);
                     return;
                 }
 
@@ -707,7 +707,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 localStorage.removeItem('authToken');
                 showAlert('Профилът е изтрит успешно!', 'success');
-                setTimeout(() => window.location.href = '../HTML/index.html', 2000);
+                setTimeout(() => window.location.href = 'index.html', 2000);
 
             } catch (error) {
                 console.error('Грешка при изтриване на профила:', error);
@@ -733,7 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (backBtn) {
         backBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            window.location.href = '../HTML/index.html';
+            window.location.href = 'index.html';
         });
     }
 

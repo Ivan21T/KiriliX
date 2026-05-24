@@ -1,10 +1,39 @@
 class Header extends HTMLElement {
     constructor() {
         super();
+        
+        const cachedState = localStorage.getItem('headerState');
+        if (cachedState) {
+            try {
+                const state = JSON.parse(cachedState);
+                this.isLoggedIn = state.isLoggedIn;
+                this.userData = state.userData;
+                this.isAdmin = state.isAdmin;
+                this.isLoading = false;
+            } catch (e) {
+                this.resetState();
+            }
+        } else {
+            this.resetState();
+        }
+        
+        this.checkSession();
+    }
+    
+    resetState() {
         this.isLoggedIn = false;
         this.userData = null;
         this.isAdmin = false;
-        this.checkSession();
+        this.isLoading = true;
+    }
+    
+    cacheState() {
+        const state = {
+            isLoggedIn: this.isLoggedIn,
+            userData: this.userData,
+            isAdmin: this.isAdmin
+        };
+        localStorage.setItem('headerState', JSON.stringify(state));
     }
 
     async loadCurrentUser() {
@@ -82,6 +111,7 @@ class Header extends HTMLElement {
             
             if (!token) {
                 await this.clearSession();
+                this.isLoading = false;
                 if (this.isConnected) {
                     await this.render();
                     await this.addEventListeners();
@@ -95,6 +125,7 @@ class Header extends HTMLElement {
                 this.isLoggedIn = true;
                 this.userData = userData;
                 this.isAdmin = (userData.role == 0);
+                this.cacheState();
             } else {
                 await this.clearSession();
             }
@@ -102,6 +133,9 @@ class Header extends HTMLElement {
             console.error('Session check error:', error);
             await this.clearSession();
         }
+        
+        this.isLoading = false;
+        this.cacheState();
         
         if (this.isConnected) {
             await this.render();
@@ -114,6 +148,7 @@ class Header extends HTMLElement {
         this.userData = null;
         this.isAdmin = false;
         localStorage.removeItem('authToken');
+        localStorage.removeItem('headerState');
         return Promise.resolve();
     }
 
@@ -500,6 +535,29 @@ class Header extends HTMLElement {
                     font-size: 1.1rem;
                 }
                 
+                .loading-placeholder {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background: linear-gradient(90deg, #1a1a2e 0%, #2a2a3e 50%, #1a1a2e 100%);
+                    background-size: 200% 100%;
+                    animation: loadingShimmer 1.5s infinite;
+                }
+                
+                .loading-btn {
+                    width: 100px;
+                    height: 44px;
+                    border-radius: 10px;
+                    background: linear-gradient(90deg, #1a1a2e 0%, #2a2a3e 50%, #1a1a2e 100%);
+                    background-size: 200% 100%;
+                    animation: loadingShimmer 1.5s infinite;
+                }
+                
+                @keyframes loadingShimmer {
+                    0% { background-position: 200% 0; }
+                    100% { background-position: -200% 0; }
+                }
+                
                 @media (max-width: 768px) {
                     .desktop-logout-btn {
                         display: none !important;
@@ -629,11 +687,15 @@ class Header extends HTMLElement {
                     </div>
                     <div class="nav-actions">
                         <div id="user-section">
-                            ${this.isLoggedIn && !this.isAdmin ? `<img src="${avatarUrl}" alt="Profile" class="user-avatar" id="user-avatar" title="${this.userData?.name || 'Потребител'}">` : ''}
-                            ${!this.isLoggedIn ? await this.renderLoginButton() : ''}
+                            ${this.isLoading ? '<div class="loading-placeholder"></div>' : 
+                                this.isLoggedIn && !this.isAdmin ? 
+                                `<img src="${avatarUrl}" alt="Profile" class="user-avatar" id="user-avatar" title="${this.userData?.name || 'Потребител'}">` : 
+                                !this.isLoggedIn ? await this.renderLoginButton() : ''}
                         </div>
-                        ${!this.isLoggedIn ? `<a href="KiriliX.zip" download class="btn btn-primary desktop-download-btn" id="download-btn" style="text-decoration: none;">Изтегли</a>` : ''}
-                        ${this.isLoggedIn ? await this.renderLogoutButton() : ''}
+                        ${this.isLoading ? '<div class="loading-btn"></div>' :
+                            !this.isLoggedIn ? 
+                            `<a href="KiriliX.zip" download class="btn btn-primary desktop-download-btn" id="download-btn" style="text-decoration: none;">Изтегли</a>` : 
+                            this.isLoggedIn ? await this.renderLogoutButton() : ''}
                     </div>
                     <button class="mobile-menu-toggle" id="mobileMenuToggle">
                         <span></span>
@@ -647,7 +709,8 @@ class Header extends HTMLElement {
                         ${await this.renderMobileNavLinks()}
                     </div>
                     <div class="mobile-nav-actions" id="mobileUserSection">
-                        ${!this.isLoggedIn ? `
+                        ${this.isLoading ? '<div class="loading-btn"></div>' :
+                            !this.isLoggedIn ? `
                             <button class="btn btn-outline mobile-login-btn">Вход</button>
                             <a href="KiriliX.zip" download class="btn btn-primary mobile-download-btn" style="text-decoration: none;">Изтегли</a>
                         ` : `
@@ -734,6 +797,7 @@ class Header extends HTMLElement {
     async logout() {
         try {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('headerState');
             await this.clearSession();
             await this.render();
             await this.addEventListeners();
@@ -741,6 +805,7 @@ class Header extends HTMLElement {
         } catch (error) {
             console.error('Logout error:', error);
             localStorage.removeItem('authToken');
+            localStorage.removeItem('headerState');
             window.location.href = 'index.html';
         }
     }

@@ -27,16 +27,16 @@ class Footer extends HTMLElement {
                                 Първият български език за програмиране, създаден с любов към родния език и технологиите.
                             </p>
                             <div class="social-links">
-                                <a href="#" class="social-link" aria-label="GitHub">
+                                <a href="https://github.com/Ivan21T/KiriliX" class="social-link" aria-label="GitHub">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="#" class="social-link" aria-label="Twitter">
-                                    <i class="fab fa-twitter"></i>
+                                <a href="https://x.com/KIRILIXBG" class="social-link" aria-label="Twitter">
+                                    <i class="fa-brands fa-x-twitter"></i>
                                 </a>
-                                <a href="#" class="social-link" aria-label="Discord">
+                                <a href="https://discord.gg/sDyErSGPF" class="social-link" aria-label="Discord">
                                     <i class="fab fa-discord"></i>
                                 </a>
-                                <a href="#" class="social-link" aria-label="YouTube">
+                                <a href="https://www.youtube.com/channel/UC-EyYjG_ca5jvCP9bsYIlyA" class="social-link" aria-label="YouTube">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </div>
@@ -72,7 +72,7 @@ class Footer extends HTMLElement {
     addStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
             
             .footer {
                 background: rgba(10, 10, 20, 0.95);

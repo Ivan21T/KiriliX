@@ -90,6 +90,7 @@ The project also serves as an educational platform for learning programming lang
 
 Kirilix was created to make programming more accessible to Bulgarian speakers while demonstrating the design and implementation of a complete interpreted programming language and its surrounding ecosystem.
 
+Kirilix is an interpreted programming language...
 ---
 
 # License
@@ -104,7 +105,6 @@ https://kirilix.netlify.app
 
 ---
 
-Kirilix is an interpreted programming language...
 
 # Author
 

@@ -6,17 +6,17 @@ Kirilix is an interpreted programming language designed with Bulgarian syntax, m
 
 ---
 
-# 🚀 Features
+# Features
 
-* 🇧🇬 Bulgarian syntax and keywords
-* ⚡ Lexical analysis using **Flex**
-* 🧩 Syntax parsing using **Bison**
-* 💻 Interpreter implemented in **C**
-* 🌐 Official web platform
-* 🔌 RESTful Web API built with **ASP.NET Core**
-* 🏛️ N-Tier Architecture
-* 🧹 Clean Code principles
-* 📖 Documentation and learning resources
+*  Bulgarian syntax and keywords
+*  Lexical analysis using **Flex**
+*  Syntax parsing using **Bison**
+*  Interpreter implemented in **C**
+*  Official web platform
+*  RESTful Web API built with **ASP.NET Core**
+*  N-Tier Architecture
+*  Clean Code principles
+*  Documentation and learning resources
 
 ---
 
